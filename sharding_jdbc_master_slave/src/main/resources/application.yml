@@ -1,0 +1,13 @@
+
+server:
+  port: 8801
+
+spring:
+  profiles:
+    active: master-slave-db
+
+mybatis-plus:
+  mapper-locations: classpath:com/cz/sharding_jdbc_master_slave/mapper/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+

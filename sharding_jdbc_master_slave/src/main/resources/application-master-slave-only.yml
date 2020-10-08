@@ -1,0 +1,75 @@
+# 仅实现了数据库读写分离
+spring:
+  shardingsphere:
+    datasource:
+      names: master,slave01
+      master:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        url: jdbc:mysql://localhost:3309/sync1?useUnicode=true&characterEncoding=utf8&autoReconnect=true&rewriteBatchedStatements=TRUE
+        username: root
+        password: 123456
+      slave01:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        url: jdbc:mysql://localhost:3310/sync1?useUnicode=true&characterEncoding=utf8&autoReconnect=true&rewriteBatchedStatements=TRUE
+        username: root
+        password: 123456
+    props:
+      sql:
+        show: true
+    masterslave:
+      load-balance-algorithm-type: round_robin
+      master-data-source-name: master
+      slave-data-source-names: slave01
+#    sharding:
+#      default-database-strategy:
+#        inline:
+#          sharding-column: id
+#          algorithm-expression: ds$->{id % 2}
+#      binding-tables: health_record, health_task
+#      broadcast-tables: health_level
+#      tables:
+#        user:
+#          actual-data-nodes: ds$->{0..1}.user$->{0..2}
+#          database-strategy:
+#            inline:
+#              sharding-column: user_id
+#              algorithm-expression: ds$->{user_id % 2}
+#          table-strategy:
+#            inline:
+#              sharding-column: user_id
+#              algorithm-expression: user$->{user_id % 3}
+#        health_record:
+#          actual-data-nodes: ds$->{0..1}.health_record
+#          database-strategy:
+#            inline:
+#              sharding-column: user_id
+#              algorithm-expression: ds$->{user_id % 2}
+#            key-generator:
+#              column: record_id
+#              type: SNOWFLAKE
+#              props:
+#                worker.id: 33
+#        health_task:
+#          actual-data-nodes: ds$->{0..1}.health_task
+#          database-strategy:
+#            inline:
+#              sharding-column: user_id
+#              algorithm-expression: ds$->{user_id % 2}
+#            key-generator:
+#              column: task_id
+#              type: SNOWFLAKE
+#              props:
+#                worker.id: 33
+#  datasource:
+#    driver-class-name: com.mysql.jdbc.Driver
+#    url: jdbc:mysql://localhost:3306/sharding_1?useUnicode=true&characterEncoding=utf8&autoReconnect=true&rewriteBatchedStatements=TRUE
+#    username: root
+#    password: 123456
+#    type: com.alibaba.druid.pool.DruidDataSource
+
+mybatis-plus:
+  mapper-locations: classpath:com/cz/shardingjdbc/mapper/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

@@ -1,0 +1,88 @@
+# 在读写分离的基础上,整合了分库分表
+spring:
+  shardingsphere:
+    datasource:
+      names: master01,master02,slave01,slave02
+      master01:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        url: jdbc:mysql://localhost:3309/sync1?useUnicode=true&characterEncoding=utf8&autoReconnect=true&rewriteBatchedStatements=TRUE
+        username: root
+        password: 123456
+      master02:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        url: jdbc:mysql://localhost:3309/sync2?useUnicode=true&characterEncoding=utf8&autoReconnect=true&rewriteBatchedStatements=TRUE
+        username: root
+        password: 123456
+      slave01:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        url: jdbc:mysql://localhost:3310/sync1?useUnicode=true&characterEncoding=utf8&autoReconnect=true&rewriteBatchedStatements=TRUE
+        username: root
+        password: 123456
+      slave02:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        url: jdbc:mysql://localhost:3310/sync2?useUnicode=true&characterEncoding=utf8&autoReconnect=true&rewriteBatchedStatements=TRUE
+        username: root
+        password: 123456
+    props:
+      sql:
+        show: true
+#    masterslave:
+#      load-balance-algorithm-type: round_robin
+#      master-data-source-name: master
+#      slave-data-source-names: slave01
+    sharding:
+      default-database-strategy:
+        inline:
+          sharding-column: id
+          algorithm-expression: dsgroup_$->{id % 2}
+      tables:
+        users:
+          actual-data-nodes: dsgroup_$->{0..1}.users$->{0..4}
+          table-strategy:
+            inline:
+              sharding-column: id
+              algorithm-expression: users$->{id % 5}
+      master-slave-rules:
+        dsgroup_0:
+          master-data-source-name: master01
+          slave-data-source-names: slave01
+        dsgroup_1:
+          master-data-source-name: master02
+          slave-data-source-names: slave02
+#        health_record:
+#          actual-data-nodes: ds$->{0..1}.health_record
+#          database-strategy:
+#            inline:
+#              sharding-column: user_id
+#              algorithm-expression: ds$->{user_id % 2}
+#            key-generator:
+#              column: record_id
+#              type: SNOWFLAKE
+#              props:
+#                worker.id: 33
+#        health_task:
+#          actual-data-nodes: ds$->{0..1}.health_task
+#          database-strategy:
+#            inline:
+#              sharding-column: user_id
+#              algorithm-expression: ds$->{user_id % 2}
+#            key-generator:
+#              column: task_id
+#              type: SNOWFLAKE
+#              props:
+#                worker.id: 33
+#  datasource:
+#    driver-class-name: com.mysql.jdbc.Driver
+#    url: jdbc:mysql://localhost:3306/sharding_1?useUnicode=true&characterEncoding=utf8&autoReconnect=true&rewriteBatchedStatements=TRUE
+#    username: root
+#    password: 123456
+#    type: com.alibaba.druid.pool.DruidDataSource
+
+mybatis-plus:
+  mapper-locations: classpath:com/cz/shardingjdbc/mapper/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
