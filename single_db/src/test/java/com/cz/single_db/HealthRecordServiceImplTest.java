@@ -17,6 +17,6 @@ public class HealthRecordServiceImplTest {
 
     @Test
     public void testProcessUsers() throws Exception {
-        usersService.processUsers();
+        usersService.saveUserBatch();
     }
 }

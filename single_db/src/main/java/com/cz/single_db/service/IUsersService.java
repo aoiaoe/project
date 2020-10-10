@@ -11,12 +11,11 @@ import java.util.List;
  * </p>
  *
  * @author cz
- * @since 2020-10-05
+ * @since 2020-10-10
  */
 public interface IUsersService extends IService<Users> {
 
-    void processUsers();
+    List<Users> listAll();
 
-    List<Users> getUsers();
-
+    void saveUserBatch();
 }

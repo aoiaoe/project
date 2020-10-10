@@ -1,8 +1,12 @@
 package com.cz.single_db.controller;
 
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.cz.single_db.entity.Users;
+import com.cz.single_db.service.IUsersService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * <p>
@@ -10,10 +14,28 @@ import org.springframework.web.bind.annotation.RestController;
  * </p>
  *
  * @author cz
- * @since 2020-10-05
+ * @since 2020-10-10
  */
 @RestController
 @RequestMapping("/users")
 public class UsersController {
+
+    @Autowired
+    private IUsersService iUsersService;
+
+    @GetMapping
+    public List<Users> list(){
+        return this.iUsersService.listAll();
+    }
+
+    @PutMapping
+    public boolean save(@RequestBody Users users){
+        return this.iUsersService.save(users);
+    }
+
+    @GetMapping(value = "/{id}")
+    public Users get(@PathVariable("id") Integer id){
+        return this.iUsersService.getById(id);
+    }
 
 }
