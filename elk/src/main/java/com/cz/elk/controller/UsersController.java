@@ -43,5 +43,10 @@ public class UsersController {
         return user;
     }
 
+    @PostMapping
+    public boolean saveBatch(){
+        return this.iUsersService.saveUserBatch();
+    }
+
 
 }

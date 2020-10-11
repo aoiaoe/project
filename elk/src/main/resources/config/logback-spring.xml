@@ -11,7 +11,7 @@
 
     <appender name="logstash"
               class="net.logstash.logback.appender.LogstashTcpSocketAppender">
-        <destination>192.168.20.19:4560</destination>
+        <destination>192.168.0.104:4560</destination>
         <!-- encoder必须配置,有多种可选 -->
         <encoder charset="UTF-8" class="net.logstash.logback.encoder.LogstashEncoder">
             <customFields>{"appname":"mks_dev"}</customFields>
@@ -35,7 +35,7 @@
 
 
     <springProfile name="local">
-        <root level="debug">
+        <root level="info">
             <appender-ref ref="CONSOLE"/>
             <appender-ref ref="logstash"/>
         </root>

@@ -7,6 +7,7 @@ import com.cz.elk.service.IUsersService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Random;
@@ -29,8 +30,9 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
         return this.baseMapper.selectList(new QueryWrapper<>());
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
-    public void saveUserBatch() {
+    public boolean saveUserBatch() {
         final Random random = new Random();
         for (int i = 0; i < 10; i++) {
             Users user = new Users();
@@ -40,6 +42,8 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
             user.setSex(user.getAge() % 2 == 0 ? "男" : "女");
             this.baseMapper.insert(user);
         }
+        log.info("save user batch result:{}", true);
+        return true;
     }
 
 }
