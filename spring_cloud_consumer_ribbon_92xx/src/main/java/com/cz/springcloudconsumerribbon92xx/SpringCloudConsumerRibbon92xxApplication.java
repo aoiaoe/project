@@ -1,4 +1,4 @@
-package com.cz.springcloudprovider;
+package com.cz.springcloudconsumerribbon92xx;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -6,10 +6,10 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 @EnableDiscoveryClient
 @SpringBootApplication
-public class SpringCloudProvider9100Application {
+public class SpringCloudConsumerRibbon92xxApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(SpringCloudProvider9100Application.class, args);
+        SpringApplication.run(SpringCloudConsumerRibbon92xxApplication.class, args);
     }
 
 }

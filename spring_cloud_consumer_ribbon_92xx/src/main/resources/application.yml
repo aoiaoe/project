@@ -1,9 +1,10 @@
+
 server:
-  port: 9100
+  port: 9200
 
 spring:
   application:
-    name: provider
+    name: consumer
   cloud:
     consul:
       host: 127.0.0.1
@@ -17,6 +18,6 @@ spring:
           enabled: true
           ttl-value: 30
           ttl-unit: s
-        instance-id: ${spring.application.name}-${spring.cloud.client.ip-address}xxx-${server.port}
+        instance-id: ${spring.application.name}-${spring.cloud.client.ip-address}-${server.port}
 
 #debug: true
