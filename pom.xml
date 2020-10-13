@@ -14,7 +14,7 @@
     </properties>
 
     <modules>
-        <module>designpattern</module>
+        <module>design_pattern</module>
         <module>elk</module>
         <module>pic_captcha</module>
         <module>sharding-jdbc</module>
@@ -24,6 +24,7 @@
         <module>spring_cloud_consumer_ribbon_92xx</module>
         <module>spring_cloud_provider_9100</module>
         <module>spring_cloud_provider_9101</module>
+        <module>spring_cloud_provider_9102</module>
     </modules>
 
     <build>
