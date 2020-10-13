@@ -40,8 +40,10 @@
                 instance-id: ${spring.application.name}-${spring.cloud.client.ip-address}-${server.port}
       4、将RestTemplate注册到容器
         参考配置类: RestTemplateConfig.java
+      5、ribbon默认服务路由策略为RoundRobinRule轮训策略
+        修改ribbon默认策略参考RibbonRuleConfig
         
-      5、测试:
+      6、测试:
         参考controller包下的类:
             EntityDiscoveryClientController.java
             EntityNormalHttpController.java
