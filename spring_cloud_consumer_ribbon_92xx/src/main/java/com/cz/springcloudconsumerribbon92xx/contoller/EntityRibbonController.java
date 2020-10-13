@@ -18,23 +18,25 @@ import java.util.List;
  * @date 2020/10/12 下午 6:06
  * @since JDK8
  */
-@RequestMapping(value = "/entity")
+@RequestMapping(value = "/entityRibbon")
 @RestController
-public class EntityController {
+public class EntityRibbonController {
 
+    // ribbonRestTemplate结合注册中心开启了负载均衡,可以通过服务名对服务提供者进行访问
     private String HTTP_URL = "http://provider/entity/";
+
     @Autowired
-    private RestTemplate restTemplate;
+    private RestTemplate ribbonRestTemplate;
 
     @GetMapping(value = "/{id}")
     public Entity getById(@PathVariable("id") Integer id){
-        return restTemplate.getForObject(HTTP_URL + id, Entity.class);
+        return ribbonRestTemplate.getForObject(HTTP_URL + id, Entity.class);
     }
 
     @GetMapping
     public List<Entity> listAll(){
         ParameterizedTypeReference<List<Entity>> type = new ParameterizedTypeReference<List<Entity>>(){};
-        ResponseEntity<List<Entity>> exchange = restTemplate.exchange(HTTP_URL + "list", HttpMethod.GET, null, type);
+        ResponseEntity<List<Entity>> exchange = ribbonRestTemplate.exchange(HTTP_URL + "list", HttpMethod.GET, null, type);
         return exchange.getBody();
     }
 
