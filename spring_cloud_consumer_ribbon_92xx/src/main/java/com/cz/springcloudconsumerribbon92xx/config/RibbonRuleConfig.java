@@ -1,5 +1,6 @@
 package com.cz.springcloudconsumerribbon92xx.config;
 
+import com.cz.springcloudconsumerribbon92xx.ribbon.MyRibbonRoutRule;
 import com.netflix.loadbalancer.IRule;
 import com.netflix.loadbalancer.RandomRule;
 import org.springframework.context.annotation.Bean;
@@ -19,6 +20,9 @@ public class RibbonRuleConfig {
      */
     @Bean
     public IRule randomRule(){
-        return new RandomRule();
+//        return new RandomRule();
+
+        // 使用自定义的路由策略
+        return new MyRibbonRoutRule();
     }
 }
