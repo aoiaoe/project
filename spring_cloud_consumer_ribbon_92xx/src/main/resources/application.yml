@@ -1,0 +1,22 @@
+
+server:
+  port: 9200
+
+spring:
+  application:
+    name: consumer_ribbon
+  cloud:
+    consul:
+      host: 127.0.0.1
+      port: 8500
+      enabled: true # 是否启用consul
+      discovery:
+        register: false # 是否注册到consul
+        enabled: true # 是否启用服务发现
+        prefer-ip-address: true # 注册到consul是否使用ip
+        heartbeat: # 心跳
+          enabled: true
+          ttl-value: 30
+          ttl-unit: s
+        instance-id: ${spring.application.name}-${spring.cloud.client.ip-address}-${server.port}
+#debug: true

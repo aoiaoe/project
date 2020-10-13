@@ -17,19 +17,16 @@ import java.util.List;
  * @since JDK8
  */
 @RestController
-@RequestMapping(value = "/entity")
 public class EntityController implements EntityApi {
 
     @Autowired
     private IEntityService iEntityService;
 
-    @GetMapping(value = "/list")
     @Override
     public List<Entity> getAll(){
         return this.iEntityService.getAll();
     }
 
-    @GetMapping(value = "/{id}")
     @Override
     public Entity getById(@PathVariable(value = "id") Integer id) {
         return this.iEntityService.getById(id);
