@@ -25,6 +25,9 @@
         <module>spring_cloud_provider_9100</module>
         <module>spring_cloud_provider_9101</module>
         <module>spring_cloud_provider_9102</module>
+        <module>algorithm</module>
+        <module>java_base</module>
+        <module>common_utils</module>
     </modules>
 
     <build>

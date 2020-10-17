@@ -3,6 +3,7 @@ package com.cz.springcloudconsumerribbon92xx.config;
 import com.cz.springcloudconsumerribbon92xx.ribbon.MyRibbonRoutRule;
 import com.netflix.loadbalancer.IRule;
 import com.netflix.loadbalancer.RandomRule;
+import com.netflix.loadbalancer.RoundRobinRule;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -22,7 +23,8 @@ public class RibbonRuleConfig {
     public IRule randomRule(){
 //        return new RandomRule();
 
+        return new RoundRobinRule();
         // 使用自定义的路由策略
-        return new MyRibbonRoutRule();
+//        return new MyRibbonRoutRule();
     }
 }
