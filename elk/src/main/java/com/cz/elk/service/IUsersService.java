@@ -17,5 +17,5 @@ public interface IUsersService extends IService<Users> {
 
     List<Users> listAll();
 
-    void saveUserBatch();
+    boolean saveUserBatch();
 }

@@ -17,7 +17,10 @@
       
 # 部署logstash
       
-      
+      命令:docker run -idt --name=logstash -p 5044:5044 -p 9600:9600 -p 4560:4560 -v G:\docker\logstash\conf:/usr/share/logstash/conf.d -v G:\docker\logstash\logs:/var/log/logstash -v G:\docker\logstash\config:/usr/share/logstash/config logstash:6.4.0
+      kibana的配置文件位于classpath: config/logstash.config和conf中,
+      logstash.config主要修改logstash.yml中的es地址,以及输入输出的配置文件
+      logstash.conf文件夹中保存的是输入输出的配置文件,这里主要修改配置文件中es的地址以及索引名
       
 # pom
     <dependency>
@@ -25,8 +28,42 @@
         <artifactId>logstash-logback-encoder</artifactId>
         <version>5.1</version>
     </dependency>
+    <!--若用到了logback的if标签的condition表达式，就需要该坐标-->
+    <!--否则会抛出该错误：ERROR in ch.qos.logback.core.joran.conditional.IfAction - Could not find Janino library on the class path. Skipping conditional processing.-->
+    <dependency>
+        <groupId>org.codehaus.janino</groupId>
+        <artifactId>janino</artifactId>
+        <version>2.6.1</version>
+    </dependency>
+
     
 # 配置文件
+     logback的配置文件存在classpath: config/logback-spring.xml
+     logback的配置文件中主要需要添加一个发送日志到logstash的appender,如下:
      
-
+      <appender name="logstash"
+                   class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+         <destination>192.168.0.104:4560</destination>
+         <!-- encoder必须配置,有多种可选 -->
+         <encoder charset="UTF-8" class="net.logstash.logback.encoder.LogstashEncoder">
+             <customFields>{"appname":"mks_dev"}</customFields>
+         </encoder>
+         <connectionStrategy>
+             <roundRobin>
+                 <connectionTTL>5 minutes</connectionTTL>
+             </roundRobin>
+         </connectionStrategy>
+     </appender>
+     并启用,
+     <springProfile name="local">
+         <root level="info">
+             <appender-ref ref="CONSOLE"/>
+             <appender-ref ref="logstash"/>
+         </root>
+     </springProfile>
+     
+     还需要在项目配置要yml文件中指定logback配置文件的位置
+     logging:
+       config: classpath:config/logback-spring.xml
+     即可实现将日志从系统(生成日志) -> logstash(收集日志) -> es(存储日志) -> kibana(展示日志)的链路
    

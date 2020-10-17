@@ -20,7 +20,10 @@
         <module>sharding-jdbc</module>
         <module>sharding_jdbc_master_slave</module>
         <module>single_db</module>
+        <module>spring_boot_es</module>
         <module>spring_cloud_common</module>
+        <module>spring_cloud_consumer_feign_9202</module>
+        <module>spring_cloud_consumer_feign_hystrix_9203</module>
         <module>spring_cloud_consumer_ribbon_92xx</module>
         <module>spring_cloud_provider_9100</module>
         <module>spring_cloud_provider_9101</module>
@@ -28,6 +31,7 @@
         <module>algorithm</module>
         <module>java_base</module>
         <module>common_utils</module>
+        <module>spring_cloud_sdk</module>
     </modules>
 
     <build>
