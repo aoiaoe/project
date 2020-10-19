@@ -1,8 +1,10 @@
 package com.cz.sort;
 
 import java.util.Arrays;
+import java.util.Random;
 
 /**
+ * 快排,有bug，待修复
  * @author alian
  * @date 2020/8/27 下午 5:35
  * @since JDK8
@@ -10,16 +12,19 @@ import java.util.Arrays;
 public class QuickSort {
 
     public static void main(String[] args) {
-        int[] arr = {3,7,4,2,6,8,1,9,10,5};
+//        int[] arr = new int[10];
+//        createArrValues(arr);
+        int[] arr = {8, 7, 19, 13, 0, 18, 17, 13, 2, 19};
+//        System.out.println(Arrays.toString(arr));
         quickSort(arr, 0, arr.length-1);
+        System.out.println(Arrays.toString(arr));
 
 //        quickSort(arr, arr.length);
-        System.out.println(Arrays.toString(arr));
 
     }
 
     public static void quickSort(int arr[], int left, int right){
-        if(left > right){
+        if(left >= right){
             return;
         }
         int i = left;
@@ -44,19 +49,20 @@ public class QuickSort {
                 arr[j] = temp;
             }
         }
-        if(i > left) {
-            arr[left] = arr[i - 1];
-            arr[i - 1] = base;
-        } else {
-            arr[left] = arr[i];
-            arr[i] = base;
-        }
+
 
         quickSort(arr, left, j -1);
         quickSort(arr, j+1, right);
         // i 1
         // j 7
         // 3,1,4,2,6,8,7,9,10,5
+    }
+
+    public static void createArrValues(int[] arr){
+        final Random random = new Random();
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = random.nextInt(20);
+        }
     }
 
     /**
