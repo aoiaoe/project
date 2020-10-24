@@ -77,7 +77,12 @@
             ZoneAvoidanceRule: 基于server所在区域性能和server可用性选择的策略,使用ZoneAvoidancePredicate和AvailabilityPredicate来判断是否选择某个server,
                  前一个判断一个zone的运行性能是否可用,剔除不可用的zone里的所有sever，后一个用于过滤掉连接数过多的server
                 
+
+# 自定义路由策略:
+       参考MyRibbonRoutRule.java,主要继承AbstractLoadBalancerRule类并重写choose方法
+       此时可以配置针对全局微服务生效,或者针对某一个/些生效
+       1、如果想针对全局微服务生效,则将自定义路由策略注册到容器中即可,参考RibbonRuleConfig.java
+       2、如果想针对某一个微服务生效,可以使用@RibbonClient注解
+            示例:@RibbonClient(value = "provider", configuration = RibbonRuleConfig.class)
+       3、如果想针对某一些微服务生效,可以使用@RibbonCliebts注解
       
-      extra:自定义路由策略:
-        参考MyRibbonRoutRule.java,主要继承AbstractLoadBalancerRule类并重新choose方法
-        
