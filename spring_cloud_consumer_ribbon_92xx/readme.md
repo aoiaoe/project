@@ -85,4 +85,9 @@
        2、如果想针对某一个微服务生效,可以使用@RibbonClient注解
             示例:@RibbonClient(value = "provider", configuration = RibbonRuleConfig.class)
        3、如果想针对某一些微服务生效,可以使用@RibbonCliebts注解
+        
+       警告：@RibbonClient注解配置类不能放在@ComponentScan扫描的包及其子包下面,否则我们自定义的配置类会被所有的ribbon客户端共享
+            就达不到特殊化定制的目的了
+            示例: @RibbonClient(name = "provider", configuration = RibbonRuleCustomizer.class)
+            参考RibbonRuleCustomizer.java,必须分包存放该路由配置类
       
