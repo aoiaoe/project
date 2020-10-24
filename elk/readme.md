@@ -1,6 +1,7 @@
 # ELK
 
-    此项目用于整合ElasticSearch + Logstach + Kibana,完成对于系统日志的收集
+    此项目用于Springboot整合ElasticSearch + Logstach + Kibana,完成对于系统日志的收集
+    其实springboot整合elk,主要就是springboot与logstash进行整合,kibana和es属于外部组件
     系统日志使用springboot默认的logback框架,由logback写到logstach
     logstach将日志搬运存储到elasticsearch,再由kibana可视化展示
     各组件版本均采用6.4.0
