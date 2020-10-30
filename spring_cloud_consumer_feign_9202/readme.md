@@ -37,4 +37,5 @@
         则可以像ribbon一样，针对客户端进行配置
         参考:  配置类：RandomFeignRuleConfig.java  RoundRobinRuleConfig.java
               feign客户端: EntityFeignRoundRobinClient.java
+        警告： 配置类不能位于@ComponentScan包及其子包下,否则不是针对某个客户端,而会应用于所有客户端
      
