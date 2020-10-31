@@ -31,4 +31,11 @@
         编写Feign拦截器: 创建一个类,实现RequestInterceptor接口,并重写apply方法
         参考: FeignInterceptor.java
      
+     Feign可以针对某一个服务的客户端进行设置路由策略:
+        例如:假设存在三个微服务，提供者:A,B,C 消费者:D
+        如果想针对A进行轮训,针对B进行随机路由,针对C进行ZoneAware路由
+        则可以像ribbon一样，针对客户端进行配置
+        参考:  配置类：RandomFeignRuleConfig.java  RoundRobinRuleConfig.java
+              feign客户端: EntityFeignRoundRobinClient.java
+        警告： 配置类不能位于@ComponentScan包及其子包下,否则不是针对某个客户端,而会应用于所有客户端
      
