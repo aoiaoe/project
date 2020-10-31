@@ -19,6 +19,7 @@ public class FeignInterceptor implements RequestInterceptor {
 
     @Override
     public void apply(RequestTemplate requestTemplate) {
+        requestTemplate.getRequestVariables().forEach(System.out::println);
         requestTemplate.header(HttpHeaderEnum.SENDER_CLIENT.name(), "FEIGN_CLIENT_" + port);
     }
 }
