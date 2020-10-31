@@ -19,7 +19,6 @@ import java.util.List;
  * @date 2020/10/13 下午 4:39
  * @since JDK8
  */
-
 @ConditionalOnProperty(value = "factory", havingValue = "true")
 @Slf4j
 @Service
@@ -45,11 +44,13 @@ interface EntityFeignFBFactoryClient extends EntityApi{
 }
 
 
+@Slf4j
 @ConditionalOnProperty(value = "factory",  havingValue = "true")
 @Component
 class EntityFallBackFactory implements FallbackFactory<EntityFeignFBFactoryClient>{
     @Override
     public EntityFeignFBFactoryClient create(Throwable throwable) {
+        log.error("回退错误:{}",throwable);
         return new EntityFeignFBFactoryClient(){
 
             @Override
