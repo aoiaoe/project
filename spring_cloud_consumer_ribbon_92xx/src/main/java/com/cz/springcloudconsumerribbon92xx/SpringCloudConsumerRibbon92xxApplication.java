@@ -8,7 +8,7 @@ import org.springframework.cloud.netflix.ribbon.RibbonClient;
 
 @EnableDiscoveryClient
 @SpringBootApplication
-//@RibbonClient(name = "provider", configuration = RibbonRuleCustomizer.class)
+@RibbonClient(name = "provider", configuration = RibbonRuleCustomizer.class)
 public class SpringCloudConsumerRibbon92xxApplication {
 
     public static void main(String[] args) {

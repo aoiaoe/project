@@ -22,8 +22,8 @@ public class RestTemplateConfig {
     // 这个bean为结合注册中心实现负载均衡,以及通过服务提供者在注册中心注册的名字进行访问
     // 此注释开启ribbon的负载均衡,默认路由策略为RoundRobinRule
     @LoadBalanced
-    @Bean(name = "ribbonRestTemplate")
-    public RestTemplate ribbonRestTemplate(){
+    @Bean(name = "ribbonLBRestTemplate")
+    public RestTemplate ribbonLBRestTemplate(){
         return new RestTemplate();
     }
 }
