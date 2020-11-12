@@ -1,0 +1,17 @@
+server:
+  port: 9090
+spring:
+  application:
+    name: dashboard
+# ±©Â¶ËùÓÐactuator¶Ëµã
+management:
+  endpoint:
+    web:
+      expose:
+        include: "*"
+    health:
+      show-details: always
+
+hystrix:
+  dashboard:
+    proxy-stream-allow-list: "*"
