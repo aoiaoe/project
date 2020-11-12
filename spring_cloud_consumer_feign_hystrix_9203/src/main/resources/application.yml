@@ -34,9 +34,9 @@ info:
     name: @project.artifactId@
 
 # 回退方法的三种方式, 只能将一种属性设置为true,否则启动容器失败
-method: false  # 使用@HystrixCommand注解饿fallbackmethod属性开启回退方法
+method: true  # 使用@HystrixCommand注解饿fallbackmethod属性开启回退方法
 prop: false  # 使用@FeignClient的fallback属性开启回退方法
-factory: true  # 使用@FeignClient的fallbackfactory属性开启回退方法
+factory: false  # 使用@FeignClient的fallbackfactory属性开启回退方法
 
 # 打开feign客户端的断路器,否则@FeignClient的fallback属性无效
 feign:
