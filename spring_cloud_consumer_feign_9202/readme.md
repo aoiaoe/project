@@ -26,7 +26,7 @@
             参考EntityNormalHttpController.java
      
      
-     Feign高级应用:
+     Feign进阶应用:
         配合Feign的拦截器可以对feign发起的请求进行额外的操作，如添加header等
         编写Feign拦截器: 创建一个类,实现RequestInterceptor接口,并重写apply方法
         参考: FeignInterceptor.java
@@ -38,4 +38,8 @@
         参考:  配置类：RandomFeignRuleConfig.java  RoundRobinRuleConfig.java
               feign客户端: EntityFeignRoundRobinClient.java
         警告： 配置类不能位于@ComponentScan包及其子包下,否则不是针对某个客户端,而会应用于所有客户端
+        
+      手动创建Feign客户端:
+        使用Feign.builder()手动创建客户端
+        参考: UserClient.java  FeignFactory.java
      
