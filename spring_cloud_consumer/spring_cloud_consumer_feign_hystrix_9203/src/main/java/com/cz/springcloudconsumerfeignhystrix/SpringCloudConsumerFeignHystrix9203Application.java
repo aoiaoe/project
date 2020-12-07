@@ -7,7 +7,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @EnableFeignClients
 @EnableHystrix
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "com.cz")
 public class SpringCloudConsumerFeignHystrix9203Application {
 
     public static void main(String[] args) {

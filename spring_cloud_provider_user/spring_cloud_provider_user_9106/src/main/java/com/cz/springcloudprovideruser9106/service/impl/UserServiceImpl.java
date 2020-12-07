@@ -18,11 +18,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> findAll() {
-        return ImmutableList.of(new User(1L, "张三", port.toString()));
+        return ImmutableList.of(new User(1L, "李四", port.toString()));
     }
 
     @Override
     public User get(Long id) {
-        return new User(1L, "张三", port.toString());
+        return new User(1L, "李四", port.toString());
     }
 }

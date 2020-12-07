@@ -3,7 +3,7 @@ server:
 spring:
   application:
     name: dashboard
-# ±©Â¶ËùÓÐactuator¶Ëµã
+# æš´éœ²æ‰€æœ‰actuatorç«¯ç‚¹
 management:
   endpoint:
     web:
