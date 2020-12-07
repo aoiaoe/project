@@ -34,6 +34,7 @@
         <module>java_base</module>
         <module>common_utils</module>
         <module>spring_cloud_sdk</module>
+        <module>test</module>
     </modules>
 
     <build>
