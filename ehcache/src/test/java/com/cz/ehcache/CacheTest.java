@@ -7,7 +7,7 @@ import org.ehcache.config.builders.CacheManagerBuilder;
 import org.ehcache.config.builders.ResourcePoolsBuilder;
 import org.ehcache.config.units.EntryUnit;
 import org.ehcache.config.units.MemoryUnit;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import java.io.File;
 import java.util.Arrays;
@@ -42,6 +42,10 @@ public class CacheTest {
 //            threeTieredCache.put(i, "data put at 17:32 _ " + i);
 //        }
         threeTieredCache.put(1L, "data put at 17:32 _ ");
+        System.out.println(threeTieredCache.get(1L));
+        threeTieredCache.put(1L, "data put at 12:16 _ ");
+        System.out.println(threeTieredCache.get(1L));
+        System.out.println(threeTieredCache.replace(2L, "1---2"));
         cacheManager.close();
     }
 
