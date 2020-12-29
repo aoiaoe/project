@@ -1,9 +1,6 @@
 package com.cz.time;
 
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
+import java.time.*;
 
 /**
  * 带时区的时间
@@ -20,8 +17,14 @@ public class LocalDateTimeDemo {
 
     // Australia/Sydney有冬令时和夏令时  会自动多算一个小时
     public static void test1(){
-        LocalDateTime now = LocalDateTime.now(ZoneId.of("Australia/Sydney"));
-        System.out.println(now);
 
+        LocalDateTime time = LocalDateTime.of(2020, 12, 23, 11, 57, 0);
+        ZonedDateTime utcZoned = ZonedDateTime.of(time, ZoneOffset.UTC);
+        ZoneId zoneId = ZoneId.of("Australia/Sydney");
+        ZonedDateTime zonedDateTime = utcZoned.withZoneSameInstant(zoneId);
+        LocalDateTime localDateTime = zonedDateTime.toLocalDateTime();
+        System.out.println(localDateTime);
+        final LocalDateTime now = LocalDateTime.now(zoneId);
+        System.out.println(now);
     }
 }
