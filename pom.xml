@@ -16,11 +16,14 @@
     <modules>
         <module>design_pattern</module>
         <module>elk</module>
+        <module>ehcache</module>
         <module>pic_captcha</module>
         <module>sharding-jdbc</module>
         <module>sharding_jdbc_master_slave</module>
         <module>single_db</module>
         <module>spring_boot_es</module>
+        <module>spring_boot_mix</module>
+        <module>spring_boot_test</module>
         <module>spring_cloud_common</module>
         <module>spring_cloud_consumer/spring_cloud_consumer_ribbon_92xx</module>
         <module>spring_cloud_consumer/spring_cloud_consumer_feign_hystrix_9203</module>
@@ -37,7 +40,6 @@
         <module>java_base</module>
         <module>common_utils</module>
         <module>spring_cloud_sdk</module>
-        <module>test</module>
     </modules>
 
     <build>
