@@ -1,0 +1,16 @@
+server:
+  port: 8950
+
+spring:
+  cloud:
+    consul:
+      discovery:
+        enabled: true
+        register: true
+zuul:
+  servlet-path: /api
+  routes:
+    user:
+      path: /user
+    provider:
+      path: /prov
