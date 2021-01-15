@@ -1,5 +1,9 @@
 package com.cz.proxy;
 
+import org.junit.jupiter.api.Test;
+
+import java.lang.reflect.Proxy;
+
 /**
  * @author alian
  * @date 2020/11/17 下午 3:02
@@ -7,11 +11,19 @@ package com.cz.proxy;
  */
 public class ProxyDemo {
 
-    public static void main(String[] args) {
-        testCglibProxy();
+
+    @Test
+    public void testProxy(){
+        MyClass instance = new MyClass();
+        MyInterfaceInvocationHandler handler = new MyInterfaceInvocationHandler(instance);
+        Object proxy = Proxy.newProxyInstance(instance.getClass().getClassLoader(),
+                instance.getClass().getInterfaces(), handler);
+        ((MyInterface)proxy).doSth();
+        ((MyInterface2)proxy).doSth2();
     }
 
-    public static void testJdkDynamicProxy() {
+    @Test
+    public void testJdkDynamicProxy() {
         MyInterface instance = new MyInterface() {
             public void doSth() {
                 System.out.println("doSth()");
@@ -22,7 +34,8 @@ public class ProxyDemo {
         proxy.doSth();
     }
 
-    public static void testCglibProxy(){
+    @Test
+    public void testCglibProxy(){
         SuperClass superClass = new SuperClass();
         CglibDynamicProxy interceptor = new CglibDynamicProxy(superClass);
         SuperClass proxy = (SuperClass)interceptor.getProxy();
