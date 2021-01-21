@@ -3,10 +3,9 @@ package com.cz.spring_boot_test.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 /**
@@ -17,10 +16,10 @@ import lombok.experimental.Accessors;
  * @author alian
  * @since 2021-01-21
  */
+@NoArgsConstructor
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@ApiModel(value="Demo对象", description="")
 public class Demo implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -30,5 +29,7 @@ public class Demo implements Serializable {
 
     private String name;
 
-
+    public Demo(String name) {
+        this.name = name;
+    }
 }
