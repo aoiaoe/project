@@ -1,0 +1,12 @@
+server:
+  port: 7500
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://192.168.20.19:3306/project?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&autoReconnect=true&failOverReadOnly=false&useSSL=false
+    username: root
+    password: 123456
+
+mybatis-plus:
+  mapper-locations: classpath:/com.cz.spring_boot_test.dao
