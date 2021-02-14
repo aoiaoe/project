@@ -35,7 +35,7 @@
         <module>spring_cloud_provider_entity/spring_cloud_provider_9102</module>
         <module>spring_cloud_provider_nacos_9110</module>
         <module>spring_cloud_provider_user/spring_cloud_provider_user_9105</module>
-        <module>spring_cloud_provider_user/spring_cloud_provider_user_9106</module>
+        <module>spring_cloud_provider_user/spring_cloud_provider_user_sleuth</module>
         <module>algorithm</module>
         <module>java_base</module>
         <module>common_utils</module>

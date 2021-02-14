@@ -1,7 +1,7 @@
-package com.cz.springcloudprovideruser9106.service.impl;
+package com.cz.springcloudprovideruser.service.impl;
 
 import com.cz.springcloud.entity.User;
-import com.cz.springcloudprovideruser9106.service.UserService;
+import com.cz.springcloudprovideruser.service.UserService;
 import com.google.common.collect.ImmutableList;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,11 +18,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> findAll() {
-        return ImmutableList.of(new User(1L, "李四", port.toString()));
+        return ImmutableList.of(new User(1L, "张三", port.toString()));
     }
 
     @Override
     public User get(Long id) {
-        return new User(1L, "李四", port.toString());
+        return new User(1L, "张三", port.toString());
     }
 }

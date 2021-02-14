@@ -1,4 +1,4 @@
-package com.cz.springcloudprovideruser9106.service;
+package com.cz.springcloudprovideruser.service;
 
 import com.cz.springcloud.entity.User;
 
