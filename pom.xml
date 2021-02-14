@@ -40,6 +40,8 @@
         <module>java_base</module>
         <module>common_utils</module>
         <module>spring_cloud_sdk</module>
+        <module>spring_cloud_zuul/spring_cloud_zuul_11300</module>
+        <module>spring_cloud_zuul/spring_cloud_zuul_11301</module>
     </modules>
 
     <build>

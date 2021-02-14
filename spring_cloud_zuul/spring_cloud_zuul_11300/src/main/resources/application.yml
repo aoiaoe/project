@@ -1,0 +1,37 @@
+server:
+  port: 11300
+
+spring:
+  application:
+    name: zuul
+  cloud:
+    consul:
+      enabled: true
+      host: localhost
+      port: 8500
+      discovery:
+        enabled: true
+        register: true
+        prefer-ip-address: true
+        heartbeat:
+          ttl-value: 30
+          ttl-unit: s
+        instance-id: ${spring.application.name}-${spring.cloud.client.ip-address}-${server.port}
+
+
+zuul:
+  servlet-path: /api
+  routes:
+    user:
+      path: /user-service/**
+    provider:
+      path: /prod-service/**
+
+# 暴露所有actuator端点
+management:
+  endpoint:
+    web:
+      expose:
+        include: "*"
+    health:
+      show-details: always
