@@ -9,9 +9,9 @@
     </parent>
 
     <groupId>com.cz</groupId>
-    <artifactId>spring_cloud_provider_9100</artifactId>
+    <artifactId>spring_cloud_provider_sleuth_9105</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>spring_cloud_provider_9100</name>
+    <name>spring_cloud_provider_sleuth_9105</name>
 
     <properties>
         <java.version>1.8</java.version>
@@ -23,6 +23,12 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-sleuth -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-sleuth</artifactId>
+        </dependency>
+        
         <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>

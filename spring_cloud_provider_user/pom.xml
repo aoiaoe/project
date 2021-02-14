@@ -21,7 +21,7 @@
 
     <modules>
         <module>spring_cloud_provider_user_9105</module>
-        <module>spring_cloud_provider_user_sleuth</module>
+        <module>spring_cloud_provider_user_sleuth_9120</module>
     </modules>
 
 

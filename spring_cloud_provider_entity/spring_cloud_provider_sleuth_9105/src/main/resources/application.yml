@@ -1,0 +1,26 @@
+server:
+  port: 9105
+
+spring:
+  application:
+    name: provider
+  cloud:
+    consul:
+      host: 127.0.0.1
+      port: 8500
+      enabled: true
+      discovery:
+        register: true
+        enabled: true
+        prefer-ip-address: true
+        heartbeat:
+          enabled: true
+          ttl-value: 30
+          ttl-unit: s
+        instance-id: ${spring.application.name}-${spring.cloud.client.ip-address}xxx-${server.port}
+
+#debug: true
+logging:
+  level:
+    root: INFO
+    org.springframework.web.servlet.DispatcherServlet: DEBUG
