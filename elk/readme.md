@@ -23,6 +23,13 @@
       logstash.config主要修改logstash.yml中的es地址,以及输入输出的配置文件
       logstash.conf文件夹中保存的是输入输出的配置文件,这里主要修改配置文件中es的地址以及索引名
       
+      不同项目的日志写到不同索引：
+        需要在logback配置文件中   <encoder charset="UTF-8" class="net.logstash.logback.encoder.LogstashEncoder">
+                                        <customFields>{"appname":"elk_demo"}</customFields>
+                                    </encoder>
+        配置appname，然后在配置文件中使用该appname进行索引名的配置，
+        即可实现不同应用日志写入不同索引
+      
 # pom
     <dependency>
         <groupId>net.logstash.logback</groupId>
@@ -47,7 +54,7 @@
          <destination>192.168.0.104:4560</destination>
          <!-- encoder必须配置,有多种可选 -->
          <encoder charset="UTF-8" class="net.logstash.logback.encoder.LogstashEncoder">
-             <customFields>{"appname":"mks_dev"}</customFields>
+             <customFields>{"appname":"elk_demo"}</customFields>
          </encoder>
          <connectionStrategy>
              <roundRobin>
