@@ -1,0 +1,12 @@
+FROM java:8
+
+VOLUME /tmp
+
+WORKDIR /service
+
+ADD /target/spring_cloud_provider_user_9105-0.0.1-SNAPSHOT.jar /user.jar
+
+EXPOSE 9109
+
+ENTRYPOINT ["java","-Dspring.profiles.active=docker","-jar","/user.jar"]
+

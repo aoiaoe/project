@@ -8,10 +8,9 @@
         <version>2.0.1.RELEASE</version>
     </parent>
     <groupId>com.cz</groupId>
-    <artifactId>spring_cloud_provider_user_9105</artifactId>
+    <artifactId>spring_cloud_provider_user_docker_9109</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>spring_cloud_provider_user_9105</name>
-    <description>Demo project for Spring Boot</description>
+    <name>spring_cloud_provider_user_docker_9109</name>
 
     <properties>
         <java.version>1.8</java.version>
@@ -73,6 +72,23 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>1.2.2</version>
+                <configuration>
+                    <imageName>user-service:${project.version}</imageName>
+                    <baseImage>java</baseImage>
+                    <entryPoint>["java","-Dspring.profiles.active=docker","-jar","/${project.build.finalName}.jar"]</entryPoint>
+                    <resources>
+                        <resource>
+                            <targetPath>/</targetPath>
+                            <directory>${project.build.directory}</directory>
+                            <include>${project.build.finalName}.jar</include>
+                        </resource>
+                    </resources>
+                </configuration>
             </plugin>
         </plugins>
     </build>
