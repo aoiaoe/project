@@ -14,7 +14,7 @@
         <destination>192.168.0.104:4560</destination>
         <!-- encoder必须配置,有多种可选 -->
         <encoder charset="UTF-8" class="net.logstash.logback.encoder.LogstashEncoder">
-            <customFields>{"appname":"mks_dev"}</customFields>
+            <customFields>{"appname":"elk_demo"}</customFields>
         </encoder>
         <connectionStrategy>
             <roundRobin>
@@ -34,11 +34,11 @@
 <!--    </appender>-->
 
 
-    <springProfile name="local">
+<!--    <springProfile name="local">-->
         <root level="info">
             <appender-ref ref="CONSOLE"/>
             <appender-ref ref="logstash"/>
         </root>
-    </springProfile>
+<!--    </springProfile>-->
 
 </configuration>

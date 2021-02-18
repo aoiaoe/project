@@ -31,15 +31,16 @@
         <module>spring_cloud_consumer/spring_cloud_consumer_feign_hystrix_stream_9205</module>
         <module>spring_cloud_hystrix_dashboard_9090</module>
         <module>spring_cloud_provider_entity/spring_cloud_provider_9100</module>
-        <module>spring_cloud_provider_entity/spring_cloud_provider_9101</module>
-        <module>spring_cloud_provider_entity/spring_cloud_provider_9102</module>
+        <module>spring_cloud_provider_entity/spring_cloud_provider_sleuth_9105</module>
         <module>spring_cloud_provider_nacos_9110</module>
         <module>spring_cloud_provider_user/spring_cloud_provider_user_9105</module>
-        <module>spring_cloud_provider_user/spring_cloud_provider_user_9106</module>
+        <module>spring_cloud_provider_user/spring_cloud_provider_user_sleuth_9120</module>
         <module>algorithm</module>
         <module>java_base</module>
         <module>common_utils</module>
         <module>spring_cloud_sdk</module>
+        <module>spring_cloud_zuul/spring_cloud_zuul_11300</module>
+        <module>spring_cloud_zuul/spring_cloud_zuul_11301</module>
     </modules>
 
     <build>
