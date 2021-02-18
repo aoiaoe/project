@@ -1,5 +1,8 @@
 package com.cz.proxy;
 
+import com.cz.proxy.cglib.CglibDynamicProxy;
+import com.cz.proxy.jdk.JdkDynamicProxyHandler;
+import com.cz.proxy.jdk.MyInterfaceInvocationHandler;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Proxy;

@@ -8,6 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.concurrent.TimeUnit;
+
 /**
  * @author alian
  * @date 2021/1/21 下午 5:07
@@ -35,6 +40,16 @@ public class TransactionTest {
         } catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    @Test
+    public void testRunCommand() throws Exception{
+        String command = "calc";
+        Process exec = Runtime.getRuntime().exec(command);
+        try {
+            TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}
+
+        exec.destroy();
     }
 
 }

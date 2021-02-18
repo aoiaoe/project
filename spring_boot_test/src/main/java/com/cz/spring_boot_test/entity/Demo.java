@@ -6,6 +6,7 @@ import java.io.Serializable;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import lombok.experimental.Accessors;
 
 /**
@@ -16,6 +17,7 @@ import lombok.experimental.Accessors;
  * @author alian
  * @since 2021-01-21
  */
+@ToString
 @NoArgsConstructor
 @Data
 @EqualsAndHashCode(callSuper = false)

@@ -1,4 +1,6 @@
-package com.cz.proxy;
+package com.cz.proxy.jdk;
+
+import com.cz.proxy.MyInterface;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -18,9 +20,9 @@ public class MyInterfaceInvocationHandler implements InvocationHandler {
 
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-        System.out.println("before..");
+        System.out.println("before........");
         Object result = method.invoke(myInterface, args);
-        System.out.println("after..");
+        System.out.println("after.......");
         return result;
     }
 }

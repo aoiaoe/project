@@ -1,11 +1,9 @@
 package com.cz.spring_boot_test.controller;
 
+import com.cz.spring_boot_test.entity.ReceiptData;
 import com.cz.spring_boot_test.service.MapService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequestMapping(value = "/map")
 @RestController
@@ -19,4 +17,9 @@ public class MapController {
         return this.mapService.getValue(key);
     }
 
+    @PostMapping(value = "/receipt")
+    public boolean receipt(@RequestBody String data){
+        System.out.println(data);
+        return true;
+    }
 }

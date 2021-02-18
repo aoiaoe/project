@@ -1,6 +1,7 @@
 package com.cz.classloader;
 
 import java.io.*;
+import java.lang.reflect.Method;
 
 /**
  * 自定义类装载器,实现类覆盖
@@ -36,7 +37,7 @@ public class MyClassLoader extends ClassLoader {
         byte[] data = null;
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         try {
-            is = new FileInputStream(new File("target/classes/com/cz/rabbitmq/Demo.class"));
+            is = new FileInputStream(new File("java_base/target/classes/com/cz/classloader/Test.class"));
             int c = 0;
             while (-1 != (c = is.read())) {
                 baos.write(c);
@@ -60,8 +61,10 @@ public class MyClassLoader extends ClassLoader {
                 MyClassLoader.class.getClassLoader());
         Class clazz;
         try {
-            clazz = loader.loadClass("com.cz.rabbitmq.Demo");
+            clazz = loader.loadClass("com.cz.classloader.Test");
             Object object = clazz.newInstance();
+            Method sayHi = clazz.getMethod("sayHi");
+            sayHi.invoke(object);
         } catch (Exception e) {
             e.printStackTrace();
         }

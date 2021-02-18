@@ -20,12 +20,13 @@ public class DemoServiceImpl implements DemoService {
     @Autowired
     private DemoServiceB demoServiceB;
 
+    @Transactional
     @Override
     public void insert_out_exception(){
         this.demoServiceA.insert();
         this.demoServiceB.insert();
 
-        throw new NullPointerException();
+        throw new RuntimeException();
     }
 
     /**
