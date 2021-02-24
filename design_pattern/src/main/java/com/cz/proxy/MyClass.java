@@ -5,7 +5,9 @@ package com.cz.proxy;
  * @date 2021/1/15 上午 11:24
  * @since JDK8
  */
-public class MyClass implements MyInterface, MyInterface2 {
+public class MyClass<T> implements MyInterface, MyInterface2 {
+
+    private T data;
     @Override
     public void doSth() {
         System.out.println("doSth()");
