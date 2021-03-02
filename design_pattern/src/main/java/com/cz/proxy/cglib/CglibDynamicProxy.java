@@ -1,4 +1,4 @@
-package com.cz.proxy;
+package com.cz.proxy.cglib;
 
 import net.sf.cglib.proxy.Enhancer;
 import net.sf.cglib.proxy.MethodInterceptor;

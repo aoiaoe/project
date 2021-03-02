@@ -16,4 +16,8 @@ public class Data {
     private Long id;
 
     private String name;
+
+    public void test(){
+        System.out.println("test");
+    }
 }

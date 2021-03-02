@@ -1,4 +1,4 @@
-package com.cz.spring_boot_mix.common;
+package com.cz.spring_boot_mix.scheduled;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.SchedulingConfigurer;
@@ -17,6 +17,6 @@ public class ScheduleConfig implements SchedulingConfigurer {
 
     @Override
     public void configureTasks(ScheduledTaskRegistrar taskRegistrar) {
-        taskRegistrar.setScheduler(Executors.newScheduledThreadPool(10));
+//        taskRegistrar.setScheduler(Executors.newScheduledThreadPool(10));
     }
 }

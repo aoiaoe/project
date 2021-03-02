@@ -1,7 +1,10 @@
 package com.cz.collection;
 
+import net.sf.cglib.proxy.Enhancer;
+
 import java.lang.reflect.Field;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author alian
@@ -11,7 +14,7 @@ import java.util.*;
 public class HashMapDemo {
 
     public static void main(String[] args) throws Exception {
-        testTreeMap();
+        testConcurrentHash();
     }
 
     /**
@@ -20,7 +23,7 @@ public class HashMapDemo {
      * 2、退树化,如果树上元素小于<=6,则会退树化为链表
      */
     public static void testHash() throws Exception {
-        HashMap<Integer, Integer> map = new HashMap<>(16);
+        HashMap<Integer, Integer> map = new HashMap<>(16, 0.5f);
         List<Integer> integers = new ArrayList<>();
         integers.add(1);
         integers.add(17);
@@ -29,10 +32,10 @@ public class HashMapDemo {
         integers.add(65);
         integers.add(81);
         integers.add(97);
-//        integers.add(113);
-//        integers.add(129);
-//        integers.add(145);
-//        integers.add(161);
+        integers.add(113);
+        integers.add(129);
+        integers.add(145);
+        integers.add(161);
         final Class<? extends HashMap> aClass = map.getClass();
         Field f = aClass.getDeclaredField("table");
         f.setAccessible(true);
@@ -43,6 +46,35 @@ public class HashMapDemo {
 //            int h;
 //            System.out.println((h = integer.hashCode()) ^ (h >>> 16));
         }
+        System.out.println("==============");
+        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+            System.out.println(entry.getKey() + "\t" + entry.getValue());
+        }
+    }
+
+    public static void testConcurrentHash() throws Exception {
+        ConcurrentHashMap<Integer, Integer> map = new ConcurrentHashMap<>(16, 0.5f);
+        List<Integer> integers = new ArrayList<>();
+        integers.add(1);
+        integers.add(64);
+        integers.add(129);
+        integers.add(193);
+        integers.add(257);
+        integers.add(321);
+        integers.add(385);
+        integers.add(449);
+        integers.add(513);
+        integers.add(577);
+        integers.add(641);
+        final Class<? extends ConcurrentHashMap> aClass = map.getClass();
+        Field f = aClass.getDeclaredField("table");
+        f.setAccessible(true);
+        for (Integer integer : integers) {
+            map.put(integer, integer);
+            Object[] o = (Object[]) f.get(map);
+            System.out.println(integer + "\t" + o.length);
+        }
+        System.out.println("==============");
         for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
             System.out.println(entry.getKey() + "\t" + entry.getValue());
         }
@@ -56,21 +88,41 @@ public class HashMapDemo {
         System.out.println(treeMap);
         treeMap.put("1", "2");
         System.out.println(treeMap);
-
     }
 
-//    integers.add(1);
-//        integers.add(65);
-//        integers.add(129);
-//        integers.add(193);
-//        integers.add(257);
-//        integers.add(321);
-//        integers.add(385);
-//        integers.add(449);
-//        integers.add(513);
-//        integers.add(577);
-//        for (Integer integer : integers) {
-//        map.put(integer, integer);
-//    }
+    public static void proxy() throws NoSuchFieldException, IllegalAccessException {
+        HashMap<Integer, Integer> map = new HashMap<>(16, 0.5f);
+        HashMapCglibProxy<HashMap<Integer, Integer>> proxy = new HashMapCglibProxy(map);
+        map = proxy.getProxy();
+
+        List<Integer> integers = new ArrayList<>();
+        integers.add(1);
+        integers.add(17);
+        integers.add(33);
+        integers.add(49);
+        integers.add(65);
+        integers.add(81);
+        integers.add(97);
+        integers.add(113);
+        integers.add(129);
+        integers.add(145);
+        integers.add(161);
+//        final Class<? extends HashMap> aClass = map.getClass();
+//        Field f = aClass.getDeclaredField("table");
+//        f.setAccessible(true);
+        for (Integer integer : integers) {
+            map.put(integer, integer);
+//            Object[] o = (Object[]) f.get(map);
+//            System.out.println(integer + "\t" + o.length);
+            System.out.println(integer);
+//            int h;
+//            System.out.println((h = integer.hashCode()) ^ (h >>> 16));
+        }
+        System.out.println("==============");
+        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+            System.out.println(entry.getKey() + "\t" + entry.getValue());
+        }
+
+    }
 
 }
