@@ -23,6 +23,8 @@
         <module>single_db</module>
         <module>spring_boot_es</module>
         <module>spring_boot_mix</module>
+        <module>spring_boot_mybatis_source_code_8600</module>
+        <module>spring_boot_rabbitmq_8700</module>
         <module>spring_boot_test</module>
         <module>spring_cloud_common</module>
         <module>spring_cloud_consumer/spring_cloud_consumer_ribbon_92xx</module>
