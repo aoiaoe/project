@@ -1,0 +1,19 @@
+server:
+  port: 9109
+
+spring:
+  application:
+    name: user
+  cloud:
+    consul:
+      enabled: true
+      host: 192.168.0.104
+      port: 8500
+      discovery:
+        enabled: true
+        register: true
+        prefer-ip-address: true
+        heartbeat:
+          ttl-value: 30
+          ttl-unit: s
+        instance-id: ${spring.application.name}-${spring.cloud.client.ip-address}-${server.port}
