@@ -2,6 +2,7 @@ package com.cz.springcloudprovider.holder;
 
 import com.cz.springcloud.entity.Entity;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +20,7 @@ public class EntityHolder {
             Entity entity = new Entity();
             entity.setId(i);
             entity.setMessage("entity_" + i);
+            entity.setTime(LocalDateTime.now());
             entityHolder.add(entity);
         }
     }

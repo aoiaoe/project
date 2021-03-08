@@ -11,7 +11,14 @@ import java.nio.charset.Charset;
 public class NIOMain {
     public static void main(String[] args) {
 //        nio1();//NIO
-        nio2();//非阻塞式NIO
+//        nio2();//非阻塞式NIO
+        int x= 0;
+        int x1= 1;
+        int x2= 2;
+        x = x1 = x2;
+        System.out.println(x);
+        System.out.println(x1);
+        System.out.println(x2);
     }
 
     //阻塞式

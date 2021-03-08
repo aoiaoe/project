@@ -6,17 +6,17 @@ spring:
     name: provider
   cloud:
     consul:
-      host: 127.0.0.1
+      host: 192.168.20.19
       port: 8500
-      enabled: true
       discovery:
-        register: true
         enabled: true
-        prefer-ip-address: true
+        register: true
         heartbeat:
           enabled: true
           ttl-value: 30
           ttl-unit: s
-        instance-id: ${spring.application.name}-${spring.cloud.client.ip-address}xxx-${server.port}
-
-#debug: true
+        preferIpAddress: true
+        health-check-path: /health
+        health-check-interval: 15s
+        instance-id: ${spring.application.name}
+        ip-address: 192.168.20.19
