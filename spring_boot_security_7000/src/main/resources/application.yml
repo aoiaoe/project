@@ -1,0 +1,10 @@
+server:
+  port: 7000
+
+spring:
+  security:
+    user:
+      name: admin
+      password: admin
+
+debug: true
