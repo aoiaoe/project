@@ -14,7 +14,7 @@ public class CompletableFutureDemo {
     public static void main(String[] args) {
         long s = System.currentTimeMillis();
         System.out.println("start:" + s);
-        List<Void> collect = Stream.<Runnable>of(
+        Stream.<Runnable>of(
                 () -> {
                     try{SECONDS.sleep(1);}catch(Exception e){e.printStackTrace();}
                     System.out.println(1);
@@ -32,7 +32,7 @@ public class CompletableFutureDemo {
                     try{SECONDS.sleep(4);}catch(Exception e){e.printStackTrace();}
                 }
         ).map(r -> CompletableFuture.runAsync(r))
-                .collect(Collectors.toList()).stream().map(CompletableFuture::join).collect(Collectors.toList());
+                .collect(Collectors.toList());//.stream().map(CompletableFuture::join).collect(Collectors.toList());
         long e = System.currentTimeMillis();
         System.out.println("end:" + e);
         System.out.println(e - s);

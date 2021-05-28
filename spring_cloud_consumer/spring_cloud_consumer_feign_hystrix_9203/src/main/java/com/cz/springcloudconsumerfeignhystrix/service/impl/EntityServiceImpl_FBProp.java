@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -63,12 +64,12 @@ class EntityFeignFallBack implements EntityFeignFBPropClient{
 
     @Override
     public List<Entity> getAll() {
-        return ImmutableList.of(new Entity(-1, "服务熔断", "from @FeignClient callback prop"));
+        return ImmutableList.of(new Entity(-1, "服务熔断", "from @FeignClient callback prop", LocalDateTime.now()));
     }
 
     @Override
     public Entity getById(Integer id) {
-        return new Entity(-2, "服务熔断", "from @FeignClient callback prop");
+        return new Entity(-2, "服务熔断", "from @FeignClient callback prop", LocalDateTime.now());
     }
 }
 

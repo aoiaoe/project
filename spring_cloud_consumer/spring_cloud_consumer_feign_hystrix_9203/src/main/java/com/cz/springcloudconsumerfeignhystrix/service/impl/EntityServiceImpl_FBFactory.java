@@ -12,6 +12,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -55,12 +56,12 @@ class EntityFallBackFactory implements FallbackFactory<EntityFeignFBFactoryClien
 
             @Override
             public List<Entity> getAll() {
-                return ImmutableList.of(new Entity(-1, "服务熔断", "from call back factory"));
+                return ImmutableList.of(new Entity(-1, "服务熔断", "from call back factory", LocalDateTime.now()));
             }
 
             @Override
             public Entity getById(Integer id) {
-                return new Entity(-2, "服务熔断", "from call back factory");
+                return new Entity(-2, "服务熔断", "from call back factory", LocalDateTime.now());
             }
         } ;
     }

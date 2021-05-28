@@ -12,6 +12,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -46,11 +47,11 @@ public class EntityServiceImpl_FBMethod implements IEntityService {
     }
 
     private List<Entity> getAllFallback(){
-        return ImmutableList.of(new Entity(-1, "服务熔断", "from call back method"));
+        return ImmutableList.of(new Entity(-1, "服务熔断", "from call back method", LocalDateTime.now()));
     }
 
     private Entity getByIdFallBack(Integer id){
-        return new Entity(id, "服务熔断", "from call back method");
+        return new Entity(id, "服务熔断", "from call back method", LocalDateTime.now());
     }
 }
 
