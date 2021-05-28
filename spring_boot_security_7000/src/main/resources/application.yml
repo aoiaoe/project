@@ -2,9 +2,18 @@ server:
   port: 7000
 
 spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/security
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: 123456
   security:
     user:
-      name: admin
-      password: admin
+      name: admin1
+      password: admin1
+      roles:
+        - admin
 
-debug: true
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
