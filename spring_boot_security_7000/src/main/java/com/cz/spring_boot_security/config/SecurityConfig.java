@@ -13,6 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.session.HttpSessionEventPublisher;
 
 import java.io.PrintWriter;
 
@@ -141,13 +142,33 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout()
                 .logoutSuccessHandler((req, resp, auth) -> {
-                    Object principal = auth.getPrincipal();
                     resp.setContentType("application/json;charset=utf-8");
                     PrintWriter out = resp.getWriter();
                     out.write("退出成功");
                     out.flush();
                     out.close();
                 })
-                .permitAll();
+                .permitAll()
+                .and()
+                // session管理
+                .sessionManagement()
+                // session并发管理(在共享Session中会失效)
+                // 配置账号最多允许多大session共存
+                // 默认后登陆的用户会挤掉前面的账号
+                .maximumSessions(1)
+                // 是否开始session保护，既当到达上限时，不允许后续账号登录,不会挤掉之前登录的账号
+                // 但是会出现bug, 前面的账号退出后,Security不能感知到,导致退出的账号不能再登录，只能等session自然过期之后才能再次登录
+                // 故需要配置session的事件发布组件 HttpSessionEventPublisher
+                .maxSessionsPreventsLogin(true);
+    }
+
+    /**
+     * 由于配置最大session并存数之后,退出登录之后，Security不能感知到session已经退出，导致后续账号不能再次登录
+     * 此组件会在session登录或者退出之后发布事件,Security会及时感知到
+     * @return
+     */
+    @Bean
+    public HttpSessionEventPublisher eventPublisher(){
+        return new HttpSessionEventPublisher();
     }
 }
