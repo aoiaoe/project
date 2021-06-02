@@ -22,6 +22,7 @@
         <module>sharding_jdbc_master_slave</module>
         <module>single_db</module>
         <module>spring_boot_es</module>
+        <module>spring_boot_https_6900</module>
         <module>spring_boot_mix</module>
         <module>spring_boot_mybatis_source_code_8600</module>
         <module>spring_boot_rabbitmq_8700</module>
