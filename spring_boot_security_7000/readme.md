@@ -1,5 +1,8 @@
 ## Spring Security Demo
 
+### 文章参考:
+        系列文章:
+        https://blog.csdn.net/u012702547/article/details/106206339/?utm_medium=distribute.pc_relevant.none-task-blog-baidujs_title-0&spm=1001.2101.3001.4242
 ### 依赖:
         <dependency>
             <groupId>org.springframework.boot</groupId>
