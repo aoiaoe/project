@@ -10,12 +10,12 @@ import time
 
 def read_excel(token, path):
     # 打开文件
-    workBook = xlrd.open_workbook(path);
+    workBook = xlrd.open_workbook(path)
 
-    sheet1_content1 = workBook.sheet_by_index(0);
+    sheet1_content1 = workBook.sheet_by_index(0)
 
     # 3. sheet的名称，行数，列数
-    print("工作簿名称:", sheet1_content1.name, " 总行数(含表头)" ,sheet1_content1.nrows);
+    print("工作簿名称:", sheet1_content1.name, " 总行数(含表头)" ,sheet1_content1.nrows)
     print("___________________________________________________________________________________")
 
     for i in range(sheet1_content1.nrows):
