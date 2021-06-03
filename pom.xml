@@ -27,7 +27,8 @@
         <module>spring_boot_mybatis_source_code_8600</module>
         <module>spring_boot_rabbitmq_8700</module>
         <module>spring_boot_redis</module>
-        <module>spring_boot_security_7000</module>
+        <module>spring_boot_security</module>
+        <module>spring_boot_security</module>
         <module>spring_boot_swagger</module>
         <module>spring_boot_test</module>
         <module>spring_boot_token_8650</module>
