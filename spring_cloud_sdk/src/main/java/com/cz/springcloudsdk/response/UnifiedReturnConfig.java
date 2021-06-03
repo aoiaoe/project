@@ -1,6 +1,5 @@
 package com.cz.springcloudsdk.response;
 
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.HttpStatus;
@@ -9,10 +8,10 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
-@EnableWebMvc
+import javax.annotation.PostConstruct;
+
 @Configuration
 public class UnifiedReturnConfig {
 
@@ -32,8 +31,18 @@ public class UnifiedReturnConfig {
                 return body;
             } else {
                 // 目前只针对POJO的返回对象进行封装
-                return new ResultResponse<Object>(body, HttpStatus.OK.value() + "", null);
+                return new ResultResponse<Object>(body, String.valueOf(HttpStatus.OK.value()), null);
             }
         }
+
+        @PostConstruct
+        public void post(){
+            System.out.println("------>>>  UnifiedReturnConfig");
+        }
+    }
+
+    @PostConstruct
+    public void post(){
+        System.out.println("+++++++++>>>  UnifiedReturnConfig");
     }
 }
