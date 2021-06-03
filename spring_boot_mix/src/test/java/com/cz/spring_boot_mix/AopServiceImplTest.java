@@ -35,7 +35,7 @@ public class AopServiceImplTest {
 
     @Test
     public void testWithOutAroundAspect(){
-        this.aopService.doSthWithOutAroundAspect();
+        this.aopService.doSthWithOutAroundAspectWithOutException();
     }
 
     @Test

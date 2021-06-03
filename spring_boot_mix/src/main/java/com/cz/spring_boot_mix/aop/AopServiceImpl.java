@@ -15,6 +15,13 @@ public class AopServiceImpl {
     /**
      * 有环绕通知,未抛出异常,各切入点的执行顺序:
      * @ @Around(业务逻辑执行前) -> @Before -> 业务逻辑 -> @AfterReturning -> @After -> @Around(业务逻辑执行后)
+     * 日志打印:
+     *      @Around before
+     *      @Before
+     *      business logic......
+     *      @AfterReturning
+     *      @After
+     *      @Around after
      */
     @MyAopAnnotation
     public void doSth(){
@@ -24,6 +31,12 @@ public class AopServiceImpl {
     /**
      * 抛出异常,各切入点的执行顺序:
      * @ @Around(业务逻辑执行前) -> @Before -> 业务逻辑 -> @AfterThrowing -> @After
+     *  日志打印
+     *       @Around before
+     *       @Before
+     *       business logic......
+     *       @AfterThrowing
+     *       @After
      */
     @MyAopAnnotation
     public void doSthWithException(){
@@ -34,15 +47,27 @@ public class AopServiceImpl {
     /**
      * 无环绕通知,未抛出异常
      * @ @Before -> 业务逻辑 -> @AfterReturning -> @After
+     *  日志打印:
+     *      @Before
+     *      business logic......
+     *      @AfterReturning
+     *      @After
      */
-    public void doSthWithOutAroundAspect(){
+    @MyAopAnnotation
+    public void doSthWithOutAroundAspectWithOutException(){
         log.info("business logic......");
     }
 
     /**
      * 无环绕通知,未抛出异常
      * @ @Before -> 业务逻辑 ->  @AfterThrowing -> @After
+     * 日志打印:
+     *      @Before
+     *      business logic......
+     *      @AfterThrowing
+     *      @After
      */
+    @MyAopAnnotation
     public void doSthWithOutAroundAspectWithException(){
         log.info("business logic......");
         int x = 1/0;

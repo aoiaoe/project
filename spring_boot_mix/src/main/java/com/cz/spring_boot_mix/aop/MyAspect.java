@@ -23,29 +23,29 @@ public class MyAspect {
 
     @Before("pointCut()")
     public void before(){
-        log.info("before logic...");
+        log.info("@Before");
     }
 
     @After("pointCut()")
     public void after(){
-        log.info("after  logic...");
+        log.info("@After");
     }
 
-    @Around("annoPointCut()")
+//    @Around("annoPointCut()")
     public void around(ProceedingJoinPoint joinPoint) throws Throwable {
-        log.info("before logic in around.....");
+        log.info("@Around  before");
         joinPoint.proceed();
-        log.info("after logic in around.....");
+        log.info("@Around  after");
     }
 
     @AfterReturning("pointCut()")
     public void afterReturning(){
-        log.info("after return  logic...");
+        log.info("@AfterReturning");
     }
 
     @AfterThrowing("pointCut()")
     public void afterThrowing(){
-        log.info("after throwing logic...");
+        log.info("@AfterThrowing");
     }
 
 
