@@ -27,6 +27,8 @@ public class RedisConfig {
         objectMapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
         objectMapper.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
 
+        // 设置键值序列化器
+        // 默认JDK的序列化器，序列化之后在redis客户端中不具可读性
         jackson2JsonRedisSerializer.setObjectMapper(objectMapper);
         StringRedisTemplate stringRedisTemplate = new StringRedisTemplate(redisConnectionFactory);
         stringRedisTemplate.setKeySerializer(stringRedisSerializer);
