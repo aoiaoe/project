@@ -16,6 +16,7 @@
     <modules>
         <module>design_pattern</module>
         <module>elk</module>
+        <module>encrypt</module>
         <module>ehcache</module>
         <module>pic_captcha</module>
         <module>sharding-jdbc</module>
@@ -27,7 +28,6 @@
         <module>spring_boot_mybatis_source_code_8600</module>
         <module>spring_boot_rabbitmq_8700</module>
         <module>spring_boot_redis</module>
-        <module>spring_boot_security</module>
         <module>spring_boot_security</module>
         <module>spring_boot_security/spring_boot_security_7000</module>
         <module>spring_boot_security/spring_boot_security_jwt_7001</module>
