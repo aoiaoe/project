@@ -16,7 +16,7 @@ public class Service1 {
     @Autowired
     private Service2 service2;
 
-    public Service1(){
+    public Service1() {
         log.info("初始化service1、、、、");
     }
 }

@@ -13,6 +13,7 @@ public class JoinDemo {
 
     /**
      * 线程不安全的加/减
+     *
      * @param args
      * @throws InterruptedException
      */
@@ -48,20 +49,20 @@ class Counter {
         this.count = count;
     }
 
-    public void add(){
+    public void add() {
         count += 1;
     }
 
-    public void dec(){
+    public void dec() {
         count -= 1;
     }
 }
 
-class Consumer extends Thread{
+class Consumer extends Thread {
 
     Counter counter;
 
-    public Consumer(Counter counter){
+    public Consumer(Counter counter) {
         this.counter = counter;
     }
 
@@ -69,7 +70,7 @@ class Consumer extends Thread{
     @Override
     public void run() {
         System.out.println("consumer start :" + counter.count);
-        for(int j = 0;j < JoinDemo.LOOP;j++){
+        for (int j = 0; j < JoinDemo.LOOP; j++) {
             counter.dec();
         }
         System.out.println("consumer end :" + counter.count);
@@ -77,22 +78,25 @@ class Consumer extends Thread{
 }
 
 
-class Producer extends Thread{
+class Producer extends Thread {
 
     Counter counter;
 
-    public Producer(Counter counter){
+    public Producer(Counter counter) {
         this.counter = counter;
     }
 
     @Override
     public void run() {
         System.out.println("producer start :" + counter.count);
-        for(int i = 0;i < JoinDemo.LOOP;++i){
+        for (int i = 0; i < JoinDemo.LOOP; ++i) {
             counter.add();
         }
         System.out.println("producer end :" + counter.count);
         try {
-            TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}
+            TimeUnit.SECONDS.sleep(2);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }

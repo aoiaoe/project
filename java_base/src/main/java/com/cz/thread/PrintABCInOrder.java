@@ -4,26 +4,27 @@ import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-class Print{
+class Print {
 
     private String flag = "A";
     private Lock lock = new ReentrantLock();
     private Condition condition = lock.newCondition();
-    public void print(){
+
+    public void print() {
         lock.lock();
         try {
             String name = Thread.currentThread().getName();
-            while(!flag.equals(name)){
+            while (!flag.equals(name)) {
                 condition.await();
             }
             System.out.println(name);
-            if(flag.equals("A")) flag = "B";
+            if (flag.equals("A")) flag = "B";
             else if (flag.equals("B")) flag = "C";
-            else if(flag.equals("C")) flag = "A";
+            else if (flag.equals("C")) flag = "A";
             condition.signalAll();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             lock.unlock();
         }
     }
@@ -41,16 +42,16 @@ public class PrintABCInOrder {
             for (int i = 0; i < 100; i++) {
                 print.print();
             }
-        },"A").start();
+        }, "A").start();
         new Thread(() -> {
             for (int i = 0; i < 100; i++) {
                 print.print();
             }
-        },"B").start();
+        }, "B").start();
         new Thread(() -> {
             for (int i = 0; i < 100; i++) {
                 print.print();
             }
-        },"C").start();
+        }, "C").start();
     }
 }

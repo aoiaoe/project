@@ -16,13 +16,13 @@ public class ProxyDemo {
 
 
     @Test
-    public void testProxy(){
+    public void testProxy() {
         MyClass instance = new MyClass();
         MyInterfaceInvocationHandler handler = new MyInterfaceInvocationHandler(instance);
         Object proxy = Proxy.newProxyInstance(instance.getClass().getClassLoader(),
                 instance.getClass().getInterfaces(), handler);
-        ((MyInterface)proxy).doSth();
-        ((MyInterface2)proxy).doSth2();
+        ((MyInterface) proxy).doSth();
+        ((MyInterface2) proxy).doSth2();
     }
 
     @Test
@@ -33,15 +33,15 @@ public class ProxyDemo {
             }
         };
         JdkDynamicProxyHandler jdph = new JdkDynamicProxyHandler(instance);
-        MyInterface proxy = (MyInterface)jdph.getProxy();
+        MyInterface proxy = (MyInterface) jdph.getProxy();
         proxy.doSth();
     }
 
     @Test
-    public void testCglibProxy(){
+    public void testCglibProxy() {
         SuperClass superClass = new SuperClass();
         CglibDynamicProxy interceptor = new CglibDynamicProxy(superClass);
-        SuperClass proxy = (SuperClass)interceptor.getProxy();
+        SuperClass proxy = (SuperClass) interceptor.getProxy();
         proxy.doSth();
     }
 }

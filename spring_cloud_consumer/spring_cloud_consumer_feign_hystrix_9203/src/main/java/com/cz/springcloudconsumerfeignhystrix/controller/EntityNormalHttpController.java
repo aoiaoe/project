@@ -23,12 +23,12 @@ public class EntityNormalHttpController {
     private IEntityService iEntityService;
 
     @GetMapping(value = "/{id}")
-    public Entity getById(@PathVariable("id") Integer id){
+    public Entity getById(@PathVariable("id") Integer id) {
         return this.iEntityService.getById(id);
     }
 
     @GetMapping
-    public List<Entity> listAll(){
+    public List<Entity> listAll() {
         return this.iEntityService.getAll();
     }
 

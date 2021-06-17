@@ -23,7 +23,7 @@ public class StandPreciousAlg implements PreciseShardingAlgorithm<String> {
                 Long res = Long.valueOf(each) % 2;
                 return res.toString();
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;

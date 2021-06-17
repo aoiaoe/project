@@ -21,7 +21,7 @@ public class HealthRecordServiceImplTest {
     private IHealthRecordService healthRecordService;
 
     @Test
-    public void testSaveRecord(){
+    public void testSaveRecord() {
         this.healthRecordService.processHealthRecords();
     }
 
@@ -37,7 +37,7 @@ public class HealthRecordServiceImplTest {
     }
 
     @Test
-    public void testSelect(){
+    public void testSelect() {
         User user = this.usersService.selectUser(2);
         System.out.println(user);
     }

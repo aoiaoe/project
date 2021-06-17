@@ -205,11 +205,11 @@ public class ResponseCode extends HashMap<String, Object> {
     /**
      * 返回错误消息
      *
-     * @param code  返回内容
-     * @param msg 数据对象
+     * @param code 返回内容
+     * @param msg  数据对象
      * @return 警告消息
      */
-    public static ResponseCode fail(int code,String msg) {
+    public static ResponseCode fail(int code, String msg) {
         return new ResponseCode(Type.ERROR, msg);
     }
 }

@@ -1,6 +1,7 @@
-##项目中配置HTTPS
+## 项目中配置HTTPS
 
 ### 证书
+
         1、申请整数, 免费 or 收费
         2、使用Java工具生成
             keytool -genkey -alias tomcathttps -keyalg RSA -keysize 2048  -keystore D:\javaboy.p12 -validity 365
@@ -11,7 +12,9 @@
                 keysize 表示密钥的长度。
                 keystore 表示生成的密钥存放位置。
                 validity 表示密钥的有效时间，单位为天
+
 ### 项目配置
+
         1、将生成的证书拷贝到项目目录下
         2、yml中进行配置
             server:
@@ -22,6 +25,7 @@
         3、重启项目，使用https协议进行接口请求
 
 ### 请求转发
+
         如果项目是中途升级成HTTPS协议,可能会有客户端例如APP等未更新依然使用HTTP协议进行请求
         故需要在项目中配置请求转发,将HTTP协议的请求转发到HTTPS请求
 

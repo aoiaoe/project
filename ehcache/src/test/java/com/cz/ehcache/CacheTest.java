@@ -26,7 +26,7 @@ public class CacheTest {
     String filePath = "d:\\cache.file";
 
     @Test
-    public void test(){
+    public void test() {
         CacheManager cacheManager = CacheManagerBuilder.newCacheManagerBuilder()
                 .with(CacheManagerBuilder.persistence(new File(filePath, "myData")))
                 .withCache(cacheName,
@@ -55,7 +55,7 @@ public class CacheTest {
      * 因为会持久化到磁盘,所以上个单元测试put的值,这个此单元测试启动另一个jvm可以get到
      */
     @Test
-    public void test1(){
+    public void test1() {
         CacheManager cacheManager = CacheManagerBuilder.newCacheManagerBuilder()
                 .with(CacheManagerBuilder.persistence(new File(filePath, "myData")))
                 .withCache(cacheName,
@@ -73,7 +73,7 @@ public class CacheTest {
     }
 
     @Test
-    public void test2(){
+    public void test2() {
         CacheManager cacheManager = CacheManagerBuilder.newCacheManagerBuilder()
                 .with(CacheManagerBuilder.persistence(new File(filePath, "myData")))
                 .withCache(cacheName,
@@ -88,19 +88,19 @@ public class CacheTest {
 
         for (Long i = 1L; i <= 10; i++) {
             char[] b = new char[512 * 500];
-            b[0] = (char)(64 + i.intValue());
+            b[0] = (char) (64 + i.intValue());
             for (int i1 = 1; i1 < 512 * 500; i1++) {
                 b[i1] = 'a';
             }
             System.out.println("------");
             threeTieredCache.put(i, new String(b));
             for (Long j = 1L; j <= 10; j++) {
-               String value = threeTieredCache.get(j);
-               if(value != null) {
-                   System.out.println(j + " - > " + value.substring(0, 20));
-               } else {
-                   System.out.println(j + " - > " + value);
-               }
+                String value = threeTieredCache.get(j);
+                if (value != null) {
+                    System.out.println(j + " - > " + value.substring(0, 20));
+                } else {
+                    System.out.println(j + " - > " + value);
+                }
             }
             System.out.println("------");
         }
@@ -111,11 +111,14 @@ public class CacheTest {
         System.out.println("------");
         cacheManager.close();
         try {
-            TimeUnit.SECONDS.sleep(500);} catch (InterruptedException e) {e.printStackTrace();}
+            TimeUnit.SECONDS.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
-    public void test3(){
+    public void test3() {
         CacheManager cacheManager = CacheManagerBuilder.newCacheManagerBuilder()
                 .with(CacheManagerBuilder.persistence(new File(filePath, "myData")))
                 .withCache(cacheName,
@@ -137,9 +140,9 @@ public class CacheTest {
         }
         System.out.println("------");
         final Iterator<Cache.Entry<Long, String>> iterator = threeTieredCache.iterator();
-        while (iterator.hasNext()){
+        while (iterator.hasNext()) {
             Long key = iterator.next().getKey();
-            if(key == 3 || key == 4){
+            if (key == 3 || key == 4) {
                 threeTieredCache.remove(key);
             }
         }

@@ -16,7 +16,7 @@ import java.util.List;
 
 /**
  * <p>
- *  服务实现类
+ * 服务实现类
  * </p>
  *
  * @author cz
@@ -47,7 +47,7 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, User> implements 
     }
 
     @Override
-    public List<User> getUsers()  {
+    public List<User> getUsers() {
         return usersMapper.selectAll();
     }
 

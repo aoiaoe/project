@@ -36,11 +36,11 @@ public class HealthRecordServiceImpl extends ServiceImpl<HealthRecordMapper, Hea
     private HealthLevelMapper healthLevelMapper;
 
     @Override
-    public void processHealthRecords(){
+    public void processHealthRecords() {
         insertHealthRecords();
     }
 
-    private List<Long> insertHealthRecords(){
+    private List<Long> insertHealthRecords() {
         List<Long> result = new ArrayList<>(10);
         for (Long i = 1L; i <= 10; i++) {
             HealthRecord healthRecord = insertHealthRecord(i);
@@ -52,7 +52,7 @@ public class HealthRecordServiceImpl extends ServiceImpl<HealthRecordMapper, Hea
         return result;
     }
 
-    private HealthRecord insertHealthRecord(final Long i){
+    private HealthRecord insertHealthRecord(final Long i) {
         HealthRecord healthRecord = new HealthRecord();
 //        healthRecord.setRecordId(i);
         healthRecord.setUserId(i);
@@ -62,7 +62,7 @@ public class HealthRecordServiceImpl extends ServiceImpl<HealthRecordMapper, Hea
         return healthRecord;
     }
 
-    private void insertHealthTask(final Long i, final HealthRecord healthRecord){
+    private void insertHealthTask(final Long i, final HealthRecord healthRecord) {
         HealthTask healthTask = new HealthTask();
         healthTask.setRecordId(healthRecord.getRecordId());
         healthTask.setUserId(i);
@@ -70,7 +70,7 @@ public class HealthRecordServiceImpl extends ServiceImpl<HealthRecordMapper, Hea
         healthTaskMapper.insert(healthTask);
     }
 
-    private void saveLevel(){
+    private void saveLevel() {
         for (Long i = 0L; i < 5; i++) {
             HealthLevel level = new HealthLevel();
             level.setLevelId(i);

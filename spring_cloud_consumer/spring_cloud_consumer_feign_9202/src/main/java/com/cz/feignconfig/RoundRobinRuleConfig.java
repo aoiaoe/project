@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Configuration;
 public class RoundRobinRuleConfig {
 
     @Bean
-    public IRule roundRobin(){
+    public IRule roundRobin() {
         return new RoundRobinRule();
     }
 }

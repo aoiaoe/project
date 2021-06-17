@@ -15,10 +15,11 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class ThreadExecutorConfig {
 
     @Bean
-    public ThreadPoolExecutor threadPoolExecutor(){
+    public ThreadPoolExecutor threadPoolExecutor() {
         return new ThreadPoolExecutor(10, 10,
                 0, TimeUnit.SECONDS, new ArrayBlockingQueue<>(100), new ThreadFactory() {
             AtomicInteger atomicInteger = new AtomicInteger(0);
+
             @Override
             public Thread newThread(Runnable r) {
                 Thread t = new Thread(r);
@@ -29,9 +30,10 @@ public class ThreadExecutorConfig {
     }
 
     @Bean
-    public ScheduledExecutorService scheduledExecutorService(){
+    public ScheduledExecutorService scheduledExecutorService() {
         return new ScheduledThreadPoolExecutor(10, new ThreadFactory() {
             AtomicInteger atomicInteger = new AtomicInteger(0);
+
             @Override
             public Thread newThread(Runnable r) {
                 Thread t = new Thread(r);

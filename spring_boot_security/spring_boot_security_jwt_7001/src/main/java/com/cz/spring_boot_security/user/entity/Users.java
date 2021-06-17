@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author Jzm
@@ -42,7 +42,7 @@ public class Users implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        if(!CollectionUtils.isEmpty(rolesList)){
+        if (!CollectionUtils.isEmpty(rolesList)) {
             return rolesList.stream().map(e -> new SimpleGrantedAuthority(e.getRoleName())).collect(Collectors.toList());
         }
         return null;

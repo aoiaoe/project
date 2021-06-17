@@ -13,12 +13,14 @@ import java.security.spec.InvalidKeySpecException;
 public interface SecurityService {
     /**
      * 检查appid是否有效
+     *
      * @return
      */
     public boolean checkAppId(String appid);
 
     /**
      * 检查版本号
+     *
      * @param version
      * @return
      */
@@ -26,6 +28,7 @@ public interface SecurityService {
 
     /**
      * 通过appid获取公钥
+     *
      * @param appid
      * @return
      */
@@ -34,14 +37,17 @@ public interface SecurityService {
 
     /**
      * 通过appid获取公钥
+     *
      * @param appid
      * @return
      */
     public String getprivateKey(String appid);
+
     /**
      * 检测签名是否有效
+     *
      * @param publicKey 公钥base64
-     * @param data 签名字符串
+     * @param data      签名字符串
      * @return
      */
     public boolean checkSign(String publicKey, String data) throws InvalidKeySpecException, NoSuchAlgorithmException, SignatureException, InvalidKeyException;

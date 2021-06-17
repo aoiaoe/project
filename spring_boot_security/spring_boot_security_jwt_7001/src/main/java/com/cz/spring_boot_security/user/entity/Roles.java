@@ -5,7 +5,7 @@ import lombok.EqualsAndHashCode;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author Jzm
@@ -13,7 +13,7 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode()
-public class Roles{
+public class Roles {
 
     private static final long serialVersionUID = 1L;
 

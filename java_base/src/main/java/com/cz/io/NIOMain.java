@@ -12,9 +12,9 @@ public class NIOMain {
     public static void main(String[] args) {
 //        nio1();//NIO
 //        nio2();//非阻塞式NIO
-        int x= 0;
-        int x1= 1;
-        int x2= 2;
+        int x = 0;
+        int x1 = 1;
+        int x2 = 2;
         x = x1 = x2;
         System.out.println(x);
         System.out.println(x1);
@@ -24,7 +24,7 @@ public class NIOMain {
     //阻塞式
     private static void nio1() {
         try {
-            RandomAccessFile file = new RandomAccessFile("text.txt","r");
+            RandomAccessFile file = new RandomAccessFile("text.txt", "r");
             FileChannel channel = file.getChannel();
             ByteBuffer byteBuffer = ByteBuffer.allocate(1024);
             channel.read(byteBuffer);
@@ -49,12 +49,12 @@ public class NIOMain {
             serverSocketChannel.configureBlocking(false);//非阻塞
             Selector selector = Selector.open();
             serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
-            while (true){
+            while (true) {
                 selector.select();//阻塞
-                for (SelectionKey key:selector.selectedKeys()) {
+                for (SelectionKey key : selector.selectedKeys()) {
                     SocketChannel socketChannel = serverSocketChannel.accept();
                     ByteBuffer byteBuffer = ByteBuffer.allocate(1024);
-                    while (socketChannel.read(byteBuffer)!=-1){
+                    while (socketChannel.read(byteBuffer) != -1) {
                         byteBuffer.flip();
                         socketChannel.write(byteBuffer);
                         byteBuffer.clear();

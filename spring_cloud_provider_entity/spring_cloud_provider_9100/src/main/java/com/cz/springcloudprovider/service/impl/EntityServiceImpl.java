@@ -23,11 +23,11 @@ public class EntityServiceImpl implements IEntityService {
 
     @Override
     public Entity getById(Integer id) {
-        if(id < 0 || id > 4){
+        if (id < 0 || id > 4) {
             return null;
         }
         Entity entity = EntityHolder.entityHolder.get(id);
-        if(entity != null) {
+        if (entity != null) {
             entity.setExtra(serverPort);
         }
         return entity;

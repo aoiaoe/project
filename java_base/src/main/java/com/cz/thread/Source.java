@@ -14,7 +14,7 @@ public class Source implements Runnable {
     private CyclicBarrier cyclicBarrier;
     private CountDownLatch countDownLatch;
 
-    public Source(CyclicBarrier cyclicBarrier, CountDownLatch countDownLatch){
+    public Source(CyclicBarrier cyclicBarrier, CountDownLatch countDownLatch) {
         this.cyclicBarrier = cyclicBarrier;
         this.countDownLatch = countDownLatch;
     }
@@ -22,6 +22,7 @@ public class Source implements Runnable {
     static int x = 0;
     static int count = 100;
     static int threadNum = 200;
+
     @Override
     public void run() {
         try {
@@ -39,6 +40,7 @@ public class Source implements Runnable {
     }
 
     static int y = 0;
+
     public static void main(String[] args) throws InterruptedException {
         CyclicBarrier cyclicBarrier = new CyclicBarrier(threadNum);
         CountDownLatch countDownLatch = new CountDownLatch(0);

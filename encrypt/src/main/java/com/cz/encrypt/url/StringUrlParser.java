@@ -15,6 +15,7 @@ public class StringUrlParser extends MapUrlParser {
     public StringUrlParser(String queryString) {
         super(getHeader(queryString));
     }
+
     private static Map<String, Object> getHeader(String url) {
         Map<String, Object> map = new TreeMap<>();
         int start = url.indexOf("?");
@@ -22,13 +23,13 @@ public class StringUrlParser extends MapUrlParser {
         String[] paramsArr = str.split("&");
         for (String param : paramsArr) {
             int spCharIndex = param.indexOf("=");
-            String key=param.substring(0,spCharIndex);
-            String value=null;
-            if(spCharIndex<param.length()){
-               value=param.substring(spCharIndex+1);
+            String key = param.substring(0, spCharIndex);
+            String value = null;
+            if (spCharIndex < param.length()) {
+                value = param.substring(spCharIndex + 1);
             }
-            if(StringUtils.isNotEmpty(value) && !"null".equalsIgnoreCase(value)){
-                map.put(key,value);
+            if (StringUtils.isNotEmpty(value) && !"null".equalsIgnoreCase(value)) {
+                map.put(key, value);
             }
         }
         return map;

@@ -17,7 +17,7 @@ import java.util.List;
 
 /**
  * <p>
- *  服务实现类
+ * 服务实现类
  * </p>
  *
  * @author Jzm
@@ -32,7 +32,7 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Users user = this.getOne(new LambdaQueryWrapper<Users>().eq(Users::getName, username));
-        if(user == null){
+        if (user == null) {
             throw new UsernameNotFoundException("用户不存在");
         }
         List<Roles> roles = this.rolesService.getByUserId(user.getId());

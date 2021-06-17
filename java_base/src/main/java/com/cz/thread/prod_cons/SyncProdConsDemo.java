@@ -2,6 +2,7 @@ package com.cz.thread.prod_cons;
 
 /**
  * 生产者消费者模式1
+ *
  * @author alian
  * @date 2020/2/27 下午 5:47
  * @since JDK8
@@ -19,7 +20,7 @@ public class SyncProdConsDemo {
                     e.printStackTrace();
                 }
             }
-        },"A").start();
+        }, "A").start();
 
         new Thread(() -> {
             try {
@@ -29,7 +30,7 @@ public class SyncProdConsDemo {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-        },"B").start();
+        }, "B").start();
         new Thread(() -> {
             try {
                 for (int i = 0; i < 10; i++) {
@@ -38,7 +39,7 @@ public class SyncProdConsDemo {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-        },"C").start();
+        }, "C").start();
         new Thread(() -> {
             try {
                 for (int i = 0; i < 10; i++) {
@@ -47,17 +48,17 @@ public class SyncProdConsDemo {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-        },"D").start();
+        }, "D").start();
     }
 }
 
-class Good{
+class Good {
 
     private int x = 0;
 
     public synchronized void produce() throws InterruptedException {
         // 判断
-        while (x > 0){
+        while (x > 0) {
             this.wait();
         }
         // 干活
@@ -68,7 +69,7 @@ class Good{
     }
 
     public synchronized void consume() throws InterruptedException {
-        while (x < 1){
+        while (x < 1) {
             this.wait();
         }
         x = x - 1;

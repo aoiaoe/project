@@ -36,13 +36,13 @@ public class UnifiedReturnConfig {
         }
 
         @PostConstruct
-        public void post(){
+        public void post() {
             System.out.println("------>>>  UnifiedReturnConfig");
         }
     }
 
     @PostConstruct
-    public void post(){
+    public void post() {
         System.out.println("+++++++++>>>  UnifiedReturnConfig");
     }
 }

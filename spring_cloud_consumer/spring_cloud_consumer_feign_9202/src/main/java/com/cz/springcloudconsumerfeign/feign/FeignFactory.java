@@ -19,7 +19,7 @@ import org.springframework.stereotype.Service;
  */
 @Configuration
 @Import(FeignClientsConfiguration.class)
-public class FeignFactory  {
+public class FeignFactory {
 //
 //    @Autowired
 //    private Decoder feignDecoder;
@@ -33,7 +33,7 @@ public class FeignFactory  {
 
 
     @Bean
-    public UserClient userClient(Decoder decoder, Encoder encoder, Client client, Contract contract){
+    public UserClient userClient(Decoder decoder, Encoder encoder, Client client, Contract contract) {
         return Feign.builder().client(client)
                 .encoder(encoder)
                 .decoder(decoder)

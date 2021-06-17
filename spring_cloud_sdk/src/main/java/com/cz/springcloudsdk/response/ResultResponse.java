@@ -14,15 +14,15 @@ public class ResultResponse<T> {
     private String code;
     private String message;
 
-    public ResultResponse(String code){
+    public ResultResponse(String code) {
         this(null, code, null);
     }
 
-    public ResultResponse(String code, String message){
+    public ResultResponse(String code, String message) {
         this(null, code, message);
     }
 
-    public ResultResponse(T data, String code, String message){
+    public ResultResponse(T data, String code, String message) {
         this.data = data;
         this.code = code;
         this.message = message;

@@ -30,13 +30,14 @@ public class EntityNormalHttpController {
     private RestTemplate restTemplate;
 
     @GetMapping(value = "/{id}")
-    public Entity getById(@PathVariable("id") Integer id){
+    public Entity getById(@PathVariable("id") Integer id) {
         return restTemplate.getForObject(HTTP_URL + id, Entity.class);
     }
 
     @GetMapping
-    public List<Entity> listAll(){
-        ParameterizedTypeReference<List<Entity>> type = new ParameterizedTypeReference<List<Entity>>(){};
+    public List<Entity> listAll() {
+        ParameterizedTypeReference<List<Entity>> type = new ParameterizedTypeReference<List<Entity>>() {
+        };
         ResponseEntity<List<Entity>> exchange = restTemplate.exchange(HTTP_URL + "list", HttpMethod.GET, null, type);
         return exchange.getBody();
     }

@@ -12,7 +12,7 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @desc: redis工具类,使用@Component注解将RedisUtils交给Spring容器实例化，使用时直接注解注入即可。
+ * @desc: redis工具类, 使用@Component注解将RedisUtils交给Spring容器实例化，使用时直接注解注入即可。
  * @author: cao_wencao
  * @date: 2019-12-13 14:04
  */

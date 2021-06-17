@@ -15,10 +15,11 @@ public class RibbonRuleConfig {
 
     /**
      * 修改ribbon默认的轮训路由策略为随机策略
+     *
      * @return
      */
     @Bean
-    public IRule randomRule(){
+    public IRule randomRule() {
 //        return new RandomRule();
 
         return new RoundRobinRule();

@@ -7,8 +7,8 @@ package com.cz.encrypt.bean;
  */
 public interface BizBean {
     /**
+     * 设置签名
      *
-     *   设置签名
      * @param sign 签名字符串
      */
     public void setSign(String sign);

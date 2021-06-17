@@ -48,12 +48,15 @@ public class SecurityInterceptor implements HandlerInterceptor {
     public static final String APPLICATION_ZIP = "application/zip";
     @Autowired
     private SecurityService securityService;
+
     private String md5(byte[] bt) throws NoSuchAlgorithmException {
-        MessageDigest messageDigest =MessageDigest.getInstance("MD5");
+        MessageDigest messageDigest = MessageDigest.getInstance("MD5");
         return Base64.getEncoder().encodeToString(messageDigest.digest(bt));
     }
+
     /**
      * 检测传输数据是否正确
+     *
      * @param request
      * @throws ServiceException
      * @throws IOException
@@ -63,33 +66,33 @@ public class SecurityInterceptor implements HandlerInterceptor {
      * @throws InvalidKeyException
      */
     public void checkTransferData(HttpServletRequest request) throws ServiceException, IOException, InvalidKeySpecException, NoSuchAlgorithmException, SignatureException, InvalidKeyException {
-        String contentType= request.getHeader(CONTENT_TYPE_KEY);
-        String version=null;
-        String sign=null;
-        String appid=null;
-        String jsonData=null;
-        String queryString=null;
-        boolean urlSign=false;
-        if(APPLICATION_TYPE.equalsIgnoreCase(contentType)
-                || (contentType != null && contentType.toLowerCase().contains(APPLICATION_TYPE))){
+        String contentType = request.getHeader(CONTENT_TYPE_KEY);
+        String version = null;
+        String sign = null;
+        String appid = null;
+        String jsonData = null;
+        String queryString = null;
+        boolean urlSign = false;
+        if (APPLICATION_TYPE.equalsIgnoreCase(contentType)
+                || (contentType != null && contentType.toLowerCase().contains(APPLICATION_TYPE))) {
             BufferedReader reader = new BufferedReader(new InputStreamReader(request.getInputStream()));
             String body = IOUtils.toString(reader);
-            JSONObject jsonObject= JSONObject.parseObject(body);
-            version=jsonObject.getString(VERSION_FIELD);
-            sign=jsonObject.getString(SIGN_FIELD);
-            appid=jsonObject.getString(APPID_FIELD);
-            jsonData=body;
-        }else{
-            if(REQUEST_GET.equalsIgnoreCase(request.getMethod())) {
+            JSONObject jsonObject = JSONObject.parseObject(body);
+            version = jsonObject.getString(VERSION_FIELD);
+            sign = jsonObject.getString(SIGN_FIELD);
+            appid = jsonObject.getString(APPID_FIELD);
+            jsonData = body;
+        } else {
+            if (REQUEST_GET.equalsIgnoreCase(request.getMethod())) {
                 version = request.getParameter(VERSION_FIELD);
                 sign = request.getParameter(SIGN_FIELD);
                 appid = request.getParameter(APPID_FIELD);
-                queryString=request.getQueryString();
-                urlSign=true;
-            }else{
+                queryString = request.getQueryString();
+                urlSign = true;
+            } else {
                 //檢測是否有文件上傳
-                if(ServletFileUpload.isMultipartContent(request)) {
-                    StringBuffer paramUrl=new StringBuffer();
+                if (ServletFileUpload.isMultipartContent(request)) {
+                    StringBuffer paramUrl = new StringBuffer();
 //                    DiskFileItemFactory factory = new DiskFileItemFactory();
 //                    factory.setSizeThreshold(1024*10);
 //                    ServletFileUpload fileUpload = new ServletFileUpload(factory);
@@ -97,71 +100,74 @@ public class SecurityInterceptor implements HandlerInterceptor {
                     try {
                         Collection<Part> parts = request.getParts();
 //                        List<FileItem> items = fileUpload.parseRequest(request);
-                        for(Part part : parts) {
-                            String key= part.getName();
-                            String value=null;
+                        for (Part part : parts) {
+                            String key = part.getName();
+                            String value = null;
                             //是不是一个文件上传组件
-                            ApplicationPart applicationPart = (ApplicationPart)part;
+                            ApplicationPart applicationPart = (ApplicationPart) part;
                             Field field = applicationPart.getClass().getDeclaredField("fileItem");
                             field.setAccessible(true);
-                            FileItem fileItem = (FileItem)field.get(applicationPart);
-                            if(!fileItem.isFormField()) {
+                            FileItem fileItem = (FileItem) field.get(applicationPart);
+                            if (!fileItem.isFormField()) {
                                 byte[] bytes = IOUtils.toByteArray(applicationPart.getInputStream());
-                                value=md5(bytes);
+                                value = md5(bytes);
                                 contentType = applicationPart.getContentType();
                             } else {
                                 value = applicationPart.getString("UTF-8");
-                                if("version".equalsIgnoreCase(key)){
+                                if ("version".equalsIgnoreCase(key)) {
                                     version = value;
-                                }else if("appid".equalsIgnoreCase(key)){
+                                } else if ("appid".equalsIgnoreCase(key)) {
                                     appid = value;
-                                }else if("sign".equalsIgnoreCase(key)){
+                                } else if ("sign".equalsIgnoreCase(key)) {
                                     sign = value;
                                 }
                             }
-                            paramUrl.append(key+ "=" + value + "&");
+                            paramUrl.append(key + "=" + value + "&");
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                     System.out.println(paramUrl.toString());
                     urlSign = true;
-                    StringUrlParser stringUrlParser=new StringUrlParser(paramUrl.toString());
+                    StringUrlParser stringUrlParser = new StringUrlParser(paramUrl.toString());
                     queryString = stringUrlParser.parse();
                     Object signObj = stringUrlParser.getDataMap().get(MapToUrlSign.SIGN_KEY);
-                    sign =(signObj!=null?signObj.toString():"");
+                    sign = (signObj != null ? signObj.toString() : "");
                 }
 
             }
         }
         //是否带版本号
-        if(StringUtils.isEmpty(version)) {
+        if (StringUtils.isEmpty(version)) {
             throw new ServiceException(SecurityConstants.VERSION_NULL);
         }
-        if(StringUtils.isEmpty(sign)) {
+        if (StringUtils.isEmpty(sign)) {
             throw new ServiceException(SecurityConstants.SIGN_NULL);
         }
-        if(StringUtils.isEmpty(appid)) {
+        if (StringUtils.isEmpty(appid)) {
             throw new ServiceException(SecurityConstants.APPID_NULL);
         }
         checkAppId(appid);
         checkVersion(version);
-        checkSign(urlSign,sign.replaceAll(" ","+"),queryString,jsonData,appid,contentType);
+        checkSign(urlSign, sign.replaceAll(" ", "+"), queryString, jsonData, appid, contentType);
 
     }
-    public void checkAppId(String appid){
-        if(!securityService.checkAppId(appid)){
+
+    public void checkAppId(String appid) {
+        if (!securityService.checkAppId(appid)) {
             throw new ServiceException(SecurityConstants.APPID_ERROR);
         }
     }
-    public void checkVersion(String version){
-        if(!securityService.checkVersion(version)){
+
+    public void checkVersion(String version) {
+        if (!securityService.checkVersion(version)) {
             throw new ServiceException(SecurityConstants.VERSION_ERROR);
         }
     }
-    public void checkUrlSign(String sign,String url,String appid) throws InvalidKeySpecException, NoSuchAlgorithmException, SignatureException, InvalidKeyException {
+
+    public void checkUrlSign(String sign, String url, String appid) throws InvalidKeySpecException, NoSuchAlgorithmException, SignatureException, InvalidKeyException {
         try {
-            UrlParser urlParser=new StringUrlParser(url);
+            UrlParser urlParser = new StringUrlParser(url);
             if (!SecurityUtils.validateSign(SecurityUtils.getPubKey(securityService.getPublicKey(appid)),
                     urlParser.parse().getBytes(),
                     Base64.getDecoder().decode(sign.toString()))
@@ -173,28 +179,30 @@ public class SecurityInterceptor implements HandlerInterceptor {
         }
     }
 
-    public void checkJsonSign(String sign,String jsonData,String appid) throws NoSuchAlgorithmException, InvalidKeySpecException, InvalidKeyException, SignatureException {
+    public void checkJsonSign(String sign, String jsonData, String appid) throws NoSuchAlgorithmException, InvalidKeySpecException, InvalidKeyException, SignatureException {
         try {
             boolean ifSign = securityService.checkSign(securityService.getPublicKey(appid), jsonData);
-            if(!ifSign){
+            if (!ifSign) {
                 throw new ServiceException(SecurityConstants.SIGN_ERROR);
             }
         } catch (Exception e) {
             throw new ServiceException(SecurityConstants.SIGN_ERROR);
         }
     }
-    public void checkSign(boolean urlSign,String sign,String oriData,String jsonData,String appid,String contentType) throws InvalidKeySpecException, NoSuchAlgorithmException, SignatureException, InvalidKeyException {
-        if(urlSign){
-            checkUrlSign(sign,oriData,appid);
-        }else{
-            if(APPLICATION_TYPE.equalsIgnoreCase(contentType)) {
+
+    public void checkSign(boolean urlSign, String sign, String oriData, String jsonData, String appid, String contentType) throws InvalidKeySpecException, NoSuchAlgorithmException, SignatureException, InvalidKeyException {
+        if (urlSign) {
+            checkUrlSign(sign, oriData, appid);
+        } else {
+            if (APPLICATION_TYPE.equalsIgnoreCase(contentType)) {
                 checkJsonSign(sign, jsonData, appid);
             }
-         }
+        }
     }
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        if(request.getRequestURI().endsWith("status/VERSION.txt")){
+        if (request.getRequestURI().endsWith("status/VERSION.txt")) {
             return true;
         }
         checkTransferData(request);

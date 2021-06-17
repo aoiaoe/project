@@ -10,7 +10,7 @@ import org.junit.Test;
 public class NormalTest {
 
     @Test
-    public void test(){
+    public void test() {
         String result = DateUtils.formatNow("yyyy-MM-dd");
         System.out.println(result);
 //        asset.assertEquals("2020-12-20", result);

@@ -15,7 +15,7 @@ public class EntityHolder {
 
     public static List<Entity> entityHolder = new ArrayList<>();
 
-    static{
+    static {
         for (int i = 0; i < 5; i++) {
             Entity entity = new Entity();
             entity.setId(i);

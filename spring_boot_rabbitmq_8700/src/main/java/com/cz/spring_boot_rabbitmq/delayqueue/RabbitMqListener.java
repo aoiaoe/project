@@ -10,8 +10,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class RabbitMqListener {
 
-    @RabbitListener(queues = {RabbitMqConfig.PROCESS_QUEUE},containerFactory = "containerFactory")
-    public void process(Channel channel, Message message){
+    @RabbitListener(queues = {RabbitMqConfig.PROCESS_QUEUE}, containerFactory = "containerFactory")
+    public void process(Channel channel, Message message) {
         String msg = new String(message.getBody());
         log.info("接受消息:{}", msg);
     }

@@ -20,7 +20,7 @@ public class NacosController {
     private String value;
 
     @GetMapping(value = "/key")
-    public Object getKey(){
+    public Object getKey() {
         return value;
     }
 }

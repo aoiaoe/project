@@ -5,6 +5,7 @@ import java.util.Random;
 
 /**
  * 快排,有bug，待修复
+ *
  * @author alian
  * @date 2020/8/27 下午 5:35
  * @since JDK8
@@ -16,15 +17,15 @@ public class QuickSort {
 //        createArrValues(arr);
         int[] arr = {8, 7, 19, 13, 0, 18, 17, 13, 2, 19};
 //        System.out.println(Arrays.toString(arr));
-        quickSort(arr, 0, arr.length-1);
+        quickSort(arr, 0, arr.length - 1);
         System.out.println(Arrays.toString(arr));
 
 //        quickSort(arr, arr.length);
 
     }
 
-    public static void quickSort(int arr[], int left, int right){
-        if(left >= right){
+    public static void quickSort(int arr[], int left, int right) {
+        if (left >= right) {
             return;
         }
         int i = left;
@@ -35,15 +36,15 @@ public class QuickSort {
         // 3,7,4,2,6,8,1,9,10,5    1  6
         // 3,1,4,2,6,8,7,9,10,5    2  3
         // 3,1,2,4,6,8,7,9,10,5    3  3
-        while (i < j){
-            while (arr[i] <= base && i < j){
+        while (i < j) {
+            while (arr[i] <= base && i < j) {
                 i++;
             }
-            while (arr[j] >= base && j > i){
+            while (arr[j] >= base && j > i) {
                 j--;
             }
 
-            if(i < j){
+            if (i < j) {
                 temp = arr[i];
                 arr[i] = arr[j];
                 arr[j] = temp;
@@ -51,14 +52,14 @@ public class QuickSort {
         }
 
 
-        quickSort(arr, left, j -1);
-        quickSort(arr, j+1, right);
+        quickSort(arr, left, j - 1);
+        quickSort(arr, j + 1, right);
         // i 1
         // j 7
         // 3,1,4,2,6,8,7,9,10,5
     }
 
-    public static void createArrValues(int[] arr){
+    public static void createArrValues(int[] arr) {
         final Random random = new Random();
         for (int i = 0; i < arr.length; i++) {
             arr[i] = random.nextInt(20);
@@ -69,19 +70,19 @@ public class QuickSort {
      * 快速排序
      */
     public static void quickSort(int[] arr, int len) {
-        __quickSort(arr, 0, len-1);
+        __quickSort(arr, 0, len - 1);
     }
 
     // 注意边界条件
-    private static  void __quickSort(int[] arr, int begin, int end) {
+    private static void __quickSort(int[] arr, int begin, int end) {
         if (begin >= end) {
             return;
         }
 
         // 一定要是 p-1！
         int p = partition(arr, begin, end); // 先进行大致排序，并获取区分点
-        __quickSort(arr, begin, p-1);
-        __quickSort(arr, p+1, end);
+        __quickSort(arr, begin, p - 1);
+        __quickSort(arr, p + 1, end);
     }
 
     private static int partition(int[] arr, int begin, int end) {
@@ -105,6 +106,6 @@ public class QuickSort {
             }
         }
 
-        return i-1;
+        return i - 1;
     }
 }

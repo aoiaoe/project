@@ -7,11 +7,12 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * 生产者消费者模式
- *      阻塞队列
- *      方法\处理方式     抛异常           返回特殊值       一直阻塞         超时退出
- *      插入             add(e)          offer(e)         put(e)         offer(e, time, timeUnit)
- *      移除             remove(e)       poll(e)          take(e)        poll(time, timeUnit)
- *      检查             element(e)      peek(e)          不可用         不可用
+ * 阻塞队列
+ * 方法\处理方式     抛异常           返回特殊值       一直阻塞         超时退出
+ * 插入             add(e)          offer(e)         put(e)         offer(e, time, timeUnit)
+ * 移除             remove(e)       poll(e)          take(e)        poll(time, timeUnit)
+ * 检查             element(e)      peek(e)          不可用         不可用
+ *
  * @author alian
  * @date 2020/2/27 下午 3:22
  * @since JDK8

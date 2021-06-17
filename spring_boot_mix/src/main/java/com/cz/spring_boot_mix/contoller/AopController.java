@@ -14,22 +14,25 @@ public class AopController {
     private AopServiceImpl aopService;
 
     @GetMapping(value = "/1")
-    public boolean doSth(){
+    public boolean doSth() {
         this.aopService.doSth();
         return true;
     }
+
     @GetMapping(value = "/2")
-    public boolean doSthWithException(){
+    public boolean doSthWithException() {
         this.aopService.doSthWithException();
         return true;
     }
+
     @GetMapping(value = "/3")
-    public boolean doSthWithOutAroundAspectWithOutException(){
+    public boolean doSthWithOutAroundAspectWithOutException() {
         this.aopService.doSthWithOutAroundAspectWithOutException();
         return true;
     }
+
     @GetMapping(value = "/4")
-    public boolean doSthWithOutAroundAspectWithException(){
+    public boolean doSthWithOutAroundAspectWithException() {
         this.aopService.doSthWithOutAroundAspectWithException();
         return true;
     }

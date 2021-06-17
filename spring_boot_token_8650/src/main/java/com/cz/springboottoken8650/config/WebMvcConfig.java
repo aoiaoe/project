@@ -18,7 +18,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  */
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
-    
+
     @Bean
     public AuthorizationInterceptor initAuthInterceptor() {
         return new AuthorizationInterceptor();

@@ -1,7 +1,9 @@
 package com.cz.springboottoken8650.utils;
+
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+
 /**
  * @desc: MD5加密工具类
  * @auth: cao_wencao
@@ -10,7 +12,8 @@ import java.security.NoSuchAlgorithmException;
 public class MD5Util {
     /**
      * MD5 加密   绿账的加密方式
-     *绿账加密方式，仅适用绿账
+     * 绿账加密方式，仅适用绿账
+     *
      * @param plainText 明文
      * @return 消息摘要
      * @throws NoSuchAlgorithmException
@@ -48,33 +51,34 @@ public class MD5Util {
 
     /**
      * MD5 加密
-     *两网加密方式
+     * 两网加密方式
+     *
      * @param inStr 明文
      * @return
      * @throws NoSuchAlgorithmException
      */
     public static String md5(String inStr) {
-            MessageDigest md5;
-            try {
-                md5 = MessageDigest.getInstance("MD5");
-            } catch (Exception e) {
-                e.printStackTrace();
-                return "";
-            }
-            char[] charArray = inStr.toCharArray();
-            byte[] byteArray = new byte[charArray.length];
+        MessageDigest md5;
+        try {
+            md5 = MessageDigest.getInstance("MD5");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "";
+        }
+        char[] charArray = inStr.toCharArray();
+        byte[] byteArray = new byte[charArray.length];
 
-            for (int i = 0; i < charArray.length; i++)
-                byteArray[i] = (byte) charArray[i];
-            byte[] md5Bytes = md5.digest(byteArray);
-            StringBuffer hexValue = new StringBuffer();
-            for (int i = 0; i < md5Bytes.length; i++) {
-                int val = ((int) md5Bytes[i]) & 0xff;
-                if (val < 16)
-                    hexValue.append("0");
-                hexValue.append(Integer.toHexString(val));
-            }
-            return hexValue.toString();
+        for (int i = 0; i < charArray.length; i++)
+            byteArray[i] = (byte) charArray[i];
+        byte[] md5Bytes = md5.digest(byteArray);
+        StringBuffer hexValue = new StringBuffer();
+        for (int i = 0; i < md5Bytes.length; i++) {
+            int val = ((int) md5Bytes[i]) & 0xff;
+            if (val < 16)
+                hexValue.append("0");
+            hexValue.append(Integer.toHexString(val));
+        }
+        return hexValue.toString();
     }
 
     public static void main(String[] args) {

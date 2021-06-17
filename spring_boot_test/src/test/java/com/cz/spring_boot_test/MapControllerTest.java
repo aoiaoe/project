@@ -20,7 +20,7 @@ public class MapControllerTest {
     private TestRestTemplate restTemplate;
 
     @Test
-    public void testGetValue(){
+    public void testGetValue() {
         String value = restTemplate.getForObject("/map/9", String.class);
         Assert.assertEquals("String_9", value);
     }

@@ -13,7 +13,7 @@ public class _3_LongestString {
     }
 
     public static int lengthOfLongestSubstring(String s) {
-        if(s == null){
+        if (s == null) {
             return 0;
         }
         Map<Character, Integer> map = new HashMap<>();
@@ -22,7 +22,7 @@ public class _3_LongestString {
         Integer temp = null;
         for (int start = 0, end = 0; end < s.length(); end++) {
             c = s.charAt(end);
-            if((temp = map.get(c)) != null){
+            if ((temp = map.get(c)) != null) {
                 start = Math.max(start, temp);
             }
 

@@ -23,7 +23,7 @@ public class UserController implements UserApi {
     public List<User> findAll() {
         try {
             int x = 1 / 0;
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new ServiceException(ErrorCodeEnums.ALG_ERROR, e);
         }
         return this.userService.findAll();

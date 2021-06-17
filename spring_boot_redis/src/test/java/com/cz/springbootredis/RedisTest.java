@@ -21,7 +21,7 @@ public class RedisTest {
     private StringRedisTemplate stringRedisTemplate;
 
     @Test
-    public void test1(){
+    public void test1() {
         String key = "testSet";
         BoundSetOperations<String, String> setOperations = stringRedisTemplate.boundSetOps(key);
         setOperations.add("v1", "v2", "v3");
@@ -32,12 +32,11 @@ public class RedisTest {
         System.out.println(setOperations.isMember("v4"));
 
 
-
 //        stringRedisTemplate.opsForSet().
     }
 
     @Test
-    public void test2(){
+    public void test2() {
 
     }
 

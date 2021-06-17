@@ -7,13 +7,13 @@ import java.util.List;
 
 /**
  * <p>
- *  服务类
+ * 服务类
  * </p>
  *
  * @author Jzm
  * @since 2021-05-28
  */
-public interface IRolesService{
+public interface IRolesService {
 
     List<Roles> getByUserId(Integer userId);
 }

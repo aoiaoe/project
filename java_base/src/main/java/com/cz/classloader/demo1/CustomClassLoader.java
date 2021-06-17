@@ -14,16 +14,16 @@ public class CustomClassLoader extends ClassLoader {
 
     private String classPath;
 
-    public CustomClassLoader(String classPath){
+    public CustomClassLoader(String classPath) {
         this.classPath = classPath;
     }
 
     @Override
     protected Class<?> findClass(String name) throws ClassNotFoundException {
         final Class<?> c = this.findLoadedClass(name);
-        if(c == null){
+        if (c == null) {
             final byte[] data = loadClassData(name);
-            if(data == null){
+            if (data == null) {
                 throw new ClassNotFoundException();
             }
             return defineClass(name, data, 0, data.length);

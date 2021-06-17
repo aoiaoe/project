@@ -21,7 +21,7 @@ import java.io.PrintWriter;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return NoOpPasswordEncoder.getInstance();
     }
 
@@ -29,7 +29,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private UserDetailsService usersService;
 
     /**
-     *
      * @param auth
      * @throws Exception
      */
@@ -84,10 +83,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     /**
      * 角色继承, 代表admin自动获得user的权限
+     *
      * @return
      */
     @Bean
-    public RoleHierarchy roleHierarchy(){
+    public RoleHierarchy roleHierarchy() {
         RoleHierarchyImpl roleHierarchy = new RoleHierarchyImpl();
         roleHierarchy.setHierarchy("ROLE_admin > ROLE_user");
         return roleHierarchy;
@@ -95,6 +95,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     /**
      * 前后端分离项目使用
+     *
      * @param http
      * @throws Exception
      */
@@ -165,10 +166,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     /**
      * 由于配置最大session并存数之后,退出登录之后，Security不能感知到session已经退出，导致后续账号不能再次登录
      * 此组件会在session登录或者退出之后发布事件,Security会及时感知到
+     *
      * @return
      */
     @Bean
-    public HttpSessionEventPublisher eventPublisher(){
+    public HttpSessionEventPublisher eventPublisher() {
         return new HttpSessionEventPublisher();
     }
 }

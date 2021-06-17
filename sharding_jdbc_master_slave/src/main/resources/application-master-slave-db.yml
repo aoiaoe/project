@@ -30,10 +30,10 @@ spring:
     props:
       sql:
         show: true
-#    masterslave:
-#      load-balance-algorithm-type: round_robin
-#      master-data-source-name: master
-#      slave-data-source-names: slave01
+    #    masterslave:
+    #      load-balance-algorithm-type: round_robin
+    #      master-data-source-name: master
+    #      slave-data-source-names: slave01
     sharding:
       default-database-strategy:
         inline:

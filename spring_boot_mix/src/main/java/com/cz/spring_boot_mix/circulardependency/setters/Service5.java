@@ -15,12 +15,12 @@ public class Service5 {
 
     private Service6 service6;
 
-    public Service5(){
+    public Service5() {
         log.info("初始化service5、、、、");
     }
 
     @Autowired
-    public void setService6(Service6 service6){
+    public void setService6(Service6 service6) {
         this.service6 = service6;
     }
 }

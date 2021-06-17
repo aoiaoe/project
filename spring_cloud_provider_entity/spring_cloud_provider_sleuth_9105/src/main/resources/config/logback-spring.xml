@@ -3,10 +3,10 @@
     <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
     <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
 
-    <property name="log.path" value="D:\\123456\\logback.log" />
+    <property name="log.path" value="D:\\123456\\logback.log"/>
 
     <property name="log.pattern"
-              value="%d{yyyy-MM-dd HH:mm:ss.SSS} -%5p ${PID} --- [%15.15t] %-40.40logger{39} : %m%n" />
+              value="%d{yyyy-MM-dd HH:mm:ss.SSS} -%5p ${PID} --- [%15.15t] %-40.40logger{39} : %m%n"/>
 
 
     <appender name="logstash"
@@ -23,22 +23,22 @@
         </connectionStrategy>
     </appender>
 
-<!--    <appender name="socket"-->
-<!--              class="net.logstash.logback.appender.LogstashSocketAppender">-->
-<!--        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">-->
-<!--            <level>INFO</level>-->
-<!--        </filter>-->
-<!--        <host>10.10.129.35</host>-->
-<!--        <port>4569</port>-->
-<!--        <customFields>{"appname":"myapp"}</customFields>-->
-<!--    </appender>-->
+    <!--    <appender name="socket"-->
+    <!--              class="net.logstash.logback.appender.LogstashSocketAppender">-->
+    <!--        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">-->
+    <!--            <level>INFO</level>-->
+    <!--        </filter>-->
+    <!--        <host>10.10.129.35</host>-->
+    <!--        <port>4569</port>-->
+    <!--        <customFields>{"appname":"myapp"}</customFields>-->
+    <!--    </appender>-->
 
 
-<!--    <springProfile name="local">-->
-        <root level="info">
-            <appender-ref ref="CONSOLE"/>
-            <appender-ref ref="logstash"/>
-        </root>
-<!--    </springProfile>-->
+    <!--    <springProfile name="local">-->
+    <root level="info">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="logstash"/>
+    </root>
+    <!--    </springProfile>-->
 
 </configuration>

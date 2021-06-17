@@ -25,7 +25,7 @@ public class RabbitMqConfig {
     public static int DELAY_MILLS = 10_000;
 
     @Bean
-    public RabbitTemplate rabbitTemplate(CachingConnectionFactory rabbitConnectionFactory){
+    public RabbitTemplate rabbitTemplate(CachingConnectionFactory rabbitConnectionFactory) {
         return new RabbitTemplate(rabbitConnectionFactory);
     }
 
@@ -42,35 +42,35 @@ public class RabbitMqConfig {
 
 
     @Bean
-    public TopicExchange delayExchange(){
+    public TopicExchange delayExchange() {
         return new TopicExchange(DELAY_TOPIC_EXCHANGE, false, true);
     }
 
     @Bean
-    public Queue delayQueue(){
-        Map<String, Object> argsMap= new HashMap();
-        argsMap.put("x-dead-letter-exchange",PROCESS_TOPIC_EXCHANGE);
-        argsMap.put("x-dead-letter-routing-key",KEY);
+    public Queue delayQueue() {
+        Map<String, Object> argsMap = new HashMap();
+        argsMap.put("x-dead-letter-exchange", PROCESS_TOPIC_EXCHANGE);
+        argsMap.put("x-dead-letter-routing-key", KEY);
         return new Queue(DELAY_QUEUE, false, false, true, argsMap);
     }
 
     @Bean
-    public Binding delayBinding(){
+    public Binding delayBinding() {
         return BindingBuilder.bind(delayQueue()).to(delayExchange()).with(KEY);
     }
 
     @Bean
-    public TopicExchange processExchange(){
+    public TopicExchange processExchange() {
         return new TopicExchange(PROCESS_TOPIC_EXCHANGE, false, true);
     }
 
     @Bean
-    public Queue processQueue(){
+    public Queue processQueue() {
         return new Queue(PROCESS_QUEUE, false, false, true);
     }
 
     @Bean
-    public Binding processBinding(){
+    public Binding processBinding() {
         return BindingBuilder.bind(processQueue()).to(processExchange()).with(KEY);
     }
 

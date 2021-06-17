@@ -22,13 +22,14 @@ import java.util.List;
  * 通过Feign客户端的fallback属性开启回退方法
  * 需要要开启以下配置:
  * feign:
- *   hystrix:
- *     enabled: true
+ * hystrix:
+ * enabled: true
+ *
  * @author alian
  * @date 2020/10/13 下午 4:39
  * @since JDK8
  */
-@ConditionalOnProperty(value = "prop",  havingValue = "true")
+@ConditionalOnProperty(value = "prop", havingValue = "true")
 @Slf4j
 @Service
 public class EntityServiceImpl_FBProp implements IEntityService {
@@ -47,9 +48,9 @@ public class EntityServiceImpl_FBProp implements IEntityService {
     }
 }
 
-@ConditionalOnProperty(value = "prop",  havingValue = "true")
+@ConditionalOnProperty(value = "prop", havingValue = "true")
 @FeignClient(name = "provider", path = "/entity", fallback = EntityFeignFallBack.class)
-interface EntityFeignFBPropClient{
+interface EntityFeignFBPropClient {
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     List<Entity> getAll();
@@ -58,9 +59,9 @@ interface EntityFeignFBPropClient{
     Entity getById(@PathVariable(value = "id") Integer id);
 }
 
-@ConditionalOnProperty(value = "prop",  havingValue = "true")
+@ConditionalOnProperty(value = "prop", havingValue = "true")
 @Component
-class EntityFeignFallBack implements EntityFeignFBPropClient{
+class EntityFeignFallBack implements EntityFeignFBPropClient {
 
     @Override
     public List<Entity> getAll() {

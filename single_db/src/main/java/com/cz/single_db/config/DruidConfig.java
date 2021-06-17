@@ -15,13 +15,13 @@ public class DruidConfig {
 
     @ConfigurationProperties(prefix = "spring.datasource")
     @Bean
-    public DruidDataSource druidDataSource(){
+    public DruidDataSource druidDataSource() {
         return new DruidDataSource();
     }
 
     @ConditionalOnProperty(value = "spring.datasource.webEnable", havingValue = "true", matchIfMissing = true)
     @Bean
-    public ServletRegistrationBean druidServlet(){
+    public ServletRegistrationBean druidServlet() {
         ServletRegistrationBean servletRegistrationBean = new ServletRegistrationBean(
                 new StatViewServlet(), "/druid/*");
         servletRegistrationBean.addInitParameter("allow", "127.0.0.1");// 白名单
@@ -35,11 +35,11 @@ public class DruidConfig {
     @ConditionalOnProperty(value = "spring.datasource.webEnable", havingValue = "true", matchIfMissing = true)
     @Bean
     public FilterRegistrationBean filterRegistrationBean() {
-        FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean() ;
+        FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean();
         filterRegistrationBean.setFilter(new WebStatFilter());
         filterRegistrationBean.addUrlPatterns("/*"); // 所有请求进行监控处理
         filterRegistrationBean.addInitParameter("exclusions", "*.js,*.gif,*.jpg,*.css,/druid/*");
-        return filterRegistrationBean ;
+        return filterRegistrationBean;
     }
 
 }

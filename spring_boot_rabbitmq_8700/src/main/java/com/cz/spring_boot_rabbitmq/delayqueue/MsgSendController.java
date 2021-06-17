@@ -20,7 +20,7 @@ public class MsgSendController {
     private RabbitTemplate rabbitTemplate;
 
     @GetMapping(value = "/send")
-    public boolean send(){
+    public boolean send() {
         MessageProperties messageProperties = new MessageProperties();
         messageProperties.setExpiration(RabbitMqConfig.DELAY_MILLS + "");
         String now = LocalDateTime.now().toString();

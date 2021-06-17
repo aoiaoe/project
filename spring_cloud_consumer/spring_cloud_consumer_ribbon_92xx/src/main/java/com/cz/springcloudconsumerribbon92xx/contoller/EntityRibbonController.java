@@ -32,13 +32,14 @@ public class EntityRibbonController {
     private RestTemplate ribbonLBRestTemplate;
 
     @GetMapping(value = "/{id}")
-    public Entity getById(@PathVariable("id") Integer id){
+    public Entity getById(@PathVariable("id") Integer id) {
         return ribbonLBRestTemplate.getForObject(ENTIiTY_HTTP_URL + id, Entity.class);
     }
 
     @GetMapping
-    public List<Entity> listAll(){
-        ParameterizedTypeReference<List<Entity>> type = new ParameterizedTypeReference<List<Entity>>(){};
+    public List<Entity> listAll() {
+        ParameterizedTypeReference<List<Entity>> type = new ParameterizedTypeReference<List<Entity>>() {
+        };
         ResponseEntity<List<Entity>> exchange = ribbonLBRestTemplate.exchange(ENTIiTY_HTTP_URL + "list", HttpMethod.GET, null, type);
         return exchange.getBody();
     }

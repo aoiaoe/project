@@ -7,20 +7,20 @@ import java.util.concurrent.TimeUnit;
  * jstack {pid}
  */
 public class ThreadStatusTest {
-    
+
     public static void main(String[] args) {
         new Thread(() -> {
-            while(true) {
+            while (true) {
                 try {
                     TimeUnit.SECONDS.sleep(100);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
-        },"STATUS_01").start();  //阻塞状态
+        }, "STATUS_01").start();  //阻塞状态
 
         new Thread(() -> {
-            while(true) {
+            while (true) {
                 synchronized (ThreadStatusTest.class) {
                     try {
                         ThreadStatusTest.class.wait();
@@ -29,20 +29,20 @@ public class ThreadStatusTest {
                     }
                 }
             }
-        },"STATUS_02").start(); //阻塞状态
+        }, "STATUS_02").start(); //阻塞状态
 
         // 两个线程持有同一把锁
-        new Thread(new BlockedDemo(),"BLOCKED-DEMO-01").start();
-        new Thread(new BlockedDemo(),"BLOCKED-DEMO-02").start();
+        new Thread(new BlockedDemo(), "BLOCKED-DEMO-01").start();
+        new Thread(new BlockedDemo(), "BLOCKED-DEMO-02").start();
 
     }
-    
+
     // 模拟Blocked状态
     static class BlockedDemo extends Thread {
         @Override
         public void run() {
             synchronized (BlockedDemo.class) {
-                while(true) {
+                while (true) {
                     try {
                         TimeUnit.SECONDS.sleep(100);
                     } catch (InterruptedException e) {

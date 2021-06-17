@@ -11,7 +11,7 @@ import java.util.List;
 
 /**
  * <p>
- *  前端控制器
+ * 前端控制器
  * </p>
  *
  * @author cz
@@ -26,25 +26,25 @@ public class UsersController {
     private IUsersService iUsersService;
 
     @GetMapping
-    public List<Users> list(){
+    public List<Users> list() {
         return this.iUsersService.listAll();
     }
 
     @PutMapping
-    public boolean save(@RequestBody Users users){
+    public boolean save(@RequestBody Users users) {
         log.info("save user param:{}", users);
         return this.iUsersService.save(users);
     }
 
     @GetMapping(value = "/{id}")
-    public Users get(@PathVariable("id") Integer id){
-        Users user =  this.iUsersService.getById(id);
+    public Users get(@PathVariable("id") Integer id) {
+        Users user = this.iUsersService.getById(id);
         log.info("get user param:{}, result:{}", id, user);
         return user;
     }
 
     @PostMapping
-    public boolean saveBatch(){
+    public boolean saveBatch() {
         return this.iUsersService.saveUserBatch();
     }
 

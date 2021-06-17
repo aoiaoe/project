@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- *
  * @author alian
  * @date 2020/11/16 下午 6:02
  * @since JDK8
@@ -17,7 +16,7 @@ import java.util.stream.Collectors;
 public class ListDemo {
 
     public static void main(String[] args) {
-       testFor();
+        testFor();
     }
 
     /**
@@ -26,7 +25,7 @@ public class ListDemo {
      * 如果要在循环时对list进行删除操作,不能使用List接口的删除方法,需使用迭代器的remove()方法，
      * 否则会抛并发修改异常，进行快速失败
      */
-    public static void testFor(){
+    public static void testFor() {
         List list = new ArrayList<>();
         list.add("1");
         list.add("2");
@@ -37,7 +36,7 @@ public class ListDemo {
     }
 
     @Test
-    public void testIterator(){
+    public void testIterator() {
         List<Data> list = new ArrayList<>();
         for (Long i = 1L; i < 6L; i++) {
             list.add(new Data(i, "name_" + i));
@@ -64,7 +63,7 @@ public class ListDemo {
 //        }
 
         for (Data data : list) {
-            if(data.getId() == 2){
+            if (data.getId() == 2) {
                 data.setName("aaaaaaa");
             }
         }
@@ -72,7 +71,7 @@ public class ListDemo {
     }
 
     @Test
-    public void test2(){
+    public void test2() {
         List<List<Data>> data = new ArrayList<>();
         List<Data> subData1 = new ArrayList<>();
         subData1.add(new Data(1L, "1"));

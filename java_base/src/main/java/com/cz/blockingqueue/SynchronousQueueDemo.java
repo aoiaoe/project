@@ -15,7 +15,7 @@ public class SynchronousQueueDemo {
     private SynchronousQueue queue = new SynchronousQueue<String>();
 
     @Test
-    public void test1(){
+    public void test1() {
         new Thread(() -> {
             while (true) {
                 System.out.println(Thread.currentThread().getName());
@@ -27,7 +27,7 @@ public class SynchronousQueueDemo {
                     e.printStackTrace();
                 }
             }
-        },"C").start();
+        }, "C").start();
         new Thread(() -> {
             System.out.println(Thread.currentThread().getName());
             try {
@@ -36,7 +36,7 @@ public class SynchronousQueueDemo {
                 e.printStackTrace();
             }
             System.out.println(Thread.currentThread().getName() + " 放入 1");
-        },"A").start();
+        }, "A").start();
         new Thread(() -> {
             System.out.println(Thread.currentThread().getName());
             try {
@@ -45,10 +45,13 @@ public class SynchronousQueueDemo {
                 e.printStackTrace();
             }
             System.out.println(Thread.currentThread().getName() + " 放入 2");
-        },"B").start();
+        }, "B").start();
 
         try {
-            TimeUnit.SECONDS.sleep(10);} catch (InterruptedException e) {e.printStackTrace();}
+            TimeUnit.SECONDS.sleep(10);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
 
     }

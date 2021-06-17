@@ -16,22 +16,24 @@ import org.springframework.stereotype.Component;
 public class MyAspect {
 
     @Pointcut("execution(* com.cz.spring_boot_mix.aop..*.*(..))")
-    public void pointCut(){}
+    public void pointCut() {
+    }
 
     @Pointcut("@annotation(com.cz.spring_boot_mix.aop.MyAopAnnotation)")
-    public void annoPointCut(){}
+    public void annoPointCut() {
+    }
 
     @Before("pointCut()")
-    public void before(){
+    public void before() {
         log.info("@Before");
     }
 
     @After("pointCut()")
-    public void after(){
+    public void after() {
         log.info("@After");
     }
 
-//    @Around("annoPointCut()")
+    //    @Around("annoPointCut()")
     public void around(ProceedingJoinPoint joinPoint) throws Throwable {
         log.info("@Around  before");
         joinPoint.proceed();
@@ -39,12 +41,12 @@ public class MyAspect {
     }
 
     @AfterReturning("pointCut()")
-    public void afterReturning(){
+    public void afterReturning() {
         log.info("@AfterReturning");
     }
 
     @AfterThrowing("pointCut()")
-    public void afterThrowing(){
+    public void afterThrowing() {
         log.info("@AfterThrowing");
     }
 

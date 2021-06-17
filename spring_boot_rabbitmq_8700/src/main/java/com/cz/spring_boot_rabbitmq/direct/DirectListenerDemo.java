@@ -20,7 +20,7 @@ public class DirectListenerDemo {
     })
     public void process(@Payload String message,
                         @Headers Map<String, Object> headers,
-                        @Header(value = AmqpHeaders.RECEIVED_ROUTING_KEY) String routingKey){
+                        @Header(value = AmqpHeaders.RECEIVED_ROUTING_KEY) String routingKey) {
 
         System.out.println("接收到消息: " + message);
         System.out.println("headers:");

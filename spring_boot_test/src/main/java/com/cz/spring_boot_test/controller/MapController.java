@@ -13,12 +13,12 @@ public class MapController {
     private MapService mapService;
 
     @GetMapping(value = "/{key}")
-    public String getValue(@PathVariable(value = "key") String key){
+    public String getValue(@PathVariable(value = "key") String key) {
         return this.mapService.getValue(key);
     }
 
     @PostMapping(value = "/receipt")
-    public boolean receipt(@RequestBody String data){
+    public boolean receipt(@RequestBody String data) {
         System.out.println(data);
         return true;
     }

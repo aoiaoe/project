@@ -14,7 +14,7 @@ public class MyInterfaceInvocationHandler implements InvocationHandler {
 
     private MyInterface myInterface;
 
-    public MyInterfaceInvocationHandler(MyInterface myInterface){
+    public MyInterfaceInvocationHandler(MyInterface myInterface) {
         this.myInterface = myInterface;
     }
 

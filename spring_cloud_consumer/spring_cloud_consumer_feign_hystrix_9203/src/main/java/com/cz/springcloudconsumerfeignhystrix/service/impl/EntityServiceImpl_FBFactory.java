@@ -39,20 +39,20 @@ public class EntityServiceImpl_FBFactory implements IEntityService {
     }
 }
 
-@ConditionalOnProperty(value = "factory",  havingValue = "true")
+@ConditionalOnProperty(value = "factory", havingValue = "true")
 @FeignClient(name = "provider", fallbackFactory = EntityFallBackFactory.class)
-interface EntityFeignFBFactoryClient extends EntityApi{
+interface EntityFeignFBFactoryClient extends EntityApi {
 }
 
 
 @Slf4j
-@ConditionalOnProperty(value = "factory",  havingValue = "true")
+@ConditionalOnProperty(value = "factory", havingValue = "true")
 @Component
-class EntityFallBackFactory implements FallbackFactory<EntityFeignFBFactoryClient>{
+class EntityFallBackFactory implements FallbackFactory<EntityFeignFBFactoryClient> {
     @Override
     public EntityFeignFBFactoryClient create(Throwable throwable) {
-        log.error("回退错误:{}",throwable);
-        return new EntityFeignFBFactoryClient(){
+        log.error("回退错误:{}", throwable);
+        return new EntityFeignFBFactoryClient() {
 
             @Override
             public List<Entity> getAll() {
@@ -63,6 +63,6 @@ class EntityFallBackFactory implements FallbackFactory<EntityFeignFBFactoryClien
             public Entity getById(Integer id) {
                 return new Entity(-2, "服务熔断", "from call back factory", LocalDateTime.now());
             }
-        } ;
+        };
     }
 }

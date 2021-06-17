@@ -5,13 +5,14 @@ import java.lang.reflect.Method;
 
 /**
  * 自定义类装载器,实现类覆盖
+ *
  * @author alian
  * @date 2020/7/3 下午 5:27
  * @since JDK8
  */
 public class MyClassLoader extends ClassLoader {
 
-    public MyClassLoader(ClassLoader parent){
+    public MyClassLoader(ClassLoader parent) {
         super(parent);
     }
 

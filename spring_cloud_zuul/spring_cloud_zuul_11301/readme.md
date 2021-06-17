@@ -1,6 +1,7 @@
 # Getting Started
 
 ### 提示
+
      整合zuul时需要引入引入的依赖包如下
       <dependency>
          <groupId>org.springframework.cloud</groupId>
@@ -32,8 +33,9 @@
         <groupId>org.springframework.cloud</groupId>
         <artifactId>spring-cloud-starter-consul-discovery</artifactId>
      </dependency>
-     
+
 ### 路由策略
+
      第一种:
     zuul:
         servlet-path: #{网关路径,可选}
