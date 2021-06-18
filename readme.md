@@ -44,6 +44,8 @@
      此模块用于存放学习SpringCloud的模块之间通用的类,例如通用的实体,服务提供者的接口等
 # spring_cloud_sdk
      此模块存放其他模块可能用到的组件
+# spring_cloud_seata
+     Seata分布式事务
 # spring_cloud_zuul
      zuul网关
 
