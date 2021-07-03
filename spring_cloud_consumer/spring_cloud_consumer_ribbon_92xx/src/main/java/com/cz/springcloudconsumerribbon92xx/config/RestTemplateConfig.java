@@ -15,7 +15,7 @@ public class RestTemplateConfig {
 
     // 这个bean只是一个单纯的http客户端,只能通过域名和ip对服务提供者进行访问
     @Bean(name = "restTemplate")
-    public RestTemplate restTemplate(){
+    public RestTemplate restTemplate() {
         return new RestTemplate();
     }
 
@@ -23,7 +23,7 @@ public class RestTemplateConfig {
     // 此注释开启ribbon的负载均衡,默认路由策略为RoundRobinRule
     @LoadBalanced
     @Bean(name = "ribbonLBRestTemplate")
-    public RestTemplate ribbonLBRestTemplate(){
+    public RestTemplate ribbonLBRestTemplate() {
         return new RestTemplate();
     }
 }

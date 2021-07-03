@@ -19,7 +19,7 @@ public class UserServiceImplTest {
      * 读写分离
      */
     @Test
-    public void testSave(){
+    public void testSave() {
         Users user = new Users();
         user.setId(2);
         user.setName("cz");
@@ -31,7 +31,7 @@ public class UserServiceImplTest {
      * 读写分离 + 分表
      */
     @Test
-    public void testSaveSplitTableBatch(){
+    public void testSaveSplitTableBatch() {
         this.userService.save(8);
 
     }
@@ -40,14 +40,14 @@ public class UserServiceImplTest {
      * 读写分离 + 分库分表分表
      */
     @Test
-    public void testSaveSplitDbTableBatch(){
+    public void testSaveSplitDbTableBatch() {
         this.userService.save(16);
         // 1  3  5  7  9   11  13  15
 
     }
 
     @Test
-    public void testSelectById(){
+    public void testSelectById() {
         Users users = this.userService.selectById(5);
         System.out.println(users);
     }

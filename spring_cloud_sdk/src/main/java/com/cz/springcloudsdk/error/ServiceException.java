@@ -20,6 +20,10 @@ public class ServiceException extends RuntimeException {
         this.code = ErrorCodeEnums.FAIL.getCode();
     }
 
+    public ServiceException(ErrorCodeEnums error, Throwable throwable) {
+        this(error.getCode(), error.getMsg(), throwable);
+    }
+
     public ServiceException(String code, String message) {
         super(message);
         this.code = code;

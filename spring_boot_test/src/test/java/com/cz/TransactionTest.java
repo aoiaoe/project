@@ -25,29 +25,32 @@ public class TransactionTest {
     private DemoService demoService;
 
     @Test
-    public void insert_outer_exception(){
+    public void insert_outer_exception() {
         try {
             this.demoService.insert_out_exception();
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     @Test
-    public void insert_outer_exception_required(){
+    public void insert_outer_exception_required() {
         try {
             this.demoService.insert_out_exception_required();
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     @Test
-    public void testRunCommand() throws Exception{
+    public void testRunCommand() throws Exception {
         String command = "calc";
         Process exec = Runtime.getRuntime().exec(command);
         try {
-            TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}
+            TimeUnit.SECONDS.sleep(2);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         exec.destroy();
     }

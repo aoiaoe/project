@@ -17,7 +17,7 @@ public class FeignHeaderInterceptor implements HandlerInterceptor {
         String sender_client = request.getHeader("SENDER_CLIENT");
         System.out.println("SENDER_CLIENT ============>" + sender_client);
         // 指定9203端口服务才拦截错误
-        if(sender_client != null && sender_client.equals("FEIGN_CLIENT_9203")) {
+        if (sender_client != null && sender_client.equals("FEIGN_CLIENT_9203")) {
             throw new RuntimeException("SDK FEIGN HEADER 拦截器报错: 参数错误");
         }
         return true;

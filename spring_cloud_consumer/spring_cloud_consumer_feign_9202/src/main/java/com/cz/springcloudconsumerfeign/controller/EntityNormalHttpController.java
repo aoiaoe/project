@@ -27,12 +27,12 @@ public class EntityNormalHttpController {
     private EntityFeignClient entityFeignClient;
 
     @GetMapping(value = "/{id}")
-    public Entity getById(@PathVariable("id") Integer id){
+    public Entity getById(@PathVariable("id") Integer id) {
         return this.entityFeignClient.getById(id);
     }
 
     @GetMapping
-    public List<Entity> listAll(){
+    public List<Entity> listAll() {
         return this.entityFeignClient.getAll();
     }
 

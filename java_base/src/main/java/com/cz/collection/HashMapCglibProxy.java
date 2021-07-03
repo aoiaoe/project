@@ -16,7 +16,7 @@ public class HashMapCglibProxy<T> implements InvocationHandler {
 
     private T target;
 
-    public HashMapCglibProxy(T target){
+    public HashMapCglibProxy(T target) {
         this.target = target;
     }
 
@@ -31,16 +31,16 @@ public class HashMapCglibProxy<T> implements InvocationHandler {
 //        return invoke;
 //    }
 
-    public T getProxy(){
+    public T getProxy() {
         Enhancer enhancer = new Enhancer();
         enhancer.setSuperclass(target.getClass());
         enhancer.setCallback(this);
-        return (T)enhancer.create();
+        return (T) enhancer.create();
     }
 
     @Override
     public Object invoke(Object o, Method method, Object[] objects) throws Throwable {
-        if(method != null && "resize".equals(method.getName())){
+        if (method != null && "resize".equals(method.getName())) {
             System.out.println("called resize");
         }
         System.out.println("before...");

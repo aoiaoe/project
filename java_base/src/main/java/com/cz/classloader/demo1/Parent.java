@@ -5,7 +5,7 @@ public class Parent {
     protected static String CLASS_LOADER_NAME;
     protected String instanceID;
 
-	// 1.先执行静态变量和静态代码块（只在类加载期间执行一次）
+    // 1.先执行静态变量和静态代码块（只在类加载期间执行一次）
     static {
         CLASS_NAME = Parent.class.getName();
         CLASS_LOADER_NAME = Parent.class.getClassLoader().toString();

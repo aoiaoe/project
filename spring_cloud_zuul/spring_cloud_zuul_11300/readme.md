@@ -1,6 +1,7 @@
 # Getting Started
 
 ### 提示
+
      整合zuul时需要引入引入的依赖包如下
       <dependency>
          <groupId>org.springframework.cloud</groupId>
@@ -32,8 +33,9 @@
         <groupId>org.springframework.cloud</groupId>
         <artifactId>spring-cloud-starter-consul-discovery</artifactId>
      </dependency>
-     
+
 ### 路由策略
+
      第一种:
     zuul:
         servlet-path: #{网关路径,可选}
@@ -56,8 +58,9 @@
      访问http://host:port/api/prod-service/entity/list
      网关根据prod-service这个路径在配置中找到是访问provider微服务
      将会访问到provider微服务中的/entity/list接口
- 
+
 ### 负载均衡
+
      使用nginx对网关进行反向代理，实现zuul网关的负载均衡,
      配置大致如下
      upstream upstream_name{

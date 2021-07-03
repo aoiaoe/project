@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Configuration;
 public class RibbonRuleCustomizer {
 
     @Bean
-    public IRule rule(){
+    public IRule rule() {
         return new RandomRule();
     }
 }

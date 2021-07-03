@@ -16,7 +16,7 @@ public class UserServiceImplTest {
     private IUsersService usersService;
 
     @Test
-    public void testSaveBatch(){
+    public void testSaveBatch() {
         this.usersService.saveUserBatch();
     }
 }

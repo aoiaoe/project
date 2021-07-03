@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 public class LogFilterConfig {
 
     @Bean
-    public LogFilter logFilter(){
+    public LogFilter logFilter() {
         return new LogFilter();
     }
 

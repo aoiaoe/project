@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  * 修改feign请求,如增删header,修改body
+ *
  * @author alian
  * @date 2020/10/13 下午 2:48
  * @since JDK8

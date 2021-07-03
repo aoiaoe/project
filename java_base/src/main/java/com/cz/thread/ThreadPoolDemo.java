@@ -13,7 +13,11 @@ public class ThreadPoolDemo {
         Callable callable = new Callable() {
             @Override
             public Object call() throws Exception {
-                try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}
+                try {
+                    TimeUnit.SECONDS.sleep(2);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 return 1024;
             }
         };
@@ -26,12 +30,12 @@ public class ThreadPoolDemo {
             final Object o = futureTask.get();
             System.out.println(o);
             System.out.println(System.currentTimeMillis());
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public static void callableWithExecutors(){
+    public static void callableWithExecutors() {
         ExecutorService executorService = new ThreadPoolExecutor(10,
                 10,
                 10, TimeUnit.SECONDS,
@@ -40,7 +44,11 @@ public class ThreadPoolDemo {
         Callable callable = new Callable() {
             @Override
             public Object call() throws Exception {
-                try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}
+                try {
+                    TimeUnit.SECONDS.sleep(2);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 return 1024;
             }
         };

@@ -8,6 +8,7 @@ package com.cz.proxy;
 public class MyClass<T> implements MyInterface, MyInterface2 {
 
     private T data;
+
     @Override
     public void doSth() {
         System.out.println("doSth()");

@@ -1,2 +1,5 @@
 ## springboot杂项
-     诸如springboot定时任务等附加功能测试
+
+        AOP执行顺序
+        循环依赖
+        定时任务与线程池

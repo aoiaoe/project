@@ -11,8 +11,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * 自定义Ribbon路由策略:
- *  每个可达的服务访问都访问5次之后再还下一个服务
- *  例如:provder共三个服务, provider_9100 访问五次之后，换成访问provider_9101
+ * 每个可达的服务访问都访问5次之后再还下一个服务
+ * 例如:provder共三个服务, provider_9100 访问五次之后，换成访问provider_9101
+ *
  * @author alian
  * @date 2020/10/13 下午 4:53
  * @since JDK8
@@ -20,7 +21,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class MyRibbonRoutRule extends AbstractLoadBalancerRule {
 
     private AtomicInteger serverIndex;
-    public MyRibbonRoutRule(){
+
+    public MyRibbonRoutRule() {
         serverIndex = new AtomicInteger(0);
     }
 
@@ -32,11 +34,11 @@ public class MyRibbonRoutRule extends AbstractLoadBalancerRule {
     @Override
     public Server choose(Object key) {
         final ILoadBalancer loadBalancer = getLoadBalancer();
-        if(loadBalancer == null){
+        if (loadBalancer == null) {
             return null;
         }
         final List<Server> servers = loadBalancer.getReachableServers();
-        if(CollectionUtils.isEmpty(servers)){
+        if (CollectionUtils.isEmpty(servers)) {
             return null;
         }
         int indexTemp = serverIndex.getAndIncrement();

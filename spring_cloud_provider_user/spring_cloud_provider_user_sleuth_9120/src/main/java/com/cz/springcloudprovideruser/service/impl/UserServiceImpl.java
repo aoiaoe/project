@@ -21,7 +21,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> findAll() {
         Map<Long, User> holder = userHolder.getHolder();
-        if(holder != null && !holder.isEmpty()){
+        if (holder != null && !holder.isEmpty()) {
             return new ArrayList<>(holder.values());
         }
         return null;
@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User get(Long id) {
         Map<Long, User> holder = userHolder.getHolder();
-        if(holder != null && !holder.isEmpty()){
+        if (holder != null && !holder.isEmpty()) {
             return holder.get(id);
         }
         return null;

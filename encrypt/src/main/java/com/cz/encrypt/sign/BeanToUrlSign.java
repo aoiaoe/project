@@ -11,27 +11,29 @@ import java.security.PrivateKey;
 
 /**
  * bean签名
+ *
  * @author 《liaomin艾特gvt861.com》
  * @since JDK8
  * Creation time：2019/8/8 14:08
  */
 public class BeanToUrlSign<T extends BizBean> extends AbstractUrlSign {
     private Key key;
-    public static final String SIGN_KEY="sign";
-    public static final String APPID_KEY="appid";
+    public static final String SIGN_KEY = "sign";
+    public static final String APPID_KEY = "appid";
     T bean;
     private UrlParser urlParser;
+
     public BeanToUrlSign(PrivateKey privateKey, T bean) {
-        this.key=privateKey;
-        this.bean=bean;
-        urlParser=new BeanUrlParser(bean);
+        this.key = privateKey;
+        this.bean = bean;
+        urlParser = new BeanUrlParser(bean);
     }
 
 
     @Override
     public String url() {
-        String url=urlParser.parse();
-        StringUrlParser stringUrlParser=new StringUrlParser(url);
+        String url = urlParser.parse();
+        StringUrlParser stringUrlParser = new StringUrlParser(url);
         return stringUrlParser.parse();
     }
 

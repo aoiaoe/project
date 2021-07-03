@@ -13,7 +13,7 @@ public class StackException {
     public static void main(String[] args) {
         try {
             stackOverFlow();
-        }catch (Throwable e){
+        } catch (Throwable e) {
             System.out.println(count);
             e.printStackTrace();
         }
@@ -22,12 +22,12 @@ public class StackException {
     }
 
 
-    public static void stackOverFlow(){
+    public static void stackOverFlow() {
         count++;
         stackOverFlow();
     }
 
-    public static void oom(){
+    public static void oom() {
         for (Long i = 0L; i < num; i++) {
             arr[i.intValue()] = i;
         }

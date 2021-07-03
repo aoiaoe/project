@@ -12,6 +12,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -38,30 +39,30 @@ public class EntityServiceImpl_FBFactory implements IEntityService {
     }
 }
 
-@ConditionalOnProperty(value = "factory",  havingValue = "true")
+@ConditionalOnProperty(value = "factory", havingValue = "true")
 @FeignClient(name = "provider", fallbackFactory = EntityFallBackFactory.class)
-interface EntityFeignFBFactoryClient extends EntityApi{
+interface EntityFeignFBFactoryClient extends EntityApi {
 }
 
 
 @Slf4j
-@ConditionalOnProperty(value = "factory",  havingValue = "true")
+@ConditionalOnProperty(value = "factory", havingValue = "true")
 @Component
-class EntityFallBackFactory implements FallbackFactory<EntityFeignFBFactoryClient>{
+class EntityFallBackFactory implements FallbackFactory<EntityFeignFBFactoryClient> {
     @Override
     public EntityFeignFBFactoryClient create(Throwable throwable) {
-        log.error("回退错误:{}",throwable);
-        return new EntityFeignFBFactoryClient(){
+        log.error("回退错误:{}", throwable);
+        return new EntityFeignFBFactoryClient() {
 
             @Override
             public List<Entity> getAll() {
-                return ImmutableList.of(new Entity(-1, "服务熔断", "from call back factory"));
+                return ImmutableList.of(new Entity(-1, "服务熔断", "from call back factory", LocalDateTime.now()));
             }
 
             @Override
             public Entity getById(Integer id) {
-                return new Entity(-2, "服务熔断", "from call back factory");
+                return new Entity(-2, "服务熔断", "from call back factory", LocalDateTime.now());
             }
-        } ;
+        };
     }
 }

@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Configuration;
 public class RandomFeignRuleConfig {
 
     @Bean
-    public IRule random(){
+    public IRule random() {
         return new RandomRule();
     }
 }

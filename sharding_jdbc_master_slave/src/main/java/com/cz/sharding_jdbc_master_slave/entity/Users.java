@@ -10,7 +10,7 @@ import java.io.Serializable;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author cz
@@ -19,7 +19,7 @@ import java.io.Serializable;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@ApiModel(value="Users对象")
+@ApiModel(value = "Users对象")
 public class Users implements Serializable {
 
     private static final long serialVersionUID = 1L;

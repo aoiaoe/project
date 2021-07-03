@@ -1,5 +1,5 @@
 # spring_cloud_consumer_feign_9202
-    
+
      整合netflix的feign进行服务之间的请求
      使用Ribbon做为http请求存在大量模板代码,feign兼容spring注解@GetMapping,@PostMapping等，可以减少大量的模板代码
      故好的实现为，服务提供者将其请求抽象一层，编写一个接口继承该抽象接口，

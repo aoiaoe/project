@@ -20,26 +20,26 @@ public class AopServiceImplTest {
     private AopServiceImpl aopService;
 
     @Test
-    public void test(){
+    public void test() {
         this.aopService.doSth();
     }
 
     @Test
-    public void testWithException(){
+    public void testWithException() {
         try {
             this.aopService.doSthWithException();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     @Test
-    public void testWithOutAroundAspect(){
-        this.aopService.doSthWithOutAroundAspect();
+    public void testWithOutAroundAspect() {
+        this.aopService.doSthWithOutAroundAspectWithOutException();
     }
 
     @Test
-    public void testWithOutAroundAspectWithException(){
+    public void testWithOutAroundAspectWithException() {
         this.aopService.doSthWithOutAroundAspectWithException();
     }
 

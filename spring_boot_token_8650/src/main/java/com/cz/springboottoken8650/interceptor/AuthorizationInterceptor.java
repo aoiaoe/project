@@ -53,14 +53,14 @@ public class AuthorizationInterceptor implements HandlerInterceptor {
         }
         //从redis中取value，如果为空，则登陆过期
         Object loginStatus = redisUtil.get(token);
-        if( Objects.isNull(loginStatus)){
-            HttpServletResponseUtil.printJSON(response, ResponseCode.fail(IRespConstant.ILoginInStatus.RESCODE_LOGINEXPIRE,IRespConstant.ILoginInStatus.RESCODE_LOGINEXPIRE_MSG));
+        if (Objects.isNull(loginStatus)) {
+            HttpServletResponseUtil.printJSON(response, ResponseCode.fail(IRespConstant.ILoginInStatus.RESCODE_LOGINEXPIRE, IRespConstant.ILoginInStatus.RESCODE_LOGINEXPIRE_MSG));
             //response.getWriter().print("登录过期!");
             return false;
         }
         //value不匹配为在其他设备登录，解决多台设备登录异常
         if (!loginStatus.equals(token)) {
-            HttpServletResponseUtil.printJSON(response, ResponseCode.fail(IRespConstant.ILoginInStatus.CODE_LOGINOTHERADDR_ERROR,IRespConstant.ILoginInStatus.MESSAGE_LOGINOTHERADDR_ERROR));
+            HttpServletResponseUtil.printJSON(response, ResponseCode.fail(IRespConstant.ILoginInStatus.CODE_LOGINOTHERADDR_ERROR, IRespConstant.ILoginInStatus.MESSAGE_LOGINOTHERADDR_ERROR));
             //response.getWriter().print("当前账号账号已在其他设备登录，请重新登录!");
             return false;
         }

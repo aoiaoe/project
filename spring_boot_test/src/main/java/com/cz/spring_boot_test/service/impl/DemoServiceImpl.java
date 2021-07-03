@@ -22,7 +22,7 @@ public class DemoServiceImpl implements DemoService {
 
     @Transactional
     @Override
-    public void insert_out_exception(){
+    public void insert_out_exception() {
         this.demoServiceA.insert();
         this.demoServiceB.insert();
 
@@ -42,7 +42,7 @@ public class DemoServiceImpl implements DemoService {
 //            this.demoServiceB.exception();
             // 改方法抛出异常, 且有事务相关操作, 虽然异常被try-catch， 但是依然会回滚
             this.demoServiceB.insert_exception();
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println("方法回滚");
         }
     }

@@ -24,9 +24,9 @@ public class UserEntityServiceImpl implements UserEntityService {
     @Override
     public UserEntityMix geById(Long id) {
         Map<Long, User> holder = userHolder.getHolder();
-        if(holder != null && !holder.isEmpty()){
+        if (holder != null && !holder.isEmpty()) {
             User user = holder.get(id);
-            if(user != null) {
+            if (user != null) {
                 UserEntityMix res = new UserEntityMix();
                 BeanUtils.copyProperties(user, res);
                 List<Entity> all = this.entityFeignClient.getAll();

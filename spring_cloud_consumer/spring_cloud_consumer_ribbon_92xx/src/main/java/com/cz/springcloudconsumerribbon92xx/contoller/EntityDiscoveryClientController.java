@@ -35,33 +35,34 @@ public class EntityDiscoveryClientController {
     private DiscoveryClient discoveryClient;
 
     @GetMapping(value = "/{id}")
-    public Entity getById(@PathVariable("id") Integer id){
+    public Entity getById(@PathVariable("id") Integer id) {
         String url = choose();
-        if(url == null){
+        if (url == null) {
             return null;
         }
         return restTemplate.getForObject(url + id, Entity.class);
     }
 
     @GetMapping
-    public List<Entity> listAll(){
+    public List<Entity> listAll() {
         String url = choose();
-        if(url == null){
+        if (url == null) {
             return null;
         }
-        ParameterizedTypeReference<List<Entity>> type = new ParameterizedTypeReference<List<Entity>>(){};
+        ParameterizedTypeReference<List<Entity>> type = new ParameterizedTypeReference<List<Entity>>() {
+        };
         ResponseEntity<List<Entity>> exchange = restTemplate.exchange(url + "list", HttpMethod.GET, null, type);
         return exchange.getBody();
     }
 
-    public String choose(){
+    public String choose() {
         List<ServiceInstance> provider = discoveryClient.getInstances("provider");
-        if(CollectionUtils.isEmpty(provider)){
+        if (CollectionUtils.isEmpty(provider)) {
             return null;
         }
         int index = new Random().nextInt(provider.size());
         final ServiceInstance instance = provider.get(index);
-        String url =  "http://" + instance.getHost() + ":" + instance.getPort() + "/entity/";
+        String url = "http://" + instance.getHost() + ":" + instance.getPort() + "/entity/";
         log.info("choose service:{}", url);
         return url;
     }

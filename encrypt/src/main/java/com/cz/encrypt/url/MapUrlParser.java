@@ -15,7 +15,7 @@ import java.util.TreeMap;
  */
 @Slf4j
 public class MapUrlParser implements UrlParser {
-    private Map<String,Object> dataMap=new TreeMap<>();
+    private Map<String, Object> dataMap = new TreeMap<>();
 
     public Map<String, Object> getDataMap() {
         return dataMap;
@@ -27,35 +27,36 @@ public class MapUrlParser implements UrlParser {
 
     @Override
     public String parse() {
-        String returnUrl=urlMap(null,dataMap);
-        if(returnUrl.toString().endsWith("&")){
-            returnUrl=returnUrl.toString().substring(0,returnUrl.length()-1);
+        String returnUrl = urlMap(null, dataMap);
+        if (returnUrl.toString().endsWith("&")) {
+            returnUrl = returnUrl.toString().substring(0, returnUrl.length() - 1);
             log.debug(returnUrl);
             return returnUrl;
         }
         log.debug(returnUrl.toString());
         return returnUrl;
     }
-    public String urlMap(String parentKey,Map<String,Object> map){
-        StringBuffer paramUrl=new StringBuffer();
-        map.entrySet().forEach(entry->{
-            if(!MapToUrlSign.SIGN_KEY.equals(entry.getKey())) {
+
+    public String urlMap(String parentKey, Map<String, Object> map) {
+        StringBuffer paramUrl = new StringBuffer();
+        map.entrySet().forEach(entry -> {
+            if (!MapToUrlSign.SIGN_KEY.equals(entry.getKey())) {
                 Object value = entry.getValue();
                 if (value instanceof Map) {
                     Map<String, Object> ctreeMap = new TreeMap<String, Object>();
                     ctreeMap.putAll((Map) value);
-                    paramUrl.append(urlMap(entry.getKey(),ctreeMap));
-                }else if (value instanceof List) {
-                    List mapList=(List)value;
+                    paramUrl.append(urlMap(entry.getKey(), ctreeMap));
+                } else if (value instanceof List) {
+                    List mapList = (List) value;
                     for (int i = 0; i < mapList.size(); i++) {
                         Map cmap = (Map) mapList.get(i);
                         Map<String, Object> ctreeMap = new TreeMap<String, Object>();
                         ctreeMap.putAll(cmap);
-                        paramUrl.append(urlMap(entry.getKey()+"["+i+"]",ctreeMap));
+                        paramUrl.append(urlMap(entry.getKey() + "[" + i + "]", ctreeMap));
                     }
                 } else {
-                    if(entry.getValue()!=null&& StringUtils.isNotEmpty(entry.getValue().toString()) && !"null".equalsIgnoreCase(entry.getValue().toString())){
-                        paramUrl.append((parentKey==null?entry.getKey():(parentKey+"_"+entry.getKey())) + "=" + entry.getValue() + "&");
+                    if (entry.getValue() != null && StringUtils.isNotEmpty(entry.getValue().toString()) && !"null".equalsIgnoreCase(entry.getValue().toString())) {
+                        paramUrl.append((parentKey == null ? entry.getKey() : (parentKey + "_" + entry.getKey())) + "=" + entry.getValue() + "&");
 
                     }
                 }

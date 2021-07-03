@@ -16,7 +16,7 @@ public class MapServiceImpl implements MapService {
     Map<String, String> map = new ConcurrentHashMap<>();
 
     @PostConstruct
-    public void init(){
+    public void init() {
         for (int i = 0; i < 10; i++) {
             log.info("map.put..................");
             map.put(i + "", "String_" + i);

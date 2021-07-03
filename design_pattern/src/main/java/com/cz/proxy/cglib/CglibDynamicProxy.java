@@ -15,7 +15,7 @@ public class CglibDynamicProxy implements MethodInterceptor {
 
     private Object target;
 
-    public CglibDynamicProxy(Object target){
+    public CglibDynamicProxy(Object target) {
         this.target = target;
     }
 
@@ -27,7 +27,7 @@ public class CglibDynamicProxy implements MethodInterceptor {
         return invoke;
     }
 
-    public Object getProxy(){
+    public Object getProxy() {
         Enhancer enhancer = new Enhancer();
         enhancer.setSuperclass(target.getClass());
         enhancer.setCallback(this);

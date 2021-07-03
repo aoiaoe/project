@@ -21,7 +21,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class SwaggerConfig {
 
     @Bean
-    public Docket createSaggerApi(){
+    public Docket createSaggerApi() {
         System.out.println("-------create swagger api----------");
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
@@ -31,7 +31,7 @@ public class SwaggerConfig {
                 .build();
     }
 
-    private ApiInfo apiInfo(){
+    private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("Sephiroth's Springboot学习Api")
                 .description("快速上手,快速开发,快速交接")

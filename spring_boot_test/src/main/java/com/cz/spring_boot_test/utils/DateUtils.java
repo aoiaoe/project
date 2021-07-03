@@ -5,11 +5,11 @@ import java.time.format.DateTimeFormatter;
 
 public class DateUtils {
 
-    public static String formatNow(String pattern){
+    public static String formatNow(String pattern) {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
             return formatter.format(LocalDateTime.now());
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;

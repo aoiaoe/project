@@ -8,6 +8,7 @@ import java.util.List;
 
 /**
  * 结合FeignFactory使用
+ *
  * @author alian
  * @date 2020/11/12 下午 4:29
  * @since JDK8

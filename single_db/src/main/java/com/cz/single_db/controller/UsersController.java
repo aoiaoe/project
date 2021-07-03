@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  * <p>
- *  前端控制器
+ * 前端控制器
  * </p>
  *
  * @author cz
@@ -24,17 +24,17 @@ public class UsersController {
     private IUsersService iUsersService;
 
     @GetMapping
-    public List<Users> list(){
+    public List<Users> list() {
         return this.iUsersService.listAll();
     }
 
     @PutMapping
-    public boolean save(@RequestBody Users users){
+    public boolean save(@RequestBody Users users) {
         return this.iUsersService.save(users);
     }
 
     @GetMapping(value = "/{id}")
-    public Users get(@PathVariable("id") Integer id){
+    public Users get(@PathVariable("id") Integer id) {
         return this.iUsersService.getById(id);
     }
 

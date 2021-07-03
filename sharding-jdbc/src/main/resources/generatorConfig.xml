@@ -15,7 +15,8 @@
         </commentGenerator>
         <!--jdbc的数据库连接 wg_insert 为数据库名字-->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://localhost:3306/sharding_1?useUnicode=true&amp;characeterEncoding=utf-8&amp;serverTimezone=UTC" userId="root"
+                        connectionURL="jdbc:mysql://localhost:3306/sharding_1?useUnicode=true&amp;characeterEncoding=utf-8&amp;serverTimezone=UTC"
+                        userId="root"
                         password="123456"></jdbcConnection>
         <!--非必须，类型处理器，在数据库类型和java类型之间的转换控制-->
         <javaTypeResolver>

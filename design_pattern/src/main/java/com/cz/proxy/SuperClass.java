@@ -7,7 +7,7 @@ package com.cz.proxy;
  */
 public class SuperClass {
 
-    public void doSth(){
+    public void doSth() {
         System.out.println("doSth() in super class");
     }
 }

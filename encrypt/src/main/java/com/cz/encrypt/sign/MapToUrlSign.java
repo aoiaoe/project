@@ -11,23 +11,25 @@ import java.util.TreeMap;
 
 /**
  * 将集合M内非空参数值的参数按照参数名ASCII码从小到大排序（字典序）格式（即key1=value1&amp;key2=value2…）拼接成字符串stringA。
+ *
  * @author jiaozi《liaomin艾特gvt861.com》
  * @since JDK8
  * Creation time：2019/8/8 14:04
  */
 @Slf4j
 public class MapToUrlSign extends AbstractUrlSign {
-    private Map<String,Object> jsonMap;
+    private Map<String, Object> jsonMap;
     private Key key;
-    public static final String SIGN_KEY="sign";
-    public static final String APPID_KEY="appid";
+    public static final String SIGN_KEY = "sign";
+    public static final String APPID_KEY = "appid";
     private UrlParser urlParser;
-    public MapToUrlSign(Key key, Map<String,Object> jsonMap) {
+
+    public MapToUrlSign(Key key, Map<String, Object> jsonMap) {
         Map<String, Object> treeMap = new TreeMap<String, Object>();
         treeMap.putAll(jsonMap);
         this.jsonMap = treeMap;
         this.key = key;
-        urlParser=new MapUrlParser(this.jsonMap);
+        urlParser = new MapUrlParser(this.jsonMap);
     }
 
     @Override
@@ -42,13 +44,13 @@ public class MapToUrlSign extends AbstractUrlSign {
 
     @Override
     public String url() {
-        StringBuffer paramUrl=new StringBuffer();
+        StringBuffer paramUrl = new StringBuffer();
         return urlParser.parse();
     }
 
     @Override
     public boolean allowdSign() {
-        if(!this.jsonMap.containsKey(APPID_KEY)) {
+        if (!this.jsonMap.containsKey(APPID_KEY)) {
             return false;
         }
         return true;

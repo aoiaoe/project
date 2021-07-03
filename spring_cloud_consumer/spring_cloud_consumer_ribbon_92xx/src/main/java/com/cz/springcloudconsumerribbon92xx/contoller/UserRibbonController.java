@@ -25,7 +25,7 @@ public class UserRibbonController {
     private RestTemplate ribbonLBRestTemplate;
 
     @GetMapping(value = "/{id}")
-    public Entity getById(@PathVariable("id") Integer id){
+    public Entity getById(@PathVariable("id") Integer id) {
         return ribbonLBRestTemplate.getForObject(USER_HTTP_URL + id, Entity.class);
     }
 

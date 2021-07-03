@@ -15,19 +15,21 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
  * 通过Feign客户端的fallback属性开启回退方法
  * 需要要开启以下配置:
  * feign:
- *   hystrix:
- *     enabled: true
+ * hystrix:
+ * enabled: true
+ *
  * @author alian
  * @date 2020/10/13 下午 4:39
  * @since JDK8
  */
-@ConditionalOnProperty(value = "prop",  havingValue = "true")
+@ConditionalOnProperty(value = "prop", havingValue = "true")
 @Slf4j
 @Service
 public class EntityServiceImpl_FBProp implements IEntityService {
@@ -46,9 +48,9 @@ public class EntityServiceImpl_FBProp implements IEntityService {
     }
 }
 
-@ConditionalOnProperty(value = "prop",  havingValue = "true")
+@ConditionalOnProperty(value = "prop", havingValue = "true")
 @FeignClient(name = "provider", path = "/entity", fallback = EntityFeignFallBack.class)
-interface EntityFeignFBPropClient{
+interface EntityFeignFBPropClient {
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     List<Entity> getAll();
@@ -57,18 +59,18 @@ interface EntityFeignFBPropClient{
     Entity getById(@PathVariable(value = "id") Integer id);
 }
 
-@ConditionalOnProperty(value = "prop",  havingValue = "true")
+@ConditionalOnProperty(value = "prop", havingValue = "true")
 @Component
-class EntityFeignFallBack implements EntityFeignFBPropClient{
+class EntityFeignFallBack implements EntityFeignFBPropClient {
 
     @Override
     public List<Entity> getAll() {
-        return ImmutableList.of(new Entity(-1, "服务熔断", "from @FeignClient callback prop"));
+        return ImmutableList.of(new Entity(-1, "服务熔断", "from @FeignClient callback prop", LocalDateTime.now()));
     }
 
     @Override
     public Entity getById(Integer id) {
-        return new Entity(-2, "服务熔断", "from @FeignClient callback prop");
+        return new Entity(-2, "服务熔断", "from @FeignClient callback prop", LocalDateTime.now());
     }
 }
 

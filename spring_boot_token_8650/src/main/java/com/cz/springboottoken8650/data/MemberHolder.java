@@ -15,14 +15,14 @@ public class MemberHolder {
     private Map<String, MemberUser> map = new HashMap<>();
 
     @PostConstruct
-    public void inti(){
+    public void inti() {
         log.info("初始化member数据....");
         for (int i = 0; i < 5L; i++) {
-            map.put("user" + i, new MemberUser(i, "user" + i, "pwd"+i, "13512314123"+i, "1100@11."+i));
+            map.put("user" + i, new MemberUser(i, "user" + i, "pwd" + i, "13512314123" + i, "1100@11." + i));
         }
     }
 
-    public MemberUser getMember(String i){
+    public MemberUser getMember(String i) {
         return map.get(i);
     }
 }

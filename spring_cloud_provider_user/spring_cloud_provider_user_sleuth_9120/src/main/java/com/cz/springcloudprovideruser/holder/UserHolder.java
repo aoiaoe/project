@@ -10,21 +10,22 @@ import javax.annotation.PostConstruct;
 import java.util.Map;
 
 @Component
-public class UserHolder{
+public class UserHolder {
 
     @Value("${server.port}")
     private Integer port;
 
     private volatile Map<Long, User> users;
 
-    private UserHolder(){}
+    private UserHolder() {
+    }
 
-    public Map<Long, User> getHolder(){
-       return users;
+    public Map<Long, User> getHolder() {
+        return users;
     }
 
     @PostConstruct
-    public void init(){
+    public void init() {
         users = ImmutableMap.of(1L, new User(1L, "张三", port.toString()), 2L, new User(2L, "李四", port.toString()));
     }
 }

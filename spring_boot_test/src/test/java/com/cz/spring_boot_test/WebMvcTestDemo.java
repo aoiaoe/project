@@ -17,12 +17,11 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
  *
  * @Controller
  * @ControllerAdvice
- * @JsonComponent
- * Filter
+ * @JsonComponent Filter
  * WebMvcConfigurer
  * HandlerMethodArgumentResolver
  * 其他常规的@Component（包括@Service、@Repository等）Bean 则不会被加载到 Spring 测试环境上下文中。
- *
+ * <p>
  * 如果测试的 MVC 控制器中需要@ComponentBean 的参与，你可以使用@MockBean注解来协助完成
  * 如果使用了mybatis的@MapperScan注解，则mapper也会自动装配，但是却么有DataSource，测试会失败，可以先注释掉@MapperScan注解
  */

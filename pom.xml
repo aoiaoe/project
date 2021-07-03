@@ -16,26 +16,37 @@
     <modules>
         <module>design_pattern</module>
         <module>elk</module>
+        <module>encrypt</module>
         <module>ehcache</module>
         <module>pic_captcha</module>
         <module>sharding-jdbc</module>
         <module>sharding_jdbc_master_slave</module>
         <module>single_db</module>
         <module>spring_boot_es</module>
+        <module>spring_boot_https_6900</module>
         <module>spring_boot_mix</module>
         <module>spring_boot_mybatis_source_code_8600</module>
         <module>spring_boot_rabbitmq_8700</module>
+        <module>spring_boot_redis</module>
+        <module>spring_boot_security</module>
+        <module>spring_boot_security/spring_boot_security_7000</module>
+        <module>spring_boot_security/spring_boot_security_jwt_7001</module>
+        <module>spring_boot_swagger</module>
         <module>spring_boot_swagger</module>
         <module>spring_boot_test</module>
+        <module>spring_boot_token_8650</module>
         <module>spring_cloud_common</module>
+        <module>spring_cloud_consumer</module>
         <module>spring_cloud_consumer/spring_cloud_consumer_ribbon_92xx</module>
         <module>spring_cloud_consumer/spring_cloud_consumer_feign_hystrix_9203</module>
         <module>spring_cloud_consumer/spring_cloud_consumer_feign_9202</module>
         <module>spring_cloud_consumer/spring_cloud_consumer_feign_hystrix_stream_9205</module>
         <module>spring_cloud_hystrix_dashboard_9090</module>
+        <module>spring_cloud_provider_entity</module>
         <module>spring_cloud_provider_entity/spring_cloud_provider_9100</module>
         <module>spring_cloud_provider_entity/spring_cloud_provider_sleuth_9105</module>
         <module>spring_cloud_provider_nacos_9110</module>
+        <module>spring_cloud_provider_user</module>
         <module>spring_cloud_provider_user/spring_cloud_provider_user_9105</module>
         <module>spring_cloud_provider_user/spring_cloud_provider_user_docker_9109</module>
         <module>spring_cloud_provider_user/spring_cloud_provider_user_sleuth_9120</module>
@@ -43,6 +54,7 @@
         <module>java_base</module>
         <module>common_utils</module>
         <module>spring_cloud_sdk</module>
+        <module>spring_cloud_zuul</module>
         <module>spring_cloud_zuul/spring_cloud_zuul_11300</module>
         <module>spring_cloud_zuul/spring_cloud_zuul_11301</module>
     </modules>

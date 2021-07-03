@@ -14,7 +14,7 @@ import java.util.List;
  * @date 2020/10/13 上午 9:54
  * @since JDK8
  */
-@RunWith(SpringRunner.class )
+@RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 public class Test {
 
@@ -23,14 +23,14 @@ public class Test {
     private DiscoveryClient discoveryClient;
 
     @org.junit.Test
-    public void test(){
+    public void test() {
         for (String service : discoveryClient.getServices()) {
             System.out.println(service);
         }
     }
 
     @org.junit.Test
-    public void test1(){
+    public void test1() {
         final List<ServiceInstance> provider = discoveryClient.getInstances("provider");
         for (ServiceInstance si : provider) {
             System.out.println(si.getScheme() + "://" + si.getHost() + ":" + si.getPort());

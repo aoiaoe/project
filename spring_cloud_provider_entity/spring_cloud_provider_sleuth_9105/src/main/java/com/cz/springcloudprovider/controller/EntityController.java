@@ -23,7 +23,7 @@ public class EntityController implements EntityApi {
     private IEntityService iEntityService;
 
     @Override
-    public List<Entity> getAll(){
+    public List<Entity> getAll() {
         return this.iEntityService.getAll();
     }
 

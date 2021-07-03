@@ -81,7 +81,7 @@ public class HashMapDemo {
     }
 
 
-    public static void testTreeMap(){
+    public static void testTreeMap() {
         Map<String, String> treeMap = new TreeMap<>();
 
         treeMap.put("1", "1");
