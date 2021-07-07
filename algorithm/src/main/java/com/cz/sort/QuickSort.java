@@ -13,10 +13,9 @@ import java.util.Random;
 public class QuickSort {
 
     public static void main(String[] args) {
-//        int[] arr = new int[10];
-//        createArrValues(arr);
-        int[] arr = {8, 7, 19, 13, 0, 18, 17, 13, 2, 19};
-//        System.out.println(Arrays.toString(arr));
+        int[] arr = new int[10];
+        createArrValues(arr);
+        System.out.println(Arrays.toString(arr));
         quickSort(arr, 0, arr.length - 1);
         System.out.println(Arrays.toString(arr));
 
