@@ -16,7 +16,7 @@ public class List2Map {
         entities.add(new TestEntity(1, "a", "zs"));
         entities.add(new TestEntity(2, "a", "ls"));
         entities.add(new TestEntity(3, "b", "ww"));
-        entities.add(new TestEntity(4, null, "zl"));
+        entities.add(new TestEntity(4, "b", "zl"));
 //        entities.add(new TestEntity(5, null, "lq"));
     }
 
