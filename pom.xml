@@ -32,8 +32,10 @@
         <module>spring_boot_security/spring_boot_security_7000</module>
         <module>spring_boot_security/spring_boot_security_jwt_7001</module>
         <module>spring_boot_swagger</module>
+        <module>spring_boot_swagger</module>
         <module>spring_boot_test</module>
         <module>spring_boot_token_8650</module>
+        <module>spring_boot_xml</module>
         <module>spring_cloud_common</module>
         <module>spring_cloud_consumer</module>
         <module>spring_cloud_consumer/spring_cloud_consumer_ribbon_92xx</module>
@@ -53,6 +55,7 @@
         <module>java_base</module>
         <module>common_utils</module>
         <module>spring_cloud_sdk</module>
+        <module>spring_cloud_seata</module>
         <module>spring_cloud_zuul</module>
         <module>spring_cloud_zuul/spring_cloud_zuul_11300</module>
         <module>spring_cloud_zuul/spring_cloud_zuul_11301</module>
