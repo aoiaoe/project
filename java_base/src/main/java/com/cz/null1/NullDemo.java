@@ -12,11 +12,11 @@ package com.cz.null1;
 public class NullDemo {
 
     public static void method() {
-        System.out.println("Hello");
+        System.out.println("Hello null!");
     }
 
     public static void main(String[] args) {
-        ((NullDemo) null).method();
+//        ((NullDemo) null).method();
 
         // 上面的写法 等同于 下面的写法
 
