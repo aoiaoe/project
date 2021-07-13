@@ -22,7 +22,7 @@ public class RabbitMqConfig {
     public static final String KEY = "#";
 
     // 针对每条消息设置过期时间，过期没消费 则会发送到死信队列
-    public static int DELAY_MILLS = 10_000;
+    public static int DELAY_MILLS = 1_000;
 
     @Bean
     public RabbitTemplate rabbitTemplate(CachingConnectionFactory rabbitConnectionFactory) {
