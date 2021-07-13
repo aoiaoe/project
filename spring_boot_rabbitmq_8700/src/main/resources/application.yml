@@ -10,3 +10,12 @@ spring:
     port: 5672
     username: admin
     password: admin
+
+  cloud:
+    stream:
+      function:
+        definition: MyMessageListener
+      bindings:
+        MyMessageListener-in-0:
+          destination: myMessageExchange
+          group: myMessageQueue
