@@ -25,6 +25,9 @@
         AOP、循环依赖、定时任务与线程池
 # spring_boot_mybatis_source_code_8600
      原生Mybatis代码编程
+
+# spring_boot_mybatis_dynamic_ds_8699
+     springboot整合mybatis 实现多数据源动态切换
 # spring_boot_rabbitmq_8700
      Springboot项目整合RabbitMq
         死信交换机实现延迟队列
