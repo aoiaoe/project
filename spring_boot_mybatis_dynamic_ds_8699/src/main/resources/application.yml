@@ -1,0 +1,23 @@
+server:
+  port: 8699
+
+spring:
+  datasource:
+    dynamic:
+      primary: ds1
+      strict: false
+      datasource:
+        ds1:
+          url: jdbc:mysql://localhost:3306/ds1
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          username: root
+          password: 123456
+        ds2:
+          url: jdbc:mysql://localhost:3306/ds2
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          username: root
+          password: 123456
+logging:
+  level:
+    root: debug
+
