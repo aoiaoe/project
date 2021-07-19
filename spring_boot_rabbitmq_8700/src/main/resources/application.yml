@@ -14,8 +14,8 @@ spring:
   cloud:
     stream:
       function:
-        definition: MyMessageListener
+        definition: demoMyMessageListener
       bindings:
-        MyMessageListener-in-0:
-          destination: myMessageExchange
-          group: myMessageQueue
+        demoMyMessageListener-in-0:
+          destination: demomyMessageExchange
+          group: demomyMessageQueue

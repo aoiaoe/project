@@ -5,11 +5,12 @@ import org.springframework.stereotype.Component;
 
 import java.util.function.Consumer;
 
-@Component("MyMessageListener")
-public class MyMessageListener implements Consumer<String> {
+@Component("demoMyMessageListener")
+public class MyMessageListener implements Consumer<Data> {
 
     @Override
-    public void accept(String msg) {
-        System.out.println("收到消息: " + msg + "  holder:" + TenantDataSourceNameHolder.get());
+    public void accept(Data msg) {
+        System.out.println(Thread.currentThread().getName() + "收到消息: " + msg + "  holder:" + TenantDataSourceNameHolder.get());
+        Long.parseLong(msg.getName());
     }
 }
