@@ -1,3 +1,4 @@
+# 各子模块的Springboot parent starter 需使用<version>2.3.4.RELEASE</version>
 # algorithm
      学习算法模块
 # common_utils

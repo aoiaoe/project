@@ -25,6 +25,7 @@
         <module>spring_boot_es</module>
         <module>spring_boot_https_6900</module>
         <module>spring_boot_mix</module>
+        <module>spring_boot_mybatis_dynamic_ds_8699</module>
         <module>spring_boot_mybatis_source_code_8600</module>
         <module>spring_boot_rabbitmq_8700</module>
         <module>spring_boot_redis</module>
@@ -37,6 +38,7 @@
         <module>spring_boot_token_8650</module>
         <module>spring_boot_xml</module>
         <module>spring_cloud_common</module>
+        <module>spring_cloud_config_longpolling</module>
         <module>spring_cloud_consumer</module>
         <module>spring_cloud_consumer/spring_cloud_consumer_ribbon_92xx</module>
         <module>spring_cloud_consumer/spring_cloud_consumer_feign_hystrix_9203</module>

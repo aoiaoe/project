@@ -21,6 +21,7 @@
     <modules>
         <module>spring_boot_security_7000</module>
         <module>spring_boot_security_jwt_7001</module>
+        <module>spring_boot_security_yd01_7010</module>
     </modules>
 
 </project>
