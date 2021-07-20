@@ -1,0 +1,12 @@
+server:
+  port: 7010
+
+spring:
+  application:
+    name: sb-security01
+  security:
+    user:
+      name: user
+      password: user
+      roles:
+        - ADMIN
