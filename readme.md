@@ -39,6 +39,8 @@
      springboot整合security
         1、spring_boot_security_7000 
         2、spring_boot_security_jwt_7001  securty整合JWT
+# spring_boot_session_8350
+     springboot 整合分布式session:Spring session
 # spring_boot_swagger
      整合Swagger，生成Api文档
 # spring_boot_test
