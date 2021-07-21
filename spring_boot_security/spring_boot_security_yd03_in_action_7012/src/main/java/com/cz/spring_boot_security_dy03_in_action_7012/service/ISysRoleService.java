@@ -3,6 +3,8 @@ package com.cz.spring_boot_security_dy03_in_action_7012.service;
 import com.cz.spring_boot_security_dy03_in_action_7012.entity.SysRole;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 /**
  * <p>
  * 角色信息表 服务类
@@ -13,4 +15,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface ISysRoleService extends IService<SysRole> {
 
+    List<SysRole> getRolesByUserId(Long userId);
 }

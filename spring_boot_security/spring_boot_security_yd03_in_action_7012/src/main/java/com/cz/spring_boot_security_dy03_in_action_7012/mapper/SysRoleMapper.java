@@ -3,6 +3,8 @@ package com.cz.spring_boot_security_dy03_in_action_7012.mapper;
 import com.cz.spring_boot_security_dy03_in_action_7012.entity.SysRole;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
+import java.util.List;
+
 /**
  * <p>
  * 角色信息表 Mapper 接口
@@ -13,4 +15,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface SysRoleMapper extends BaseMapper<SysRole> {
 
+    List<SysRole> getRolesByUserId(Long userId);
 }

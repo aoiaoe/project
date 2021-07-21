@@ -1,5 +1,6 @@
 package com.cz.spring_boot_security_dy03_in_action_7012.entity;
 
+import com.cz.spring_boot_security_dy03_in_action_7012.constants.UserStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -7,20 +8,27 @@ import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.beans.Transient;
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Set;
 
-@Builder
 @Data
-public class LoginUser implements UserDetails {
+@NoArgsConstructor
+@AllArgsConstructor
+public class LoginUser implements UserDetails, Serializable {
 
+    private Long id;
     private String userName;
     private String password;
     private String status;
     private Set<CustomerAuthority> permissions;
 
+    // 存储在redis中的唯一标识, 非jwt token
+    private String token;
 
 
+    @Transient
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return permissions;
@@ -38,21 +46,21 @@ public class LoginUser implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return "1".equals(status);
+        return UserStatus.NORMAL.getCode().equals(status);
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return "1".equals(status);
+        return UserStatus.NORMAL.getCode().equals(status);
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return "1".equals(status);
+        return UserStatus.NORMAL.getCode().equals(status);
     }
 
     @Override
     public boolean isEnabled() {
-        return "1".equals(status);
+        return UserStatus.NORMAL.getCode().equals(status);
     }
 }

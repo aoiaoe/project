@@ -1,25 +1,27 @@
 package com.cz.spring_boot_security_dy03_in_action_7012.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.api.R;
+import com.cz.spring_boot_security_dy03_in_action_7012.constants.Constants;
 import com.cz.spring_boot_security_dy03_in_action_7012.entity.CustomerAuthority;
 import com.cz.spring_boot_security_dy03_in_action_7012.entity.LoginUser;
-import com.cz.spring_boot_security_dy03_in_action_7012.entity.SysMenu;
+import com.cz.spring_boot_security_dy03_in_action_7012.entity.SysRole;
 import com.cz.spring_boot_security_dy03_in_action_7012.entity.SysUser;
-import com.cz.spring_boot_security_dy03_in_action_7012.enums.UserStatus;
+import com.cz.spring_boot_security_dy03_in_action_7012.constants.UserStatus;
 import com.cz.spring_boot_security_dy03_in_action_7012.mapper.SysUserMapper;
+import com.cz.spring_boot_security_dy03_in_action_7012.service.ISysRoleService;
 import com.cz.spring_boot_security_dy03_in_action_7012.service.ISysUserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -32,9 +34,12 @@ import java.util.stream.Collectors;
 @Service
 public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> implements ISysUserService, UserDetailsService {
 
+    @Autowired
+    private ISysRoleService sysRoleService;
+
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-        SysUser user = baseMapper.selectOne(new QueryWrapper<SysUser>().eq("userName", userName));
+        SysUser user = baseMapper.selectOne(new QueryWrapper<SysUser>().eq("user_name", userName));
         if(user == null){
             throw new UsernameNotFoundException("账号或者密码不正确");
         }
@@ -42,26 +47,36 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
             throw new RuntimeException("账号已停用/删除");
         }
 
-        return LoginUser.builder()
-                .userName(user.getUserName())
-                .password(user.getPassword())
-                .status(user.getStatus())
-                .permissions(createAuthorities(user))
-                .build();
+        LoginUser loginUser = new LoginUser();
+        loginUser.setId(user.getUserId());
+        loginUser.setUserName(user.getUserName());
+        loginUser.setPassword(user.getPassword());
+        loginUser.setStatus(user.getStatus());
+        loginUser.setPermissions(createAuthorities(user));
+        return loginUser;
     }
 
     private Set<CustomerAuthority> createAuthorities(SysUser user){
-        // TODO 判断是否是管理员角色 管理员角色获取所有权限
-//        if(user.)
-        List<String> allPerms = baseMapper.getAllByUserId(user.getUserId());
-        if(CollectionUtils.isEmpty(allPerms)){
+        // 判断是否是管理员角色 管理员角色获取所有权限
+        List<SysRole> roles = sysRoleService.getRolesByUserId(user.getUserId());
+        if(CollectionUtils.isEmpty(roles)){
             return null;
         }
+        boolean isAdmin = roles.stream().anyMatch(e -> Constants.ROLE_ADMIN.equals(e.getRoleKey()));
         Set<CustomerAuthority> authorities = new HashSet<>();
-        for (String perm : allPerms) {
-            String[] split = perm.split(",");
-            for (String s : split) {
-                authorities.add(new CustomerAuthority(s));
+        if(isAdmin){
+            // 管理员有所有权限
+            authorities.add(new CustomerAuthority("*:*:*"));
+        } else {
+            List<String> allPerms = baseMapper.getAllByUserId(user.getUserId());
+            if (CollectionUtils.isEmpty(allPerms)) {
+                return null;
+            }
+            for (String perm : allPerms) {
+                String[] split = perm.split(",");
+                for (String s : split) {
+                    authorities.add(new CustomerAuthority(s));
+                }
             }
         }
         return authorities;

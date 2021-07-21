@@ -2,4 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cz.spring_boot_security_dy03_in_action_7012.mapper.SysRoleMapper">
 
+    <select id="getRolesByUserId" resultType="com.cz.spring_boot_security_dy03_in_action_7012.entity.SysRole">
+        select r.*
+        from sys_role r
+        left join sys_user_role ur on r.role_id = ur.role_id
+        where ur.user_id = #{userId}
+    </select>
 </mapper>
