@@ -1,0 +1,15 @@
+server:
+  port: 8350
+
+spring:
+  application:
+    name: sb-session
+  redis:
+    host: localhost
+    port: 6379
+    timeout: 0
+    jedis:
+      pool:
+        max-wait: -1 # 连接池最大阻塞等待时间，单位：毫秒。默认为 -1 ，表示不限制。
+
+
