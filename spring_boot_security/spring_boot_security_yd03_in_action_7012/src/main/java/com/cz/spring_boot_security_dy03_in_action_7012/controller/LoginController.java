@@ -19,4 +19,9 @@ public class LoginController {
     public String login(@RequestBody LoginDTO loginDTO){
         return this.loginService.doLogin(loginDTO);
     }
+
+    @PostMapping(value = "/test")
+    public String test(){
+        return "/action/test";
+    }
 }

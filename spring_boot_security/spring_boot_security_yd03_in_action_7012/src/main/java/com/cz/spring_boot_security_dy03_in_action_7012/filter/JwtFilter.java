@@ -32,20 +32,31 @@ public class JwtFilter extends OncePerRequestFilter {
     @Autowired
     private TokenService tokenService;
 
+    /**
+     * 过滤之前或调用重写的shouldNotFilter()方法判断是否需要本过滤器过滤
+     * @param request
+     * @param response
+     * @param filterChain
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String token = getToken(request);
-        // 使用jwt中存储的redisToken去redis中获取用户对象
-        LoginUser loginUser = tokenService.getLoginUser(token);
-        if(loginUser == null){
-            response.sendError(HttpStatus.FORBIDDEN.value(), "用户未登录");
+        if(!StringUtils.isEmpty(token)){
+            // 使用jwt中存储的redisToken去redis中获取用户对象
+            LoginUser loginUser = tokenService.getLoginUser(token);
+            if(loginUser == null){
+                response.sendError(HttpStatus.FORBIDDEN.value(), "用户未登录");
+            } else {
+                LoginUserContextHolder.setContext(loginUser);
+                // 使用获取到的用户对象构造用于下一步UsernamePasswordAuthenticationFilter过滤器验证的用户Token对象
+                UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(loginUser.getUsername(), loginUser.getPassword(), loginUser.getAuthorities());
+                authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                // 将构造出来的用户token对象放入Security上下文中
+                SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+            }
         }
-        LoginUserContextHolder.setContext(loginUser);
-        // 使用获取到的用户对象构造用于下一步UsernamePasswordAuthenticationFilter过滤器验证的用户Token对象
-        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(loginUser.getUsername(), loginUser.getPassword(), loginUser.getAuthorities());
-        authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-        // 将构造出来的用户token对象放入Security上下文中
-        SecurityContextHolder.getContext().setAuthentication(authenticationToken);
         // 继续过滤
         filterChain.doFilter(request, response);
 
@@ -57,9 +68,15 @@ public class JwtFilter extends OncePerRequestFilter {
         return request.getHeader(tokenProperties.getHeaderName());
     }
 
-    @Override
-    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
-        return tokenProperties.getIgnoreUrls().stream()
-                .anyMatch(e -> new AntPathMatcher().match(e, request.getServletPath()));
-    }
+    /**
+     * 设置不需要过滤的路径
+     * @param request
+     * @return
+     * @throws ServletException
+     */
+//    @Override
+//    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+//        return tokenProperties.getIgnoreUrls().stream()
+//                .anyMatch(e -> new AntPathMatcher().match(e, request.getServletPath()));
+//    }
 }
