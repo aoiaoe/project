@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.authentication.configuration.EnableGlobalAuthentication;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -22,6 +24,12 @@ import org.springframework.util.CollectionUtils;
 
 import java.io.PrintWriter;
 
+/**
+ * 开启方法权限校验
+ * prePostEnabled = true必须开启,否则报下面错
+ * In the composition of all global method configuration, no annotation support was actually activated
+ */
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -78,7 +86,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 // 认证失败的处理端点
                 .exceptionHandling().authenticationEntryPoint(errorAuthenticationEntryPoint())
-                // 访问拒绝处理器
+                // 访问权限错误拒绝处理器
                 .accessDeniedHandler(new AccessDeniedHandlerImpl())
                 .and()
                 // 基于JWT,不需要保存session状态
