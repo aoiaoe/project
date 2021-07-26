@@ -10,10 +10,5 @@ import org.springframework.security.core.GrantedAuthority;
 @NoArgsConstructor
 public class CustomerAuthority implements GrantedAuthority {
 
-    private String permission;
-
-    @Override
-    public String getAuthority() {
-        return permission;
-    }
+    private String authority;
 }

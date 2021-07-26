@@ -26,7 +26,7 @@ public class TokenService {
     private TokenProperties tokenProperties;
 
     @Autowired
-    private RedisTemplate<String, Object> stringObjectRedisTemplate;
+    private RedisTemplate redisTemplate;
 
 
     /**
@@ -60,12 +60,17 @@ public class TokenService {
 //        loginUser.setOs(userAgent.getOperatingSystem().getName());
     }
 
+    /**
+     * 暂未引入过期机制
+     * @param loginUser
+     */
     private void refreshToken(LoginUser loginUser) {
 //        loginUser.setLoginTime(System.currentTimeMillis());
 //        loginUser.setExpireTime(loginUser.getLoginTime() + expireTime);
         // 根据 uuid 将 loginUser 缓存
         String userKey = getTokenKey(loginUser.getToken());
-        stringObjectRedisTemplate.opsForValue().set(userKey, JSON.toJSONString(loginUser), tokenProperties.getExpireSeconds(), TimeUnit.SECONDS);
+//        stringObjectRedisTemplate.opsForValue().set(userKey, JSON.toJSONString(loginUser), tokenProperties.getExpireSeconds(), TimeUnit.SECONDS);
+        redisTemplate.opsForValue().set(userKey, loginUser, tokenProperties.getExpireSeconds(), TimeUnit.SECONDS);
     }
 
     private String getTokenKey(String token) {
@@ -88,8 +93,8 @@ public class TokenService {
             return null;
         }
         String userKey = getTokenKey(redisToken);
-        Object object = stringObjectRedisTemplate.opsForValue().get(userKey);
-        return object != null ? JSON.parseObject(object.toString(), LoginUser.class) : null;
+        Object object = redisTemplate.opsForValue().get(userKey);
+        return object != null ? (LoginUser)object : null;
     }
 
     public Claims extractToken(String jwtToken) {

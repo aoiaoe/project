@@ -49,10 +49,10 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
         LoginUser loginUser = new LoginUser();
         loginUser.setId(user.getUserId());
-        loginUser.setUserName(user.getUserName());
+        loginUser.setUsername(user.getUserName());
         loginUser.setPassword(user.getPassword());
         loginUser.setStatus(user.getStatus());
-        loginUser.setPermissions(createAuthorities(user));
+        loginUser.setAuthorities(createAuthorities(user));
         return loginUser;
     }
 
