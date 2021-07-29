@@ -6,7 +6,16 @@ import org.springframework.stereotype.Service;
 import javax.annotation.PostConstruct;
 
 /**
- * 子类实现接口之后,子类中如果有方法有@Async注解, 在其他地方不能直接注入子类,需要使用接口进行注入
+ * 非切面进行代理：子类实现接口之后,例如子类中如果有方法有@Async注解, 在其他地方不能直接注入子类,需要使用接口进行注入
+ * 切面代理: SpringBoot2.X之后,已经考虑到该问题, 切面的代理默认使用的是CGLIB
+ *          以下为：AopAutoConfiguration.java中的配置
+ *              @Configuration(proxyBeanMethods = false)
+ *              @EnableAspectJAutoProxy(proxyTargetClass = true)
+ *              @ConditionalOnProperty(prefix = "spring.aop", name = "proxy-target-class", havingValue = "true",
+ * 				matchIfMissing = true)
+ * 		        static class CglibAutoProxyConfiguration {
+ *
+ *              }
  */
 @Service
 public class OutterClass {
