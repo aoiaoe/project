@@ -15,6 +15,7 @@ public class TestController {
 
     @GetMapping(value = "/initBinderStringTrimmerEditor")
     public String getStringValue(String value){
+        Long.parseLong(value);
         return value;
     }
 
