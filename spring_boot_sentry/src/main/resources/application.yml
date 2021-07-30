@@ -1,0 +1,8 @@
+server:
+  port: 7205
+
+sentry:
+  enabled: true
+  logging:
+    enabled: true
+  dsn: http://a95c235de37b480998b0345ea1eac621@106.15.197.59:9000/13
