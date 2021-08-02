@@ -4,19 +4,14 @@ import com.cz.spring_boot_security_dy03_in_action_7012.config.TokenProperties;
 import com.cz.spring_boot_security_dy03_in_action_7012.config.TokenService;
 import com.cz.spring_boot_security_dy03_in_action_7012.context.LoginUserContextHolder;
 import com.cz.spring_boot_security_dy03_in_action_7012.entity.LoginUser;
-import org.apache.catalina.security.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
-import org.springframework.security.web.context.support.SecurityWebApplicationContextUtils;
 import org.springframework.stereotype.Component;
-import org.springframework.util.AntPathMatcher;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
-import sun.plugin.liveconnect.SecurityContextHelper;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -53,7 +48,7 @@ public class JwtFilter extends OncePerRequestFilter {
                 // 使用获取到的用户对象构造用于下一步UsernamePasswordAuthenticationFilter过滤器验证的用户Token对象
                 UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(loginUser.getUsername(), loginUser.getPassword(), loginUser.getAuthorities());
                 authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                // 将构造出来的用户token对象放入Security上下文中
+                // 将构造出来的用户token对象放入Security上下文中,交由UsernamePasswordAuthenticationFilter过滤器进行验证
                 SecurityContextHolder.getContext().setAuthentication(authenticationToken);
             }
         }

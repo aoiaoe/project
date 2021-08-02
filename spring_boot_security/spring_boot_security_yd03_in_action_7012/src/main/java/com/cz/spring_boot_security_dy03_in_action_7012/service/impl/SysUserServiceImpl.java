@@ -39,6 +39,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
+        // TODO 首先从缓存中获取用户信息
         SysUser user = baseMapper.selectOne(new QueryWrapper<SysUser>().eq("user_name", userName));
         if(user == null){
             throw new UsernameNotFoundException("账号或者密码不正确");
