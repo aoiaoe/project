@@ -16,6 +16,19 @@ public class ProxyDemo {
 
 
     @Test
+    public void test1(){
+        final ClassLoader classLoader = ProxyDemo.class.getClassLoader();
+        Class[] clazz = new Class[]{MyInterface3.class};
+        MyInterface3 myInterface3 = (MyInterface3) Proxy.newProxyInstance(classLoader, clazz, (proxy, mehtod, args) -> {
+            return "U r proxied " + mehtod.getName();
+        });
+
+        System.out.println(myInterface3.doSth());
+        System.out.println(myInterface3.doSth2());
+
+    }
+
+    @Test
     public void testProxy() {
         MyClass instance = new MyClass();
         MyInterfaceInvocationHandler handler = new MyInterfaceInvocationHandler(instance);
