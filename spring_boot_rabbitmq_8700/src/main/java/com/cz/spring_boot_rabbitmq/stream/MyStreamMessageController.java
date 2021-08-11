@@ -32,7 +32,24 @@ public class MyStreamMessageController implements ApplicationContextAware {
         System.out.println("线程名: " + Thread.currentThread().getName() + "controller发送设置holder: " + TenantDataSourceNameHolder.get());
         streamBridge.send("demomyMessageExchange", new Data(msg, 10));
         System.out.println("发送消息: " + msg);
-        System.out.println(1 + 1);
+        return true;
+    }
+
+    @RequestMapping(value = "/sendString")
+    public boolean sendString(String msg){
+        TenantDataSourceNameHolder.set(UUID.randomUUID().toString());
+        System.out.println("线程名: " + Thread.currentThread().getName() + "controller发送设置holder: " + TenantDataSourceNameHolder.get());
+        streamBridge.send("demomyMessageExchangeString", msg);
+        System.out.println("发送消息: " + msg);
+        return true;
+    }
+
+    @RequestMapping(value = "/sendLong")
+    public boolean sendLong(Long msg){
+        TenantDataSourceNameHolder.set(UUID.randomUUID().toString());
+        System.out.println("线程名: " + Thread.currentThread().getName() + "controller发送设置holder: " + TenantDataSourceNameHolder.get());
+        streamBridge.send("demomyMessageExchangeLong", msg);
+        System.out.println("发送消息: " + msg);
         return true;
     }
 

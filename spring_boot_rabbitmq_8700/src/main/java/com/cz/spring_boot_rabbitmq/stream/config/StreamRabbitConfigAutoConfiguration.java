@@ -1,6 +1,7 @@
 package com.cz.spring_boot_rabbitmq.stream.config;
 
 import com.cz.spring_boot_rabbitmq.delayqueue.config.TenantDataSourceNameHolder;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.amqp.core.MessageProperties;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,10 +28,12 @@ import org.springframework.integration.channel.AbstractMessageChannel;
 import org.springframework.integration.channel.interceptor.GlobalChannelInterceptorWrapper;
 import org.springframework.messaging.MessageHeaders;
 import org.springframework.messaging.SubscribableChannel;
+import org.springframework.messaging.converter.MessageConverter;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import java.lang.reflect.Field;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -48,9 +51,19 @@ public class StreamRabbitConfigAutoConfiguration implements ApplicationContextAw
     private ApplicationContext applicationContext;
 
     @Bean
-    public MyMessageConverter myMessageConverter(){
-        return new MyMessageConverter();
+    public MyApplicationJsonMessageMarshallingConverter myApplicationJsonMessageMarshallingConverter(ObjectMapper objectMapper){
+        return new MyApplicationJsonMessageMarshallingConverter(objectMapper);
     }
+
+//    @Bean
+//    public MyMessageConverter myMessageConverter(){
+//        return new MyMessageConverter();
+//    }
+
+//    @Bean
+//    public MySmartMessageConverter myCompositeMessageConverter(){
+//        return new MySmartMessageConverter();
+//    }
 
 //    @Bean
 //    public GlobalChannelInterceptorWrapper wrapper(){

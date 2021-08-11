@@ -14,8 +14,14 @@ spring:
   cloud:
     stream:
       function:
-        definition: demoMyMessageListener
+        definition: demoMyMessageListener;demoMyMessageListenerString;demoMyMessageListenerLong;
       bindings:
         demoMyMessageListener-in-0:
           destination: demomyMessageExchange
           group: demomyMessageQueue
+        demoMyMessageListenerString-in-0:
+          destination: demomyMessageExchangeString
+          group: demomyMessageQueueString
+        demoMyMessageListenerLong-in-0:
+          destination: demomyMessageExchangeLong
+          group: demomyMessageQueueLong
