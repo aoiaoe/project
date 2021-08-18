@@ -39,6 +39,6 @@ public class OutterClass {
     public void post(){
         System.out.println(child.getClass());
 //        child.name();
-        child.age();
+//        child.age();
     }
 }

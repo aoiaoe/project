@@ -1,0 +1,8 @@
+事件监听机制：
+
+    1、实现自己的事件类型
+        继承ApplicationEvent类, 参考MyEvent.java
+    2、实现自己的事件类型监听器
+        实现ApplicationListener接口, 参考MyEventListener.java 并增加@Component注解,注册进容器,参与事件监听
+    3、发送事件
+        注入ApplicationEventPublisher类型的bean,容器初始化会自动注册进容器中,调用ApplicationEventPublisher的publishEvent发送事件
