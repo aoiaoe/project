@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.event.ApplicationEventMulticaster;
+import org.springframework.core.env.Environment;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -21,12 +22,19 @@ public class TestController {
     private ApplicationEventMulticaster applicationEventMulticaster;
     @Autowired
     private ApplicationEventPublisher publisher;
+    @Autowired
+    private Environment environment;
 
     @GetMapping(value = "/initBinderStringTrimmerEditor")
     public String getStringValue(String value){
         Long.parseLong(value);
         publisher.publishEvent(new MyEvent(new MyEventSource("cz")));
         return value;
+    }
+
+    @GetMapping(value = "/env")
+    public String getEnvironment(String name){
+        return environment.getProperty(name);
     }
 
 }
