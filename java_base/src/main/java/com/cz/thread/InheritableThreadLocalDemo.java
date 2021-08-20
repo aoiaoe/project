@@ -4,7 +4,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * InheritableThreadLocal可以使子线程获取到父线程的资源
- * 但是如果是系统之间调用,可以使用TransmittableThreadLocal类
+ * 但是如果是线程之间调用,可以使用TransmittableThreadLocal类
  */
 public class InheritableThreadLocalDemo {
     static InheritableThreadLocal<String> INHERITABLE_THREAD_LOCAL = new InheritableThreadLocal();
