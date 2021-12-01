@@ -3,7 +3,13 @@ package geekbang.algo.sort;
 import java.util.Arrays;
 
 /**
- * 插入排序
+ * 插入排序:
+ *  将数组分为已排序和未排序两部分， 前面一部分为已排序部分，
+ *  每次从未排序中取一个数据，在已排序部分中向前比较，找到对应的位置插入数据形成新的已排序数据
+ *
+ *  涉及到数据的寻址和移动
+ *
+ *  原地排序  稳定排序   时间复杂度O(n²)
  */
 public class _2_InsertionSort {
 
