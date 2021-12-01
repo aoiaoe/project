@@ -18,7 +18,17 @@ public class Base64Utils {
         byte data[] = null;
         InputStream is =new FileInputStream(file);
         data = new byte[is.available()];
+        is.read(data);
         is.close();
         return new BASE64Encoder().encode(data);
+    }
+
+    public static void main(String[] args) throws IOException {
+        String s = base64("/Users/sephiroth/Documents/BackgroundImages/DarkLight.jpg");
+        File file = new File("/Users/sephiroth/Documents/BackgroundImages/DarkLight.base64");
+        OutputStream fos = new FileOutputStream(file);
+        fos.write(s.getBytes());
+        fos.close();
+        System.out.println(s);
     }
 }

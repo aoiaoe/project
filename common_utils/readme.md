@@ -13,3 +13,6 @@
     ImageCompactUtils.java
     图像压缩工具类：但是只能在Windows平台使用
     
+    Base64Utils.java
+    base64编码工具类
+    
