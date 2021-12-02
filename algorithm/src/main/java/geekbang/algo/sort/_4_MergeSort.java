@@ -10,10 +10,12 @@ package geekbang.algo.sort;
 public class _4_MergeSort {
 
     public static void main(String[] args) {
-        int[] array = ArrayCreator.createArray(1000, 1000000);
+//        int[] array = ArrayCreator.createArray(1000, 1000000);
 
+        int array[] = ArrayCreator._1_000();
         ArrayCreator.display(array);
         mergeSort(array,0, array.length - 1);
+        ArrayCreator.isSorted(array);
         ArrayCreator.display(array);
 
     }

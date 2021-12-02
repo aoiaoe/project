@@ -36,7 +36,7 @@ public class _3_SelectionSort {
                 arr[i] = arr[index];
                 arr[index] = tmp;
             }
-            System.out.println((i + 1) + " -> " + Arrays.toString(arr));
+//            System.out.println((i + 1) + " -> " + Arrays.toString(arr));
         }
     }
 }

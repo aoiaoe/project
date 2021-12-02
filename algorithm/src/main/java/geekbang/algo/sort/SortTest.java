@@ -16,7 +16,7 @@ public class SortTest {
     int length = 1000;
 
     /**
-     * 冒泡算法循环100000次, 数组长度:1000,所用时间：320
+     * 冒泡算法循环100000次, 数组长度:100,所用时间：320
      * 冒泡算法循环100000次, 数组长度:1000,所用时间：48856
      * 优化版冒泡算法循环100000次, 数组长度:1000,所用时间：39314
      */
@@ -25,7 +25,8 @@ public class SortTest {
         long start = System.currentTimeMillis();
         for (int i = 0; i < count; i++) {
             arr = createArray();
-            _1_BubbleSort.bubbleSortOptimization(arr);
+            _1_BubbleSort.bubbleSort(arr);
+//            _1_BubbleSort.bubbleSortOptimization(arr);
         }
         long end = System.currentTimeMillis();
         System.out.println("冒泡算法循环" + count + "次, 数组长度:" + length + ",所用时间：" + (end - start));
@@ -47,9 +48,39 @@ public class SortTest {
         System.out.println("插入算法循环" + count + "次, 数组长度:" + length + ",所用时间：" + (end - start));
     }
 
+    /**
+     * 选择算法循环100000次, 数组长度:100,所用时间：257
+     * 选择算法循环100000次, 数组长度:1000,所用时间：20679
+     */
+    @Test
+    public void select(){
+        long start = System.currentTimeMillis();
+        for (int i = 0; i < count; i++) {
+            arr = createArray();
+            _3_SelectionSort.selectionSort(arr, arr.length);
+        }
+        long end = System.currentTimeMillis();
+        System.out.println("选择算法循环" + count + "次, 数组长度:" + length + ",所用时间：" + (end - start));
+    }
+
+    /**
+     * 归并算法循环100000次, 数组长度:1000,所用时间：201
+     * 归并算法循环100000次, 数组长度:1000,所用时间：2381
+     */
+    @Test
+    public void merge(){
+        long start = System.currentTimeMillis();
+        for (int i = 0; i < count; i++) {
+            arr = createArray();
+            _4_MergeSort.mergeSort(arr, 0, arr.length - 1);
+        }
+        long end = System.currentTimeMillis();
+        System.out.println("归并算法循环" + count + "次, 数组长度:" + length + ",所用时间：" + (end - start));
+    }
+
     public int[] createArray(){
 //        return ArrayCreator.createArray(length, 10000);
-        return ArrayCreator._1_00();
-//        return ArrayCreator._1_000();
+//        return ArrayCreator._1_00();
+        return ArrayCreator._1_000();
     }
 }
