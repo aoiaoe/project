@@ -1,8 +1,7 @@
 package geekbang.algo.sort;
 
-import org.openjdk.jmh.annotations.*;
+import org.junit.jupiter.api.Test;
 
-import java.util.concurrent.TimeUnit;
 
 /**
  * 三个原地排序的算法性能比较
@@ -10,24 +9,47 @@ import java.util.concurrent.TimeUnit;
  * @author jzm
  * @date 2021/12/1 : 2:07 下午
  */
-@BenchmarkMode(Mode.AverageTime)
-@Warmup(iterations = 2, time = 4)
-@Measurement(iterations = 3, time = 3, batchSize = 3)
-@Fork(2)
-@Threads(1)
-@OutputTimeUnit(TimeUnit.MICROSECONDS)
 public class SortTest {
 
     int arr[] = null;
+    int count = 100000;
+    int length = 1000;
 
-    @Setup(Level.Trial)
-    public void setUp(){
-        arr = ArrayCreator.createArray(10, 150);
+    /**
+     * 冒泡算法循环100000次, 数组长度:1000,所用时间：320
+     * 冒泡算法循环100000次, 数组长度:1000,所用时间：48856
+     * 优化版冒泡算法循环100000次, 数组长度:1000,所用时间：39314
+     */
+    @Test
+    public void bubble() {
+        long start = System.currentTimeMillis();
+        for (int i = 0; i < count; i++) {
+            arr = createArray();
+            _1_BubbleSort.bubbleSortOptimization(arr);
+        }
+        long end = System.currentTimeMillis();
+        System.out.println("冒泡算法循环" + count + "次, 数组长度:" + length + ",所用时间：" + (end - start));
     }
 
+    /**
+     * 插入算法循环100000次, 数组长度:100,所用时间：140
+     * 插入算法循环100000次, 数组长度:1000,所用时间：10050
+     *
+     */
+    @Test
+    public void insert() {
+        long start = System.currentTimeMillis();
+        for (int i = 0; i < count; i++) {
+            arr = createArray();
+            _2_InsertionSort.insertionSortV1(arr);
+        }
+        long end = System.currentTimeMillis();
+        System.out.println("插入算法循环" + count + "次, 数组长度:" + length + ",所用时间：" + (end - start));
+    }
 
-    @Benchmark
-    public void bubble() {
-        _1_BubbleSort.bubbleSort(arr);
+    public int[] createArray(){
+//        return ArrayCreator.createArray(length, 10000);
+        return ArrayCreator._1_00();
+//        return ArrayCreator._1_000();
     }
 }

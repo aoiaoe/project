@@ -54,7 +54,7 @@ public class _1_BubbleSort {
                     arr[j + 1] = tmp;
                 }
             }
-            System.out.println((i + 1) + " -> " + Arrays.toString(arr));
+//            System.out.println((i + 1) + " -> " + Arrays.toString(arr));
         }
     }
 
@@ -76,7 +76,7 @@ public class _1_BubbleSort {
                     flag = true;
                 }
             }
-            System.out.println((i + 1) + " -> " + Arrays.toString(arr));
+//            System.out.println((i + 1) + " -> " + Arrays.toString(arr));
             if (!flag) {
                 break;
             }

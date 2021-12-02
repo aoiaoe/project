@@ -62,7 +62,7 @@ public class _2_InsertionSort {
                 index--;
             }
             arr[index2] = temp;
-            System.out.println(i + " ->> " + Arrays.toString(arr));
+//            System.out.println(i + " ->> " + Arrays.toString(arr));
         }
     }
 
