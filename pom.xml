@@ -27,6 +27,7 @@
         <module>spring_boot_mix</module>
         <module>spring_boot_mybatis_dynamic_ds_8699</module>
         <module>spring_boot_mybatis_source_code_8600</module>
+        <module>spring_boot_neo4j</module>
         <module>spring_boot_rabbitmq_8700</module>
         <module>spring_boot_redis</module>
         <module>spring_boot_security</module>
