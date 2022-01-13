@@ -2,6 +2,10 @@ package geekbang.algo.sort;
 
 /**
  * 快速排序
+ *  原地排序
+ *  不稳定
+ *  O(nlogn),极端情况为O(n²)
+ *  https://time.geekbang.org/column/article/41913
  * @author jzm
  * @date 2021/12/2 : 5:42 下午
  */

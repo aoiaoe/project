@@ -4,6 +4,7 @@ package geekbang.algo.sort;
  * 归并排序：
  *  利用分治思想，将数组划分为若干小数组，先对若干小数组进行排序，
  *  依次将小数组进行归并，达到最终的全部有序
+ *  https://time.geekbang.org/column/article/41913
  * @author jzm
  * @date 2021/12/2 : 10:44 上午
  */

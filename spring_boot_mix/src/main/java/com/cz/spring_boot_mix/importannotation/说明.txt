@@ -1,0 +1,8 @@
+参考： https://blog.csdn.net/mamamalululu00000000/article/details/86711079
+springboot导入配置类：
+    可以使用@Import注解
+    @Import注解可以导入：
+        1、普通类
+        2、带@Configuration注解的类
+        3、ImportSelector的子类
+        4、ImportBeanDefinitionRegistrar的子类
