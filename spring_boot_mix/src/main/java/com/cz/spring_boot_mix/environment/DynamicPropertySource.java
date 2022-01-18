@@ -82,14 +82,14 @@ public class DynamicPropertySource extends MapPropertySource {
 
     private static void display(Map<String, Object> map){
         map.entrySet().forEach(e -> {
-            System.out.println("key: " + e.getKey() + "  value: " + e.getValue());
+            log.info("key: " + e.getKey() + "  value: " + e.getValue());
         });
-        System.out.println("---------------------");
+        log.info("---------------------");
     }
 
     public static void main(String[] args) {
         try{
                     SECONDS.sleep(6);}catch(Exception e){e.printStackTrace();}
-        System.out.println(map.get("port"));
+        log.info(map.get("port") + "");
     }
 }
