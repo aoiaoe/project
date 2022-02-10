@@ -25,6 +25,6 @@ import org.springframework.context.ConfigurableApplicationContext;
 public class _1MyApplicationContextInitializer implements ApplicationContextInitializer {
     @Override
     public void initialize(ConfigurableApplicationContext applicationContext) {
-        log.info("1 ---> ApplicationContextInitializer");
+        log.info("扩展点 1 ---> ApplicationContextInitializer ： 场景：在最开始激活一些配置，或者利用这时候class还没被类加载器加载的时机，进行动态字节码注入等操作");
     }
 }
