@@ -1,13 +1,12 @@
 package com.cz.spring_boot_security_dy03_in_action_7012.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.api.R;
-import com.cz.spring_boot_security_dy03_in_action_7012.constants.Constants;
-import com.cz.spring_boot_security_dy03_in_action_7012.entity.CustomerAuthority;
-import com.cz.spring_boot_security_dy03_in_action_7012.entity.LoginUser;
+import com.cz.securitysdk.constants.Constants;
+import com.cz.securitysdk.entity.CustomerAuthority;
+import com.cz.securitysdk.entity.LoginUser;
 import com.cz.spring_boot_security_dy03_in_action_7012.entity.SysRole;
 import com.cz.spring_boot_security_dy03_in_action_7012.entity.SysUser;
-import com.cz.spring_boot_security_dy03_in_action_7012.constants.UserStatus;
+import com.cz.securitysdk.constants.UserStatus;
 import com.cz.spring_boot_security_dy03_in_action_7012.mapper.SysUserMapper;
 import com.cz.spring_boot_security_dy03_in_action_7012.service.ISysRoleService;
 import com.cz.spring_boot_security_dy03_in_action_7012.service.ISysUserService;

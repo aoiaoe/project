@@ -1,4 +1,4 @@
-package com.cz.spring_boot_security_dy03_in_action_7012.constants;
+package com.cz.securitysdk.constants;
 
 public interface Constants {
 

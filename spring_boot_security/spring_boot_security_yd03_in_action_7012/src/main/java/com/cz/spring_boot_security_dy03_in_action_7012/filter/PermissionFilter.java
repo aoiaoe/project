@@ -1,7 +1,11 @@
 package com.cz.spring_boot_security_dy03_in_action_7012.filter;
 
+import com.alibaba.fastjson.JSON;
+import com.cz.spring_boot_security_dy03_in_action_7012.vo.AjaxResponseBody;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.filter.OrderedFilter;
 import org.springframework.dao.PermissionDeniedDataAccessException;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -21,6 +25,9 @@ import java.nio.charset.Charset;
 @Component
 public class PermissionFilter extends OncePerRequestFilter{
 
+    @Autowired
+    private RedisTemplate stringObjectRedisTemplate;
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 //        PrintWriter printWriter = response.getWriter();
@@ -29,6 +36,17 @@ public class PermissionFilter extends OncePerRequestFilter{
 //        response.setStatus(HttpStatus.FORBIDDEN.value());
 //        printWriter.write("{\"code\":401,\"message\":\"无权限访问\"}");
 //        printWriter.flush();
+        if(stringObjectRedisTemplate.opsForValue().get("key") != null){
+            filterChain.doFilter(request, response);
+        } else {
+            AjaxResponseBody responseBody = new AjaxResponseBody();
+
+            responseBody.setStatus("000");
+            responseBody.setMsg("无权限");
+            response.setContentType("application/json;charset=utf-8");
+            response.getWriter().write(JSON.toJSONString(responseBody));
+        }
+
     }
 
 }

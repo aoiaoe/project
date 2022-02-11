@@ -1,6 +1,5 @@
 package com.cz.spring_boot_security_dy03_in_action_7012.mapper;
 
-import com.cz.spring_boot_security_dy03_in_action_7012.entity.SysMenu;
 import com.cz.spring_boot_security_dy03_in_action_7012.entity.SysUser;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 

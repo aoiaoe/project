@@ -1,14 +1,13 @@
 package com.cz.spring_boot_security_dy03_in_action_7012.service.impl;
 
+import com.cz.securitysdk.entity.LoginUser;
 import com.cz.spring_boot_security_dy03_in_action_7012.config.TokenService;
 import com.cz.spring_boot_security_dy03_in_action_7012.dto.LoginDTO;
-import com.cz.spring_boot_security_dy03_in_action_7012.entity.LoginUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service

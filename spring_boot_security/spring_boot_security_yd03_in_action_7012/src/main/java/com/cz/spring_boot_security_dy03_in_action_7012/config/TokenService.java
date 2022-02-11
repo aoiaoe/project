@@ -1,8 +1,7 @@
 package com.cz.spring_boot_security_dy03_in_action_7012.config;
 
-import com.alibaba.fastjson.JSON;
-import com.cz.spring_boot_security_dy03_in_action_7012.constants.Constants;
-import com.cz.spring_boot_security_dy03_in_action_7012.entity.LoginUser;
+import com.cz.securitysdk.entity.LoginUser;
+import com.cz.securitysdk.constants.Constants;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -14,7 +13,6 @@ import org.springframework.util.StringUtils;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 

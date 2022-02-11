@@ -1,15 +1,16 @@
 package com.cz.spring_boot_security_dy03_in_action_7012.filter;
 
+import com.cz.securitysdk.entity.LoginUser;
 import com.cz.spring_boot_security_dy03_in_action_7012.config.TokenProperties;
 import com.cz.spring_boot_security_dy03_in_action_7012.config.TokenService;
 import com.cz.spring_boot_security_dy03_in_action_7012.context.LoginUserContextHolder;
-import com.cz.spring_boot_security_dy03_in_action_7012.entity.LoginUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
+import org.springframework.util.AntPathMatcher;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -43,6 +44,7 @@ public class JwtFilter extends OncePerRequestFilter {
             LoginUser loginUser = tokenService.getLoginUser(token);
             if(loginUser == null){
                 response.sendError(HttpStatus.FORBIDDEN.value(), "用户未登录");
+                return;
             } else {
                 LoginUserContextHolder.setContext(loginUser);
                 // 使用获取到的用户对象构造用于下一步UsernamePasswordAuthenticationFilter过滤器验证的用户Token对象
@@ -69,9 +71,9 @@ public class JwtFilter extends OncePerRequestFilter {
      * @return
      * @throws ServletException
      */
-//    @Override
-//    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
-//        return tokenProperties.getIgnoreUrls().stream()
-//                .anyMatch(e -> new AntPathMatcher().match(e, request.getServletPath()));
-//    }
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+        return tokenProperties.getIgnoreUrls().stream()
+                .anyMatch(e -> new AntPathMatcher().match(e, request.getServletPath()));
+    }
 }

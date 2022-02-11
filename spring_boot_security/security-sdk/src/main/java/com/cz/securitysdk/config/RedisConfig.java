@@ -1,4 +1,4 @@
-package com.cz.spring_boot_security_dy03_in_action_7012.config;
+package com.cz.securitysdk.config;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
@@ -42,16 +42,16 @@ public class RedisConfig {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
         objectMapper.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
-
+        GenericJackson2JsonRedisSerializer jackson2JsonRedisSerializer1 = new  GenericJackson2JsonRedisSerializer();
         // 设置键值序列化器
         // 默认JDK的序列化器，序列化之后在redis客户端中不具可读性
         jackson2JsonRedisSerializer.setObjectMapper(objectMapper);
         RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
         redisTemplate.setConnectionFactory(factory);
         redisTemplate.setKeySerializer(stringRedisSerializer);
-        redisTemplate.setValueSerializer(jackson2JsonRedisSerializer);
+        redisTemplate.setValueSerializer(jackson2JsonRedisSerializer1);
         redisTemplate.setHashKeySerializer(stringRedisSerializer);
-        redisTemplate.setHashValueSerializer(jackson2JsonRedisSerializer);
+        redisTemplate.setHashValueSerializer(jackson2JsonRedisSerializer1);
         return redisTemplate;
     }
 }

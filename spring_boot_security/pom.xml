@@ -24,6 +24,8 @@
         <module>spring_boot_security_yd01_7010</module>
         <module>spring_boot_security_yd02_7011</module>
         <module>spring_boot_security_yd03_in_action_7012</module>
+        <module>test</module>
+        <module>security-sdk</module>
     </modules>
 
 </project>

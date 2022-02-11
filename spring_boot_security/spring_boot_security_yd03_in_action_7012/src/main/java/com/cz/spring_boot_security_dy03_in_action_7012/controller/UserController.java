@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.cz.spring_boot_security_dy03_in_action_7012.context.LoginUserContextHolder;
 import com.cz.spring_boot_security_dy03_in_action_7012.entity.SysUser;
 import com.cz.spring_boot_security_dy03_in_action_7012.service.ISysUserService;
-import com.cz.spring_boot_security_dy03_in_action_7012.service.impl.PermissionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;

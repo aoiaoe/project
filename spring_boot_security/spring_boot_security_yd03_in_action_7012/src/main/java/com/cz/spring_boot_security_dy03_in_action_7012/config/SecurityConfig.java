@@ -1,15 +1,15 @@
 package com.cz.spring_boot_security_dy03_in_action_7012.config;
 
+import com.alibaba.fastjson.JSON;
+import com.cz.spring_boot_security_dy03_in_action_7012.config.TokenProperties;
 import com.cz.spring_boot_security_dy03_in_action_7012.filter.JwtFilter;
+import com.cz.spring_boot_security_dy03_in_action_7012.vo.AjaxResponseBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.SecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.authentication.configuration.EnableGlobalAuthentication;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -18,8 +18,10 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
-import org.springframework.security.web.access.AccessDeniedHandlerImpl;
+import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.util.CollectionUtils;
 
 import java.io.PrintWriter;
@@ -42,6 +44,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private TokenProperties properties;
 
+    @Autowired
+    private AccessDeniedHandler ajaxAccessDeniedHandler;
+
     /**
      * configure(WebSecurity)用于影响全局安全性(配置资源，设置调试模式，通过实现自定义防火墙定义拒绝请求)的配置设置。
      *
@@ -57,8 +62,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         web.ignoring()
                 .antMatchers("/static/**", "/templates/**");
-        if(CollectionUtils.isEmpty(properties.getIgnoreUrls())) {
-                web.ignoring().antMatchers(properties.getIgnoreUrls().toArray(new String[properties.getIgnoreUrls().size()]));
+        if(!CollectionUtils.isEmpty(properties.getIgnoreUrls())) {
+            properties.getIgnoreUrls().forEach(url ->  web.ignoring().antMatchers(url));
         }
     }
 
@@ -84,13 +89,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 // csrf禁用，因为不使用session
                 .csrf().disable()
+                // 基于JWT,不需要保存session状态
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
                 // 认证失败的处理端点
                 .exceptionHandling().authenticationEntryPoint(errorAuthenticationEntryPoint())
                 // 访问权限错误拒绝处理器
-                .accessDeniedHandler(new AccessDeniedHandlerImpl())
-                .and()
-                // 基于JWT,不需要保存session状态
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .accessDeniedHandler(ajaxAccessDeniedHandler)
                 .and()
                 .authorizeRequests()
                 // 对于登录login 验证码captchaImage 允许匿名访问
@@ -115,14 +120,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .headers().frameOptions().disable()
                 .and()
-                .logout().logoutUrl("/logout")
-                .logoutSuccessHandler((req, resp, auth) -> {
-                    resp.setContentType("application/json;charset=utf-8");
-                    PrintWriter out = resp.getWriter();
-                    out.write("退出成功");
-                    out.flush();
-                    out.close();
-                 });
+                .formLogin().disable()
+                .logout().disable();
 
                 // 肥肠重要
                 // 一定要将自定义jwt过滤器配置在用户名密码解析过滤器前面
@@ -137,9 +136,27 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public AuthenticationEntryPoint errorAuthenticationEntryPoint() {
         return (request, response, e) -> {
-            response.sendError(HttpStatus.FORBIDDEN.value(), "未登录");
+            AjaxResponseBody responseBody = new AjaxResponseBody();
+
+            responseBody.setStatus("000");
+            responseBody.setMsg("认证失败");
+            response.setContentType("application/json;charset=utf-8");
+            response.getWriter().write(JSON.toJSONString(responseBody));
         };
     }
+
+    @Bean
+    public AuthenticationFailureHandler authenticationFailureHandler() {
+        return (request, response, e) -> {
+            AjaxResponseBody responseBody = new AjaxResponseBody();
+
+            responseBody.setStatus("400");
+            responseBody.setMsg("Login Failure!");
+
+            response.getWriter().write(JSON.toJSONString(responseBody));
+        };
+    }
+
 
     /**
      * 注入AuthenticationManager, 否则业务代码中注入会失败

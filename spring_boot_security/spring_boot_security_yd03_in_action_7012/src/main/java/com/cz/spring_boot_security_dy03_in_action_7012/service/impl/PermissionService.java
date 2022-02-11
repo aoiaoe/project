@@ -1,7 +1,7 @@
 package com.cz.spring_boot_security_dy03_in_action_7012.service.impl;
 
+import com.cz.securitysdk.entity.LoginUser;
 import com.cz.spring_boot_security_dy03_in_action_7012.context.LoginUserContextHolder;
-import com.cz.spring_boot_security_dy03_in_action_7012.entity.LoginUser;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;

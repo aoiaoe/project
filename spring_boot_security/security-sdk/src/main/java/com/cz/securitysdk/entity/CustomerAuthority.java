@@ -1,4 +1,4 @@
-package com.cz.spring_boot_security_dy03_in_action_7012.entity;
+package com.cz.securitysdk.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

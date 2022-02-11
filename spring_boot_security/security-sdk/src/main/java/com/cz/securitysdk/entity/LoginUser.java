@@ -1,8 +1,7 @@
-package com.cz.spring_boot_security_dy03_in_action_7012.entity;
+package com.cz.securitysdk.entity;
 
-import com.cz.spring_boot_security_dy03_in_action_7012.constants.UserStatus;
+import com.cz.securitysdk.constants.UserStatus;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;

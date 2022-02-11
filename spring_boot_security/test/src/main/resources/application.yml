@@ -1,0 +1,38 @@
+server:
+  port: 7013
+
+spring:
+  application:
+    name: sb-security-in-action
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://106.53.96.154:3306/security?useUnicode=true&characterEncoding=utf8&autoReconnect=true&failOverReadOnly=false&useSSL=false
+    username: root
+    password: 123456
+  redis:
+    host: localhost
+    port: 6379
+    database: 0
+    timeout: 5000
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
+  mapper-locations: classpath:/mapper/*.xml
+
+
+# token配置
+token:
+  # 令牌有效期（默认30分钟）
+  expireSeconds: 1800
+  # 密钥
+  secretKey: b43rgH8I34N892fD2scsfs
+  headerName: Auth
+  ignore-urls:
+    - /action/login
+
+logging:
+  config:
+    root: debug
+    org.springframework: debug

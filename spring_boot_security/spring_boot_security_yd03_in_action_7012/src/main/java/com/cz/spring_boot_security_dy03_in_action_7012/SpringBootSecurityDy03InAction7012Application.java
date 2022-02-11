@@ -7,11 +7,11 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 
 @EnableWebSecurity
 @MapperScan(basePackages = "com.cz.spring_boot_security_dy03_in_action_7012.mapper")
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "com.cz")
 public class SpringBootSecurityDy03InAction7012Application {
 
     public static void main(String[] args) {
-        SpringApplication.run(SpringBootSecurityDy03InAction7012Application.class, args);
+        SpringApplication.run(com.cz.spring_boot_security_dy03_in_action_7012.SpringBootSecurityDy03InAction7012Application.class, args);
     }
 
 }
