@@ -1,2 +1,8 @@
 server:
   port: 7750
+
+spring:
+  elasticsearch:
+    rest:
+      uris: http://121.4.79.86:9200
+    
