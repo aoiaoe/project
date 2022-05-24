@@ -1,9 +1,9 @@
-package com.cz.spring_boot_security_dy03_in_action_7012.filter;
+package com.cz.securitysdk.filter;
 
 import com.cz.securitysdk.entity.LoginUser;
-import com.cz.spring_boot_security_dy03_in_action_7012.config.TokenProperties;
-import com.cz.spring_boot_security_dy03_in_action_7012.config.TokenService;
-import com.cz.spring_boot_security_dy03_in_action_7012.context.LoginUserContextHolder;
+import com.cz.securitysdk.config.TokenProperties;
+import com.cz.securitysdk.config.TokenService;
+import com.cz.securitysdk.context.LoginUserContextHolder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

@@ -1,7 +1,7 @@
 package com.cz.spring_boot_security_dy03_in_action_7012.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.cz.spring_boot_security_dy03_in_action_7012.context.LoginUserContextHolder;
+import com.cz.securitysdk.context.LoginUserContextHolder;
 import com.cz.spring_boot_security_dy03_in_action_7012.entity.SysUser;
 import com.cz.spring_boot_security_dy03_in_action_7012.service.ISysUserService;
 import org.springframework.beans.factory.annotation.Autowired;

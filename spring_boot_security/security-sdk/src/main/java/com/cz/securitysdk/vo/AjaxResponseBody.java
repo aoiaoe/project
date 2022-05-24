@@ -1,4 +1,4 @@
-package com.cz.test.vo;
+package com.cz.securitysdk.vo;
 
 import java.io.Serializable;
 

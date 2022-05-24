@@ -1,7 +1,7 @@
 package com.cz.spring_boot_security_dy03_in_action_7012.service.impl;
 
 import com.cz.securitysdk.entity.LoginUser;
-import com.cz.spring_boot_security_dy03_in_action_7012.config.TokenService;
+import com.cz.securitysdk.config.TokenService;
 import com.cz.spring_boot_security_dy03_in_action_7012.dto.LoginDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;

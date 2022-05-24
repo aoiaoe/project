@@ -1,4 +1,4 @@
-package com.cz.test.config;
+package com.cz.securitysdk.config;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

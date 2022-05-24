@@ -1,12 +1,9 @@
-package com.cz.spring_boot_security_dy03_in_action_7012.filter;
+package com.cz.securitysdk.filter;
 
 import com.alibaba.fastjson.JSON;
-import com.cz.spring_boot_security_dy03_in_action_7012.vo.AjaxResponseBody;
+import com.cz.securitysdk.vo.AjaxResponseBody;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.servlet.filter.OrderedFilter;
-import org.springframework.dao.PermissionDeniedDataAccessException;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -15,8 +12,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.nio.charset.Charset;
 
 /**
  * @author jzm

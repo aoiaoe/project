@@ -1,16 +1,14 @@
-package com.cz.test.config;
+package com.cz.securitysdk.config;
 
 import com.alibaba.fastjson.JSON;
-import com.cz.test.config.TokenProperties;
-import com.cz.test.filter.JwtFilter;
-import com.cz.test.vo.AjaxResponseBody;
+import com.cz.securitysdk.filter.JwtFilter;
+import com.cz.securitysdk.vo.AjaxResponseBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -21,19 +19,15 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.util.CollectionUtils;
-
-import java.io.PrintWriter;
 
 /**
  * 开启方法权限校验
  * prePostEnabled = true必须开启,否则报下面错
  * In the composition of all global method configuration, no annotation support was actually activated
  */
-@EnableGlobalMethodSecurity(prePostEnabled = true)
 @Configuration
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+public class SdkSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private JwtFilter jwtFilter;
@@ -44,13 +38,27 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private AccessDeniedHandler ajaxAccessDeniedHandler;
 
+    @Autowired(required = false)
+    private UserDetailsService sysUserServiceImpl;
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        if(sysUserServiceImpl != null) {
+            auth
+                    // 设置用户加载类
+                    .userDetailsService(sysUserServiceImpl)
+                    // 设置BCrpyt密码编码器
+                    .passwordEncoder(new BCryptPasswordEncoder());
+        }
+    }
+
     /**
      * configure(WebSecurity)用于影响全局安全性(配置资源，设置调试模式，通过实现自定义防火墙定义拒绝请求)的配置设置。
      *
      * 一般用于配置全局的某些通用事物，例如静态资源等
      *
      * 这里需要配置成和JwtFilter中忽略同样的url,  否则验证失败,因为如果jwtFilter不校验,则会生成匿名用户对象在UsernamePasswordAuthenticationFilter进行校验
-     * 所以 jwtFilter忽略过滤的url集合 需要时此处被忽略url的子集
+     * 所以 jwtFilter忽略过滤的url集合 需要是此处被忽略url的子集
      *
      * @param web
      * @throws Exception

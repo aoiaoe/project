@@ -1,7 +1,7 @@
-package com.cz.test.config;
+package com.cz.securitysdk.config;
 
-import com.cz.securitysdk.constants.Constants;
 import com.cz.securitysdk.entity.LoginUser;
+import com.cz.securitysdk.constants.Constants;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

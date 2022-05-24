@@ -1,7 +1,7 @@
-package com.cz.test.config;
+package com.cz.securitysdk.config;
 
 import com.alibaba.fastjson.JSON;
-import com.cz.test.vo.AjaxResponseBody;
+import com.cz.securitysdk.vo.AjaxResponseBody;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.stereotype.Component;
