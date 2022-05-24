@@ -25,8 +25,9 @@
               username: root
               password: 123456
 
-    primary的值必须为其下两行中datasource中配置的数据源名称之一,设置住数据源
+    primary的值必须为其下两行中datasource中配置的数据源名称之一,设置主数据源
     strict代表严格模式,默认为false,如果未找到主数据源则使用primary数据源
+    如果设置为true，则代表未找到数据源则直接报错
 
     项目启动后会将所有数据源实例化并放入容器中
 
