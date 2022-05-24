@@ -1,0 +1,28 @@
+_this.ispc = function(){
+  var userAgentInfo = navigator.userAgent;
+    var Agents = ["Android", "iPhone",
+                "SymbianOS", "Windows Phone",
+                "iPad", "iPod"];
+    var flag = true;
+    for (var v = 0; v < Agents.length; v++) {
+        if (userAgentInfo.indexOf(Agents[v]) > 0) {
+            flag = false;
+            break;
+        }
+    }
+    return  flag;
+}
+window._assignInfo = {};
+window._curnodepersons = [];
+window.attachmode = '0';
+window.isEsignature = false;
+window.upList = [];
+window.downList = [];
+window.billId = '';
+window.upProcessIdList = [];
+window.downProcessIdList = [];
+var urlsplit = window.location.href.split("#");
+if(urlsplit.length>1){
+  //alert(window.location.href);
+ 	location.href = urlsplit[0];
+}
