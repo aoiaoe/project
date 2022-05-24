@@ -15,6 +15,7 @@
 
     <modules>
         <module>design_pattern</module>
+        <module>document_compare</module>
         <module>elk</module>
         <module>encrypt</module>
         <module>ehcache</module>
