@@ -19,6 +19,7 @@
         <module>elk</module>
         <module>encrypt</module>
         <module>ehcache</module>
+        <module>open_api_sdk</module>
         <module>pic_captcha</module>
         <module>sharding-jdbc</module>
         <module>sharding_jdbc_master_slave</module>
