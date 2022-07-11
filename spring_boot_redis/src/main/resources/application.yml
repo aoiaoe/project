@@ -1,3 +1,12 @@
 server:
   port: 11192
 
+spring:
+  redis:
+#    lettuce:
+#      pool:
+#        time-between-eviction-runs: 30000ms
+    jedis:
+      pool:
+        time-between-eviction-runs: 40000ms
+
