@@ -1,4 +1,4 @@
-package com.cz.spring_boot_test.mock;
+package com.cz.mock;
 
 import org.junit.Before;
 import org.springframework.beans.factory.annotation.Autowired;
