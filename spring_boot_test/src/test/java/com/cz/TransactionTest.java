@@ -43,6 +43,15 @@ public class TransactionTest {
     }
 
     @Test
+    public void insert_outer_exception_required_new() {
+        try {
+            this.demoService.insert_out_exception_required_new();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
     public void testRunCommand() throws Exception {
         String command = "calc";
         Process exec = Runtime.getRuntime().exec(command);

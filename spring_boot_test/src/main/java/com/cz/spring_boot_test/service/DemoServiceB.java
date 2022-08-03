@@ -12,4 +12,6 @@ public interface DemoServiceB {
     void insert_exception();
 
     void exception();
+
+    void insert_exception_required_new();
 }

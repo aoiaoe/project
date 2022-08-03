@@ -5,6 +5,7 @@ import com.cz.spring_boot_test.entity.Demo;
 import com.cz.spring_boot_test.service.DemoServiceB;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -33,6 +34,13 @@ public class DemoServiceBImpl implements DemoServiceB {
 
     @Override
     public void exception() {
+        throw new RuntimeException();
+    }
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Override
+    public void insert_exception_required_new() {
+        demoMapper.insert(new Demo("李四"));
         throw new RuntimeException();
     }
 }

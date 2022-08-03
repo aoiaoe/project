@@ -10,4 +10,6 @@ public interface DemoService {
     void insert_out_exception();
 
     void insert_out_exception_required();
+
+    void insert_out_exception_required_new();
 }
