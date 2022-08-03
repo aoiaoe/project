@@ -1,0 +1,6 @@
+Guava消息总线： 观察者模式
+    通过EventBus的实现类，注册消费者，然后发送消费者能消费的事件类型，达到消息总线的目的
+
+    1、事件： 普通pojo类，参考Event1.java
+    2、消费者： 需要有一个入参为对应处理消息类型的方法，并且改方法需要@Subscribe注解，参考Event1Consumer.java
+    3、总线：EventBusTest。java
