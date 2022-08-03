@@ -1,4 +1,4 @@
-package com.cz.spring_boot_test;
+package com.cz.spring_boot_test.mock;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -23,28 +23,16 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 //测试单一接口时 ，也可利用注解@WebMvcTest 进行单一测试
 //@WebMvcTest(DemoController.class)
-public class HelloControllerMockTest {
+public class HelloControllerMockTest extends BaseMockTest {
 
-    //使用 WebMvcTest 时使用
-    //@autowired mockMvc 是可自动注入的。
-    //当直接使用SpringBootTest 会提示 注入失败  这里直接示例利用 MockMvcBuilders工具创建
-    //@Autowired
-    MockMvc mockMvc;
 
-    @Autowired
-    WebApplicationContext wc;
-
-    @Before
-    public void beforeSetUp() {
-        this.mockMvc = MockMvcBuilders.webAppContextSetup(wc).build();
-    }
 
     @Test
     public void testDemo() throws Exception {
         String msg = "hello world!";
         MvcResult result = this.mockMvc
                 .perform(get("/hello").param("msg", "world!"))
-                .andDo(print())
+                .andDo(print())// 打印详情
                 .andExpect(status().isOk())
                 .andReturn();
 
