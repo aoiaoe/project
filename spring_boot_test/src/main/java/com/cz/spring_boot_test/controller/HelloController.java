@@ -14,7 +14,7 @@ import java.net.UnknownHostException;
 public class HelloController {
 
     @GetMapping("/hello")
-    public String hello() throws UnknownHostException {
-        return "hello from " + InetAddress.getLocalHost().getHostAddress();
+    public String hello(String msg) {
+        return "hello " + msg;
     }
 }
