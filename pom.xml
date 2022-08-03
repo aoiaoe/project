@@ -45,6 +45,7 @@
         <module>spring_boot_sentry</module>
         <module>spring_boot_session_8350</module>
         <module>spring_boot_swagger</module>
+        <module>spring_boot_template</module>
         <module>spring_boot_test</module>
         <module>spring_boot_token_8650</module>
         <module>spring_boot_xml</module>

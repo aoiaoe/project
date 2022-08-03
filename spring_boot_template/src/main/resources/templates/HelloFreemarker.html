@@ -6,30 +6,31 @@
 </head>
 <body onload="test()">
 <h1>hello,家人们</h1>
+<h1>token: ${token}</h1>
 </body>
-<script>
-function test(){
-    //第一步  先城建一个ajax的核心 XMLHttpRequest
-    let xhr = new XMLHttpRequest();
-//第二步  使用open 创建请求 第一个参数是请求方式 第二个是请求的地址  第三个是同步或者异步
-    xhr.open('GET',"http://localhost:8450/hello",false)
-//如果是post请求  必须要写请求头
-    xhr.setRequestHeader('Accept', '*/*') //设置请求头
-//第三步  为xhr.onreadystatechange  设置监听事件
-    xhr.onreadystatechange = function(){
-        if(xhr.readyState == 4) {
-            if(xhr.status == 200){
-                alert(xhr.responseText)
-//readyState  0 请求未初始化  刚刚实例化XMLHttpRequest
-//readyState  1 客户端与服务器建立链接  调用open方法
-//readyState  2 请求已经被接收
-//readyState  3 请求正在处理中
-//readyState  4 请求成功
-            }
-        }
-    }
-// 第四步 发送请求数据  调用send 发送请求 如果不需要参数就写一个null
-    xhr.send(null)
-}
+<!--<script>-->
+<!--function test(){-->
+<!--    //第一步  先城建一个ajax的核心 XMLHttpRequest-->
+<!--    let xhr = new XMLHttpRequest();-->
+<!--//第二步  使用open 创建请求 第一个参数是请求方式 第二个是请求的地址  第三个是同步或者异步-->
+<!--    xhr.open('GET',"http://localhost:8450/hello",false)-->
+<!--//如果是post请求  必须要写请求头-->
+<!--    xhr.setRequestHeader('Accept', '*/*') //设置请求头-->
+<!--//第三步  为xhr.onreadystatechange  设置监听事件-->
+<!--    xhr.onreadystatechange = function(){-->
+<!--        if(xhr.readyState == 4) {-->
+<!--            if(xhr.status == 200){-->
+<!--                alert(xhr.responseText)-->
+<!--//readyState  0 请求未初始化  刚刚实例化XMLHttpRequest-->
+<!--//readyState  1 客户端与服务器建立链接  调用open方法-->
+<!--//readyState  2 请求已经被接收-->
+<!--//readyState  3 请求正在处理中-->
+<!--//readyState  4 请求成功-->
+<!--            }-->
+<!--        }-->
+<!--    }-->
+<!--// 第四步 发送请求数据  调用send 发送请求 如果不需要参数就写一个null-->
+<!--    xhr.send(null)-->
+<!--}-->
 </script>
 </html>
