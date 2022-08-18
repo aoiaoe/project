@@ -8,4 +8,6 @@
         
         guava:
             事件总线（同步、异步）
+        sentinel:
+            代码配置sentinel限流 SentinelConfig.java
         

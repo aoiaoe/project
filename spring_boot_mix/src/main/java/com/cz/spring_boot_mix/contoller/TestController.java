@@ -37,4 +37,16 @@ public class TestController {
         return environment.getProperty(name);
     }
 
+    // SentinelConfig中配置了限流
+    @GetMapping(value = "/sentinel1")
+    public String testSentinel1(){
+        return "sentinel1";
+    }
+
+    @GetMapping(value = "/sentinel2")
+    public String sentinel2(){
+        return "sentinel2";
+    }
+
+
 }
