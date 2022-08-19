@@ -1,5 +1,6 @@
 package com.cz.spring_boot_mix.circulardependency.autowired;
 
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,5 +19,10 @@ public class Service2 {
 
     public Service2() {
         log.info("初始化 service2....");
+    }
+
+
+    public void setService1(Service1 service1) {
+        this.service1 = service1;
     }
 }
