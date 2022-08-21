@@ -9,7 +9,7 @@
     </parent>
     <groupId>com.cz</groupId>
 
-    <artifactId>spring_boot_security_7001</artifactId>
+    <artifactId>spring_boot_security_jwt_7001</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>spring_boot_security_7001</name>
     <description>Demo project for Spring Boot</description>
