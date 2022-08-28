@@ -4,6 +4,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * 使用JavaConfig方式进行流控配置:
+ *      SentinelConfig.java
+ */
 @RequestMapping(value = "/test")
 @RestController
 public class SentinelTestController {

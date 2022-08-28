@@ -42,15 +42,15 @@ public class SentinelConfig {
         // 不过FlowRuleManager.loadRules(list);中的参数list必须为新的list, 否则不会更新
         // 并且list中须为全部的流控规则，不能只有修改后的规则，否则只会有最新的规则
         // 例如，下面的延迟任务，只增加了一个流控规则，修改后，使第二个流控规则失效了
-        new Timer().schedule(new TimerTask() {
-            @Override
-            public void run() {
-                flowRule.setCount(100);
-                List<FlowRule> list = new ArrayList<>();
-                list.add(flowRule);
-                FlowRuleManager.loadRules(list);
-                log.info("更改完成");
-            }
-        }, 5000L);
+//        new Timer().schedule(new TimerTask() {
+//            @Override
+//            public void run() {
+//                flowRule.setCount(100);
+//                List<FlowRule> list = new ArrayList<>();
+//                list.add(flowRule);
+//                FlowRuleManager.loadRules(list);
+//                log.info("更改完成");
+//            }
+//        }, 5000L);
     }
 }
