@@ -1,5 +1,6 @@
 package com.cz.spring_boot_mix.contoller;
 
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.cz.spring_boot_mix.aop.AopServiceImpl;
 import com.cz.spring_boot_mix.event.MyEvent;
 import com.cz.spring_boot_mix.event.MyEventSource;
@@ -38,11 +39,21 @@ public class TestController {
     }
 
     // SentinelConfig中配置了限流
+    @SentinelResource(value = "/interface1", fallback = "testSentinel1Fallback")
     @GetMapping(value = "/sentinel1")
     public String testSentinel1(){
         return "sentinel1";
     }
 
+    /**
+     * 降级方法
+     * @return
+     */
+    public String testSentinel1Fallback(){
+        return "sentinel1 interface blocked";
+    }
+
+    @SentinelResource(value = "/interface1")
     @GetMapping(value = "/sentinel2")
     public String sentinel2(){
         return "sentinel2";

@@ -61,7 +61,7 @@ public class DynamicPropertySource extends MapPropertySource {
         // 从本地文件中获取值
         // 不能读取项目内的,项目内的文件在jar包中无法更新,需要从外部读取
 //        URL url = new URL("D:\\Users\\Desktop\\Demo.conf");
-        File file = new File("/Users/sephiroth/IdeaProjects/project/spring_boot_mix/src/main/java/com/cz/spring_boot_mix/environment/Demo.conf");
+        File file = new File("/Users/sephiroth/IdeaProjects/project/spring_boot/spring_boot_mix/src/main/java/com/cz/spring_boot_mix/environment/Demo.conf");
         try(FileReader fileReader = new FileReader(file);
             BufferedReader reader = new BufferedReader(fileReader)){
             String line = null;
