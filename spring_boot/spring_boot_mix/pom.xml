@@ -52,7 +52,7 @@
 <!--            <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>-->
 <!--            <version>2.2.6.RELEASE</version>-->
 <!--        </dependency>-->
-
+        <!-- sentinel实现限流降级的最小依赖 -->
         <dependency>
             <groupId>com.alibaba.csp</groupId>
             <artifactId>sentinel-annotation-aspectj</artifactId>
