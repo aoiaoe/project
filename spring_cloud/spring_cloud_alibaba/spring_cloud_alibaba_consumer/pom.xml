@@ -8,7 +8,7 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<groupId>com.cz</groupId>
-	<artifactId>spring_cloud_alibaba_sentinel</artifactId>
+	<artifactId>spring_cloud_alibaba_consumer</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>spring_cloud_alibaba_sentinel</name>
 
@@ -31,6 +31,18 @@
 			<groupId>com.alibaba.cloud</groupId>
 			<artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
 			<version>2.2.6.RELEASE</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.alibaba.cloud</groupId>
+			<artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+			<version>2021.0.1.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.alibaba.cloud</groupId>
+			<artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+			<version>2021.0.1.0</version>
 		</dependency>
 	</dependencies>
 

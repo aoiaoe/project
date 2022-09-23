@@ -53,7 +53,7 @@
 
         <module>spring_cloud</module>
         <module>spring_cloud/spring_cloud_alibaba</module>
-        <module>spring_cloud/spring_cloud_alibaba/spring_cloud_alibaba_sentinel</module>
+        <module>spring_cloud/spring_cloud_alibaba/spring_cloud_alibaba_consumer</module>
         <module>spring_cloud/spring_cloud_common</module>
         <module>spring_cloud/spring_cloud_config_longpolling</module>
         <module>spring_cloud/spring_cloud_consumer</module>

@@ -20,7 +20,7 @@
 	</properties>
 
 	<modules>
-		<module>spring_cloud_alibaba_sentinel</module>
+		<module>spring_cloud_alibaba_consumer</module>
 	</modules>
 
 </project>

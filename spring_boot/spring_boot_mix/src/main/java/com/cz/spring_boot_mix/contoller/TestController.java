@@ -53,7 +53,7 @@ public class TestController {
         return "sentinel1 interface blocked";
     }
 
-    @SentinelResource(value = "/interface1")
+    @SentinelResource(value = "/interface2")
     @GetMapping(value = "/sentinel2")
     public String sentinel2(){
         return "sentinel2";
