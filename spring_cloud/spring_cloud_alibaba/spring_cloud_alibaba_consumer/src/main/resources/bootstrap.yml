@@ -1,0 +1,38 @@
+server:
+  port: 10000
+spring:
+  application:
+    name: nacos_config_sentinel_consumer
+  cloud:
+    sentinel:
+      enabled: true
+      transport:
+        dashboard: http://tx-sh:9999 # sentinel看板的地址
+      eager: true # 开启对sentinel看板的饥饿式加载。sentinel默认是懒加载机制，只有访问过一次的资源才会被监控，通过关闭懒加载，在项目启动时就连接sentinel控制台
+    nacos:
+      discovery:
+        service: ${spring.application.name}
+        server-addr: http://tx-gd:8948
+        username: nacos
+        password: nacos
+        register-enabled: true # 是否注册，消费者一般不需要注册
+        namespace: dev # 命名空间
+      config:
+        enabled: true
+        server-addr: http://tx-gd:8948
+        username: nacos
+        password: nacos
+        file-extension: yml
+        group: DEFAULT_GROUP
+        namespace: dev
+        # 主配置 > 扩展配置(extension-configs) > 共享配置(shared-configs)
+        # 扩展配置
+        extension-configs[0]:
+          dataId: nacos_config_sentinel_consumer_ext.yml
+        # 共享配置
+        shared-configs[0]:
+          dataId: common.yml
+
+
+#nacos-config:
+#  test: value in bootstrap
