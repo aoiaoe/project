@@ -1,3 +1,5 @@
 server:
   port: 8101
 
+test:
+  cron: 0/5 * * * * ?

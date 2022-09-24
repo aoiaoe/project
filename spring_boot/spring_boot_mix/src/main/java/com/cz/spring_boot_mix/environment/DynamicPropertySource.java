@@ -28,7 +28,7 @@ public class DynamicPropertySource extends MapPropertySource {
         scheduled.scheduleAtFixedRate(new Runnable() {
             @Override
             public void run() {
-                map = dynamicLoadMapInfo();
+//                map = dynamicLoadMapInfo();
             }
  
         }, 1, 10, SECONDS);
