@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RequestMapping(value = "/test")
 @RestController
-public class TestController {
+public class SentinelTestController {
 
     @Autowired
     private ApplicationEventMulticaster applicationEventMulticaster;

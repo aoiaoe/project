@@ -10,7 +10,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.cz</groupId>
-    <artifactId>spring_boot_https</artifactId>
+    <artifactId>spring_boot_https_6900</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>spring_boot_https_6900</name>
     <description>https</description>

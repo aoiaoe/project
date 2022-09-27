@@ -1,4 +1,4 @@
-package com.cz.open_api_sdk_server.config;
+package com.cz.spring_boot_mix.paramresolver;
 
 import java.util.LinkedList;
 
@@ -23,17 +23,21 @@ public class ArgumentResolverBeanPostProcessor implements BeanPostProcessor {
 
     public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
 
+        // 获取请求处理器适配器
         if (beanName.equals(BEAN_REQUEST_MAPPING_HANDLER_ADAPTER)) {
 
             RequestMappingHandlerAdapter adapter = (RequestMappingHandlerAdapter) bean;
 
+            // 获取参数解析器链
             List<HandlerMethodArgumentResolver> argumentResolvers = adapter.getArgumentResolvers();
 
+            // 生成新链
             LinkedList<HandlerMethodArgumentResolver> resolversAdjusted = new LinkedList<>(argumentResolvers);
 
             argumentResolvers.stream().forEach(r -> {
 
-                if (DemoArgResolver.class.isInstance(r)) {
+                // 如果是自定义参数解析器，则加到链的最前面
+                if (MyParamResolver.class.isInstance(r)) {
 
                     resolversAdjusted.addFirst(r);
 
@@ -43,6 +47,7 @@ public class ArgumentResolverBeanPostProcessor implements BeanPostProcessor {
 
                 }
             });
+            // 给请求处理器适配器设置重排序后的参数解析器链
             adapter.setArgumentResolvers(resolversAdjusted);
 
         }
