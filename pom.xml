@@ -64,7 +64,6 @@
         <module>spring_cloud/spring_cloud_provider_entity</module>
         <module>spring_cloud/spring_cloud_provider_entity/spring_cloud_provider_9100</module>
         <module>spring_cloud/spring_cloud_provider_entity/spring_cloud_provider_sleuth_9105</module>
-        <module>spring_cloud/spring_cloud_provider_nacos_9110</module>
         <module>spring_cloud/spring_cloud_provider_user</module>
         <module>spring_cloud/spring_cloud_provider_user/spring_cloud_provider_user_9105</module>
         <module>spring_cloud/spring_cloud_provider_user/spring_cloud_provider_user_docker_9109</module>
