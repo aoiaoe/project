@@ -1,6 +1,8 @@
 ## 杂项
 
 ### AOP执行顺序
+#### 创建aop的另一种方式
+    com.cz.spring_boot_mix.aop.custom
 ### 循环依赖
         源代码跟踪测试： com.cz.spring_boot_mix.circulardependency.CircularDependencyTest
         

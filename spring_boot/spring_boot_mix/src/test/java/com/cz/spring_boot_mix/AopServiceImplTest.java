@@ -1,6 +1,8 @@
 package com.cz.spring_boot_mix;
 
 import com.cz.spring_boot_mix.aop.AopServiceImpl;
+import com.cz.spring_boot_mix.aop.custom.service.CustomAopService;
+import com.cz.spring_boot_mix.aop.custom.service.CustomAopSubService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,11 @@ public class AopServiceImplTest {
 
     @Autowired
     private AopServiceImpl aopService;
+
+    @Autowired
+    private CustomAopService customAopService;
+    @Autowired
+    private CustomAopSubService customAopSubService;
 
     @Test
     public void test() {
@@ -43,4 +50,13 @@ public class AopServiceImplTest {
         this.aopService.doSthWithOutAroundAspectWithException();
     }
 
+    /**
+     * 测试创建切面的另一种方式
+     */
+    @Test
+    public void testAopAnotherWay(){
+        // 父类和子类都有@AopTest注解
+        customAopService.test();
+        customAopSubService.test();
+    }
 }
