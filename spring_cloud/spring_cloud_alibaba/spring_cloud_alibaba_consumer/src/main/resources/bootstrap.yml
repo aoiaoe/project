@@ -7,7 +7,7 @@ spring:
     sentinel:
       enabled: true
       transport:
-        dashboard: http://tx-sh:9999 # sentinel看板的地址
+        dashboard: http://localhost:9999 # sentinel看板的地址
       eager: true # 开启对sentinel看板的饥饿式加载。sentinel默认是懒加载机制，只有访问过一次的资源才会被监控，通过关闭懒加载，在项目启动时就连接sentinel控制台
     nacos:
       discovery:
