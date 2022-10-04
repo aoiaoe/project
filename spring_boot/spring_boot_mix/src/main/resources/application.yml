@@ -3,3 +3,5 @@ server:
 
 test:
   cron: 0/5 * * * * ?
+
+config_test_in_yml: ${config_test}
