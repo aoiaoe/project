@@ -1,0 +1,44 @@
+server:
+  port: 10020
+  servlet:
+    context-path: /gw
+spring:
+  application:
+    name: nacos-config-sentinel-gw
+  cloud:
+    nacos:
+      discovery:
+        enabled: true
+        server-addr: http://tx-gd:8948
+        namespace: dev
+        username: nacos
+        password: nacos
+        metadata:
+          management:
+            context-path: ${server.servlet.context-path}/actuator
+gateway:
+  data-id: ${spring.application.name}.json
+  group: DEFAULT_GROUP
+  time-out: 3000
+    # 静态路由
+  # demo
+  #    gateway:
+  #      routes:
+  #        - id: path-rout # 路由id
+  #          uri: 127.0.0.1:10000/user # 匹配路由地址
+  #          predicates: # 断言
+  #            - Path=/user
+  # 允许重名覆盖
+  main:
+    allow-bean-definition-overriding: true
+
+# 暴露端点
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+debug: true

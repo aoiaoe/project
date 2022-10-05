@@ -1,0 +1,18 @@
+{
+  "properties": [
+    {
+      "name": "gateway.time-out",
+      "type": "java.lang.String",
+      "description": "Description for gateway.time-out."
+    },
+    {
+      "name": "gateway.data-id",
+      "type": "java.lang.String",
+      "description": "Description for gateway.data-id."
+    },
+    {
+      "name": "gateway.group",
+      "type": "java.lang.String",
+      "description": "Description for gateway.group."
+    }
+  ] }

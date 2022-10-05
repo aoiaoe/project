@@ -21,7 +21,7 @@ import java.util.List;
  * 配置热更新: @ConfigurationProperties注解的配置类配合NacosConfig可以实现自动更新
  *          但是如果加上@RefreshScope注解，则是延迟加载，会在使用此类时才会进行更新
  */
-//@RefreshScope /*  */
+//@RefreshScope /* 如果打开此注解， 则是延迟加载  */
 @Slf4j
 @Data
 @ConfigurationProperties(value = "test")
