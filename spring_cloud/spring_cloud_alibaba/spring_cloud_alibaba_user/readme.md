@@ -35,3 +35,27 @@
             # 共享配置
             shared-configs[0]:
               dataId: common.yml
+## 配置更新
+    @ConfigurationProperties注解的类会自动刷新, 但是如果增加了@RefreshScope注解则是延迟更新，
+        在使用时才会重新初始化属性, 参考 UserConfig.java
+    @Value注解的属性不会自动刷新，需要配合@RefreshScope   
+## 配置更新之后触发操作
+    目前可以通过三种方式实现
+    
+    1、通过重写set方法，在自动初始化bean注入rules的时候完成grayRuleInfos的初始化（不够友好）。
+    
+    2、通过EventListener监听下发的配置修改事件，然后修改对应的grayRuleInfos初始化（获取到的是上一次rules的值）
+    
+    @EventListener
+    
+    public void envChangeListener(EnvironmentChangeEvent event) {}
+      
+    3、通过@PostConstruct，比较优雅
+    
+    每次配置变更都是不是销毁原来的bean，而是重新将bean初始化
+    如果加了@RefreshScope，则会延迟加载，只有在使用的时候才会触发PostConstruct对应的操作
+    
+    作者：zornil
+    链接：https://www.jianshu.com/p/b9945db84c4e
+    来源：简书
+    著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。

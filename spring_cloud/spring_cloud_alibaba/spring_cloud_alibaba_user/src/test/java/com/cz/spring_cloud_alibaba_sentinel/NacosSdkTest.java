@@ -39,7 +39,7 @@ public class NacosSdkTest {
             }
         });
 
-        CountDownLatch countDownLatch = new CountDownLatch(1);
-        countDownLatch.await();
+//        CountDownLatch countDownLatch = new CountDownLatch(1);
+//        countDownLatch.await();
     }
 }
