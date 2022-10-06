@@ -6,6 +6,10 @@ spring:
   application:
     name: nacos-config-sentinel-gw
   cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: false
     nacos:
       discovery:
         enabled: true
@@ -41,4 +45,4 @@ management:
   endpoint:
     health:
       show-details: always
-debug: true
+#debug: true

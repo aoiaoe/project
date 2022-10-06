@@ -3,4 +3,5 @@
     实现动态路由
     参考: DynamicRouteService.java DynamicRouteServiceByNacos.java
     
-    小坑: spring cloud gateway没有feign客户端， 需要手动添加依赖openfeign
+    小坑: spring cloud gateway没有负载均衡客户端，如果路由定义的url是lb://协议的
+     需要手动添加loadbalancer依赖
