@@ -20,6 +20,13 @@ spring:
         metadata:
           management:
             context-path: ${server.servlet.context-path}/actuator
+      config:
+        server-addr: http://tx-gd:8948
+        namespace: dev
+        username: nacos
+        password: nacos
+        file-extension: yml
+
 gateway:
   data-id: ${spring.application.name}.json
   group: DEFAULT_GROUP

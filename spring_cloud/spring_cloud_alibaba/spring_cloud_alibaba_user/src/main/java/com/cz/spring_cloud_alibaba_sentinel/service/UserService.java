@@ -50,4 +50,17 @@ public class UserService {
                 })
                 .orElse(null);
     }
+
+    public UserVo userInfo(Long id) {
+        return Optional.ofNullable(userConfig.getUsers()).orElse(new ArrayList<>())
+                .stream()
+                .filter(e -> e.getId().equals(id))
+                .findFirst()
+                .map(e -> {
+                    final UserVo userVo = new UserVo();
+                    BeanUtils.copyProperties(e, userVo);
+                    return userVo;
+                })
+                .orElse(null);
+    }
 }

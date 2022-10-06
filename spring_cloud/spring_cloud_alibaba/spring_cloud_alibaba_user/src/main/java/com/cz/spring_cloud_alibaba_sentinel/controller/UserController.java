@@ -4,6 +4,7 @@ import com.cz.spring_cloud_alibaba_sentinel.domain.UserVo;
 import com.cz.spring_cloud_alibaba_sentinel.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,6 +18,11 @@ public class UserController {
     @GetMapping
     public UserVo user(Long id){
         return this.userService.user(id);
+    }
+
+    @GetMapping(value = "/{id}")
+    public UserVo users(@PathVariable Long id){
+        return this.userService.userInfo(id);
     }
 
 }
