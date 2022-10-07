@@ -20,7 +20,7 @@ import java.nio.charset.StandardCharsets;
  *  然后打开 过滤器，则正常请求
  */
 @Slf4j
-@Component
+//@Component
 public class ReadBodyGlobalFilter implements GlobalFilter, Ordered {
 
     @Override
