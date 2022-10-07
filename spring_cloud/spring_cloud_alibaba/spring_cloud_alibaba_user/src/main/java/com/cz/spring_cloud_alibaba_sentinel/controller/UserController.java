@@ -1,12 +1,10 @@
 package com.cz.spring_cloud_alibaba_sentinel.controller;
 
+import com.cz.spring_cloud_alibaba_sentinel.domain.UserDto;
 import com.cz.spring_cloud_alibaba_sentinel.domain.UserVo;
 import com.cz.spring_cloud_alibaba_sentinel.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequestMapping(value = "/user")
 @RestController
@@ -25,4 +23,8 @@ public class UserController {
         return this.userService.userInfo(id);
     }
 
+    @PostMapping(value = "/add")
+    public boolean createUser(@RequestBody UserDto param){
+        return this.userService.addUser(param);
+    }
 }

@@ -2,6 +2,7 @@ package com.cz.spring_cloud_alibaba_sentinel.service;
 
 import com.cz.spring_cloud_alibaba_api.domain.order.OrderVo;
 import com.cz.spring_cloud_alibaba_sentinel.config.UserConfig;
+import com.cz.spring_cloud_alibaba_sentinel.domain.UserDto;
 import com.cz.spring_cloud_alibaba_sentinel.domain.UserVo;
 import com.cz.spring_cloud_alibaba_sentinel.feign.OrderFeignClient;
 import lombok.extern.slf4j.Slf4j;
@@ -62,5 +63,10 @@ public class UserService {
                     return userVo;
                 })
                 .orElse(null);
+    }
+
+    public boolean addUser(UserDto param) {
+        userConfig.getUsers().add(param);
+        return true;
     }
 }
