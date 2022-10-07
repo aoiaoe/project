@@ -43,7 +43,11 @@ public class AuthTokenGlobalFilter implements GlobalFilter, AbstractFilteredHand
         if(Objects.equals(TOKEN_VALUE, token)){
             return chain.filter(exchange);
         }
-        return filteredRequest(response, HttpStatus.UNAUTHORIZED, "TOKEN验证失败");
+        // 如果没有token则返回响应信息
+        // 两种方式: 1：直接用response写会
+//        return filteredRequest(response, HttpStatus.UNAUTHORIZED, "TOKEN验证失败");
+        // 2：抛出异常信息，然后由错误处理器进行错误信息写会
+        throw new RuntimeException("TOKEN验证失败");
     }
 
     private boolean shouldSkip(String url){

@@ -20,7 +20,7 @@ import java.nio.charset.StandardCharsets;
  *  然后打开 过滤器，则正常请求
  */
 @Slf4j
-//@Component
+@Component
 public class ReadBodyGlobalFilter implements GlobalFilter, Ordered {
 
     @Override
@@ -28,6 +28,9 @@ public class ReadBodyGlobalFilter implements GlobalFilter, Ordered {
         exchange.getRequest().getBody().subscribe(body -> {
             final CharBuffer data = StandardCharsets.UTF_8.decode(body.asByteBuffer());
             log.info("[读取请求body] :{}", data.toString());
+            // 在【【【【最后一个】】】】需要使用body数据的过滤器
+            // 完之后需要release 否则会内存泄漏
+            // 尤其是记住是最后一个过滤器才释放，否则还是没有数据
             DataBufferUtils.release(body);
         });
         return chain.filter(exchange);
