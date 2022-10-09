@@ -37,6 +37,16 @@ spring:
 feign:
   client:
 
+# 暴露端点
+management:
+  endpoints:
+    web:
+      exposure:
+        # 默认值开放health和info端点。设置*开放所有端点
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
 
 #nacos-config:
 #  test: value in bootstrap

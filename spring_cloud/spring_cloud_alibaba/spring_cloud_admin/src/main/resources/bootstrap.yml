@@ -1,0 +1,44 @@
+server:
+  port: 10030
+  servlet:
+    context-path: /admin
+spring:
+  application:
+    name: admin
+  cloud:
+    nacos:
+      discovery:
+        enabled: true
+        server-addr: http://tx-gd:8948
+        namespace: dev
+        username: nacos
+        password: nacos
+        metadata:
+          management:
+            context-path: ${server.servlet.context-path}/actuator
+  thymeleaf:
+    check-template: false
+    check-template-location: false
+  #      config:
+#        server-addr: http://tx-gd:8948
+#        namespace: dev
+#        username: nacos
+#        password: nacos
+#        file-extension: yml
+
+  main:
+    allow-bean-definition-overriding: true
+
+# 暴露端点
+management:
+  server:
+    base-path: ${server.servlet.context-path}
+  endpoints:
+    web:
+      exposure:
+        # 默认值开放health和info端点。设置*开放所有端点
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+#debug: true
