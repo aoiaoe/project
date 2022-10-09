@@ -44,6 +44,7 @@ public class AuthTokenGlobalFilter implements GlobalFilter, AbstractFilteredHand
         }
         final List<String> tokens = request.getHeaders().get(TOKEN_HEADER_NAME);
         final String token = Optional.ofNullable(tokens).orElse(Collections.singletonList(null)).get(0);
+        // 对token进行jwt校验
         if(JwtUtils.verify(token, publicKey)){
             return chain.filter(exchange);
         }

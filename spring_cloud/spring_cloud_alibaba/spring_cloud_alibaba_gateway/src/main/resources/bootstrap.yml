@@ -4,7 +4,7 @@ server:
     context-path: /gw
 spring:
   application:
-    name: cloud-gw
+    name: nacos-config-sentinel-gw
   cloud:
     gateway:
       discovery:

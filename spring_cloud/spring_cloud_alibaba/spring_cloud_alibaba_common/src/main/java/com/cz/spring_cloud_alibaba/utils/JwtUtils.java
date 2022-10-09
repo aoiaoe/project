@@ -1,6 +1,7 @@
 package com.cz.spring_cloud_alibaba.utils;
 
 import com.alibaba.fastjson.JSON;
+import com.cz.spring_cloud_alibaba.constants.CommonConstants;
 import com.cz.spring_cloud_alibaba.constants.JwtConstants;
 import com.cz.spring_cloud_alibaba.domain.auth.JwtUserInfo;
 import com.cz.spring_cloud_alibaba.enums.ErrorEnums;
@@ -15,6 +16,7 @@ import java.io.IOException;
 import java.security.*;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
+import java.security.spec.X509EncodedKeySpec;
 import java.sql.Date;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -27,7 +29,7 @@ import java.time.ZoneId;
 public class JwtUtils {
 
     /**
-     * 生成token
+     * 私钥生成token
      *
      * @param info
      * @param expiration
@@ -47,30 +49,30 @@ public class JwtUtils {
         }
     }
 
-    /**
-     * 校验token
-     *
-     * @param token
-     * @param priKey
-     * @return
-     */
-    public static boolean verify(String token, PrivateKey priKey) {
-        if (StringUtils.isBlank(token)) {
-            return false;
-        }
-        try {
-            JwtUserInfo info = getClaims(token, priKey);
-            if (info != null) {
-                return true;
-            }
-        } catch (Exception e) {
-            log.error("[验证token] 出错： ", e);
-        }
-        return false;
-    }
+//    /**
+//     * 校验token
+//     *
+//     * @param token
+//     * @param priKey
+//     * @return
+//     */
+//    public static boolean verify(String token, PrivateKey priKey) {
+//        if (StringUtils.isBlank(token)) {
+//            return false;
+//        }
+//        try {
+//            JwtUserInfo info = getClaims(token, priKey);
+//            if (info != null) {
+//                return true;
+//            }
+//        } catch (Exception e) {
+//            log.error("[验证token] 出错： ", e);
+//        }
+//        return false;
+//    }
 
     /**
-     * 校验token
+     * 公钥校验token
      *
      * @param token
      * @param pubKey
@@ -92,6 +94,28 @@ public class JwtUtils {
     }
 
     /**
+     * 公钥校验token
+     *
+     * @param token
+     * @param pubKey
+     * @return
+     */
+    public static boolean verify(String token, String pubKey) {
+        if (StringUtils.isBlank(token)) {
+            return false;
+        }
+        try {
+            JwtUserInfo info = getClaims(token, publicKey(pubKey));
+            if (info != null) {
+                return true;
+            }
+        } catch (Exception e) {
+            log.error("[验证token] 出错： ", e);
+        }
+        return false;
+    }
+
+    /**
      * 获取token中的用户信息
      *
      * @param token
@@ -103,7 +127,7 @@ public class JwtUtils {
             JwtParser parser = Jwts.parserBuilder()
                     .setSigningKey(key)
                     .build();
-            Claims body = parser.parseClaimsJwt(token).getBody();
+            Claims body = parser.parseClaimsJws(token).getBody();
             Object infoObj = body.get(JwtConstants.JWT_USER);
             if (infoObj != null) {
                 return JSON.parseObject(infoObj.toString(), JwtUserInfo.class);
@@ -113,5 +137,19 @@ public class JwtUtils {
             log.error("[解析jwt] 出错：", e);
             throw BizException.error(ErrorEnums.USER_UN_LOG_ERROR);
         }
+    }
+
+    public static PublicKey publicKey(String key) throws Exception{
+        X509EncodedKeySpec pubSpec = new X509EncodedKeySpec(new BASE64Decoder().decodeBuffer(CommonConstants.PUB_KEY));
+        KeyFactory keyFactory = KeyFactory.getInstance("RSA");
+        return keyFactory.generatePublic(pubSpec);
+    }
+
+    public static void main(String[] args) throws Exception {
+        String token = "eyJhbGciOiJSUzI1NiJ9.eyJqd3RfdXNlciI6IntcImlkXCI6MSxcIm5hbWVcIjpcImp6bVwifSIsImV4cCI6MTY2NTMxNjEzOH0.Mpnr34DUCDvhL2TrYqGkx3ATyUcwoLfuM5Zt-eGy7K3-yRIRUsL0LD3-caTtwNmEzE1lsrCTfM_BVDds9aOglhkPva80HGTS1XRgkgH9IzRdpvaxA571SyKW0247XlJRlo13cFRR-MjlugsvYvFlPxYp7JZWbmqjAtsbevkd2NyA-ssrd5Cw2AAchz_racMa1gkDahuKP1Rh-VHpGV9vKvU0V8k6pyLo0LzxmBTOm4BW99EhvK0MxUTOsZ2UcawMZ6CW7kFCl114nKaqxpescoeSq8kKYMGGl9KZTwElqotiuAt97lHFWfCaFe7kZjlQWjgUBhsBqfkhd-ygEwlOHQ";
+        X509EncodedKeySpec pubSpec = new X509EncodedKeySpec(new BASE64Decoder().decodeBuffer(CommonConstants.PUB_KEY));
+        KeyFactory keyFactory = KeyFactory.getInstance("RSA");
+        PublicKey publicKey = keyFactory.generatePublic(pubSpec);
+        verify(token, publicKey);
     }
 }
