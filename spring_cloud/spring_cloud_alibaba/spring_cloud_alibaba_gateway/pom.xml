@@ -35,6 +35,12 @@
 		</dependency>
 
 		<dependency>
+			<groupId>com.cz</groupId>
+			<artifactId>spring_cloud_alibaba_common</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
 			<groupId>com.alibaba.cloud</groupId>
 			<artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
 		</dependency>

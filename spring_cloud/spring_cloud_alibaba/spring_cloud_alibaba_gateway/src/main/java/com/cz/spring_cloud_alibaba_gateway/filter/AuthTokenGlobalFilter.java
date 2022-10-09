@@ -1,5 +1,7 @@
 package com.cz.spring_cloud_alibaba_gateway.filter;
 
+import com.cz.spring_cloud_alibaba.constants.CommonConstants;
+import com.cz.spring_cloud_alibaba.utils.JwtUtils;
 import com.cz.spring_cloud_alibaba_gateway.config.AuthProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
@@ -13,6 +15,7 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
+import java.security.PublicKey;
 import java.util.*;
 
 /**
@@ -24,11 +27,12 @@ import java.util.*;
 public class AuthTokenGlobalFilter implements GlobalFilter, AbstractFilteredHandler {
 
     private final static String TOKEN_HEADER_NAME = "Auth";
-    private final static String TOKEN_VALUE = "token";
     private final static AntPathMatcher matcher = new AntPathMatcher();
 
     @Autowired
     private AuthProperties authProperties;
+    @Autowired
+    private PublicKey publicKey;
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
@@ -40,7 +44,7 @@ public class AuthTokenGlobalFilter implements GlobalFilter, AbstractFilteredHand
         }
         final List<String> tokens = request.getHeaders().get(TOKEN_HEADER_NAME);
         final String token = Optional.ofNullable(tokens).orElse(Collections.singletonList(null)).get(0);
-        if(Objects.equals(TOKEN_VALUE, token)){
+        if(JwtUtils.verify(token, publicKey)){
             return chain.filter(exchange);
         }
         // 如果没有token则返回响应信息

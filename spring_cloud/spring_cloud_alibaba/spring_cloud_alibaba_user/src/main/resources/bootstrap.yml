@@ -34,8 +34,8 @@ spring:
         # 共享配置
         shared-configs[0]:
           dataId: common.yml
-feign:
-  client:
+#feign:
+#  client:
 
 
 #nacos-config:

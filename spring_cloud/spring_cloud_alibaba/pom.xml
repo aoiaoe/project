@@ -23,6 +23,9 @@
 		<module>spring_cloud_alibaba_order</module>
 		<module>spring_cloud_alibaba_api</module>
 		<module>spring_cloud_alibaba_gateway</module>
+		<module>spring_cloud_alibaba_auth_center</module>
+		<module>spring_cloud_alibaba_web</module>
+		<module>spring_cloud_alibaba_common</module>
 	</modules>
 
 	<dependencies>

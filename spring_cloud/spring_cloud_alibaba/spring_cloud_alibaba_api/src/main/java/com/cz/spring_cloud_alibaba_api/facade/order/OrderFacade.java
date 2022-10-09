@@ -1,6 +1,6 @@
 package com.cz.spring_cloud_alibaba_api.facade.order;
 
-import com.cz.spring_cloud_alibaba_api.domain.order.OrderVo;
+import com.cz.spring_cloud_alibaba.domain.order.OrderVo;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 

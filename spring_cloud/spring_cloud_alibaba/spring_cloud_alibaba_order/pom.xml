@@ -15,9 +15,11 @@
 		<java.version>1.8</java.version>
 	</properties>
 	<dependencies>
+		<!--通用mvc 统一响应、全局异常处理-->
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
+			<groupId>com.cz</groupId>
+			<artifactId>spring_cloud_alibaba_web</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 
 		<dependency>
