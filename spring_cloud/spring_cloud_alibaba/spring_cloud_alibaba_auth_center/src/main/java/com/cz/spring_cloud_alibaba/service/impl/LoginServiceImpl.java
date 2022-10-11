@@ -36,6 +36,7 @@ public class LoginServiceImpl implements ILoginService {
 
     @Override
     public JwtToken login(LoginDto param) {
+        log.info("[用户登录】 参数：{}", JSON.toJSONString(param));
         Users user = this.usersMapper.selectOne(new LambdaQueryWrapper<Users>().eq(Users::getName, param.getName()));
         AssertUtils.notNull(user, ErrorEnums.USER_NOT_FOUND);
         boolean match = this.bCryptPasswordEncoder.matches(param.getPwd(), user.getPassword());

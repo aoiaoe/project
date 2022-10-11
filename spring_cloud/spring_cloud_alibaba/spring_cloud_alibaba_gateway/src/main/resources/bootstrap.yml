@@ -27,6 +27,14 @@ spring:
         password: nacos
         file-extension: yml
 
+#  sleuth:
+#    reactor:
+#      #在2020.0.0中，已将默认网关反应器检测模式更改为manual,
+#      #ON_EACH-用跟踪表示形式包装每个Reactor运算符。在大多数情况下，传递跟踪上下文。此模式可能会导致性能急剧下降。
+#      #ON_LAST-将最后一个Reactor运算符包装在跟踪表示中。在某些情况下传递跟踪上下文，
+#      #因此访问MDC上下文可能不起作用。此模式可能会导致中等性能下降。
+#      #MANUAL-以最小侵入性的方式包装每个Reactor，而无需通过跟踪上下文。由用户决定
+#      instrumentation-type: decorate_on_each
 gateway:
   data-id: ${spring.application.name}.json
   group: DEFAULT_GROUP
