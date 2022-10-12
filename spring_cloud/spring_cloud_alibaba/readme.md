@@ -8,4 +8,4 @@
     jwt 鉴权
     loadbalancer 负载均衡
     sentinel 熔断限流降级
-    feign http客户端
+    openfeign http客户端

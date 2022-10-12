@@ -1,5 +1,6 @@
 package com.cz.spring_cloud_alibaba.controller;
 
+import com.cz.spring_cloud_alibaba.anntation.IgnoreCommonResponseBody;
 import com.cz.spring_cloud_alibaba.domain.order.OrderVo;
 import com.cz.spring_cloud_alibaba_api.facade.order.OrderFacade;
 import com.cz.spring_cloud_alibaba.config.OrderService;
@@ -21,6 +22,7 @@ public class OrderController implements OrderFacade {
     @Autowired
     private OrderService orderService;
 
+    @IgnoreCommonResponseBody
     @Override
     public List<OrderVo> userOrders(Long userId) {
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();

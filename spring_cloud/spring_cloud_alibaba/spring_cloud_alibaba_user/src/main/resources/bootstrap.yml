@@ -34,8 +34,22 @@ spring:
         # 共享配置
         shared-configs[0]:
           dataId: common.yml
-#feign:
-#  client:
+
+feign:
+  # 是否开启gzip压缩
+  compression:
+    request:
+      enabled: true
+      mime-types: text/xml,application/xml,application/json
+      min-request-size: 1024
+    response:
+      enabled: true
+  # 底层切换为OkHttp
+  httpclient:
+    enabled: false
+  okhttp:
+    enabled: true
+
 
 # 暴露端点
 management:
