@@ -146,10 +146,10 @@ public class JwtUtils {
     }
 
     public static void main(String[] args) throws Exception {
-        String token = "eyJhbGciOiJSUzI1NiJ9.eyJqd3RfdXNlciI6IntcImlkXCI6MSxcIm5hbWVcIjpcImp6bVwifSIsImV4cCI6MTY2NTMxNjEzOH0.Mpnr34DUCDvhL2TrYqGkx3ATyUcwoLfuM5Zt-eGy7K3-yRIRUsL0LD3-caTtwNmEzE1lsrCTfM_BVDds9aOglhkPva80HGTS1XRgkgH9IzRdpvaxA571SyKW0247XlJRlo13cFRR-MjlugsvYvFlPxYp7JZWbmqjAtsbevkd2NyA-ssrd5Cw2AAchz_racMa1gkDahuKP1Rh-VHpGV9vKvU0V8k6pyLo0LzxmBTOm4BW99EhvK0MxUTOsZ2UcawMZ6CW7kFCl114nKaqxpescoeSq8kKYMGGl9KZTwElqotiuAt97lHFWfCaFe7kZjlQWjgUBhsBqfkhd-ygEwlOHQ";
+        String token = "eyJhbGciOiJSUzI1NiJ9.eyJqd3RfdXNlciI6IntcImlkXCI6MSxcIm5hbWVcIjpcImp6bVwifSIsImV4cCI6MTY2NTMxNzkzMX0.HYVQDOD1TbXtcOdFXnbOScS8JUOVW-y4kQ18qqmzBlaG7mYt5p8ds0pvrfSM66iFegaj9ZsTXnIoaVOOKU9_rjHBcJqOIecCGMzRIoJS7Bqp_yWUCCXANrsF9_nlTeNaPYREMH0fXG3NoT-N1q-6wzjaFtgdpuxW563adGxKEwXTrt_21D4eH7UzLkKZBvBJiOoMz2hbgr9ZUqhaln7a7wVngP7YCIWyl2Fb0rD7wJ3ifQprJ-NcKNRdLTjQCaWb2fFngq5yRHYoSvbqZmvaTwFrUOrwadQhP1QhP5d3BqHtTGA92HQ4qOo0wwC3MfpmpW7h_an2VbW-KBpzAL4QSA";
         X509EncodedKeySpec pubSpec = new X509EncodedKeySpec(new BASE64Decoder().decodeBuffer(CommonConstants.PUB_KEY));
         KeyFactory keyFactory = KeyFactory.getInstance("RSA");
         PublicKey publicKey = keyFactory.generatePublic(pubSpec);
-        verify(token, publicKey);
+        System.out.println(verify(token, publicKey));
     }
 }
