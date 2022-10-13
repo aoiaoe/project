@@ -42,7 +42,7 @@ public class LoginServiceImpl implements ILoginService {
         AssertUtils.isTrue(match, ErrorEnums.USER_NOT_FOUND);
 
         JwtUserInfo info = new JwtUserInfo(user.getId(), user.getName());
-        String token = JwtUtils.generateToken(info, authorityConfig.getExpiration(), privateKey);
+        String token = JwtUtils.generateToken(info, 10L, privateKey);
 
         return JwtToken.builder().token(token).build();
     }
