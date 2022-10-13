@@ -62,9 +62,15 @@
 <!--			<artifactId>spring-cloud-starter-openfeign</artifactId>-->
 <!--		</dependency>-->
 		<!-- Feign Client for loadBalancing -->
+		<!-- 最新网关起步依赖中没有loadbalancer， 但是通过lb://协议需要使用-->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-loadbalancer</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-sleuth</artifactId>
 		</dependency>
 
 

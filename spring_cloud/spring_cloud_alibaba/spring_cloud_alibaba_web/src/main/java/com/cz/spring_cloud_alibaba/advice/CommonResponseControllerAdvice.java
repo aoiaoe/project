@@ -1,6 +1,6 @@
 package com.cz.spring_cloud_alibaba.advice;
 
-import com.cz.spring_cloud_alibaba.anntation.IgnoreResponseBody;
+import com.cz.spring_cloud_alibaba.anntation.IgnoreCommonResponseBody;
 import com.cz.spring_cloud_alibaba.domain.CommonResponse;
 import com.cz.spring_cloud_alibaba.enums.ResultEnums;
 import org.springframework.core.MethodParameter;
@@ -20,8 +20,8 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 public class CommonResponseControllerAdvice implements ResponseBodyAdvice<Object> {
     @Override
     public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> clazz) {
-        if (returnType.getDeclaringClass().isAnnotationPresent(IgnoreResponseBody.class)
-                || returnType.getMethod().isAnnotationPresent(IgnoreResponseBody.class)) {
+        if (returnType.getDeclaringClass().isAnnotationPresent(IgnoreCommonResponseBody.class)
+                || returnType.getMethod().isAnnotationPresent(IgnoreCommonResponseBody.class)) {
             return false;
         }
         return true;

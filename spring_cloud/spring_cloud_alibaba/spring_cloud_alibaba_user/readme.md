@@ -1,5 +1,7 @@
 ## Nacos + feign 消费者
-
+    feign 请求响应压缩、特殊配置, Okhttp替换httpClient
+    okhttp客户端替换默认客户端
+        FeignOkHttpConfig.java
 ## Sentinel 流控
     官方文档： https://sentinelguard.io/zh-cn/docs/introduction.html
     本示例参考文档: https://mp.weixin.qq.com/s/Fvdj7aRYLwtzFE8kBSS8Hw

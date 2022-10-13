@@ -3,6 +3,8 @@ package com.cz.spring_cloud_alibaba_gateway.filter;
 import com.cz.spring_cloud_alibaba.constants.CommonConstants;
 import com.cz.spring_cloud_alibaba.utils.JwtUtils;
 import com.cz.spring_cloud_alibaba_gateway.config.AuthProperties;
+import com.google.common.collect.Lists;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
@@ -20,9 +22,10 @@ import java.util.*;
 
 /**
  * 全局过滤器:
- *  使用方式: 只需要实现GlobalFilter接口，并添加@Component注解,将其注册到Spring容器，在应用启动时，框架将过滤器添加到全局过滤器链中
- *  使用场景: 权限校验、限流、日志记录
+ * 使用方式: 只需要实现GlobalFilter接口，并添加@Component注解,将其注册到Spring容器，在应用启动时，框架将过滤器添加到全局过滤器链中
+ * 使用场景: 权限校验、限流、日志记录
  */
+@Slf4j
 @Component
 public class AuthTokenGlobalFilter implements GlobalFilter, AbstractFilteredHandler {
 
@@ -36,16 +39,19 @@ public class AuthTokenGlobalFilter implements GlobalFilter, AbstractFilteredHand
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
+        log.info("[鉴权校验]");
         final ServerHttpRequest request = exchange.getRequest();
         final ServerHttpResponse response = exchange.getResponse();
         final String url = request.getPath().toString();
-        if (shouldSkip(url)){
+        if (shouldSkip(url)) {
+            log.info("[鉴权校验] 无需鉴权路径，通过：path:{}", url);
             return chain.filter(exchange);
         }
         final List<String> tokens = request.getHeaders().get(TOKEN_HEADER_NAME);
         final String token = Optional.ofNullable(tokens).orElse(Collections.singletonList(null)).get(0);
         // 对token进行jwt校验
-        if(JwtUtils.verify(token, publicKey)){
+        if (JwtUtils.verify(token, publicKey)) {
+            log.info("[鉴权校验] 通过：path:{}, token:{}", url, token);
             return chain.filter(exchange);
         }
         // 如果没有token则返回响应信息
@@ -55,8 +61,8 @@ public class AuthTokenGlobalFilter implements GlobalFilter, AbstractFilteredHand
         throw new RuntimeException("TOKEN验证失败");
     }
 
-    private boolean shouldSkip(String url){
-        if (CollectionUtils.isEmpty(authProperties.getPermitsUrl())){
+    private boolean shouldSkip(String url) {
+        if (CollectionUtils.isEmpty(authProperties.getPermitsUrl())) {
             return false;
         }
         return authProperties.getPermitsUrl().stream()
@@ -67,5 +73,18 @@ public class AuthTokenGlobalFilter implements GlobalFilter, AbstractFilteredHand
         System.out.println(new AntPathMatcher().isPattern("/user/{id}"));
         System.out.println(new AntPathMatcher().match("/user/{id}", "/user/1"));
         System.out.println(new AntPathMatcher().match("/user/{id}", "/uses?id=1"));
+
+        List<Integer> list = new ArrayList<Integer>() {{
+            add(1);
+            add(2);
+            add(3);
+            add(4);
+            add(5);
+            add(6);
+            add(7);
+        }};
+
+        List<List<Integer>> partition = Lists.partition(list, 30);
+        partition.forEach(System.out::println);
     }
 }
