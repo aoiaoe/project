@@ -35,26 +35,43 @@ spring:
         shared-configs[0]:
           dataId: common.yml
     stream:
-      binders: # 在此处配置要绑定的rabbitmq的服务信息；
-        defaultRabbit: # 表示定义的名称，用于于binding整合
-          type: rabbit # 消息组件类型
-          environment: # 设置rabbitmq的相关的环境配置
-            spring:
-              rabbitmq:
-                host: tx-sh
-                port: 5672
-                username: admin
-                password: admin
+#      binders: # 在此处配置要绑定的rabbitmq的服务信息；
+#        defaultRabbit: # 表示定义的名称，用于于binding整合
+#          type: rabbit # 消息组件类型
+#          environment: # 设置rabbitmq的相关的环境配置
+#            spring:
+#              rabbitmq:
+#                host: tx-sh
+#                port: 5672
+#                username: admin
+#                password: admin
       function:
         definition: userVoMessageListener
       bindings:
         userVoMessageListener-in-0:
           destination: userVoMessage
           group: hah
-        userVoMessageListener-in-1:
-          destination: userVoMessage
-          group: hah1
-
+          consumer:
+            concurrency: 3
+#            partitioned: true
+            # 分区
+#          producer:
+#            partitionKeyExpression: payload.id
+#            partitionCount: 3
+#        userVoMessageListener-in-1:
+#          destination: userVoMessage
+#          group: hah
+#      instance-count: 3
+#      instance-index-list:
+#        - 0
+#        - 1
+#        - 2
+  rabbitmq:
+   addresses: tx-sh
+   port: 5672
+   username: admin
+   password: admin
+   
 feign:
   # 是否开启gzip压缩
   compression:

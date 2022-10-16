@@ -20,7 +20,10 @@ public class StreamController {
 
     @GetMapping
     public void send(){
-        UserVo user = new UserVo(1L, "send stream msg", null);
-        this.streamBridge.send("userVoMessage", user);
+        for (long i = 0; i < 6; i++) {
+            UserVo user = new UserVo(i, "send stream msg" + i, null);
+            this.streamBridge.send("userVoMessage", user);
+        }
+
     }
 }

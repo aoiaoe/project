@@ -20,3 +20,13 @@ public class UserVoMessageListener implements Consumer<UserVo> {
         log.info("spring cloud stream 从rabbitmq中获取数据 {}", JSON.toJSONString(userVo));
     }
 }
+
+@Slf4j
+@Component
+class UserVoMessageListener2 implements Consumer<UserVo> {
+
+    @Override
+    public void accept(UserVo userVo) {
+        log.info("spring cloud stream 从rabbitmq中获取数据 {}", JSON.toJSONString(userVo));
+    }
+}
