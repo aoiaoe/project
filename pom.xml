@@ -33,6 +33,10 @@
         <module>spring_boot/spring_boot_mybatis_dynamic_ds_8699</module>
         <module>spring_boot/spring_boot_mybatis_source_code_8600</module>
         <module>spring_boot/spring_boot_neo4j</module>
+
+        <module>spring_boot/spring_boot_netty</module>
+        <module>spring_boot/spring_boot_netty/spring_boot_netty_demo</module>
+
         <module>spring_boot/spring_boot_rabbitmq_8700</module>
         <module>spring_boot/spring_boot_redis</module>
         <module>spring_boot/spring_boot_redisson</module>
