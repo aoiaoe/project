@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 /**
+ * 需要注意的是，有一些类不能序列化成json， 使用统一响应会出问题，
+ * 比如string，如果方法返回值为String， 要么添加@IgnoreCommonResponseBody注解，取消统一响应
+ *  要么使用Pojo类进行返回
  * @author jzm
  * @date 2022/10/9 : 11:28
  */
