@@ -1,4 +1,4 @@
-package com.cz.spring_cloud_alibaba.controller;
+package com.cz.spring_cloud_alibaba.controller.sentinel;
 
 import com.alibaba.csp.sentinel.Entry;
 import com.alibaba.csp.sentinel.SphO;

@@ -1,4 +1,4 @@
-package com.cz.spring_cloud_alibaba.controller;
+package com.cz.spring_cloud_alibaba.controller.sentinel;
 
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.alibaba.csp.sentinel.slots.block.BlockException;
@@ -60,7 +60,7 @@ public class SentinelAnnotationController {
      * 此方为限流降级方法，
      * '@SentinelResource的 blockHandler 属性可以配置限流降级方法,函数的返回值类型必须与原函数返回值类型一致；
      * 方法参数列表需要和原函数一致，或者可以额外多一个 BlockException 类型的参数用于接收对应的异常。
-     * @param throwable
+     * @param exception
      * @return
      */
     public String annoBlockHandler(BlockException exception){

@@ -10,9 +10,9 @@ import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
- * @author jzm
- * @date 2022/8/18 : 09:47
+ * 关联类 com.cz.spring_cloud_alibaba.controller.sentinel.SentinelTestController
  */
 @Slf4j
 @Configuration

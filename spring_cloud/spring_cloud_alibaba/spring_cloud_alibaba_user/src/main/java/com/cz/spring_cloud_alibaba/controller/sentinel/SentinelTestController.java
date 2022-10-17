@@ -1,11 +1,12 @@
-package com.cz.spring_cloud_alibaba.controller;
+package com.cz.spring_cloud_alibaba.controller.sentinel;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * 使用JavaConfig方式进行流控配置:
+ * 不需要在sentinel dashboard中配置流控规则
+ * 使用JavaConfig硬编码方式进行流控配置的初始化:
  *      SentinelConfig.java
  */
 @RequestMapping(value = "/test")
