@@ -102,3 +102,6 @@ management:
 
 #nacos-config:
 #  test: value in bootstrap
+resttemplate:
+  sentinel:
+    enabled: true

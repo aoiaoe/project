@@ -2,9 +2,11 @@ package com.cz.spring_cloud_alibaba.controller.sentinel;
 
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.alibaba.csp.sentinel.slots.block.BlockException;
+import com.cz.spring_cloud_alibaba.anntation.IgnoreCommonResponseBody;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
@@ -50,9 +52,14 @@ public class SentinelAnnotationController {
      *
      * @return
      */
+    @ResponseBody
+    @IgnoreCommonResponseBody
     @SentinelResource(value = "anno", blockHandler = "annoBlockHandler", fallback = "annoFallback")
     @GetMapping(value = "/test1")
     public String test(){
+        if(System.currentTimeMillis()  % 2 ==0){
+            throw new RuntimeException("错误了");
+        }
         return "anno";
     }
 
@@ -65,7 +72,7 @@ public class SentinelAnnotationController {
      */
     public String annoBlockHandler(BlockException exception){
         log.error("错误:", exception);
-        return "flow blocked by blockHandler method";
+        return "限流啦";
     }
 
     /**
@@ -77,6 +84,6 @@ public class SentinelAnnotationController {
      */
     public String annoFallback(Throwable throwable){
         log.error("错误:", throwable);
-        return "flow blocked by fallback method";
+        return "降级啦";
     }
 }

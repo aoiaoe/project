@@ -18,9 +18,24 @@ public class UserController {
         return this.userService.user(id);
     }
 
+    /**
+     * 内部使用openfeign进行远程通信
+     * @param id
+     * @return
+     */
     @GetMapping(value = "/{id}")
     public UserVo users(@PathVariable Long id){
         return this.userService.userInfo(id);
+    }
+
+    /**
+     * 内部是用ribbon进行远程通信
+     * @param id
+     * @return
+     */
+    @GetMapping(value = "/ribbon/{id}")
+    public UserVo userRibbon(@PathVariable Long id){
+        return this.userService.userRibbonInfo(id);
     }
 
     @PostMapping(value = "/add")
