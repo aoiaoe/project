@@ -65,6 +65,13 @@
 <!--			<version>2.2.6.RC1</version>-->
 <!--		</dependency>-->
 
+		<!-- https://mvnrepository.com/artifact/com.alibaba.csp/sentinel-datasource-nacos -->
+		<dependency>
+			<groupId>com.alibaba.csp</groupId>
+			<artifactId>sentinel-datasource-nacos</artifactId>
+			<version>1.8.3</version>
+		</dependency>
+
 
 
 

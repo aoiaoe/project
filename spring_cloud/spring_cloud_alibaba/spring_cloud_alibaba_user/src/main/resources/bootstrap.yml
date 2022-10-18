@@ -10,6 +10,18 @@ spring:
         # 暂时不能使用云上的sentinel, 因为云上的不能访问本地服务获取信息
         dashboard: http://localhost:9999 # sentinel看板的地址
       eager: true # 开启对sentinel看板的饥饿式加载。sentinel默认是懒加载机制，只有访问过一次的资源才会被监控，通过关闭懒加载，在项目启动时就连接sentinel控制台
+      # sentinel数据源， 获取外部存储的限流规则
+      datasource:
+        ds:
+          nacos:
+            serverAddr: ${spring.cloud.nacos.discovery.server-addr}
+            username: nacos
+            password: nacos
+            namespace: dev
+            ruleType: flow
+            dataId: ${spring.application.name}-sentinel.json
+            data-type: json
+
     nacos:
       discovery:
         service: ${spring.application.name}
