@@ -43,12 +43,12 @@ import java.util.Set;
  */
 @Slf4j
 @Configuration
-public class SentinelGatewayConfiguration {
+public class MySentinelGatewayConfiguration {
 
     private final List<ViewResolver> viewResolvers;
     private final ServerCodecConfigurer serverCodecConfigurer;
 
-    public SentinelGatewayConfiguration(ObjectProvider<List<ViewResolver>> viewResolversProvider,
+    public MySentinelGatewayConfiguration(ObjectProvider<List<ViewResolver>> viewResolversProvider,
                                         ServerCodecConfigurer serverCodecConfigurer) {
         this.viewResolvers = viewResolversProvider.getIfAvailable(Collections::emptyList);
         this.serverCodecConfigurer = serverCodecConfigurer;

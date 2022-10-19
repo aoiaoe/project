@@ -6,10 +6,6 @@ spring:
   application:
     name: nacos-config-sentinel-gw
   cloud:
-    gateway:
-      discovery:
-        locator:
-          enabled: false
     nacos:
       discovery:
         enabled: true
@@ -29,6 +25,9 @@ spring:
     sentinel:
       transport:
         dashboard: localhost:9999
+      eager: true # 启动即注册限流规则到sentinel，否则会延迟到请求之后才会注册到sentinel
+  main:
+    allow-bean-definition-overriding: true
 
 #  sleuth:
 #    reactor:

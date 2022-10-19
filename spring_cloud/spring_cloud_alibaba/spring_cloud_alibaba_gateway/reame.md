@@ -38,3 +38,52 @@
                     #MANUAL-以最小侵入性的方式包装每个Reactor，而无需通过跟踪上下文。由用户决定
                     instrumentation-type: decorate_on_each
     
+
+## gateway整合sentinel实现限流
+    系统应该在网关层面进行限流，不应该让巨量流量流向网关后面的微服务中
+    
+    依赖:
+        <!-- 网关限流 -->
+        <!-- https://mvnrepository.com/artifact/com.alibaba.cloud/spring-cloud-starter-alibaba-sentinel -->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.alibaba.cloud/spring-cloud-alibaba-sentinel-gateway -->
+        <!-- gateway整合sentinel依赖 -->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-alibaba-sentinel-gateway</artifactId>
+            <version>2021.1</version>
+        </dependency>
+    增加配置:
+        spring:
+          cloud:
+            sentinel:
+              transport:
+                dashboard: localhost:9999
+              eager: true # 启动即注册限流规则到sentinel，否则会延迟到请求之后才会注册到sentinel
+    修改sentinel dashborad启动命令:
+            java -jar -Dserver.port=9999 -Dcsp.sentinel.app.type=1 sentinel-dashboard-1.8.5.jar
+            增加: -Dcsp.sentinel.app.type=1 代表注册的应用是网关类型
+    
+    硬编码限流配置:
+        参考: MySentinelGatewayConfiguration.java
+    
+    
+    小坑: 应用集成sentinel之后会通过类  SimpleHttpHeartbeatSender 定时向dashboard发送心跳，
+         心跳包中会带着应用类型(csp.sentinel.app.type).  如果是网关类型，dashboard中会增加一个【API管理】菜单
+         虽然在上面【 gateway整合sentinel依赖】的依赖包中，SentinelSCGAutoConfiguration 类中initAppType()方法会增加系统变量(csp.sentinel.app.type=11)
+         但是，此类自动注入的时机 后于 SimpleHttpHeartbeatSender类的初始化, 导致 SimpleHttpHeartbeatSender发送心跳包中应用类型(csp.sentinel.app.type=0)
+         从而dashboard中的【API管理】菜单显示不出来
+         解决方案:
+            启动类中main方法第一行添加 System.setProperty(SentinelConfig.APP_TYPE_PROP_KEY, "1"); 将此值写入到系统变量， SimpleHttpHeartbeatSender初始化时就可以获取到应用类型
+
+
+
+
+
+
+
+
+
