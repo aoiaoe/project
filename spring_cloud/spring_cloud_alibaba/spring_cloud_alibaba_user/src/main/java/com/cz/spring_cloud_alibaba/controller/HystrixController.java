@@ -33,7 +33,7 @@ public class HystrixController {
      * @param id
      * @return
      */
-    @GetMapping(value = "/hystrix-comman")
+    @GetMapping(value = "/hystrix-command")
     public UserVo user(Long id) throws ExecutionException, InterruptedException {
         // // 同步阻塞
         UserServiceHystrixCommand command1 = new UserServiceHystrixCommand(userService, id);

@@ -48,7 +48,7 @@ public class ErrorHandlerConfiguration {
     }
 
     @Bean
-    @Order(Ordered.HIGHEST_PRECEDENCE)
+    @Order(Ordered.LOWEST_PRECEDENCE) // 优先级需要低一些，否则会先于SentinelGatewayBlockExceptionHandler进行处理
     public ErrorWebExceptionHandler errorWebExceptionHandler(ErrorAttributes errorAttributes) {
         JsonCustomizeErrorHandler exceptionHandler = new JsonCustomizeErrorHandler(
                 errorAttributes, 
