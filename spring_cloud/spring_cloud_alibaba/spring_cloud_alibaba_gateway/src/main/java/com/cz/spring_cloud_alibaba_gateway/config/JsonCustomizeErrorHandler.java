@@ -1,5 +1,6 @@
 package com.cz.spring_cloud_alibaba_gateway.config;
 
+import com.alibaba.csp.sentinel.slots.block.flow.param.ParamFlowException;
 import org.springframework.boot.autoconfigure.web.ErrorProperties;
 import org.springframework.boot.autoconfigure.web.WebProperties;
 import org.springframework.boot.autoconfigure.web.reactive.error.DefaultErrorWebExceptionHandler;
@@ -7,7 +8,10 @@ import org.springframework.boot.web.error.ErrorAttributeOptions;
 import org.springframework.boot.web.reactive.error.ErrorAttributes;
 import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.server.*;
+import reactor.core.publisher.Mono;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -43,6 +47,8 @@ public class JsonCustomizeErrorHandler extends DefaultErrorWebExceptionHandler {
         Throwable error = super.getError(request);
         if (error instanceof org.springframework.cloud.gateway.support.NotFoundException) {
             code = 404;
+        } else if (error instanceof ParamFlowException){
+            code = 429;
         }
         return response(code, this.buildMessage(request, error));
     }
@@ -57,21 +63,41 @@ public class JsonCustomizeErrorHandler extends DefaultErrorWebExceptionHandler {
     }
 
     /**
+     * Render the error information as a JSON payload.
+     * @param request the current request
+     * @return a {@code Publisher} of the HTTP response
+     */
+    @Override
+    protected Mono<ServerResponse> renderErrorResponse(ServerRequest request) {
+        Map<String, Object> error = getErrorAttributes(request, getErrorAttributeOptions(request, MediaType.ALL));
+        return ServerResponse.status(Integer.valueOf(error.get("code").toString()))
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(BodyInserters.fromValue(error));
+    }
+
+    /**
      * 构建异常信息
      * @param request
      * @param ex
      * @return
      */
     private String buildMessage(ServerRequest request, Throwable ex) {
-        StringBuilder message = new StringBuilder("Failed to handle request [");
-        message.append(request.methodName());
-        message.append(" ");
-        message.append(request.uri());
-        message.append("]");
-        if (ex != null) {
-            message.append(": ");
-            message.append(ex.getMessage());
+        StringBuilder message = new StringBuilder();
+        if(ex != null && ex instanceof ParamFlowException){
+            message.append("限流了");
+        } else {
+            message.append("Failed to handle request [");
+            message.append(request.methodName());
+            message.append(" ");
+            message.append(request.uri());
+            message.append("]");
+            if (ex != null) {
+                message.append(": ");
+                message.append(ex.getMessage());
+            }
         }
+
+
         return message.toString();
     }
 
@@ -86,8 +112,8 @@ public class JsonCustomizeErrorHandler extends DefaultErrorWebExceptionHandler {
         map.put("code", status);
         map.put("message", errorMessage);
         map.put("data", null);
-        // 必须有status，否则后续渲染响应会报空指针
-        map.put("status",status);
+        // 如果不重写renderErrorResponse方法， 则必须有status，否则后续渲染响应会报空指针
+//        map.put("status",status);
         map.put("handleBy", JsonCustomizeErrorHandler.class);
         return map;
     }
