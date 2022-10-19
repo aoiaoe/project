@@ -67,8 +67,50 @@
             java -jar -Dserver.port=9999 -Dcsp.sentinel.app.type=1 sentinel-dashboard-1.8.5.jar
             增加: -Dcsp.sentinel.app.type=1 代表注册的应用是网关类型
     
-    硬编码限流配置:
-        参考: MySentinelGatewayConfiguration.java
+    硬编码:
+        方式1: 代码限流配置:
+            参考: MySentinelGatewayConfiguration.java
+        方式2: 文件配置:
+            1、增加依赖:
+                <dependency>
+                    <groupId>com.alibaba.csp</groupId>
+                    <artifactId>sentinel-datasource-nacos</artifactId>
+                    <version>1.8.3</version>
+                </dependency>
+            2、增加配置:
+                spring:
+                  cloud:
+                      # 设置sentinel数据源
+                      datasource:
+                        # 文件保存限流配置
+                        ds1.file:
+                          file: classpath:flowrule/flow-rule.json
+                          ruleType: gw-flow # 限流规则
+                        ds2.file:
+                          file: classpath:flowrule/flow-rule-api.json
+                          ruleType: gw-api-group # api分组
+             3、增加两个json文件:
+                文件1(限流规则文件): flow-rule.json    
+                [
+                  {
+                    "resource": "userPrefix",
+                    "resourceMode": 0,
+                    "count": 2,
+                    "intervalSec": 10
+                  }
+                ]
+                文件2(api分组配置)： flow-rule-api.json   
+                [
+                  {
+                    "apiName": "userPrefix",
+                    "predicateItems": [
+                      {
+                        "pattern": "/gw/user/user/**",
+                        "matchStrategy": 1
+                      }
+                    ]
+                  }
+                ]
     
     
     小坑: 应用集成sentinel之后会通过类  SimpleHttpHeartbeatSender 定时向dashboard发送心跳，

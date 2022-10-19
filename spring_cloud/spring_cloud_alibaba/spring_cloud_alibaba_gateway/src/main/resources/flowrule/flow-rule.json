@@ -1,0 +1,14 @@
+[
+  {
+    "resource": "userPrefix",
+    "resourceMode": 0,
+    "count": 2,
+    "intervalSec": 10
+  },
+  {
+    "resource": "configTestExact",
+    "resourceMode": 1,
+    "count": 2,
+    "intervalSec": 10
+  }
+]

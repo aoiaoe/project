@@ -83,7 +83,7 @@ public class MySentinelGatewayConfiguration {
         return new SentinelGatewayFilter();
     }
 
-    @PostConstruct
+//    @PostConstruct
     public void init() {
         log.info("----------------------------------------------");
 //        this.initRouteIdFlowRUleHardCodeRules();
@@ -114,8 +114,8 @@ public class MySentinelGatewayConfiguration {
     private void initApiGroupHardCodeRules() {
         Set<GatewayFlowRule> rules = new HashSet<>();
         // 硬编码api分组限流规则
-        // sentinel先去找分组，在找分组下的规则
-        // 配置分组
+        // sentinel先去找规则， 在找分组
+        // 配置限流规则
         GatewayFlowRule group1 = new GatewayFlowRule();
         group1.setResource("group1")
                 .setCount(1)         // 阈值
@@ -129,9 +129,9 @@ public class MySentinelGatewayConfiguration {
         rules.add(group2);
         GatewayRuleManager.loadRules(rules);
 
-        // 配置分组下的限流规则
+        // 配置分组
         Set<ApiDefinition> definitions = new HashSet<>();
-        // 分组名需要和上面的分组名相同，才是属于配置好的分组中的
+        // 分组名需要和上面的限流资源名相同，才是能使用限流规则
         ApiDefinition api1 = new ApiDefinition("group1")
                 .setPredicateItems(new HashSet<ApiPredicateItem>() {{
                     // url精确匹配

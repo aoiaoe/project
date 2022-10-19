@@ -1,0 +1,20 @@
+[
+  {
+    "apiName": "userPrefix",
+    "predicateItems": [
+      {
+        "pattern": "/gw/user/user/**",
+        "matchStrategy": 1
+      }
+    ]
+  },
+  {
+    "apiName": "configTestExact",
+    "predicateItems": [
+      {
+        "pattern": "/gw/user/config/test",
+        "matchStrategy": 0
+      }
+    ]
+  }
+]
