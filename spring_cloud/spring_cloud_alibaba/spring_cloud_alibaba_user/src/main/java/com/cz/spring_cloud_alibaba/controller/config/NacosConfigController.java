@@ -1,6 +1,7 @@
 package com.cz.spring_cloud_alibaba.controller.config;
 
 import com.cz.spring_cloud_alibaba.config.MyNacosConfigProperties;
+import com.cz.spring_cloud_alibaba.domain.CommonResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,8 +22,8 @@ public class NacosConfigController {
 //    private String test;
 
     @GetMapping(value = "test")
-    public String display(){
-        return nacosConfigProperties.toString();
+    public CommonResponse<String> display(){
+        return CommonResponse.suc(nacosConfigProperties.toString());
     }
 
 

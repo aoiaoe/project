@@ -13,18 +13,24 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping
-    public UserVo user(Long id){
-        return this.userService.user(id);
-    }
-
     /**
      * 内部使用openfeign进行远程通信
      * @param id
      * @return
      */
+    @GetMapping(value = "/withOrder")
+    public UserVo user(Long id){
+        return this.userService.user(id);
+    }
+
+
     @GetMapping(value = "/{id}")
-    public UserVo users(@PathVariable Long id){
+    public UserVo usersPath(@PathVariable Long id){
+        return this.userService.userInfo(id);
+    }
+
+    @GetMapping
+    public UserVo users(Long id){
         return this.userService.userInfo(id);
     }
 

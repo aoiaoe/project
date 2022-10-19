@@ -86,8 +86,8 @@ public class SentinelGatewayConfiguration {
     @PostConstruct
     public void init() {
         log.info("----------------------------------------------");
-        this.initRouteIdFlowRUleHardCodeRules();
-//        this.initApiGroupHardCodeRules();
+//        this.initRouteIdFlowRUleHardCodeRules();
+        this.initApiGroupHardCodeRules();
 
         this.customizeBlockHandler();
         log.info("----------------------------------------------");
@@ -118,19 +118,14 @@ public class SentinelGatewayConfiguration {
         // 配置分组
         GatewayFlowRule group1 = new GatewayFlowRule();
         group1.setResource("group1")
-                .setResourceMode(SentinelGatewayConstants.RESOURCE_MODE_CUSTOM_API_NAME)
-                .setCount(2)         // 阈值
-                .setIntervalSec(10) // 时间窗
-                .setGrade(RuleConstant.FLOW_GRADE_QPS)
-                .setControlBehavior(RuleConstant.CONTROL_BEHAVIOR_DEFAULT);
+                .setCount(1)         // 阈值
+                .setIntervalSec(10); // 时间窗
+        rules.add(group1);
 
         GatewayFlowRule group2 = new GatewayFlowRule();
         group2.setResource("group2")
-                .setResourceMode(SentinelGatewayConstants.RESOURCE_MODE_CUSTOM_API_NAME)
                 .setCount(3)         // 阈值
-                .setIntervalSec(10) // 时间窗
-                .setGrade(RuleConstant.FLOW_GRADE_QPS)
-                .setControlBehavior(RuleConstant.CONTROL_BEHAVIOR_DEFAULT);
+                .setIntervalSec(10); // 时间窗
         rules.add(group2);
         GatewayRuleManager.loadRules(rules);
 
@@ -139,15 +134,14 @@ public class SentinelGatewayConfiguration {
         // 分组名需要和上面的分组名相同，才是属于配置好的分组中的
         ApiDefinition api1 = new ApiDefinition("group1")
                 .setPredicateItems(new HashSet<ApiPredicateItem>() {{
-                    // url前缀模糊匹配
-                    add(new ApiPathPredicateItem().setPattern("/gw/user/**")
-                            .setMatchStrategy(SentinelGatewayConstants.URL_MATCH_STRATEGY_PREFIX));
+                    // url精确匹配
+                    add(new ApiPathPredicateItem().setPattern("/gw/user/config/test"));
                 }});
         ApiDefinition api2 = new ApiDefinition("group2")
                 .setPredicateItems(new HashSet<ApiPredicateItem>() {{
-                    // url精确匹配
-                    add(new ApiPathPredicateItem().setPattern("/gw/user/hystrix-command")
-                    .setMatchStrategy(SentinelGatewayConstants.URL_MATCH_STRATEGY_EXACT));
+                    // url前缀匹配
+                    add(new ApiPathPredicateItem().setPattern("/gw/user/user/**")
+                    .setMatchStrategy(SentinelGatewayConstants.URL_MATCH_STRATEGY_PREFIX));
                 }});
         definitions.add(api1);
         definitions.add(api2);

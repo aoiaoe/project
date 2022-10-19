@@ -31,6 +31,10 @@ public class CommonResponse<T> implements Serializable {
         return new CommonResponse(result.getCode(), result.getMsg(), data);
     }
 
+    public static <T> CommonResponse suc(T data){
+        return suc(ResultEnums.SUCCESS, data);
+    }
+
     public static CommonResponse error(Integer code, String msg) {
         return new CommonResponse(code, msg);
     }
