@@ -33,7 +33,8 @@ spring:
           file: classpath:flowrule/flow-rule.json
           ruleType: gw-flow # 限流规则
         ds2.file:
-          file: classpath:flowrule/flow-rule-api.json
+#          file: classpath:flowrule/flow-rule-api.json
+          file: F:\Desktop\flow-rule-api.json
           ruleType: gw-api-group # api分组
 
   main:

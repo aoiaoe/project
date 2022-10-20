@@ -123,7 +123,21 @@
 
 
 
-
+## Sentinel Dashboard展示应用限流规则、修改限流规则下发到应用的原理
+    以下结论由自己抓包后,结合sentinel客户端源代码下的结论，不一定正确，也未查看sentinel dashboard工程源码做分析，以后有机会再看dashboard源码验证
+    wireshark抓本地包方法: https://blog.csdn.net/myyllove/article/details/113879198
+    
+    如果在配置文件中，配置了spring.cloud.sentinel.eager=true, 则应用启动之后，
+    自动装配类 SentinelAutoConfiguration 的init()方法最后会去用spi初始化 SimpleHttpHeartbeatSender 用于向dashboard发送心跳包
+    心跳包里面会带上一个spring.cloud.sentinel.transport.port(默认8719)指定的一个serverSocket的端口, 并启动一个serverSocket, 用于接收dashboard的请求
+    应用会定时向dashboard发送心跳，维持状态
+    然后dashboard就会向serverSocket发送一系列的请求， 
+        比如/metrix                          (应用状态)
+        /gateway/getApiDefinition           (获取api规则用于页面展示)
+        /gateway/updateApiDefinition        (在dashboard修改限流规则之后，推送给应用)
+        ....
+    
+    所以说dashboard对于应用是使用pull方式进行管理展示
 
 
 
