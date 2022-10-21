@@ -28,13 +28,32 @@ spring:
       eager: true # 启动即注册限流规则到sentinel，否则会延迟到请求之后才会注册到sentinel
       # 设置sentinel数据源
       datasource:
-        # 文件保存限流配置
-        ds1.file:
-          file: classpath:flowrule/flow-rule.json
-          ruleType: gw-flow # 限流规则
-        ds2.file:
-          file: classpath:flowrule/flow-rule-api.json
-          ruleType: gw-api-group # api分组
+        # 文件保存限流配置， 相当于半个静态配置
+        # 如果文件位于项目中，则是静态
+        # 如果文件位于外部存储，则是动态
+#        ds1.file:
+#          file: classpath:flowrule/flow-rule.json
+#          ruleType: gw-flow # 限流规则
+#        ds2.file:
+#          #file: classpath:flowrule/flow-rule-api.json
+#          file: /Users/sephiroth/Documents/flow-rule-api.json
+#          ruleType: gw-api-group # api分组
+        ds1.nacos:
+          serverAddr: ${spring.cloud.nacos.discovery.server-addr}
+          username: nacos
+          password: nacos
+          namespace: dev-gw
+          ruleType: gw-flow
+          dataId: ${spring.application.name}-sentinel-rule.json
+          data-type: json
+        ds2.nacos:
+          serverAddr: ${spring.cloud.nacos.discovery.server-addr}
+          username: nacos
+          password: nacos
+          namespace: dev-gw
+          ruleType: gw-api-group
+          dataId: ${spring.application.name}-sentinelapi-rule.json
+          data-type: json
 
   main:
     allow-bean-definition-overriding: true
