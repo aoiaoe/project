@@ -3,11 +3,13 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>com.cz</groupId>
-		<artifactId>spring_cloud</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.4.5</version>
+		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 
+	<groupId>com.cz</groupId>
 	<artifactId>spring_cloud_alibaba</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>spring_cloud_alibaba</name>
@@ -42,6 +44,12 @@
 			<artifactId>fastjson</artifactId>
 			<version>1.2.83</version>
 		</dependency>
+			<dependency>
+				<groupId>org.projectlombok</groupId>
+				<artifactId>lombok</artifactId>
+				<version>1.18.12</version>
+				<scope>provided</scope>
+			</dependency>
 	</dependencies>
 
 	<dependencyManagement>
@@ -50,6 +58,36 @@
 				<groupId>org.springframework.cloud</groupId>
 				<artifactId>spring-cloud-starter-sleuth</artifactId>
 				<version>3.0.0</version>
+			</dependency>
+			<!-- https://mvnrepository.com/artifact/com.alibaba.cloud/spring-cloud-starter-alibaba-sentinel -->
+			<dependency>
+				<groupId>com.alibaba.cloud</groupId>
+				<artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
+				<version>2021.1</version>
+			</dependency>
+
+
+			<!-- https://mvnrepository.com/artifact/com.alibaba.cloud/spring-cloud-starter-alibaba-nacos-config -->
+			<dependency>
+				<groupId>com.alibaba.cloud</groupId>
+				<artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+				<version>2021.1</version>
+			</dependency>
+
+
+			<!-- https://mvnrepository.com/artifact/com.alibaba.cloud/spring-cloud-starter-alibaba-nacos-discovery -->
+			<dependency>
+				<groupId>com.alibaba.cloud</groupId>
+				<artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+				<version>2021.1</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>2020.0.0</version>
+				<type>pom</type>
+				<scope>import</scope>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
