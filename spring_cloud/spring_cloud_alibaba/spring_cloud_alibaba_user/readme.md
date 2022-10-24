@@ -1,7 +1,26 @@
 ## Nacos + feign 消费者
     feign 请求响应压缩、特殊配置, Okhttp替换httpClient
     okhttp客户端替换默认客户端
-        FeignOkHttpConfig.java
+    需要先修改配置：
+    feign:
+      # 底层切换为OkHttp
+      httpclient:
+        enabled: false
+      okhttp:
+        enabled: true
+        参考：FeignOkHttpConfig.java
+## loadbalancer
+    原理：
+    1、restTemplate
+        loadbalancer自动配置时，会实例化一个RetryLoadBalancerInterceptor拦截器，
+        然后通过RestTemplateCustomizer定制化器去将拦截器给配置到restTemplate客户端中
+        故之后通过restTemplate发起http请求则会使用该拦截器进行负载均衡
+    2、feign
+        通过FeignLoadBalancerAutoConfiguration自动装配类，根据classpath中的的http客户端，调用相应的配置类，
+        如此项目中因为引入了okhttp客户端，所以使用OkHttpFeignLoadBalancerConfiguration类进行feign客户端的装配
+        但是此处需注意，因为需要使用okhttp客户端，所以真正的feign客户端是在FeignOkHttpConfig类中进行实例化的
+        
+    
 ## Sentinel 流控
     官方文档： https://sentinelguard.io/zh-cn/docs/introduction.html
     本示例参考文档: https://mp.weixin.qq.com/s/Fvdj7aRYLwtzFE8kBSS8Hw
@@ -10,6 +29,7 @@
 ### API流控
     此种方式为硬编码方式, 不过可以基于配置中心，监听配置变更，重新加载流控规则
     参考: SentinelConfig.java
+    
 ### sentinel动态流控配置
     sentinel支持多种外部数据源存储流控配置，例如:nacos, zk, apollo, redis, consul
     本项目中使用nacos作为外部存储， 原理为启动一个NacosConfigServer监听nacos服务器中指定dataId的变化
@@ -86,7 +106,8 @@
 ## 配置更新
     @ConfigurationProperties注解的类会自动刷新, 但是如果增加了@RefreshScope注解则是延迟更新，
         在使用时才会重新初始化属性, 参考 UserConfig.java
-    @Value注解的属性不会自动刷新，需要配合@RefreshScope   
+    @Value注解的属性不会自动刷新，需要配合@RefreshScope  
+     
 ## 配置更新之后触发操作
     目前可以通过三种方式实现
     
@@ -107,4 +128,3 @@
     链接：https://www.jianshu.com/p/b9945db84c4e
     来源：简书
     著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
-

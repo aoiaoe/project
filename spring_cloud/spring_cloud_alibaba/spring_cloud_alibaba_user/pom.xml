@@ -28,11 +28,6 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/com.alibaba.cloud/spring-cloud-starter-alibaba-sentinel -->
-		<dependency>
-			<groupId>com.alibaba.cloud</groupId>
-			<artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
-		</dependency>
 
 
 		<!-- https://mvnrepository.com/artifact/com.alibaba.cloud/spring-cloud-starter-alibaba-nacos-config -->
@@ -52,6 +47,35 @@
 			<artifactId>feign-okhttp</artifactId>
 		</dependency>
 
+		<!-- sentinel -->
+		<!-- https://mvnrepository.com/artifact/com.alibaba.cloud/spring-cloud-starter-alibaba-sentinel -->
+		<dependency>
+			<groupId>com.alibaba.cloud</groupId>
+			<artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>com.alibaba</groupId>
+					<artifactId>fastjson</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<!-- sentinel 数据源 -->
+		<!-- https://mvnrepository.com/artifact/com.alibaba.csp/sentinel-datasource-nacos -->
+		<dependency>
+			<groupId>com.alibaba.csp</groupId>
+			<artifactId>sentinel-datasource-nacos</artifactId>
+			<version>1.8.3</version>
+			<exclusions>
+				<exclusion>
+					<groupId>com.alibaba.nacos</groupId>
+					<artifactId>nacos-client</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.alibaba.csp</groupId>
+					<artifactId>sentinel-core</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -65,12 +89,7 @@
 <!--			<version>2.2.6.RC1</version>-->
 <!--		</dependency>-->
 
-		<!-- https://mvnrepository.com/artifact/com.alibaba.csp/sentinel-datasource-nacos -->
-		<dependency>
-			<groupId>com.alibaba.csp</groupId>
-			<artifactId>sentinel-datasource-nacos</artifactId>
-			<version>1.8.3</version>
-		</dependency>
+
 
 
 
@@ -108,12 +127,6 @@
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-stream-binder-rabbit</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.alibaba</groupId>
-			<artifactId>fastjson</artifactId>
-			<version>1.2.32</version>
-			<scope>compile</scope>
 		</dependency>
 
 	</dependencies>
