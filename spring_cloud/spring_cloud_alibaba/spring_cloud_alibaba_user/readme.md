@@ -9,6 +9,27 @@
       okhttp:
         enabled: true
         参考：FeignOkHttpConfig.java
+#### feign原理
+    1、@EnabeleFeignClients 注解通过@Import引 入FeignClientsRegistrar，FeignClientsRegistrar中扫描
+        @EnabeleFeignClients注解中配置的路径和类，将@FeignClient注解的类注册为 FeignClientFactoryBean
+    2、当业务类需要注入Feign客户端时，Spring会通过查找到 FeignClientFactoryBean 的bean，
+        然后通过调用链 getObject() -> getTarget() -> loadBalance() -> target.target() -> 
+        feign.target(target) -> build().newInstance(target);
+        最终会回到Feign的内部类Builder中对feign客户端进行创建动态代理
+#### feign客户端名称的小坑
+    [@FeignClient] 注解的contextId最好配置且唯一，否则如果多个FeignClient使用相同的value或者name，注入时会报错
+    原因：
+     FeignClientsRegistrar.registerBeanDefinitions() -> registerFeignClients() ->
+     String name = getClientName(attributes);方法中获取feignClient的名称优先级
+         是contextId > value > name > serviceId
+     所以如果不同FeignClient使用相同的value则会因为有相同的beanName无法注入
+    
+    解决方案：
+     1、增加配置，spring.main.allow-bean-definition-overriding: true  允许同名bean覆盖
+         但是不符合常理，既然你定义了FeignClient就是要使用的，那么覆盖了就没有意义了，删除该类或者合并同名FeignClient即可
+     2、通过设置@FeignClient注解的注contextId属性，且每一个值全局唯一即可
+         注入的时候则需要注意根据名称进行注入
+        
 ## loadbalancer
     原理：
     1、restTemplate

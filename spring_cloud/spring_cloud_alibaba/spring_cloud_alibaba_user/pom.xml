@@ -7,6 +7,7 @@
 		<artifactId>spring_cloud_alibaba</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
+	<groupId>com.cz</groupId>
 	<artifactId>spring_cloud_alibaba_user</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>spring_cloud_alibaba_user</name>

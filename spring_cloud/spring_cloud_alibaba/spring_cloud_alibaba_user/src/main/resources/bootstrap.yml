@@ -89,7 +89,9 @@ spring:
    port: 5672
    username: admin
    password: admin
-   
+
+  main:
+    allow-bean-definition-overriding: true
 feign:
   # 是否开启gzip压缩
   compression:
@@ -123,3 +125,4 @@ management:
 resttemplate:
   sentinel:
     enabled: true
+
