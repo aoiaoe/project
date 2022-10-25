@@ -37,7 +37,14 @@
                     #因此访问MDC上下文可能不起作用。此模式可能会导致中等性能下降。
                     #MANUAL-以最小侵入性的方式包装每个Reactor，而无需通过跟踪上下文。由用户决定
                     instrumentation-type: decorate_on_each
-    
+        2、改进编程规范
+            参考：
+            文章：https://blog.csdn.net/zhxdick/article/details/120458875?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522166668082316782428656973%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fblog.%2522%257D&request_id=166668082316782428656973&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_ecpm_v1~rank_v31_ecpm-12-120458875-null-null.nonecase&utm_term=gateway&spm=1018.2226.3001.4450
+            图片：Spring Cloud Gateway 没有链路信息(上).jpg
+            文章：https://blog.csdn.net/zhxdick/article/details/120473652?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522166668082316782428656973%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fblog.%2522%257D&request_id=166668082316782428656973&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_ecpm_v1~rank_v31_ecpm-4-120473652-null-null.nonecase&utm_term=gateway&spm=1018.2226.3001.4450
+            图片：Spring Cloud Gateway 没有链路信息(中).jpg
+            文章：https://zhanghaoxin.blog.csdn.net/article/details/120496810?spm=1001.2101.3001.6661.1&utm_medium=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-1-120496810-blog-125175718.pc_relevant_default&depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-1-120496810-blog-125175718.pc_relevant_default&utm_relevant_index=1
+            图片：Spring Cloud Gateway 没有链路信息(下).jpg
 
 ## gateway整合sentinel实现限流
     系统应该在网关层面进行限流，不应该让巨量流量流向网关后面的微服务中

@@ -16,6 +16,9 @@
         然后通过调用链 getObject() -> getTarget() -> loadBalance() -> target.target() -> 
         feign.target(target) -> build().newInstance(target);
         最终会回到Feign的内部类Builder中对feign客户端进行创建动态代理
+    参考： 文章：https://blog.csdn.net/HRebel/article/details/111239127?spm=1001.2101.3001.6661.1&utm_medium=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-1-111239127-blog-124356745.pc_relevant_3mothn_strategy_recovery&depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-1-111239127-blog-124356745.pc_relevant_3mothn_strategy_recovery&utm_relevant_index=1
+          图片： SpringCloud之OpenFegin基本介绍及原理分析.jpg
+          
 #### feign客户端名称的小坑
     [@FeignClient] 注解的contextId最好配置且唯一，否则如果多个FeignClient使用相同的value或者name，注入时会报错
     原因：
@@ -149,3 +152,11 @@
     链接：https://www.jianshu.com/p/b9945db84c4e
     来源：简书
     著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+
+
+## ribbon原理 
+    参考
+        文章：https://blog.csdn.net/HRebel/article/details/110760970?spm=1001.2014.3001.5502
+        图片：SpringCloud之Ribbon客户端负载原理分析（一）-LoadBalancerInterceptor原理分析.jpg
+        文章：https://blog.csdn.net/HRebel/article/details/110870816?spm=1001.2014.3001.5502
+        图片：SpringCloud之Ribbon客户端负载原理分析（二）-RibbonLoadBalancerClient原理分析.jpg

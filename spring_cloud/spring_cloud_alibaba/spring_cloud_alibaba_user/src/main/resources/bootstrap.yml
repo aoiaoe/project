@@ -73,7 +73,7 @@ spring:
             concurrency: 3
 #            partitioned: true
             # 分区
-#          producer:
+  #          producer:
 #            partitionKeyExpression: payload.id
 #            partitionCount: 3
 #        userVoMessageListener-in-1:
@@ -109,6 +109,7 @@ feign:
 
 
 
+
 # 暴露端点
 management:
   endpoints:
@@ -125,4 +126,6 @@ management:
 resttemplate:
   sentinel:
     enabled: true
-
+ribbon:
+  eager-load:
+    enabled: true
