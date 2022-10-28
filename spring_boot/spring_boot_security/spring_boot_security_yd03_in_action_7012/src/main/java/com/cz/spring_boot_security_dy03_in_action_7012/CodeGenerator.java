@@ -47,7 +47,7 @@ public class CodeGenerator {
         //表名是否使用波峰波谷规则
         strategy.setColumnNaming(NamingStrategy.underline_to_camel);
         //字段是否添加注解
-        strategy.entityTableFieldAnnotationEnable(true);
+        strategy.setEntityTableFieldAnnotationEnable(true);
         //是否使用lombok生成get set方法
         strategy.setEntityLombokModel(true);
         //控制层是否使用RestController

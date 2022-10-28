@@ -160,3 +160,5 @@
         图片：SpringCloud之Ribbon客户端负载原理分析（一）-LoadBalancerInterceptor原理分析.jpg
         文章：https://blog.csdn.net/HRebel/article/details/110870816?spm=1001.2014.3001.5502
         图片：SpringCloud之Ribbon客户端负载原理分析（二）-RibbonLoadBalancerClient原理分析.jpg
+        文章：https://blog.csdn.net/HRebel/article/details/110941364?spm=1001.2014.3001.5502
+        图片：SpringCloud之Ribbon客户端负载原理分析（三）-ILoadBalancer原理分析.png

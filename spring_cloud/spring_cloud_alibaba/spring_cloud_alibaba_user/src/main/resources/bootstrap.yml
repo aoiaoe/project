@@ -53,6 +53,24 @@ spring:
         shared-configs[0]:
           dataId: common.yml
     stream:
+      binders: # 在此设置要绑定的rabbit的服务信息
+        defaultRaibbit: # 表示定义的绑定器的名称，用于后面和bindings整合
+          type: rabbit # 消息组件类型，枚举值在 classapth:/META-INF/spring.binders文件中,
+                      # 比如说引入了spring-cloud-stream-binder-rabbit依赖，在此依赖的包中存在此文件， 其他类型消息组件类似
+          environment: # 消息组件相关环境配置
+            spring:
+              rabbitmq:
+                host: tx-sh
+                port: 5672
+                username: admin
+                password: admin
+      bindings:
+        userVoMessageOutput: # 这是一个通道的名称
+          destination: userVoTopicExchange
+          binder: defaultRaibbit # 设置办定期
+          contentType: application/json # 消息类型，默认json
+
+    #    stream:
 #      binders: # 在此处配置要绑定的rabbitmq的服务信息；
 #        defaultRabbit: # 表示定义的名称，用于于binding整合
 #          type: rabbit # 消息组件类型
@@ -63,14 +81,14 @@ spring:
 #                port: 5672
 #                username: admin
 #                password: admin
-      function:
-        definition: userVoMessageListener
-      bindings:
-        userVoMessageListener-in-0:
-          destination: userVoMessage
-          group: hah
-          consumer:
-            concurrency: 3
+#      function:
+#        definition: userVoMessageListener
+#      bindings:
+#        userVoMessageListener-in-0:
+#          destination: userVoMessage
+#          group: hah
+#          consumer:
+#            concurrency: 3
 #            partitioned: true
             # 分区
   #          producer:
@@ -84,11 +102,11 @@ spring:
 #        - 0
 #        - 1
 #        - 2
-  rabbitmq:
-   addresses: tx-sh
-   port: 5672
-   username: admin
-   password: admin
+#  rabbitmq:
+#   addresses: tx-sh
+#   port: 5672
+#   username: admin
+#   password: admin
 
   main:
     allow-bean-definition-overriding: true

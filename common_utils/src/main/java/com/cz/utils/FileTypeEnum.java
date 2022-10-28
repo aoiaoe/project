@@ -363,7 +363,7 @@ public enum FileTypeEnum {
      * @return
      */
     public static FileTypeEnum getByFileTypeName(String fileTypeName) {
-        if (!StringUtils.isEmpty(fileTypeName)) {
+        if (StringUtils.hasText(fileTypeName)) {
             for (FileTypeEnum type : values()) {
                 if (type.getFileTypeName().equals(fileTypeName)) {
                     return type;

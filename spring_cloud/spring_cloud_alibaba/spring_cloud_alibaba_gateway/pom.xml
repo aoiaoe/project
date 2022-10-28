@@ -25,6 +25,12 @@
 		<dependency>
 			<groupId>com.alibaba.cloud</groupId>
 			<artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+			<exclusions>
+				<exclusion>
+					<artifactId>guava</artifactId>
+					<groupId>com.google.guava</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<!-- 熔断、降级 -->
@@ -32,12 +38,24 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
 			<version>2.0.3.RELEASE</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>guava</artifactId>
+					<groupId>com.google.guava</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<dependency>
 			<groupId>com.cz</groupId>
 			<artifactId>spring_cloud_alibaba_common</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>spring-cloud-starter-bootstrap</artifactId>
+					<groupId>org.springframework.cloud</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<dependency>
@@ -83,6 +101,10 @@
 				<exclusion>
 					<groupId>com.alibaba</groupId>
 					<artifactId>fastjson</artifactId>
+				</exclusion>
+				<exclusion>
+					<artifactId>sentinel-datasource-extension</artifactId>
+					<groupId>com.alibaba.csp</groupId>
 				</exclusion>
 			</exclusions>
 		</dependency>
