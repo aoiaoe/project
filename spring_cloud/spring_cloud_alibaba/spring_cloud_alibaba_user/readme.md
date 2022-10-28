@@ -162,3 +162,10 @@
         图片：SpringCloud之Ribbon客户端负载原理分析（二）-RibbonLoadBalancerClient原理分析.jpg
         文章：https://blog.csdn.net/HRebel/article/details/110941364?spm=1001.2014.3001.5502
         图片：SpringCloud之Ribbon客户端负载原理分析（三）-ILoadBalancer原理分析.png
+        
+
+
+
+### Spring cloud stream
+    简单使用参考：
+        com.cz.spring_cloud_alibaba.service.stream
