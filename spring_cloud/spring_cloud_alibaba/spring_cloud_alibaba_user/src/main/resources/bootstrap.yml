@@ -69,6 +69,7 @@ spring:
           destination: userVoTopicExchange
           binder: defaultRaibbit # 设置办定期
           contentType: application/json # 消息类型，默认json
+          group: userVoGroup # 消费者分组, 微服务多个实例设置相同分组可以防止不同实例重复消费
           consumer:
             concurrency: 3
   rabbitmq:
