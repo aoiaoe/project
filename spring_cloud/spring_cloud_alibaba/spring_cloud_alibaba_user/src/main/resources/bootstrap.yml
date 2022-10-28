@@ -57,19 +57,25 @@ spring:
         defaultRaibbit: # 表示定义的绑定器的名称，用于后面和bindings整合
           type: rabbit # 消息组件类型，枚举值在 classapth:/META-INF/spring.binders文件中,
                       # 比如说引入了spring-cloud-stream-binder-rabbit依赖，在此依赖的包中存在此文件， 其他类型消息组件类似
-          environment: # 消息组件相关环境配置
-            spring:
-              rabbitmq:
-                host: tx-sh
-                port: 5672
-                username: admin
-                password: admin
+#          environment: # 消息组件相关环境配置
+#            spring:
+
       bindings:
-        userVoMessageOutput: # 这是一个通道的名称
+        userVoOutput: # 这是一个输出通道的名称, 更多解释查看 UserVoSender.java
           destination: userVoTopicExchange
           binder: defaultRaibbit # 设置办定期
           contentType: application/json # 消息类型，默认json
-
+        userVoInput: # 这是一个输出通道的名称, 更多解释查看 UserVoReceiver.java
+          destination: userVoTopicExchange
+          binder: defaultRaibbit # 设置办定期
+          contentType: application/json # 消息类型，默认json
+          consumer:
+            concurrency: 3
+  rabbitmq:
+    host: tx-sh
+    port: 5672
+    username: admin
+    password: admin
     #    stream:
 #      binders: # 在此处配置要绑定的rabbitmq的服务信息；
 #        defaultRabbit: # 表示定义的名称，用于于binding整合
