@@ -33,6 +33,11 @@ spring:
         # 共享配置
         shared-configs[0]:
           dataId: common.yml
+  zipkin:
+    base-url: http://tx-sh:9411
+  sleuth:
+    sampler:
+      probability: 1
 
 
 #nacos-config:

@@ -79,6 +79,8 @@ spring:
     password: admin
   main:
     allow-bean-definition-overriding: true
+  zipkin:
+    base-url: http://tx-sh:9411
 feign:
   # 是否开启gzip压缩
   compression:
