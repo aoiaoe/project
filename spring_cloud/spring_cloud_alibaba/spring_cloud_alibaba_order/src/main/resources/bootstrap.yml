@@ -5,7 +5,7 @@ spring:
     name: nacos-config-sentinel-order
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://tx-gd:4409/spring_clouod_alibaba?useUnicode=true&acharaceterEncoding=utf-8&serverTimezone=UTC&useSSL=false
+    url: jdbc:mysql://tx-gd:4409/orders?useUnicode=true&acharaceterEncoding=utf-8&serverTimezone=UTC&useSSL=false
     username: nacos
     password: 123456
   cloud:
@@ -44,8 +44,27 @@ spring:
   sleuth:
     sampler:
       probability: 1
-
-
+seata:
+  config:
+    type: nacos
+    nacos:
+      server-addr: localhost:8948
+      group: SEATA_GROUP
+      namespace: seata
+      username: nacos
+      password: nacos
+  tx-service-group: default_tx_group
+  registry:
+    type: nacos
+    nacos:
+      server-addr: localhost:8948
+      group: SEATA_GROUP
+      namespace: seata
+      username: nacos
+      password: nacos
+  service:
+    vgroup-mapping:
+      default_tx_group: default
 #nacos-config:
 #  test: value in bootstrap
 

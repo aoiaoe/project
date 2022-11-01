@@ -204,11 +204,11 @@
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/com.alibaba.cloud/spring-cloud-starter-alibaba-seata -->
+		<!-- https://mvnrepository.com/artifact/io.seata/seata-spring-boot-starter -->
 		<dependency>
-			<groupId>com.alibaba.cloud</groupId>
-			<artifactId>spring-cloud-starter-alibaba-seata</artifactId>
-			<version>2021.1</version>
+			<groupId>io.seata</groupId>
+			<artifactId>seata-spring-boot-starter</artifactId>
+			<version>1.4.2</version>
 		</dependency>
 
 

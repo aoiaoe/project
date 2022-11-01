@@ -31,7 +31,6 @@ spring:
             ruleType: flow
             dataId: ${spring.application.name}-sentinel.json
             data-type: json
-
     nacos:
       discovery:
         service: ${spring.application.name}
@@ -44,7 +43,6 @@ spring:
         metadata:
           management:
             context-path: ${server.servlet.context-path}/actuator
-
       config:
         enabled: true
         server-addr: http://tx-gd:8948
@@ -89,6 +87,27 @@ spring:
     allow-bean-definition-overriding: true
   zipkin:
     base-url: http://tx-sh:9411
+seata:
+  config:
+    type: nacos
+    nacos:
+      server-addr: localhost:8948
+      group: SEATA_GROUP
+      namespace: seata
+      username: nacos
+      password: nacos
+  tx-service-group: default_tx_group
+  registry:
+    type: nacos
+    nacos:
+      server-addr: localhost:8948
+      group: SEATA_GROUP
+      namespace: seata
+      username: nacos
+      password: nacos
+  service:
+    vgroup-mapping:
+      default_tx_group: default
 feign:
   # 是否开启gzip压缩
   compression:

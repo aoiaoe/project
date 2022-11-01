@@ -3,7 +3,7 @@ package com.cz.spring_cloud_alibaba.controller;
 import com.cz.spring_cloud_alibaba.anntation.IgnoreCommonResponseBody;
 import com.cz.spring_cloud_alibaba.domain.order.OrderVo;
 import com.cz.spring_cloud_alibaba_api.facade.order.OrderFacade;
-import com.cz.spring_cloud_alibaba.config.OrderService;
+import com.cz.spring_cloud_alibaba.service.OrderService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;

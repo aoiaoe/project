@@ -1,10 +1,15 @@
-package com.cz.spring_cloud_alibaba.config;
+package com.cz.spring_cloud_alibaba.service;
 
+import com.cz.spring_cloud_alibaba.config.OrderConfig;
 import com.cz.spring_cloud_alibaba.dao.OrderMapper;
 import com.cz.spring_cloud_alibaba.domain.order.OrderVo;
+import io.seata.core.context.RootContext;
+import io.seata.spring.annotation.GlobalTransactional;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -12,6 +17,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Data
 @Service
 public class OrderService {
@@ -43,6 +49,7 @@ public class OrderService {
     }
 
     public boolean createOrder(Integer id, Integer fee) {
+        log.info("Seata全局事务id=================>{}", RootContext.getXID());
         int res = this.orderMapper.createOrder(id, fee);
         return res == 1;
     }
