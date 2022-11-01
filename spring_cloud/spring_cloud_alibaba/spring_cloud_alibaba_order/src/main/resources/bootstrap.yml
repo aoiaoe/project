@@ -15,6 +15,7 @@ spring:
         # 暂时不能使用云上的sentinel, 因为云上的不能访问本地服务获取信息
         dashboard: http://localhost:9999 # sentinel看板的地址
       eager: true # 开启对sentinel看板的饥饿式加载。sentinel默认是懒加载机制，只有访问过一次的资源才会被监控，通过关闭懒加载，在项目启动时就连接sentinel控制台
+      web-context-unify: false # 针对链路流控配置 如果为true会因为入口收敛，链路流控失效
     nacos:
       discovery:
         service: ${spring.application.name}
@@ -38,6 +39,11 @@ spring:
         # 共享配置
         shared-configs[0]:
           dataId: common.yml
+  zipkin:
+    base-url: http://tx-sh:9411
+  sleuth:
+    sampler:
+      probability: 1
 
 
 #nacos-config:
