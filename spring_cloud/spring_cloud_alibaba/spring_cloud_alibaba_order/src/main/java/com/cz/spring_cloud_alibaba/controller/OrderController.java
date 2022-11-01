@@ -30,4 +30,10 @@ public class OrderController implements OrderFacade {
         log.info("[客户端]:{}", client);
         return this.orderService.userOrders(userId);
     }
+
+    @IgnoreCommonResponseBody
+    @Override
+    public boolean createOrder(Integer id, Integer fee) {
+        return this.orderService.createOrder(id, fee);
+    }
 }

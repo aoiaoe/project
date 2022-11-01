@@ -5,6 +5,11 @@ server:
 spring:
   application:
     name: nacos-config-sentinel-user
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://tx-gd:4409/spring_clouod_alibaba?useUnicode=true&acharaceterEncoding=utf-8&serverTimezone=UTC&useSSL=false
+    username: nacos
+    password: 123456
   cloud:
     sentinel:
       enabled: true
@@ -96,7 +101,6 @@ feign:
 
 
 
-
 # 暴露端点
 management:
   endpoints:
@@ -116,3 +120,5 @@ resttemplate:
 ribbon:
   eager-load:
     enabled: true
+mybatis-plus:
+  mapper-locations: classpath:/mapper/*.xml

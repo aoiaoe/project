@@ -1,5 +1,6 @@
 package com.cz.spring_cloud_alibaba.config;
 
+import com.cz.spring_cloud_alibaba.dao.OrderMapper;
 import com.cz.spring_cloud_alibaba.domain.order.OrderVo;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,8 @@ public class OrderService {
 
     @Autowired
     private OrderConfig orderConfig;
+    @Autowired
+    private OrderMapper orderMapper;
 
     public List<OrderVo> userOrders(Long userId){
         if(userId == null){
@@ -37,5 +40,10 @@ public class OrderService {
                     return orderVo;
                 })
                 .collect(Collectors.toList());
+    }
+
+    public boolean createOrder(Integer id, Integer fee) {
+        int res = this.orderMapper.createOrder(id, fee);
+        return res == 1;
     }
 }
