@@ -1,13 +1,19 @@
 package com.cz.spring_cloud_alibaba.config;
 
+import com.alibaba.druid.pool.DruidDataSource;
 import com.zaxxer.hikari.HikariDataSource;
 import io.seata.rm.datasource.DataSourceProxy;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.mybatis.spring.SqlSessionFactoryBean;
+import org.mybatis.spring.transaction.SpringManagedTransactionFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.util.StringUtils;
 
 import javax.sql.DataSource;
@@ -20,20 +26,26 @@ import javax.sql.DataSource;
 @Configuration
 public class SeataConfig {
 
-    private HikariDataSource hikariDataSource(DataSourceProperties properties) {
-        HikariDataSource dataSource = createDataSource(properties, HikariDataSource.class);
-        if (StringUtils.hasText(properties.getName())) {
-            dataSource.setPoolName(properties.getName());
-        }
-        return dataSource;
+    @Value("${mybatis-plus.mapper-locations}")
+    private String mapperLocations;
+
+    @Bean
+    @ConfigurationProperties(prefix = "spring.datasource")
+    public DataSource druidDataSource(){
+        return new DruidDataSource();
     }
 
-    protected static <T> T createDataSource(DataSourceProperties properties, Class<? extends DataSource> type) {
-        return (T) properties.initializeDataSourceBuilder().type(type).build();
+    public DataSourceProxy dataSourceProxy(DataSource dataSource) {
+        return new DataSourceProxy(dataSource);
     }
 
-    @Bean(value = "dataSource")
-    public DataSource dataSource(DataSourceProperties properties){
-        return new DataSourceProxy(hikariDataSource(properties));
+    @Bean
+    public SqlSessionFactory sqlSessionFactoryBean(DataSource dataSource) throws Exception {
+        SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
+        sqlSessionFactoryBean.setDataSource(dataSourceProxy(dataSource));
+        sqlSessionFactoryBean.setMapperLocations(new PathMatchingResourcePatternResolver()
+                .getResources(mapperLocations));
+        sqlSessionFactoryBean.setTransactionFactory(new SpringManagedTransactionFactory());
+        return sqlSessionFactoryBean.getObject();
     }
 }

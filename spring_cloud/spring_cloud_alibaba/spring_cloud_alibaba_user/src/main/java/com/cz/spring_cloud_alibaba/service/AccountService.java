@@ -6,6 +6,7 @@ import io.seata.spring.annotation.GlobalTransactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @Service
@@ -17,11 +18,11 @@ public class AccountService {
     private OrderFeignClient orderFeignClient;
 
     @GlobalTransactional(name = "test", rollbackFor = Exception.class)
-    public boolean createOrder(Integer userId, int fee){
+    public boolean createOrder(Integer userId, int fee, Boolean error, Boolean timeOut){
         int res = this.accountMapper.costFee(userId, fee);
-        this.orderFeignClient.createOrder(userId, fee);
-        if(res != 1){
-            throw new IllegalArgumentException("余额不足");
+        this.orderFeignClient.createOrder(userId, fee, timeOut);
+        if(error){
+            throw new RuntimeException("出错啦");
         }
         return res == 1;
     }

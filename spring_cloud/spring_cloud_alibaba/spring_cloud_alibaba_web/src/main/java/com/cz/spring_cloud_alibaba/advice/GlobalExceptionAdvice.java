@@ -23,9 +23,9 @@ public class GlobalExceptionAdvice{
         return CommonResponse.error(ex.getCode(), ex.getMsg());
     }
 
-//    @ExceptionHandler(value = Exception.class)
-//    public CommonResponse exceptionHandler(HttpServletRequest request, Exception ex){
-//        log.error("[系统异常] ： [{}], ", ex.getMessage(), ex);
-//        return CommonResponse.error(ErrorEnums.SYS_ERROR.getCode(), ex.getMessage());
-//    }
+    @ExceptionHandler(value = Exception.class)
+    public CommonResponse exceptionHandler(HttpServletRequest request, Exception ex){
+        log.error("[系统异常] ： [{}], ", ex.getMessage(), ex);
+        return CommonResponse.error(ErrorEnums.SYS_ERROR.getCode(), ex.getMessage());
+    }
 }

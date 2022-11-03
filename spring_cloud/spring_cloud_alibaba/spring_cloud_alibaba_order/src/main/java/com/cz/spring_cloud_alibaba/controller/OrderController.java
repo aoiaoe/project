@@ -33,7 +33,7 @@ public class OrderController implements OrderFacade {
 
     @IgnoreCommonResponseBody
     @Override
-    public boolean createOrder(Integer id, Integer fee) {
-        return this.orderService.createOrder(id, fee);
+    public boolean createOrder(Integer id, Integer fee, Boolean timeOut) {
+        return this.orderService.createOrder(id, fee, timeOut);
     }
 }

@@ -91,7 +91,7 @@ seata:
   config:
     type: nacos
     nacos:
-      server-addr: localhost:8948
+      server-addr: tx-gd:8948
       group: SEATA_GROUP
       namespace: seata
       username: nacos
@@ -100,7 +100,7 @@ seata:
   registry:
     type: nacos
     nacos:
-      server-addr: localhost:8948
+      server-addr: tx-gd:8948
       group: SEATA_GROUP
       namespace: seata
       username: nacos

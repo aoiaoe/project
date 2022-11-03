@@ -14,5 +14,6 @@ public interface OrderFacade {
 
     @PostMapping(value = "/createOrder")
     boolean createOrder(@RequestParam("id") Integer id,
-                    @RequestParam("fee") Integer fee);
+                    @RequestParam("fee") Integer fee,
+                        @RequestParam("timeOut") Boolean timeOut);
 }

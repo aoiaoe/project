@@ -17,8 +17,8 @@ public class SeataController {
     @Autowired
     private AccountService accountService;
 
-    @PostMapping(value = "/test")
-    public boolean test(Integer id, Integer fee){
-        return this.accountService.createOrder(id, fee);
+    @PostMapping(value = "/testMainError")
+    public boolean testMainError(Integer id, Integer fee, Boolean error, Boolean timeOut){
+        return this.accountService.createOrder(id, fee, error, timeOut);
     }
 }

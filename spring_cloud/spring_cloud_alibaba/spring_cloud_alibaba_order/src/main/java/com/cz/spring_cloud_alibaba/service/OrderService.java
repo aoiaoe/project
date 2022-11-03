@@ -15,6 +15,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -48,9 +49,16 @@ public class OrderService {
                 .collect(Collectors.toList());
     }
 
-    public boolean createOrder(Integer id, Integer fee) {
+    public boolean createOrder(Integer id, Integer fee, boolean timeOut) {
         log.info("Seata全局事务id=================>{}", RootContext.getXID());
         int res = this.orderMapper.createOrder(id, fee);
+        if(timeOut){
+            try {
+                TimeUnit.SECONDS.sleep(20);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
         return res == 1;
     }
 }
