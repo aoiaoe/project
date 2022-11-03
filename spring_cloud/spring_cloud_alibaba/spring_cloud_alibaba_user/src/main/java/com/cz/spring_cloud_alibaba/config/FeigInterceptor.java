@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  * feign拦截器，可以修改请求头和请求体
+ * 传递全局事务id，服务间使用feign调用，可能全局事务id无法传递过去
  */
 @Configuration
 public class FeigInterceptor implements RequestInterceptor {

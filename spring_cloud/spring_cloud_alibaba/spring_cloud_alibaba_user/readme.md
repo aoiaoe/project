@@ -1,3 +1,12 @@
+# 此项目所需组件
+    必须:
+        rabbitmq
+        mysql
+    非必须:
+        zipkin
+        seata
+        sentinel
+        nacos
 ## Nacos + feign 消费者
     feign 请求响应压缩、特殊配置, Okhttp替换httpClient
     okhttp客户端替换默认客户端
@@ -49,9 +58,8 @@
     官方文档： https://sentinelguard.io/zh-cn/docs/introduction.html
     本示例参考文档: https://mp.weixin.qq.com/s/Fvdj7aRYLwtzFE8kBSS8Hw
         该文档保存成了图片: sentinel教程.jpeg
-
-### API流控
-    此种方式为硬编码方式, 不过可以基于配置中心，监听配置变更，重新加载流控规则
+        
+    硬编码方式, 不过可以基于配置中心，监听配置变更，重新加载流控规则
     参考: SentinelConfig.java
     
 ### sentinel动态流控配置
@@ -169,3 +177,88 @@
 ### Spring cloud stream
     简单使用参考：
         com.cz.spring_cloud_alibaba.service.stream
+
+## 分布式事务Seata AT模式
+    此项目中整合的seata版本为1.4.1, seata注册及其配置使用nacos2.1.1, 其他版本配置可能有出入
+    整合步骤:
+    1、下载seata, 地址: https://github.com/seata/seata/releases
+    2、下载解压之后, 进入conf目录
+    3、点开README-zh.md, 根据里面的网址，获取seata的sql脚本，及配置文件
+        a、seata客户端(应用)相关:
+            网址: https://github.com/seata/seata/tree/develop/script/client
+            本地目录: ./seata/client
+            1) 数据库脚本
+                本次使用at模式， 客户端回滚脚本在 at/db目录下, 根据自己使用数据库， 选择对应脚本, 此次使用mysql.sql
+                官方脚本内容: 参考: ./seata/client/官方mysql.sql
+                真正使用的脚本: 参考： ./seata/client/修改后mysql.sql
+                注意: 1、官方提供了脚本，但是却没有主键, 写入分布式事务的undo_log会报错, 需要自己增加自增主键(之前的版本是有主键的, 原因未知)
+                        并且log_created,log_modified的类型需要改为timestamp(序列化导致的问题, 官方在1.5.x版本才修复), 不修改可能写undo_log会序列化出错
+                        如果这两个时间不想修改为时间戳，可以通过配置seata.transport.serialization: kryo 修改序列化方式解决此问题(注意需要引入kyro的maven依赖包)
+                     2、sql脚本需要在每一个使用seata分布式事务的数据库中都执行一次
+            2) 客户端配置(可选)
+                在config目录下，保存的是seata的客户端配置，下载全部两个文件，
+                放到应用的resource目录下, 可对客户端RM, TM以及其他seata使用的资源进行配置
+                因为可以选择使用配置文件进行配置，并且file.conf文件中的配置基本上都是seata源代码中的默认值，所以可以摒弃这两文件
+        b、seata服务器相关:
+            网址: https://github.com/seata/seata/tree/develop/script/server
+            本地目录: ./seata/server
+            进入db文件夹，选择对应数据库脚本，此处选择mysql.db
+            创建名为seata的数据库, 然后执行此脚本
+        c、seata服务配置相关:
+            网址: https://github.com/seata/seata/tree/develop/script/config-center
+            本地目录: ./seata/config
+            该目录下，confit.txt保存的是seata使用到的配置，下载到本地, 稍后配合脚本使用
+            然后根据自己所使用的注册中心，选择目录, 本次seata的配置使用naocs， 所以进入nacos文件夹选择自己偏好的脚本，
+            下载到本地， 本次使用nacos-config-interactive.sh交互式脚本。
+            修改config.txt文件中的一些配置值, 参考./seata/config/config.txt, 需要修改的地方有中文注释
+            利用交互式脚本，将下载到本地的config.txt中的配置上传到nacos中, 然后打开nacos， 查看是否保存成功
+            注意:
+                需要特别注意以 service.vgroupMapping开头的一个值, 此值定义了分布式事务分组, 后续会配置到我们应用的配置文件中
+    4、在conf目录中,找到并修改file.conf、registry.conf两个文件
+        修改内容参考中文注释: ./seata/registry.conf  
+                          ./seata/file.conf
+    5、至此，seata的配置修改完成, 返回进入bin目录, 运行启动脚本，运行未报错，既是启动成功，可以去nacos注册中心查看是否注册成功
+    6、seata启动成功之后, 修改项目依赖
+        <!-- https://mvnrepository.com/artifact/io.seata/seata-spring-boot-starter -->
+        <dependency>
+            <groupId>io.seata</groupId>
+            <artifactId>seata-spring-boot-starter</artifactId>
+            <version>1.4.2</version>
+        </dependency>
+    7、修改项目配置：
+    seata:
+      config:
+        type: nacos
+        nacos:
+          server-addr: tx-gd:8948
+          group: SEATA_GROUP
+          namespace: seata
+          username: nacos
+          password: nacos
+      tx-service-group: default_tx_group # 重要.此值为步骤3.c中配置service.vgroupMapping的后缀
+      registry:
+        type: nacos
+        nacos:
+          server-addr: tx-gd:8948
+          group: SEATA_GROUP
+          namespace: seata
+          username: nacos
+          password: nacos
+      service:
+        vgroup-mapping:
+          default_tx_group: default # 重要.此值为步骤3.c中配置service.vgroupMapping的后缀及其value
+    8、数据源代理:
+        参考: com/cz/spring_cloud_alibaba/config/SeataConfig.java
+        注意: 如果数据源未代理或代理不成功，则分布式事务也失效, seata核心就在于数据源代理     
+    9、服务间传递全局事务xid
+        参考: com/cz/spring_cloud_alibaba/config/FeigInterceptor.java
+        由于服务间使用feign调用，可能全局事务id无法传递过去, 手动传递过去
+    10、在全局事务的入口方法上
+        添加@ @GlobalTransactional(name = "test", rollbackFor = Exception.class)
+        name自定义，需全局唯一
+    
+    11、至此便可以进行测试分布式事务了
+        
+          
+          
+          
