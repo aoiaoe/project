@@ -24,6 +24,8 @@ spring:
         password: nacos
         register-enabled: true # 是否注册，消费者一般不需要注册
         namespace: dev # 命名空间
+        metadata:
+          name: cz
       config:
         enabled: true
         server-addr: http://tx-gd:8948
