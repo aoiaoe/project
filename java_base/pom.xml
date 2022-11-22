@@ -103,7 +103,12 @@
             <version>2.7.3</version>
         </dependency>
 
-
+        <!-- JOL依赖 对象内存布局分析-->
+        <dependency>
+            <groupId>org.openjdk.jol</groupId>
+            <artifactId>jol-core</artifactId>
+            <version>0.8</version>
+        </dependency>
 
     </dependencies>
     <build>
