@@ -15,7 +15,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
  *
  * t1、A获取读锁，持有读锁
  * t2、B尝试获取写锁， 阻塞
- * t3、C尝试获取读锁， 阻塞，因为CLA队列头为获取写锁的节点
+ * t3、C尝试获取读锁， 阻塞，因为CLH队列头为获取写锁的节点
  *
  * @author alian
  * @date 2021/2/1 下午 12:17
