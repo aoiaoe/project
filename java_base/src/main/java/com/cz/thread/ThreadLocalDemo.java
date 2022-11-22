@@ -27,10 +27,9 @@ import java.lang.reflect.Field;
 @Slf4j
 public class ThreadLocalDemo {
 
-    public static ThreadLocal<String> GLOBAL_TL = new ThreadLocal<>();
     private static int _1M = 1024*1024;
     public static void main(String[] args) throws Exception {
-//        testMethodLocalTLMemoryLeak();
+        testMethodLocalTLMemoryLeak();
     }
 
 
@@ -43,12 +42,17 @@ public class ThreadLocalDemo {
      * @throws Exception
      */
     public static void testMethodLocalTLMemoryLeak() throws Exception {
-        ThreadLocal<String> tl = new ThreadLocal<>();
+        ThreadLocal<String> tl = new ThreadLocal<String>(){
+            @Override
+            protected void finalize() throws Throwable {
+                log.info("tl被回收啦。。。。。。");
+            }
+        };
         tl.set("asc");
         log.info("tl中的值:{}", tl.get());
         // jvm 参数 -Xms10m -Xmx10m
         // 由于tl是强引用, 经过下面的4次内存分配gc过后，也不会被回收
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 6; i++) {
             allocate2M();
         }
         Thread thread = Thread.currentThread();
@@ -62,7 +66,7 @@ public class ThreadLocalDemo {
         tl = null;
         // jvm 参数 -Xms10m -Xmx10m
         // 如果释放掉tl的强引用，经过下面的4次循环分配2M字节数组，那肯定会经过垃圾回收，将tl所在的弱引用给回收
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 6; i++) {
             allocate2M();
         }
         // 使用debug观察下面的tlMap对象内容就可以发现内存泄漏了
