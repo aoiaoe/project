@@ -172,7 +172,7 @@
         
 ### SkyWalking性能监控
     参考：https://blog.csdn.net/qq924862077/article/details/89409746
-    
+            整合SkyWalking.png
     步骤：
         1、下载SkyWalking, 链接：https://archive.apache.org/dist/skywalking/
         2、解压，前端服务端口8080，如需修改，进入webapp修改webapp.yml中的配置
