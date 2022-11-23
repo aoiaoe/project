@@ -169,3 +169,25 @@
 ### Spring cloud stream
     简单使用参考：
         com.cz.spring_cloud_alibaba.service.stream
+        
+### SkyWalking性能监控
+    参考：https://blog.csdn.net/qq924862077/article/details/89409746
+    
+    步骤：
+        1、下载SkyWalking, 链接：https://archive.apache.org/dist/skywalking/
+        2、解压，前端服务端口8080，如需修改，进入webapp修改webapp.yml中的配置
+        3、对于单机使用或者开发学习，可以使用服务默认存储H2，
+            进入bin目录，使用startup.sh脚本，启动项目
+        4、启动之后可以通过webapp中的端口进行页面访问
+        5、拷贝压缩包中的agent文件夹到需要使用javaagent的项目中，或者本地，
+            获取到agent文件夹中的skywalking-agent.jar文件的路径
+        6、在需要使用javaagent的项目中，增加JVM启动参数
+            -javaagent:/Users/sephiroth/study/IdeaProjects/project/spring_cloud/spring_cloud_alibaba/spring_cloud_alibaba_user/agent/skywalking-agent.jar
+            -Dskywalking.agent.service_name=spring_cloud_sentinel_order
+            -Dskywalking.collector.backend_service=tx-gd:11800
+            
+            其中spring_cloud_sentinel_order是需要显示在SkyWalking中的服务名称
+            tx-gd:11800是指标提交的SkyWalking的服务器地址
+            11800端口是SkyWalking服务启动之后，自动启动的端口
+            
+    
