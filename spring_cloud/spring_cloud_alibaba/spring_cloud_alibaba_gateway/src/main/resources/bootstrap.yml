@@ -54,6 +54,14 @@ spring:
           ruleType: gw-api-group
           dataId: ${spring.application.name}-sentinelapi-rule.json
           data-type: json
+    loadbalancer:
+      cache:
+        enabled: true
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
 
   main:
     allow-bean-definition-overriding: true
