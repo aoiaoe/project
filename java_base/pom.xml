@@ -110,6 +110,12 @@
             <version>0.8</version>
         </dependency>
 
+        <!-- 动态执行java代码 -->
+        <dependency>
+            <groupId>com.zhg2yqq</groupId>
+            <artifactId>wheels-dynamic-code</artifactId>
+            <version>1.8.2</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
