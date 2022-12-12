@@ -9,13 +9,13 @@ import com.zhg2yqq.wheels.dynamic.code.dto.CalTimeDTO;
 import com.zhg2yqq.wheels.dynamic.code.dto.ExecuteResult;
 import com.zhg2yqq.wheels.dynamic.code.dto.Parameters;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
+ * 参考： https://github.com/520zhgzhg/dynamic-code
  * @author jzm
  * @date 2022/12/12 : 15:41
  */
