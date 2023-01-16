@@ -16,6 +16,7 @@ spring:
       transport:
         # 暂时不能使用云上的sentinel, 因为云上的不能访问本地服务获取信息
         dashboard: http://localhost:9999 # sentinel看板的地址
+        port: 18899
       eager: true # 开启对sentinel看板的饥饿式加载。sentinel默认是懒加载机制，只有访问过一次的资源才会被监控，通过关闭懒加载，在项目启动时就连接sentinel控制台
       # web-context-unify 为true的时候，SentinelWebInterceptor#getContextName()方法取到的是收敛的context名称sentinel_spring_web_context；
       # 为false的时候，就可以正确地取到资源名。 因为调用链路收敛，导致取不到入口的资源名，所以导致链路流控失效
