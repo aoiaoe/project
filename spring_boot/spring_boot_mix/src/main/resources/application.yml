@@ -1,7 +1,13 @@
 server:
   port: 18101
 
+spring:
+  servlet:
+    multipart:
+      max-file-size: 10MB
+
+
 test:
   cron: 0/5 * * * * ?
 
-config_test_in_yml: ${config_test}
+#config_test_in_yml: ${config_test}
