@@ -1,5 +1,8 @@
 package niukewang.list;
 
+/**
+ * 合并两个排序的列表
+ */
 public class _4_Merge2SortedLists {
 
     public static ListNode Merge(ListNode list1,ListNode list2) {

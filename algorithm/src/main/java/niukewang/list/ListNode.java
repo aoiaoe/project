@@ -18,4 +18,15 @@ class ListNode {
         }
         System.out.println();
     }
+
+    public static ListNode create(int n){
+        ListNode head = new ListNode(1);
+        ListNode dummy = head;
+        for (int i = 2; i <= n; i++) {
+            ListNode node = new ListNode(i);
+            dummy.next = node;
+            dummy = node;
+        }
+        return head;
+    }
 }
