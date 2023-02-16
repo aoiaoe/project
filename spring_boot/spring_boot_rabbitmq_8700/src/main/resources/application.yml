@@ -6,8 +6,8 @@ spring:
     name: sb_rabbitmq
   rabbitmq:
     virtual-host: /
-    host: localhost
-    port: 5672
+    host: tx-gd
+    port: 5673
     username: admin
     password: admin
 

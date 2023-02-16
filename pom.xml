@@ -32,6 +32,7 @@
         <module>sharding_jdbc_master_slave</module>
         <module>single_db</module>
         <module>spring_boot</module>
+
         <module>spring_boot/spring_boot_es</module>
         <module>spring_boot/spring_boot_https_6900</module>
         <module>spring_boot/spring_boot_kafka</module>
@@ -46,6 +47,7 @@
         <module>spring_boot/spring_boot_rabbitmq_8700</module>
         <module>spring_boot/spring_boot_redis</module>
         <module>spring_boot/spring_boot_redisson</module>
+        <module>spring_boot/spring_boot_rule_engine</module>
         <module>spring_boot/spring_boot_security</module>
         <module>spring_boot/spring_boot_security/spring_boot_security_7000</module>
         <module>spring_boot/spring_boot_security/spring_boot_security_jwt_7001</module>

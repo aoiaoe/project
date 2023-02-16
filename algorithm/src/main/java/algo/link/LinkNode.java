@@ -25,7 +25,7 @@ public class LinkNode {
         }
         LinkNode p = head;
         do {
-            System.out.print(p.val + " ");
+            System.out.print(p.val + " -> ");
             p = p.next;
         } while (p != null);
         System.out.println();

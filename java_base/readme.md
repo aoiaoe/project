@@ -13,3 +13,8 @@
 #### thread线程相关
 
       InheritableThreadLocalDemo.java 线程之间继承数据的ThreadLocal
+      
+#### 对象内存布局分析
+    JolDemo.java
+#### synchronized锁升级实验
+    JolDemo.java

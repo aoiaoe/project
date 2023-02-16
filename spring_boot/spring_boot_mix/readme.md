@@ -30,5 +30,8 @@
     
 ### 泛型
     com.cz.spring_boot_mix.genericTypeResolver
-#### 自定义参数解析器
+### 自定义参数解析器
     com.cz.spring_boot_mix.paramresolver
+
+### java代码调用http上传文件接口 
+    

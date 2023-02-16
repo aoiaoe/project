@@ -22,6 +22,12 @@
     使用场景: 将所有异常以json的方式对客户端友好提示
     参考: JsonCustomizeErrorHandler.java
 
+### 动态路由
+    参考：DynamicRouteServiceByNacos.java
+    整合nacos，使用nacos保存路由配置，项目启动后，启动一个NacosConfigServer去监听指定的配置
+    当在nacos中修改配置之后，会通知到监听的服务，服务拿到修改后的新值之后，
+    通过routeDefinitionWriter就可以更新路由配置信息
+    
 ### 集成sleuth实现日志链路追踪
     sleuth非倾入性，使用ThreadLocal保存上下文，而spring cloud gateway由于使用异步框架，
     一次请求会使用不同的线程进行处理，所以不能使用ThreadLocal获取上下文打印traceId和spanId

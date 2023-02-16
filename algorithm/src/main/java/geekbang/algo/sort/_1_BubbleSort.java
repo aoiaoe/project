@@ -10,12 +10,11 @@ public class _1_BubbleSort {
 
     public static void main(String[] args) {
 //        int[] array = ArrayCreator.createArray(10, 15);
-        int array[] = {14, 4, 1, 5, 0, 11, 9, 13, 14, 7};
+        int array[] = {14, 4, 1, 5, 0, 11, 9, 13, 16, 7};
         System.out.println(Arrays.toString(array));
-        bubbleSort(array);
+        bubbleSort1(array);
 //        bubbleSortOptimization(array);
-        System.out.println(Arrays.toString(array));
-
+//        System.out.println(Arrays.toString(array));
     }
 
     /**
@@ -80,6 +79,26 @@ public class _1_BubbleSort {
             if (!flag) {
                 break;
             }
+        }
+    }
+
+
+    public static void bubbleSort1(int[] arr){
+        boolean flag = true;
+        for (int i = 0; i < arr.length -1; i++) {
+            flag = true;
+            for (int j = 0; j < arr.length - i - 1; j++) {
+                if(arr[j] > arr[j + 1]){
+                    arr[j] = arr[j] ^ arr[j + 1];
+                    arr[j + 1] = arr[j] ^ arr[j+ 1];
+                    arr[j] = arr[j] ^ arr[j + 1];
+                    flag = false;
+                }
+            }
+            if(flag){
+                break;
+            }
+            System.out.println(Arrays.toString(arr));
         }
     }
 }
