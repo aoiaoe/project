@@ -97,12 +97,6 @@
             <version>12.2.0.1</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.python</groupId>
-            <artifactId>jython-standalone</artifactId>
-            <version>2.7.3</version>
-        </dependency>
-
         <!-- JOL依赖 对象内存布局分析-->
         <dependency>
             <groupId>org.openjdk.jol</groupId>
