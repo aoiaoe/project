@@ -28,11 +28,31 @@ class ListNode {
         System.out.println();
     }
 
+    public void disp(){
+        ListNode dummy = this;
+        while (dummy != null){
+            System.out.print(dummy.val + " -> ");
+            dummy = dummy.next;
+        }
+        System.out.println();
+    }
+
     public static ListNode create(int n){
         ListNode head = new ListNode(1);
         ListNode dummy = head;
         for (int i = 2; i <= n; i++) {
             ListNode node = new ListNode(i);
+            dummy.next = node;
+            dummy = node;
+        }
+        return head;
+    }
+
+    public static ListNode create(int[] arr){
+        ListNode head = new ListNode(arr[0]);
+        ListNode dummy = head;
+        for (int i = 1; i <arr.length; i++) {
+            ListNode node = new ListNode(arr[i]);
             dummy.next = node;
             dummy = node;
         }
