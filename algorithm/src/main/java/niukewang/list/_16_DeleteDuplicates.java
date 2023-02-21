@@ -1,45 +1,63 @@
 package niukewang.list;
 
 /**
- * 删除有序列表中重复的元素, 只保留出现一次的元素
- * 1 -> 1 -> 1 -> 2 -> 2 -> 3 ->
- * 2 -> 3 ->
- * 因为1和2重复出现，所有重复的都删除
+ * @author jzm
+ * @date 2023/2/21 : 15:40
  */
 public class _16_DeleteDuplicates {
 
     public static void main(String[] args) {
-        ListNode head = ListNode.create(new int[]{1,1});
-        head.disp();
-        head = deleteDuplicates(head);
-        head.disp();
+        ListNode head = ListNode.create(new int[]{1});
+        ListNode.disp(head);
+        head = removeDuplicate(head);
+        ListNode.disp(head);
     }
-    public static ListNode deleteDuplicates (ListNode head) {
+
+
+    public static ListNode removeDuplicate(ListNode head){
+        if(head == null || head.next == null){
+            return head;
+        }
+        // 新增头结点，解决头结点被移除的问题
+        ListNode newHead = new ListNode(head.val - 1);
+        newHead.next = head;
+        ListNode sentinel = newHead;
+        int val;
+        // 如果值相同，删除掉相同节点，并不改变sentinel指向新头结点
+        // 如果值不相同(两个比较的节点一定不为空)，则将sentinel指向第二个节点
+        // 此处sentinel.next不会空指针
+        while (sentinel.next != null && sentinel.next.next != null){
+            // 判断相邻两个节点值是否相等
+            if(sentinel.next.val == sentinel.next.next.val){
+                val = sentinel.next.val;
+                // 将所有值相等的节点都跳过,包括自己
+                while (sentinel.next != null && val == sentinel.next.val){
+                    sentinel.next = sentinel.next.next;
+                }
+            } else {
+                // 不相等，则移动哨兵节点
+                sentinel = sentinel.next;
+            }
+        }
+        return newHead.next;
+    }
+
+    public static ListNode deleteDuplicates2 (ListNode head) {
         // write code here
         if(head == null || head.next == null){
             return head;
         }
-        ListNode newHead = new ListNode(head.val - 1);
+        ListNode newHead = new ListNode(head.val - 1), sentinel = newHead;
         newHead.next = head;
-        ListNode sentinel = newHead;
-        ListNode sentinel2;
         int val;
-        boolean flag = false;
-        while (sentinel != null && sentinel.next != null){
+        while (sentinel.next != null && sentinel.next.next != null){
             val = sentinel.next.val;
-            sentinel2 = sentinel.next;
-            flag = false;
-            // 从当前节点向后遍历，直到找到不同的节点
-            while (sentinel2 != null && sentinel2.next != null){
-                if(sentinel2.next.val != val){
-                    break;
+            if(val == sentinel.next.next.val){
+                while (sentinel.next != null && val == sentinel.next.val){
+                    sentinel.next = sentinel.next.next;
                 }
-                flag = true;
-                sentinel2 = sentinel2.next;
-            }
-            if()
-            sentinel.next = sentinel2;
-            sentinel = sentinel2;
+            } else
+                sentinel = sentinel.next;
         }
         return newHead.next;
     }
