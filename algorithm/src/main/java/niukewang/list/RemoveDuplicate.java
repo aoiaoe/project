@@ -1,6 +1,9 @@
 package niukewang.list;
 
 /**
+ * 思路：
+ *  1、遍历
+ *  2、哈希
  * @author jzm
  * @date 2023/2/21 : 15:40
  */
