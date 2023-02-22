@@ -7,7 +7,16 @@ public class _23_PreorderTraversal {
 
     public int[] preorderTraversal (TreeNode root) {
         // write code here
+        int arr[] = new int[100];
+
         return null;
+    }
+
+    public static void proOrderTraversal(TreeNode root, int[] arr){
+        if(root == null){
+            return;
+        }
+
     }
 }
 
