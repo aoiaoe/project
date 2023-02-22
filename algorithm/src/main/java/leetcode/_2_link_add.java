@@ -14,13 +14,38 @@ package leetcode;
 public class _2_link_add {
 
     public static void main(String[] args) {
-        ListNode l1 = new ListNode(2, new ListNode(4, new ListNode(3)));
-        ListNode l2 = new ListNode(5, new ListNode(6, new ListNode(4)));
-        ListNode l3 = addTwoNumbers(l1, l2);
-        System.out.println(l3.val);
-        while ((l3 = l3.next) != null) {
-            System.out.println(l3.val);
+        ListNode head1 = ListNode.create(new int[]{2,4,3});
+        ListNode head2 = ListNode.create(new int[]{5,6,4});
+        addTwoNumbers2(head1, head2).disp();
+    }
+
+    public static ListNode addTwoNumbers2(ListNode l1, ListNode l2) {
+        int over = 0;
+        ListNode head = l1;
+        while(l1 != null && l2 != null){
+            over = over + l1.val + l2.val;
+            l1.val = over % 10;
+            over = over / 10;
+            l1 = l1.next;
+            l2 = l2.next;
         }
+        l1 = l1 != null ? l1 : l2;
+        if(l1.next == null && over > 0){
+            l1.next = new ListNode(over);
+            return head;
+        }
+        l1 = l1.next;
+        while(over > 0){
+            over += l1.val;
+            l1.val = over % 10;
+            over /= 10;
+            if(l1.next == null && over > 0){
+                l1.next = new ListNode(over);
+                over = 0;
+            }
+            l1 = l1.next;
+        }
+        return head;
     }
 
     public static ListNode addTwoNumbers(ListNode l1, ListNode l2) {

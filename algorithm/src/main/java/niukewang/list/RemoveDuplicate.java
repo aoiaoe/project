@@ -1,5 +1,7 @@
 package niukewang.list;
 
+import java.util.Map;
+
 /**
  * 思路：
  *  1、遍历
@@ -15,7 +17,6 @@ public class RemoveDuplicate {
         head = removeDuplicate(head);
         ListNode.disp(head);
     }
-
 
     public static ListNode removeDuplicate(ListNode head){
         if(head == null || head.next == null){

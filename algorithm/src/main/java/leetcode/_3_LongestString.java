@@ -15,6 +15,27 @@ public class _3_LongestString {
         System.out.println(lengthOfLongestSubstring(s));
     }
 
+    /**
+     * 滑动窗口寻找
+     * @param s
+     * @return
+     */
+    public static int lengthOfLongestSubstringByMoveWindow(String s) {
+        Set<Character> set = new HashSet<>();
+        int index = 0;
+        int matLength = 0;
+        int length = 0;
+        while (index < s.length()){
+            if(set.contains(s.charAt(index))){
+                matLength = matLength > length ? matLength : length;
+                length = 0;
+            } else {
+
+            }
+        }
+        return matLength;
+    }
+
     public static int lengthOfLongestSubstring(String s) {
         if (s == null) {
             return 0;
