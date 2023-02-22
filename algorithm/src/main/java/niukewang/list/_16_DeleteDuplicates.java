@@ -9,7 +9,7 @@ import java.util.Map;
  * @author jzm
  * @date 2023/2/21 : 15:40
  */
-public class RemoveDuplicate {
+public class _16_DeleteDuplicates {
 
     public static void main(String[] args) {
         ListNode head = ListNode.create(new int[]{1});
@@ -42,6 +42,26 @@ public class RemoveDuplicate {
                 // 不相等，则移动哨兵节点
                 sentinel = sentinel.next;
             }
+        }
+        return newHead.next;
+    }
+
+    public static ListNode deleteDuplicates2 (ListNode head) {
+        // write code here
+        if(head == null || head.next == null){
+            return head;
+        }
+        ListNode newHead = new ListNode(head.val - 1), sentinel = newHead;
+        newHead.next = head;
+        int val;
+        while (sentinel.next != null && sentinel.next.next != null){
+            val = sentinel.next.val;
+            if(val == sentinel.next.next.val){
+                while (sentinel.next != null && val == sentinel.next.val){
+                    sentinel.next = sentinel.next.next;
+                }
+            } else
+                sentinel = sentinel.next;
         }
         return newHead.next;
     }
