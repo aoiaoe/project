@@ -59,4 +59,43 @@ public class _30_Tree2LinkedList {
         queue.add(root);
         Convert2Stack(root.right, queue);
     }
+
+    public static TreeNode ConvertByStack(TreeNode pRootOfTree){
+        if(pRootOfTree == null){
+            return pRootOfTree;
+        }
+        // 头指针
+        TreeNode head = null;
+        TreeNode cur = null;
+        // 是否第一次到左边, 如果是第一次，则最后一个叶子节点就是头结点
+        // 因为是二叉搜索树, 左子节点 < 父节点 < 右节点
+        boolean flag = true;
+        Stack<TreeNode> stack = new Stack<>();
+        while (pRootOfTree != null || !stack.empty()){
+            // 这里的根节点, 可以是真的根节点, 也可以是右子树的根节点
+            // 从根一直往左边叶子节点遍历,
+            // 将根节点及其左子节点入栈
+            while (pRootOfTree != null){
+                stack.push(pRootOfTree);
+                pRootOfTree = pRootOfTree.left;
+            }
+            pRootOfTree = stack.pop();
+            if(flag){
+                // 经过上面的循环，栈顶的一定是最小的节点，也是头结点
+                head = pRootOfTree;
+                cur = head;
+                flag = false;
+            } else {
+                // 弹出栈顶节点，并加入链表
+                cur.right = pRootOfTree;
+                pRootOfTree.left = cur;
+                cur = pRootOfTree;
+            }
+            // 将根节点赋值为右节点
+            // 遍历右子树
+            pRootOfTree = pRootOfTree.right;
+        }
+
+        return head;
+    }
 }
