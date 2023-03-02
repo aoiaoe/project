@@ -6,8 +6,8 @@ import java.util.Queue;
 public class _35_IsCompleteTree {
 
     public static void main(String[] args) {
-        TreeNode root = TreeNode.create(new int[]{1,383,-1,886,-1,777,-1,915,-1,793,-1,335,-1,386,-1,492,-1,649,-1,421,-1,362,-1,27,-1,690,-1,59,-1,763,-1,926,-1,540,-1,426,-1,172,-1,736,-1,211,-1,368,-1,567,-1,429,-1,782,-1,530,-1,862,-1,123,-1,67,-1,135,-1,929,-1,802,-1,22,-1,58,-1,69,-1,167,-1,393,-1,456,-1,11,-1,42,-1,229,-1,373,-1,421,-1,919,-1,784,-1,537,-1,198,-1,324,-1,315,-1,370,-1,413,-1,526,-1,91,-1,980,-1,956,-1,873,-1,862,-1,170,-1,996,-1,281,-1,305,-1,925,-1,84,-1,327,-1,336,-1,505,-1,846,-1,729,-1,313,-1,857,-1,124,-1,895,-1,582,-1,545,-1,814,-1,367,-1,434,-1,364,-1,43,-1,750,-1,87,-1,808,-1,276,-1,178,-1,788,-1,584,-1,403,-1,651,-1,754,-1,399,-1,932,-1,60,-1,676,-1,368,-1,739,-1,12,-1,226,-1,586,-1,94});
-        System.out.println(isCompleteTree(root));
+        TreeNode root = TreeNode.create(new int[]{1, 2,-1});
+        System.out.println(isCompleteTreeByLevelOrder(root));
     }
 
     /**
@@ -87,7 +87,13 @@ public class _35_IsCompleteTree {
         return true;
     }
 
-    public boolean isCompleteTreeSimple(TreeNode root) {
+    /**
+     * 层序遍历, 遇到空节点则记录标志位,
+     * 如果后面节点不全为空,则一定不是完全二叉树
+     * @param root
+     * @return
+     */
+    public static boolean isCompleteTreeByLevelOrder(TreeNode root) {
         //空树一定是完全二叉树
         if(root == null)
             return true;
