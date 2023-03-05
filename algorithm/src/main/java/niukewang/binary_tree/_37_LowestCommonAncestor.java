@@ -46,17 +46,20 @@ public class _37_LowestCommonAncestor {
         if(root == null){
             return -1;
         }
+        // 获取每个节点的路径
         List<Integer> res1 = getPath(root, p);
         List<Integer> res2 = getPath(root, q);
         int size = res1.size() > res2.size() ? res2.size() : res1.size();
-        int i = 0;
-        for ( ; i < size; i++) {
-            if(res1.get(i).equals(res2.get(i))){
+        // 最后一个相同的节点值就是最近公共父节点
+        Integer res = -1;
+        for (int i = 0 ; i < size; i++) {
+            if((res = res1.get(i)).equals(res2.get(i))){
                 continue;
+            } else {
+                break;
             }
-            return res1.get(i - 1);
         }
-        return res1.get(i-1);
+        return res;
     }
 
     public static List<Integer> getPath(TreeNode root, int target){
