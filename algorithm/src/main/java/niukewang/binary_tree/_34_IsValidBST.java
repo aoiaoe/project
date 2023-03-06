@@ -24,6 +24,12 @@ public class _34_IsValidBST {
         return isValidBST(root.right);
     }
 
+    /**
+     * 利用栈进行中序遍历，将值保存进列表
+     * 最后遍历列表,如果存在降序，则不是BST
+     * @param root
+     * @return
+     */
     public static boolean isValidBSTByStack(TreeNode root){
         //设置栈用于遍历
         Stack<TreeNode> s = new Stack<TreeNode>();
