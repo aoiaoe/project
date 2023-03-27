@@ -7,7 +7,13 @@ import java.nio.ByteOrder;
 import java.util.concurrent.TimeUnit;
 
 /**
- * -XX:-UseCompressedOops -XX:BiasedLockingStartupDelay=0
+ * 进行此实验，需要如下JVM参数：
+ * -XX:-UseCompressedOops -XX:+UseBiasedLocking -XX:BiasedLockingStartupDelay=0
+ * 并且还需要前置知识：
+ *  1、字节序，大端存储：高位字节在前面  小端存储：地位字节在前面
+ *      jvm字节序为：小端存储
+ *  2、对象头的锁标志位
+ *
  * //关闭偏向锁
  * -XX:-UseBiasedLocking
  * //开启偏向锁
@@ -19,12 +25,15 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class JolDemo {
 
+    private int a = 1;
 
     public static void main(String[] args) {
         // 字节序是大端存储还是小端存储
         // 参考： https://www.cnblogs.com/wuyuegb2312/archive/2013/06/08/3126510.html
+        // 参考： https://blog.csdn.net/dhaibo1986/article/details/108453102
         ByteOrder byteOrder = ByteOrder.nativeOrder();
-        log.info("[java]是小端存储，意思是字节顺序是倒叙的，故下列jol打印的锁对象内存布局，打印的第一个字节其实是最后一个字节，字节序：{}", byteOrder);
+        log.info("[java]是小端存储，意思是字节顺序是倒叙的，故下列jol打印的锁对象内存布局，打印的第一个字节其实是最后一个字节");
+        log.info("本机字节序：{}", byteOrder);
         JolDemo obj = new JolDemo();
         log.info("初始化内存布局: 此处由于jvm参数设置偏向锁延迟为0，偏向main线程");
         displayLayout(obj);
@@ -42,7 +51,8 @@ public class JolDemo {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        log.info("10秒后线程B启动，查看内存布局，A线程已经释放锁对象，B线程获取锁对象obj，不存在竞争，但是由于锁对象obj的markword有偏向于线程A的标志，故锁升级为轻量级锁--------------------------");
+        log.info("10秒后线程B启动，查看内存布局，A线程已经释放锁对象，B线程获取锁对象obj，不存在竞争，" +
+                "但是由于锁对象obj的markword有偏向于线程A的标志，故锁升级为轻量级锁--------------------------");
         new MyThread(obj, "B").start();
 
         try {
