@@ -31,6 +31,7 @@ public class ThreadInterruptDemo {
         // 虽然上面调用了t.interrupt()对线程t进行中断
         // 但由于interrupted()方法是静态方法，意义在于检测当前线程是否处于中断状态
         // 所以此处检测的是main线程的中断状态，而不是t线程的，所以没有被中断
+        // 因为interrupted()方法是静态方法，所以用实例调用（t.interrupted())和用类名调用(Thread.interrupted())是一样的效果。
         System.out.println("调用静态方法t.interrupted():" + t.interrupted());
         // 作用是只测试此线程是否被中断 ，不清除中断状态。
         System.out.println("第一次调用t.isInterrupted()：" + t.isInterrupted());

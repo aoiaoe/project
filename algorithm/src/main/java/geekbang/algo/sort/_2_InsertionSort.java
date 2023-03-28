@@ -14,57 +14,45 @@ import java.util.Arrays;
 public class _2_InsertionSort {
 
     public static void main(String[] args) {
-        int[] array = ArrayCreator.createArray(10, 150);
-        System.out.println(Arrays.toString(array));
-        insertionSortV2(array);
-        System.out.println(Arrays.toString(array));
+        int[] array = ArrayCreator.createArray(1000000, 100000000);
+//        System.out.println(Arrays.toString(array));
+        System.out.println("是否有序：" + SortTest.testInSort(array));
+        insertionSortV3(array);
+        System.out.println("插入排序之后是否有序： " + SortTest.testInSort(array));
+//        System.out.println(Arrays.toString(array));
     }
 
     /**
-     * 插入排序v2：
-     *  将寻址和数据移动放入一个循环
+     * 升序插入排序
+     * 将数据分为已排序和未排序两部分
+     * 依次从未排序中选择一个数据(假设数据A)，插入到已排序部分中
+     * 如何找到这个未排序数据的位置呢：
+     *  从已排序部分从后向前比较，如果值大于A，则将数据向后移动一位，直到找到不大于A的数据，则是A插入的位置
      * @param arr
      */
-    public static void insertionSortV2(int arr[]){
-        for (int i = 1; i < arr.length; i++) {
-            int val = arr[i];
-            int j = i - 1;
-            for (; j >= 0 ; j--) {
-                if(val < arr[j]){
-                    arr[j + 1] = arr[j];
+    public static void insertionSortV3(int arr[]){
+        int length = arr.length;
+        int val;
+        int j;
+        for (int i = 1; i < length; i++) {
+            val = arr[i]; // 记录当前排序的值
+            j = i;
+            // 从当前排序值索引向前寻找比较
+            // 因为是升序，所以将所有大于当前排序值的数据向后移动一位
+            for (; j > 0; j--) {
+                if(arr[j-1] > val){
+                    arr[j] = arr[j-1];
                 } else
+                    // 如果不大于，则跳出内循环，此处为当前排序值应该插入的位置
                     break;
             }
-            arr[j + 1] = val;
-            System.out.println(i + " -> " + Arrays.toString(arr));
+            arr[j] = val;
         }
     }
 
-    /**
-     * 手写插入排序第一个版本
-     *  缺点：将数据的寻址和移动分成了两步，略显复杂，空间也使用得更多
-     * @param arr
-     */
-    public static void insertionSortV1(int arr[]){
-        for (int i = 1; i < arr.length; i++) {
-            int j = 0;
-            for (; j < i; j++) {
-                if(arr[i] < arr[j]){
-                    break;
-                }
-            }
-            int temp = arr[i];
-            int index = i;
-            int index2 = j;
-            j++;
-            while (j <= index){
-                arr[index] = arr[index - 1];
-                index--;
-            }
-            arr[index2] = temp;
-//            System.out.println(i + " ->> " + Arrays.toString(arr));
-        }
-    }
+
+
+
 
 
     /**

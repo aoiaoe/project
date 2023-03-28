@@ -15,6 +15,18 @@ public class SortTest {
     int count = 100000;
     int length = 1000;
 
+    public static boolean testInSort(int arr[]){
+        int tmp = arr[0];
+        for (int i = 1; i < arr.length; i++) {
+            if(tmp <= arr[i]){
+                tmp = arr[i];
+            } else {
+                return false;
+            }
+        }
+        return  true;
+    }
+
     /**
      * 冒泡算法循环100000次, 数组长度:100,所用时间：320
      * 冒泡算法循环100000次, 数组长度:1000,所用时间：48856
@@ -29,7 +41,7 @@ public class SortTest {
 //            _1_BubbleSort.bubbleSortOptimization(arr);
         }
         long end = System.currentTimeMillis();
-        System.out.println("冒泡算法循环" + count + "次, 数组长度:" + length + ",所用时间：" + (end - start));
+        System.out.println("冒泡算法循环" + count + "次, 数组长度:" + arr.length + ",所用时间：" + (end - start));
     }
 
     /**
@@ -42,10 +54,10 @@ public class SortTest {
         long start = System.currentTimeMillis();
         for (int i = 0; i < count; i++) {
             arr = createArray();
-            _2_InsertionSort.insertionSortV1(arr);
+            _2_InsertionSort.insertionSortV3(arr);
         }
         long end = System.currentTimeMillis();
-        System.out.println("插入算法循环" + count + "次, 数组长度:" + length + ",所用时间：" + (end - start));
+        System.out.println("插入算法循环" + count + "次, 数组长度:" + arr.length + ",所用时间：" + (end - start));
     }
 
     /**
@@ -60,11 +72,11 @@ public class SortTest {
             _3_SelectionSort.selectionSort(arr, arr.length);
         }
         long end = System.currentTimeMillis();
-        System.out.println("选择算法循环" + count + "次, 数组长度:" + length + ",所用时间：" + (end - start));
+        System.out.println("选择算法循环" + count + "次, 数组长度:" + arr.length + ",所用时间：" + (end - start));
     }
 
     /**
-     * 归并算法循环100000次, 数组长度:1000,所用时间：201
+     * 归并算法循环100000次, 数组长度:100,所用时间：201
      * 归并算法循环100000次, 数组长度:1000,所用时间：2381
      */
     @Test
@@ -75,12 +87,28 @@ public class SortTest {
             _4_MergeSort.mergeSort(arr, 0, arr.length - 1);
         }
         long end = System.currentTimeMillis();
-        System.out.println("归并算法循环" + count + "次, 数组长度:" + length + ",所用时间：" + (end - start));
+        System.out.println("归并算法循环" + count + "次, 数组长度:" + arr.length + ",所用时间：" + (end - start));
+    }
+
+    /**
+     * 快排算法循环100000次, 数组长度:100,所用时间：91
+     * 快排算法循环100000次, 数组长度:1000,所用时间：1004
+     */
+    @Test
+    public void quickSort() {
+        long start = System.currentTimeMillis();
+        for (int i = 0; i < count; i++) {
+            arr = createArray();
+            _5_QuickSort.quickSort(arr, 0, arr.length - 1);
+//            _1_BubbleSort.bubbleSortOptimization(arr);
+        }
+        long end = System.currentTimeMillis();
+        System.out.println("快排算法循环" + count + "次, 数组长度:" + arr.length + ",所用时间：" + (end - start));
     }
 
     public int[] createArray(){
 //        return ArrayCreator.createArray(length, 10000);
-//        return ArrayCreator._1_00();
-        return ArrayCreator._1_000();
+        return ArrayCreator._1_00();
+//        return ArrayCreator._1_000();
     }
 }
