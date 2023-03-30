@@ -19,14 +19,11 @@ public class ShowMeBug {
         Class clazz = Class.forName(param[0]);
         String[] param1 = param[1].split("=");
         return Proxy.newProxyInstance(clazz.getClassLoader(),
-                new Class[]{clazz}, new InvocationHandler() {
-                    @Override
-                    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-                        if(method.getName().equals(param1[0])) {
-                            return param1[1];
-                        }
-                        return null;
+                new Class[]{clazz}, (proxy, method, args) -> {
+                    if (method.getName().equals(param1[0])) {
+                        return param1[1];
                     }
+                    return null;
                 });
     }
 

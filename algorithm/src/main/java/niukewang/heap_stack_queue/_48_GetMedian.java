@@ -13,6 +13,6 @@ public class _48_GetMedian {
     }
 
     public Double GetMedian() {
-
+        return null;
     }
 }
