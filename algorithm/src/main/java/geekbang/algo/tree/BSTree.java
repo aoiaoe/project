@@ -1,13 +1,13 @@
 package geekbang.algo.tree;
 
 /**
- * 平衡二叉树
+ * 二叉搜索树
  */
-public class AvlTree {
+public class BSTree {
 
     public static void main(String[] args) {
         Tree tree = Tree.create(new int[]{6,1,7,-1,5,-1,9,-1,-1,3,-1,-1,-1,8,10,-1,-1,-1,-1,2,4});
-        AvlTree ins = new AvlTree();
+        BSTree ins = new BSTree();
         ins.insert(tree, 11);
         System.out.println("前驱");
         System.out.println(ins.preNode(tree, 4));
