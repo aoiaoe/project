@@ -11,31 +11,18 @@ import java.util.Set;
 public class _3_LongestString {
 
     public static void main(String[] args) {
-        String s = " ";
+        String s = "aacsfwasacav";
         System.out.println(lengthOfLongestSubstring(s));
     }
 
+
     /**
-     * 滑动窗口寻找
+     * 滑动窗口
+     *      ：右边界不断往右走，并记录每个字符串和它的下一个位置
+     *      如果右边界指向的字符出现在记录的字符中，则左边界需要收敛到该位置
      * @param s
      * @return
      */
-    public static int lengthOfLongestSubstringByMoveWindow(String s) {
-        Set<Character> set = new HashSet<>();
-        int index = 0;
-        int matLength = 0;
-        int length = 0;
-        while (index < s.length()){
-            if(set.contains(s.charAt(index))){
-                matLength = matLength > length ? matLength : length;
-                length = 0;
-            } else {
-
-            }
-        }
-        return matLength;
-    }
-
     public static int lengthOfLongestSubstring(String s) {
         if (s == null) {
             return 0;
@@ -49,8 +36,11 @@ public class _3_LongestString {
             if ((temp = map.get(c)) != null) {
                 start = Math.max(start, temp);
             }
-
+            // 计算最长的长度
             length = Math.max(length, end - start + 1);
+            // end + 1 ： 因为是如果存在相同的字符，则从此字符的下一个字符开始才不重复
+            // 例如： aabc, 第一次循环，map中存放 a -> 1,
+            // 第二次循环，能在map中获取到a，则就将窗口左边界设置为1
             map.put(c, end + 1);
 
         }

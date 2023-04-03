@@ -18,19 +18,19 @@ public class _19_FindPeakElement {
      * @return
      */
     public static int findPeakElement2 (int[] nums) {
-        int left = 0;
-        int right = nums.length - 1;
-        //二分法
-        while(left < right){
-            int mid = (left + right) / 2;
-            //右边是往下，不一定有坡峰
-            if(nums[mid] > nums[mid + 1])
-                right = mid;
-                //右边是往上，一定能找到波峰
-            else
-                left = mid + 1;
+        if(nums == null || nums.length == 0){
+            return 0;
         }
-        //其中一个波峰
+        int left = 0, right = nums.length - 1, mid;
+        while (left < right){
+            mid = (left + right) / 2;
+            // left一定小于right，此处必不数组越界
+            if(nums[mid] > nums[mid + 1]){
+                right = mid;
+            } else {
+                left = mid + 1;
+            }
+        }
         return right;
     }
     public static int findPeakElement (int[] nums) {
@@ -38,22 +38,17 @@ public class _19_FindPeakElement {
             return 0;
         } else if(nums.length == 1){
             return 0;
-        } else if(nums.length == 2){
-            return nums[0] > nums[1] ? 0 : 1;
         }
-        // write code here
         int end = nums.length -1;
-        for (int i = 0; i < end; i++) {
-            if(i == 0 && nums[i] > nums[i + 1]){
-                return 0;
-            }else if(i+1 == end && nums[end] > nums[i]){
-                return end;
-            } else {
-                if(nums[i] > nums[i-1] && nums[i] > nums[i + 1]){
-                    return i;
-                }
+        if(nums[0] > nums[1])
+            return  0;
+        // write code here
+
+        for (int i = 1; i < end - 1; i++) {
+            if(nums[i] > nums[i-1] && nums[i] > nums[i + 1]){
+                return i;
             }
         }
-        return -1;
+        return end;
     }
 }

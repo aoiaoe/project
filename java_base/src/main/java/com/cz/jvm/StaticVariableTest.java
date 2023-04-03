@@ -11,11 +11,12 @@ package com.cz.jvm;
 public class StaticVariableTest {
 
     /**
+     * -Xms10m -Xmx10m
      * java.lang.OutOfMemoryError: Java heap space
      * at com.cz.jvm.StaticVariableTest.<clinit>(StaticVariableTest.java:11)
      * Exception in thread "main"
      */
-    public static byte[] ARR = new byte[10 * 1024 * 1024];
+    public static byte[] ARR = new byte[100 * 1024 * 1024];
 
     public static void main(String[] args) {
 

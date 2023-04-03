@@ -22,18 +22,21 @@ package com.cz.thread;
 public class ThreadInterruptDemo {
 
     public static void main(String[] args) {
-        MyThread thread = new MyThread();
-        thread.start();
+        MyThread t = new MyThread();
+        t.start();
         // 其作用是中断此线程（此线程不一定是当前线程，而是指调用该方法的Thread实例所代表的线程），
         // 但实际上只是给线程设置一个中断标志，线程仍会继续运行。
-        thread.interrupt();
+        t.interrupt();
 
+        // 虽然上面调用了t.interrupt()对线程t进行中断
+        // 但由于interrupted()方法是静态方法，意义在于检测当前线程是否处于中断状态
+        // 所以此处检测的是main线程的中断状态，而不是t线程的，所以没有被中断
+        System.out.println("调用静态方法t.interrupted():" + t.interrupted());
         // 作用是只测试此线程是否被中断 ，不清除中断状态。
-        System.out.println("第一次调用thread.isInterrupted()：" + thread.isInterrupted());
-        System.out.println("第二次调用thread.isInterrupted()：" + thread.isInterrupted());
+        System.out.println("第一次调用t.isInterrupted()：" + t.isInterrupted());
+        System.out.println("第二次调用t.isInterrupted()：" + t.isInterrupted());
 
-        System.out.println("thread是否存活：" + thread.isAlive());
-
+        System.out.println("thread是否存活：" + t.isAlive());
     }
 }
 
@@ -41,13 +44,12 @@ class MyThread extends Thread {
     @Override
     public void run() {
 
+        for (int i = 0; i < 10; i++) {
+            System.out.println("i=" + (i + 1));
+        }
         // 作用是测试当前线程是否被中断（检查中断标志），返回一个boolean并清除中断状态，
         // 第二次再调用时中断状态已经被清除，将返回一个false。
         System.out.println("第一次调用Thread.interrupted()：" + Thread.interrupted());
         System.out.println("第二次调用Thread.interrupted()：" + Thread.interrupted());
-
-        for (int i = 0; i < 10; i++) {
-            System.out.println("i=" + (i + 1));
-        }
     }
 }
