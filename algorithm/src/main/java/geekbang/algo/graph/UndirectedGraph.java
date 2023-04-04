@@ -102,7 +102,11 @@ public class UndirectedGraph {
                 if(!visited[q]) {
                     // 当前邻接顶点的前一个节点等于当前顶点
                     res[q] = w;
+                    // 因为是广度有限遍历，以开始节点为圆心
+                    // 向外一层一层的辐射出去，那么只要遇到了终点顶点
+                    // 那么一定就是最短路径
                     if (q == t) {
+                        // 不能使用break，因为还存在外层循环
                        return res;
                     }
                     visited[q] = true;
