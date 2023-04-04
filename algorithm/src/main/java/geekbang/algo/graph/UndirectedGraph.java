@@ -1,5 +1,7 @@
 package geekbang.algo.graph;
 
+import com.sun.tools.javadoc.Start;
+
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -50,7 +52,7 @@ public class UndirectedGraph {
     }
 
     /**
-     * 广度优先算法
+     * 广度优先算法，查询两个顶点的最短路径
      *  地毯式搜索， 可以用于查找两个节点之间的最短路径
      *  针对下面的无向图
      *  0——————1——————4
@@ -117,7 +119,49 @@ public class UndirectedGraph {
         return res;
     }
 
+    boolean isFound = false;
 
+    /**
+     * 深度优先遍历
+     * @param s
+     * @param t
+     * @return
+     */
+    public int[] dfs(int s, int t){
+        found = false;
+        boolean visited[] = new boolean[count];
+        int[] res = new int[count];
+        for (int i = 0; i < count; i++) {
+            res[i] = -1;
+        }
+        recurDfs(s, t, visited, res);
+        return res;
+    }
+
+    /**
+     * 回溯深度优先遍历
+     * @param start
+     * @param stop
+     * @param visited
+     * @param res
+     */
+    private void recurDfs(int start, int stop, boolean[] visited, int[] res){
+        if(isFound) return;
+        visited[start] = true;
+        if(start == stop){
+            isFound = true;
+            return;
+        }
+        for (int i = 0; i < adj[start].size(); i++) {
+            int q = adj[start].get(i);
+            if(!visited[q]){
+                res[q] = start;
+                recurDfs(q, stop, visited, res);
+            }
+        }
+    }
+
+    // ----------------------极客时间-----------------------------
 
     public void bfsByGeekTime(int s, int t) {
         if (s == t) return;
@@ -151,5 +195,35 @@ public class UndirectedGraph {
             print(prev, s, prev[t]);
         }
         System.out.print(t + " ");
+    }
+
+
+    boolean found = false; // 全局变量或者类成员变量
+
+    public void dfsGeekTime(int s, int t) {
+        found = false;
+        boolean[] visited = new boolean[count];
+        int[] prev = new int[count];
+        for (int i = 0; i < count; ++i) {
+            prev[i] = -1;
+        }
+        recurDfsGeekTime(s, t, visited, prev);
+        print(prev, s, t);
+    }
+
+    private void recurDfsGeekTime(int w, int t, boolean[] visited, int[] prev) {
+        if (found == true) return;
+        visited[w] = true;
+        if (w == t) {
+            found = true;
+            return;
+        }
+        for (int i = 0; i < adj[w].size(); ++i) {
+            int q = adj[w].get(i);
+            if (!visited[q]) {
+                prev[q] = w;
+                recurDfsGeekTime(q, t, visited, prev);
+            }
+        }
     }
 }

@@ -25,8 +25,13 @@ public class GraphTest {
         graph.insertEdge(3,5);
         graph.insertEdge(4,5);
 
+        System.out.println("广度优先");
         int res[] = graph.bfs(0,5);
         System.out.println(Arrays.toString(res));
         graph.bfsByGeekTime(0, 5);
+        System.out.println("深度优先");
+        res = graph.dfs(0, 5);
+        System.out.println(Arrays.toString(res));
+        graph.dfsGeekTime(0, 5);
     }
 }
