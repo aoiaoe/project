@@ -1,0 +1,10 @@
+server:
+    port: 8008
+
+spring:
+    rabbitmq:
+        host: tx-gd
+        port: 5673
+        username: admin
+        password: admin
+        virtual-host: /

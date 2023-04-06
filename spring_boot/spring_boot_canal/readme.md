@@ -10,7 +10,8 @@
     使用tcp连接canal并读取同步数据
     
 ### RabbitMq
-    TBD
+    canal.properties和instance.properties内容参考： classpath:/rabbit
+    
     
 ## 踩坑
     1、账号需要REPLICATION CLIENT权限，授权之后，需要flush privileges刷新权限

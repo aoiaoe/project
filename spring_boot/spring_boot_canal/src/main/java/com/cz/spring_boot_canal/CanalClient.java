@@ -18,11 +18,14 @@ public class CanalClient {
     public static void main(String[] args) {
         new CanalClient().run();
     }
-    @PostConstruct
+
     public void run(){
         new Thread(() -> {doRun();}, "CannalThread").start();;
     }
-  
+
+    /**
+     * canal服务端必须使用TCP模式才能连接成功
+     */
     public void doRun() {
         // 创建链接  
         CanalConnector connector = CanalConnectors.newSingleConnector(new InetSocketAddress("tx-gd", 11111), "example", "canal", "123456");
