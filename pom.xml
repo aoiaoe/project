@@ -33,7 +33,7 @@
         <module>single_db</module>
         <module>spring_boot</module>
 
-        <module>spring_boot/spring_boot_cannal</module>
+        <module>spring_boot/spring_boot_canal</module>
         <module>spring_boot/spring_boot_es</module>
         <module>spring_boot/spring_boot_https_6900</module>
         <module>spring_boot/spring_boot_kafka</module>
