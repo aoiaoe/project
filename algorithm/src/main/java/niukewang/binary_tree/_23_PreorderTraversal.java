@@ -2,6 +2,7 @@ package niukewang.binary_tree;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.Stack;
 
 /**
@@ -13,6 +14,11 @@ import java.util.Stack;
 public class _23_PreorderTraversal {
 
     public static void main(String[] args) {
+        Random r = new Random();
+        for (int i = 0; i < 20; i++) {
+
+            System.out.println(r.nextInt(100));
+        }
     }
     public static int[] preorderTraversal (TreeNode root) {
         // write code here

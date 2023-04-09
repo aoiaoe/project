@@ -25,9 +25,10 @@ public class _1_BubbleSort {
     // 冒泡排序，a表示数组，n表示数组大小
     public void bubbleSort(int[] a, int n) {
         if (n <= 1) return;
+        boolean flag = false;
         for (int i = 0; i < n; ++i) {
             // 提前退出冒泡循环的标志位
-            boolean flag = false;
+            flag = false;
             for (int j = 0; j < n - i - 1; ++j) {
                 if (a[j] > a[j + 1]) {
                     // 交换
@@ -57,37 +58,12 @@ public class _1_BubbleSort {
         }
     }
 
-    /**
-     * 一轮循环之后，如果不涉及数据交换，则有序退出
-     *
-     * @param arr
-     */
-    public static void bubbleSortOptimization(int arr[]) {
-        int tmp = -1;
-        Boolean flag = false;
-        for (int i = 0; i < arr.length - 1; i++) {
-            flag = false;
-            for (int j = 0; j < arr.length - i - 1; j++) {
-                if (arr[j] > arr[j + 1]) {
-                    tmp = arr[j];
-                    arr[j] = arr[j + 1];
-                    arr[j + 1] = tmp;
-                    flag = true;
-                }
-            }
-//            System.out.println((i + 1) + " -> " + Arrays.toString(arr));
-            if (!flag) {
-                break;
-            }
-        }
-    }
-
-
     public static void bubbleSort1(int[] arr){
         boolean flag = true;
-        for (int i = 0; i < arr.length -1; i++) {
+        int length = arr.length;
+        for (int i = 0; i < length -1; i++) {
             flag = true;
-            for (int j = 0; j < arr.length - i - 1; j++) {
+            for (int j = 0; j < length - i - 1; j++) {
                 if(arr[j] > arr[j + 1]){
                     arr[j] = arr[j] ^ arr[j + 1];
                     arr[j + 1] = arr[j] ^ arr[j+ 1];

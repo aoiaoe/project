@@ -35,7 +35,8 @@ public class _4_MergeSort {
         mergeSort(arr, start, middle);
         mergeSort(arr, middle + 1, end);
 
-        merge(arr, start, middle, middle + 1, end);
+//        merge(arr, start, middle, middle + 1, end);
+        merge2(arr, start, middle, end);
     }
 
     /**
@@ -44,7 +45,7 @@ public class _4_MergeSort {
      *      2、依次从两个数组前到后依次比较大小，将最小的数据放入临时数组，从哪个数组取的数据，哪个数组索引就+1
      *      3、判断是否有一个数组已经取完数据了，则代表另一个数据剩下的数据都更大且有序，将数据依次放入临时数组
      *      4、将临时数组的数据拷贝回原数组（start1  -> end2）
-     * @param arr  
+     * @param arr
      */
     public static void merge(int[] arr, int start1, int end1,
                               int start2, int end2){
@@ -71,6 +72,40 @@ public class _4_MergeSort {
                 }
                 break;
             }
+        }
+        index = 0;
+        // 将排好序的临时数组拷贝回原数组覆盖
+        for (int i = start; i <= end2; i++) {
+            arr[i] = tmp[index++];
+        }
+    }
+
+    /**
+     * 归并：
+     *      1、申请一个和待归并的两个数组大小之和相等的临时数组
+     *      2、依次从两个数组前到后依次比较大小，将最小的数据放入临时数组，从哪个数组取的数据，哪个数组索引就+1
+     *      3、判断是否有一个数组已经取完数据了，则代表另一个数据剩下的数据都更大且有序，将数据依次放入临时数组
+     *      4、将临时数组的数据拷贝回原数组（start1  -> end2）
+     * @param arr
+     */
+    public static void merge2(int[] arr, int start1, int end1, int end2){
+        int[] tmp = new int[end2-start1+1];
+        int index = 0;
+        int start = start1;
+        int start2 = end1 + 1;
+        while(start1 <= end1 && start2 <= end2){
+            if(arr[start1] <= arr[start2]){
+                tmp[index++] = arr[start1++];
+            } else {
+                tmp[index++] = arr[start2++];
+            }
+        }
+
+        while (start1 <= end1){
+            tmp[index++] = arr[start1++];
+        }
+        while (start2 <= end2){
+                tmp[index++] = arr[start2++];
         }
         index = 0;
         // 将排好序的临时数组拷贝回原数组覆盖
