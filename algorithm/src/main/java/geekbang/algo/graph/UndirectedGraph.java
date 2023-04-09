@@ -1,7 +1,5 @@
 package geekbang.algo.graph;
 
-import com.sun.tools.javadoc.Start;
-
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -139,7 +137,7 @@ public class UndirectedGraph {
     }
 
     /**
-     * 回溯深度优先遍历
+     * 回溯深度优先遍历查找顶点
      * @param start
      * @param stop
      * @param visited
@@ -153,6 +151,7 @@ public class UndirectedGraph {
             return;
         }
         for (int i = 0; i < adj[start].size(); i++) {
+            if(isFound) return;
             int q = adj[start].get(i);
             if(!visited[q]){
                 res[q] = start;

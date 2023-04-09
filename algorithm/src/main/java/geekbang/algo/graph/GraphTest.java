@@ -19,8 +19,8 @@ public class GraphTest {
         graph.insertEdge(0,1);
         graph.insertEdge(0,2);
         graph.insertEdge(0,3);
-        graph.insertEdge(1,3);
         graph.insertEdge(1,4);
+        graph.insertEdge(1,3);
         graph.insertEdge(2,3);
         graph.insertEdge(3,5);
         graph.insertEdge(4,5);
@@ -30,8 +30,8 @@ public class GraphTest {
         System.out.println(Arrays.toString(res));
         graph.bfsByGeekTime(0, 5);
         System.out.println("深度优先");
-        res = graph.dfs(0, 5);
+        res = graph.dfs(0, 4);
         System.out.println(Arrays.toString(res));
-        graph.dfsGeekTime(0, 5);
+        graph.dfsGeekTime(0, 4);
     }
 }
