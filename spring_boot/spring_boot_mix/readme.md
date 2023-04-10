@@ -34,4 +34,8 @@
     com.cz.spring_boot_mix.paramresolver
 
 ### java代码调用http上传文件接口 
+    com.cz.spring_boot_mix.upload
+    
+### SQL解析
+    com.cz.spring_boot_mix.sqlparse
     
