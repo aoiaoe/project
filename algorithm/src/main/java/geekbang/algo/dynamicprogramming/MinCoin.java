@@ -43,7 +43,7 @@ public class MinCoin {
                 if (coins[j] <= i && state[i-1][i - coins[j]] >= 0) {
                     state[i][i] = state[i-1][i-coins[j]] + 1;
                     // 选择额度大的硬币解决问题之后，直接进行下一个金额的求解
-                    // 因为更大的额度，所用的硬币个数一定更少
+                    // 因为更大的额度，所用的硬币个数一定更少，不用管额度更好的硬币
                     break;
                 }
             }
