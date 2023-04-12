@@ -34,4 +34,36 @@ public class GraphTest {
         System.out.println(Arrays.toString(res));
         graph.dfsGeekTime(0, 4);
     }
+
+    @Test
+    public void testDAGTopologicalSort(){
+        DAG dag = new DAG();
+
+        for (int i = 0; i < 6; i++) {
+            dag.insertVertex((i + 1) * (i + 1));
+        }
+        dag.insertEdge(1, 2);
+        dag.insertEdge(0, 2);
+        dag.insertEdge(2, 3);
+        dag.insertEdge(3, 5);
+        dag.insertEdge(3, 4);
+
+        dag.topologicalSortByKhan();
+        dag.topologicalSortByDFS();
+    }
+
+    @Test
+    public void testDAGGeekTime(){
+        DAGraphGeekTime dag = new DAGraphGeekTime(6);
+        dag.addEdge(0, 2);
+        dag.addEdge(1, 2);
+        dag.addEdge(2, 3);
+        dag.addEdge(3, 4);
+        dag.addEdge(3, 5);
+        System.out.println("Khan算法拓扑排序:");
+        dag.topoSortByKahn();
+        System.out.println();
+        System.out.println("深优先遍历算法拓扑排序:");
+        dag.topoSortByDFS();
+    }
 }

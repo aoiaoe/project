@@ -32,7 +32,7 @@ public class UndirectedGraph {
         if(index < 0 || index > count){
             throw new RuntimeException("index out of range");
         }
-        // 如果改索引存在值，则充值该值的邻接表
+        // 如果改索引存在值，则重置该值的邻接表
         if(vals[index] != null){
             adj[index] = new LinkedList<>();
         }
