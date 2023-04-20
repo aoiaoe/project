@@ -28,6 +28,7 @@
         <module>ehcache</module>
         <module>open_api_sdk</module>
         <module>pic_captcha</module>
+        <module>rpc</module>
         <module>sharding-jdbc</module>
         <module>sharding_jdbc_master_slave</module>
         <module>single_db</module>

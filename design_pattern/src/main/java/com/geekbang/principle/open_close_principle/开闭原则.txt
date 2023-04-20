@@ -1,0 +1,3 @@
+如果新需求来临，只需要新增Handler和Notification，
+加入到com.geekbang.principle.open_close_principle.good.Alert的handler列表中，
+然后在ApiStatusInfo类中新增需要的新业务需要的参数即可

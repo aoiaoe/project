@@ -1,0 +1,11 @@
+在good文件夹中，展示的是接口隔离原则的正例
+
+SimpleHttpServer代表的是一个简单http服务器，作用是通过url展示采集的信息
+ScheduledConfigUpdater代表的是一个更新器，更新所拥有的配置
+
+针对不同的config，如果RedisConfig、MysqlConfig我们我们并没有实现一个通用的接口让他们实现
+而是分别定义了Updater、Viewer两个接口，
+因为针对展示，两个配置类都需要展示，但是针对更新，只有RedisConfig需要更新，
+如果定一个通用接口，那么MysqlConfig这个不需要更新的类，也需要实现更新方法，存在方法冗余和额外编码工作
+
+

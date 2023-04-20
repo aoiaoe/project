@@ -1,0 +1,1 @@
+package com.geekbang.principle.isp.good;

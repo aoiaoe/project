@@ -38,7 +38,7 @@ public class MyClassLoader extends ClassLoader {
         byte[] data = null;
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         try {
-            is = new FileInputStream(new File("java_base/target/classes/com/cz/classloader/Test.class"));
+            is = new FileInputStream(new File("/Users/sephiroth/study/IdeaProjects/project/java_base/src/main/java/com/cz/classloader/Test.class"));
             int c = 0;
             while (-1 != (c = is.read())) {
                 baos.write(c);
