@@ -1,5 +1,7 @@
 package com.cz.rpc;
 
+import com.cz.rpc.client.IDemoService;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -7,13 +9,23 @@ import java.lang.reflect.Method;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.ServiceLoader;
 
 /**
  * @author jzm
  * @date 2023/4/20 : 17:12
  */
 public class RpcServer {
+
+    public RpcServer(){
+        ServiceLoader<IDemoService> load = ServiceLoader.load(IDemoService.class);
+        Iterator<IDemoService> iterator = load.iterator();
+        if(iterator.hasNext()){
+            handlers.put(IDemoService.class.getName(), iterator.next());
+        }
+    }
 
     private Map<String, Object> handlers = new HashMap<>();
 

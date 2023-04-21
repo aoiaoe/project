@@ -11,7 +11,7 @@ public class ServerApplication {
 
     public static void main(String[] args) {
         RpcServer rpcServer = new RpcServer();
-        rpcServer.addHandler(IDemoService.class.getName(), new DemoServiceImpl());
+//        rpcServer.addHandler(IDemoService.class.getName(), new DemoServiceImpl());
         rpcServer.export(12345);
 
     }
