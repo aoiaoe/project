@@ -1,5 +1,5 @@
 server:
-  port: 18101
+  port: 18104
 
 spring:
   servlet:
@@ -11,3 +11,9 @@ test:
   cron: 0/5 * * * * ?
 
 #config_test_in_yml: ${config_test}
+
+
+my:
+  ds:
+    key1: v1
+    key2: v22

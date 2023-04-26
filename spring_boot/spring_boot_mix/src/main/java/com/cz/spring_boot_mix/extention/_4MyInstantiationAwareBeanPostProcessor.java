@@ -30,7 +30,7 @@ public class _4MyInstantiationAwareBeanPostProcessor implements InstantiationAwa
 
     @Override
     public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
-        log.info(bean.getClass() + "");
+//        log.info(bean.getClass() + "");
         if("testBean".equals(beanName)){
             log.info("扩展点 4 --- > InstantiationAwareBeanPostProcessor # postProcessBeforeInitialization()");
             ((TestBean) bean).setInstantiationAwareBeanPostProcessorBefore("通过InstantiationAwareBeanPostProcessor # postProcessBeforeInitialization设值");
