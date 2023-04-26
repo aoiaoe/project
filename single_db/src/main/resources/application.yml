@@ -5,8 +5,8 @@ spring:
   datasource:
     webEnable: true
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/project?useUnicode=true&characterEncoding=utf8&autoReconnect=true&rewriteBatchedStatements=TRUE
-    username: root
+    url: jdbc:mysql://tx-gd:4409/project?useUnicode=true&characterEncoding=utf8&autoReconnect=true&rewriteBatchedStatements=TRUE&useSSL=false
+    username: nacos
     password: 123456
     # 数据源类型
     type: com.alibaba.druid.pool.DruidDataSource
@@ -50,3 +50,8 @@ mybatis-plus:
   mapper-locations: classpath:com/cz/single_db/mapper/*.xml
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+my:
+  ds:
+    key1: v1
+    key2: v22

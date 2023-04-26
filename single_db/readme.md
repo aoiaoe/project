@@ -5,3 +5,7 @@
      并开启了druid数据源的sql监控web界面
      如果需要关闭的话,只需要将配置文件中的配置spring.datasource.webEnabld改为注释掉或者改为false
      即可关闭在DruidConfig类将druid的web页面配置注入到容器
+     
+## 注意
+    由于引入的是 com.alibaba.druid这个包, 并不具备自动装配功能
+    所以需要实例化druid数据源，参考：DruidConfig.java

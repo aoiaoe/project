@@ -10,13 +10,25 @@ import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import javax.sql.DataSource;
+
+/**
+ * 创建bean时使用 ConfigurationProperties注解+yml中的前缀，可以将属性注入到bean中
+ */
 @Configuration
 public class DruidConfig {
 
     @ConfigurationProperties(prefix = "spring.datasource")
     @Bean
-    public DruidDataSource druidDataSource() {
+    public DataSource druidDataSource(MyDs myds) {
         return new DruidDataSource();
+    }
+
+    @ConfigurationProperties(prefix = "my.ds")
+    @Bean
+    public MyDs myDS(){
+        MyDs ds = new MyDs();
+        return ds;
     }
 
     @ConditionalOnProperty(value = "spring.datasource.webEnable", havingValue = "true", matchIfMissing = true)
