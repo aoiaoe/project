@@ -78,7 +78,7 @@ public class DirectWeightGraph {
 //            this.count = v;
         }
 
-        public Vertex poll() { // TODO: 留给读者实现...
+        public Vertex poll() {
             if(count == 0){
                 return null;
             }
@@ -104,7 +104,7 @@ public class DirectWeightGraph {
             return v;
         }
 
-        public void add(Vertex vertex) { // TODO: 留给读者实现.
+        public void add(Vertex vertex) {
             if(count > nodes.length){
                 throw new RuntimeException("Out of range");
             }
@@ -113,7 +113,7 @@ public class DirectWeightGraph {
         }
 
         // 更新结点的值，并且从下往上堆化，重新符合堆的定义。时间复杂度O(logn)。
-        public void update(Vertex vertex) { // TODO: 留给读者实现...
+        public void update(Vertex vertex) {
             int i = 1;
             for (i = 1;  i <= count; i++) {
                 if(vertex.id == nodes[i].id)
