@@ -11,22 +11,22 @@ import java.util.Arrays;
 public class GraphTest {
 
     @Test
-    public void testUndirectedGraph(){
+    public void testUndirectedGraph() {
         UndirectedGraph graph = new UndirectedGraph(6);
         for (int i = 0; i < 6; i++) {
-            graph.insertVertex(i,i);
+            graph.insertVertex(i, i);
         }
-        graph.insertEdge(0,1);
-        graph.insertEdge(0,2);
-        graph.insertEdge(0,3);
-        graph.insertEdge(1,4);
-        graph.insertEdge(1,3);
-        graph.insertEdge(2,3);
-        graph.insertEdge(3,5);
-        graph.insertEdge(4,5);
+        graph.insertEdge(0, 1);
+        graph.insertEdge(0, 2);
+        graph.insertEdge(0, 3);
+        graph.insertEdge(1, 4);
+        graph.insertEdge(1, 3);
+        graph.insertEdge(2, 3);
+        graph.insertEdge(3, 5);
+        graph.insertEdge(4, 5);
 
         System.out.println("广度优先");
-        int res[] = graph.bfs(0,5);
+        int res[] = graph.bfs(0, 5);
         System.out.println(Arrays.toString(res));
         graph.bfsByGeekTime(0, 5);
         System.out.println("深度优先");
@@ -99,5 +99,34 @@ public class GraphTest {
         dwg.dijkstraShortestPath(0, 5);
         System.out.println("极客时间算法结果：");
         dwg.dijkstraGeekTIme(0, 5);
+    }
+
+    @Test
+    public void testDWG() {
+        DWGraph dwg = new DWGraph(7);
+        dwg.addEdge(1, 2, 7);
+        dwg.addEdge(0, 1, 2);
+        dwg.addEdge(1, 3, 4);
+        dwg.addEdge(1, 4, 6);
+        dwg.addEdge(2, 5, 6);
+        dwg.addEdge(3, 5, 8);
+        dwg.addEdge(4, 6, 9);
+        dwg.addEdge(5, 6, 1);
+        System.out.println();
+        dwg.dijkstra(0, 6);
+    }
+    @Test
+    public void testDWG2() {
+        DWGraph dwg = new DWGraph(7);
+        dwg.addEdge(0,1,10);
+        dwg.addEdge(0,4,15);
+        dwg.addEdge(1,2,15);
+        dwg.addEdge(1,3,2);
+        dwg.addEdge(3,2,1);
+        dwg.addEdge(2,5,5);
+        dwg.addEdge(3,5,12);
+        dwg.addEdge(4,5,10);
+        System.out.println();
+        dwg.dijkstra(0, 5);
     }
 }

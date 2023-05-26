@@ -78,7 +78,7 @@ public class DirectWeightGraph {
 //            this.count = v;
         }
 
-        public Vertex poll() { // TODO: 留给读者实现...
+        public Vertex poll() {
             if(count == 0){
                 return null;
             }
@@ -104,7 +104,7 @@ public class DirectWeightGraph {
             return v;
         }
 
-        public void add(Vertex vertex) { // TODO: 留给读者实现.
+        public void add(Vertex vertex) {
             if(count > nodes.length){
                 throw new RuntimeException("Out of range");
             }
@@ -113,7 +113,7 @@ public class DirectWeightGraph {
         }
 
         // 更新结点的值，并且从下往上堆化，重新符合堆的定义。时间复杂度O(logn)。
-        public void update(Vertex vertex) { // TODO: 留给读者实现...
+        public void update(Vertex vertex) {
             int i = 1;
             for (i = 1;  i <= count; i++) {
                 if(vertex.id == nodes[i].id)
@@ -160,21 +160,21 @@ public class DirectWeightGraph {
 
         while (!queue.isEmpty()){
             // 将当前从起始节点路径最短的顶点出队， 就是堆顶的顶点
-            Vertex minPathV = queue.poll();
+            Vertex curMinPathV = queue.poll();
             // 如果当前顶点等于终止顶点，找到退出循环
-            if(minPathV.id == t) break;
+            if(curMinPathV.id == t) break;
             // 遍历当前顶点的所有邻接边
-            for (int i = 0; i < adj[minPathV.id].size(); i++) {
+            for (int i = 0; i < adj[curMinPathV.id].size(); i++) {
                 // 取一个与当前顶点相连的边
-                Edge edge = adj[minPathV.id].get(i);
+                Edge cur2NextEdge = adj[curMinPathV.id].get(i);
                 // 根据邻接边找到下一个邻接顶点
-                // s  --dist-->  minPathV --w--> nextV
-                Vertex nextV = vertices[edge.tid];
+                // s  --dist-->  curMinPathV --w--> nextV
+                Vertex nextV = vertices[cur2NextEdge.tid];
                 // 如果当前顶点到起始顶点距离 + 到下一个顶点的距离 < 下一个顶点到起始顶点的距离
-                if(minPathV.dist + edge.w < nextV.dist){
-                    nextV.dist = minPathV.dist + edge.w;
+                if(curMinPathV.dist + cur2NextEdge.w < nextV.dist){
+                    nextV.dist = curMinPathV.dist + cur2NextEdge.w;
                     // 记录下一个顶点的上一个顶点为当前顶点
-                    preVertex[nextV.id] = minPathV.id;
+                    preVertex[nextV.id] = curMinPathV.id;
                     if(inQueue[nextV.id]){
                         queue.update(nextV);
                     } else {
