@@ -51,6 +51,9 @@
         <module>spring_boot/spring_boot_redisson</module>
         <module>spring_boot/spring_boot_rule_engine</module>
         <module>spring_boot/spring_boot_seckill</module>
+        <module>spring_boot/spring_boot_seckill/spring_boot_seckill_web/common</module>
+        <module>spring_boot/spring_boot_seckill/spring_boot_seckill_web/gateway</module>
+        <module>spring_boot/spring_boot_seckill/spring_boot_seckill_web/service</module>
 
         <module>spring_boot/spring_boot_security</module>
         <module>spring_boot/spring_boot_security/spring_boot_security_7000</module>
