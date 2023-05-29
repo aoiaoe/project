@@ -21,7 +21,7 @@ public class MyRedissonConfig {
         //1、创建配置
         Config config = new Config();
         config.useSingleServer()
-                .setAddress("redis://127.0.0.1:6379");
+                .setAddress("redis://tx-gd:6479");
         return Redisson.create(config);
     }
     
