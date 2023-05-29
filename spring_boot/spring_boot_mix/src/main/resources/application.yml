@@ -5,7 +5,10 @@ spring:
   servlet:
     multipart:
       max-file-size: 10MB
-
+  redis:
+    host: tx-gd
+    port: 6379
+    connect-timeout: 1000
 
 test:
   cron: 0/5 * * * * ?

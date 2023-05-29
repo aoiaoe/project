@@ -2,6 +2,7 @@ package com.cz.spring_boot_mix.contoller;
 
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.cz.spring_boot_mix.aop.AopServiceImpl;
+import com.cz.spring_boot_mix.contoller.service.RedisService;
 import com.cz.spring_boot_mix.event.MyEvent;
 import com.cz.spring_boot_mix.event.MyEventSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,6 +59,5 @@ public class SentinelTestController {
     public String sentinel2(){
         return "sentinel2";
     }
-
 
 }
