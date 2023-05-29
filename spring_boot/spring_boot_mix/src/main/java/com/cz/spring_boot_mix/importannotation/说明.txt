@@ -4,5 +4,5 @@ springboot导入配置类：
     @Import注解可以导入：
         1、普通类
         2、带@Configuration注解的类
-        3、ImportSelector的子类
-        4、ImportBeanDefinitionRegistrar的子类
+        3、ImportSelector的子类， 无法自定义bean名称
+        4、ImportBeanDefinitionRegistrar的子类， 可以自定义bean名称
