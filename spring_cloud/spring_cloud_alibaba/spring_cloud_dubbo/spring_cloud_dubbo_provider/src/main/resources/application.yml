@@ -1,0 +1,14 @@
+server:
+    port: 17800
+
+dubbo:
+    application:
+        name: my-dubbo-consumer
+    registry:
+        address: zookeeper://tx-sh:2181
+        timeout: 15000
+    protocol:
+        name: dubbo
+        port: 20882
+    scan:
+        base-packages: com
