@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Import;
  * @date 2022/1/13 : 10:09
  */
 @Configuration
-@Import({TestA.class,TestB.class,
+@Import({TestA.class,
         TestCImportSelector.class,TestDImportBeanDefinitionRegistrar.class})
 public class ImportConfiguration {
 
@@ -23,6 +23,8 @@ public class ImportConfiguration {
     private TestC testC;
     @Autowired
     private TestD testD;
+    @Autowired
+    private TestE testE;
     @Bean
     public ApplicationRunner applicationRunner(){
         return e -> {
@@ -30,6 +32,7 @@ public class ImportConfiguration {
             testB.testB();
             testC.testC();
             testD.testD();
+            testE.testE();
         };
     }
 }

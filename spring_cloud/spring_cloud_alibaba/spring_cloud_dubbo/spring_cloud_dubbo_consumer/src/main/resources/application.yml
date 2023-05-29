@@ -1,0 +1,12 @@
+server:
+    port: 17700
+
+dubbo:
+    application:
+        name: my-dubbo-provider
+    registry:
+        address: zookeeper://tx-sh:2181
+    protocol:
+        name: dubbo
+    scan:
+        base-packages: com

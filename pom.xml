@@ -70,6 +70,7 @@
         <module>spring_boot/spring_boot_test</module>
         <module>spring_boot/spring_boot_token_8650</module>
         <module>spring_boot/spring_boot_xml</module>
+        <module>spring_boot/spring_boot_zookeeper</module>
 
         <module>spring_cloud</module>
         <module>spring_cloud/spring_cloud_alibaba</module>
@@ -81,6 +82,11 @@
         <module>spring_cloud/spring_cloud_alibaba/spring_cloud_alibaba_auth_center</module>
         <module>spring_cloud/spring_cloud_alibaba/spring_cloud_alibaba_web</module>
         <module>spring_cloud/spring_cloud_alibaba/spring_cloud_alibaba_common</module>
+
+        <module>spring_cloud/spring_cloud_alibaba/spring_cloud_dubbo</module>
+        <module>spring_cloud/spring_cloud_alibaba/spring_cloud_dubbo/spring_cloud_dubbo_consumer</module>
+        <module>spring_cloud/spring_cloud_alibaba/spring_cloud_dubbo/spring_cloud_dubbo_intf</module>
+        <module>spring_cloud/spring_cloud_alibaba/spring_cloud_dubbo/spring_cloud_dubbo_provider</module>
 
         <module>spring_cloud/spring_cloud_common</module>
         <module>spring_cloud/spring_cloud_config_longpolling</module>

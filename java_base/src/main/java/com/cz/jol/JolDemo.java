@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit;
  * 进行此实验，需要如下JVM参数：
  * -XX:-UseCompressedOops -XX:+UseBiasedLocking -XX:BiasedLockingStartupDelay=0
  * 并且还需要前置知识：
- *  1、字节序，大端存储：高位字节在前面  小端存储：地位字节在前面
+ *  1、字节序，大端存储：高位字节在前面  小端存储：低位字节在前面
  *      jvm字节序为：小端存储
  *  2、对象头的锁标志位
  *
@@ -51,8 +51,10 @@ public class JolDemo {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        log.info("10秒main线程查看内存布局");
+        displayLayout(obj);
         log.info("10秒后线程B启动，查看内存布局，A线程已经释放锁对象，B线程获取锁对象obj，不存在竞争，" +
-                "但是由于锁对象obj的markword有偏向于线程A的标志，故锁升级为轻量级锁--------------------------");
+                "但是由于锁对象obj的mark word有偏向于线程A的标志，故锁升级为轻量级锁--------------------------");
         new MyThread(obj, "B").start();
 
         try {
@@ -60,7 +62,7 @@ public class JolDemo {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        log.info("2秒后线程C启动，查看内存布局，由于B线程还持有锁对象obj，C线程也竞争此对象的锁，导致轻量级锁升级为重量级锁--------------------------");
+        log.info("3秒后线程C启动，查看内存布局，由于B线程还持有锁对象obj，C线程也竞争此对象的锁，导致轻量级锁升级为重量级锁--------------------------");
         new MyThread(obj, "C").start();
     }
 

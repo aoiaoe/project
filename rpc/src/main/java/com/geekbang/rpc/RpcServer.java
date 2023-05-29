@@ -19,29 +19,26 @@ public class RpcServer {
         ServerSocket server = new ServerSocket(port);
         while (true) {
             final Socket socket = server.accept();
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
+            new Thread(() -> {
+                try {
+                    ObjectInputStream input = new ObjectInputStream(socket.getInputStream());
+                    ObjectOutputStream output = new ObjectOutputStream(socket.getOutputStream());
                     try {
-                        ObjectInputStream input = new ObjectInputStream(socket.getInputStream());
-                        ObjectOutputStream output = new ObjectOutputStream(socket.getOutputStream());
-                        try {
-                            String methodName = input.readUTF();
-                            Class<?>[] parameterTypes = (Class<?>[]) input.readObject();
-                            Object[] arguments = (Object[]) input.readObject();
-                            Method method = service.getClass().getMethod(methodName, parameterTypes);
-                            Object result = method.invoke(service, arguments);
-                            output.writeObject(result);
-                        } catch (Throwable t) {
-                            output.writeObject(t);
-                        } finally {
-                            output.close();
-                            input.close();
-                            socket.close();
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                        String methodName = input.readUTF();
+                        Class<?>[] parameterTypes = (Class<?>[]) input.readObject();
+                        Object[] arguments = (Object[]) input.readObject();
+                        Method method = service.getClass().getMethod(methodName, parameterTypes);
+                        Object result = method.invoke(service, arguments);
+                        output.writeObject(result);
+                    } catch (Throwable t) {
+                        output.writeObject(t);
+                    } finally {
+                        output.close();
+                        input.close();
+                        socket.close();
                     }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }).start();
         }

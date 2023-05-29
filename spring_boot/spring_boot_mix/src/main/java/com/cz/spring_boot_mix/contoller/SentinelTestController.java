@@ -1,17 +1,13 @@
 package com.cz.spring_boot_mix.contoller;
 
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
-import com.cz.spring_boot_mix.aop.AopServiceImpl;
 import com.cz.spring_boot_mix.event.MyEvent;
 import com.cz.spring_boot_mix.event.MyEventSource;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.event.ApplicationEventMulticaster;
 import org.springframework.core.env.Environment;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -58,6 +54,5 @@ public class SentinelTestController {
     public String sentinel2(){
         return "sentinel2";
     }
-
 
 }
