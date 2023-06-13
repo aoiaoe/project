@@ -1,4 +1,4 @@
-package com.cz.spring_boot_netty_demo.server;
+package com.cz.spring_boot_netty_demo.demo1.server;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelHandlerContext;

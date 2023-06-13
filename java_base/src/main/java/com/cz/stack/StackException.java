@@ -11,12 +11,16 @@ public class StackException {
     static Long[] arr = new Long[num];
 
     public static void main(String[] args) {
-        try {
-            stackOverFlow();
-        } catch (Throwable e) {
-            System.out.println(count);
-            e.printStackTrace();
-        }
+        String s1 = new String("abc");
+        s1 = s1.intern();
+        String s = "abc";
+        System.out.println(s==s1);// false
+//        try {
+//            stackOverFlow();
+//        } catch (Throwable e) {
+//            System.out.println(count);
+//            e.printStackTrace();
+//        }
 
 //        oom();
     }

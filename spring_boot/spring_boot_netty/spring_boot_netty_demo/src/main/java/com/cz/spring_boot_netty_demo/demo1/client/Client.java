@@ -1,4 +1,4 @@
-package com.cz.spring_boot_netty_demo.client;
+package com.cz.spring_boot_netty_demo.demo1.client;
 
 
 import io.netty.bootstrap.Bootstrap;
