@@ -6,5 +6,5 @@ package com.cz.spring_cloud_dubbo_intf;
  */
 public interface DubboService {
 
-    String sayHello(String msg);
+    String sayHello(String msg) throws Exception;
 }

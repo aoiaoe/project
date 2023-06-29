@@ -3,10 +3,14 @@ server:
 
 dubbo:
     application:
-        name: my-dubbo-provider
+        name: my-dubbo-comsumer
     registry:
         address: zookeeper://tx-sh:2181
     protocol:
         name: dubbo
     scan:
         base-packages: com
+    consumer:
+        timeout: 5000
+    provider:
+        timeout: 4000
