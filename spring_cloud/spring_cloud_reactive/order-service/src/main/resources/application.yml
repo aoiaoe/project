@@ -1,0 +1,7 @@
+server:
+  port: 7000
+
+spring:
+  redis:
+    host: tx-sh
+    port: 6379
