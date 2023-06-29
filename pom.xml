@@ -23,6 +23,7 @@
     <modules>
         <module>design_pattern</module>
         <module>document_compare</module>
+        <module>customize_tomcat</module>
         <module>elk</module>
         <module>encrypt</module>
         <module>ehcache</module>
@@ -45,6 +46,8 @@
 
         <module>spring_boot/spring_boot_netty</module>
         <module>spring_boot/spring_boot_netty/spring_boot_netty_demo</module>
+        <module>spring_boot/spring_boot_netty/spring_boot_netty_rpc</module>
+        <module>spring_boot/spring_boot_netty/spring_boot_netty_rpc/netty_rpc_api</module>
 
         <module>spring_boot/spring_boot_rabbitmq_8700</module>
         <module>spring_boot/spring_boot_redis</module>
@@ -94,6 +97,7 @@
         <module>spring_cloud/spring_cloud_consumer/spring_cloud_consumer_ribbon_92xx</module>
         <module>spring_cloud/spring_cloud_consumer/spring_cloud_consumer_feign_hystrix_9203</module>
         <module>spring_cloud/spring_cloud_consumer/spring_cloud_consumer_feign_9202</module>
+        <module>spring_cloud/spring_cloud_gateway</module>
         <module>spring_cloud/spring_cloud_hystrix_dashboard_9090</module>
         <module>spring_cloud/spring_cloud_provider_entity</module>
         <module>spring_cloud/spring_cloud_provider_entity/spring_cloud_provider_9100</module>
@@ -107,9 +111,21 @@
         <module>common_utils</module>
         <module>spring_cloud/spring_cloud_sdk</module>
         <module>spring_cloud/spring_cloud_seata</module>
+
+        <module>spring_cloud/spring_cloud_oauth2_dependency</module>
+        <module>spring_cloud/spring_cloud_oauth2_server</module>
+
+        <module>spring_cloud/spring_cloud_zipkin</module>
         <module>spring_cloud/spring_cloud_zuul</module>
         <module>spring_cloud/spring_cloud_zuul/spring_cloud_zuul_11300</module>
         <module>spring_cloud/spring_cloud_zuul/spring_cloud_zuul_11301</module>
+
+
+
+        <module>spring_cloud/spring_cloud_reactive</module>
+        <module>spring_cloud/spring_cloud_reactive/order-service</module>
+        <module>spring_cloud/spring_cloud_reactive/customer-service</module>
+        <module>customize_tomcat</module>
     </modules>
 
     <dependencies>
