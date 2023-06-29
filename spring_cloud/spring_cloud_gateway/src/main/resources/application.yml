@@ -1,0 +1,43 @@
+server:
+  port: 12999
+
+spring:
+  application:
+    name: gateway
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      enabled: true
+      discovery:
+        enabled: true
+        register: true
+        prefer-ip-address: true
+        heartbeat:
+          enabled: true
+          ttl-value: 30
+          ttl-unit: s
+        instance-id: ${spring.application.name}-${spring.cloud.client.ip-address}-${server.port}
+    gateway:
+      routes:
+        - id: user
+#          uri: http://localhost:9105
+          uri: lb://user
+          predicates:
+            - Path=/user/**
+          filters:
+            - StripPrefix=1
+        - id: consumer
+          uri: lb://consumer-feign
+          predicates:
+            - Path=/consumer/**
+          filters:
+            - StripPrefix=1
+        - id: auth
+          uri: lb://oauth-server
+          predicates:
+            - Path=/auth/**
+          filters:
+            - StripPrefix=1
+
+

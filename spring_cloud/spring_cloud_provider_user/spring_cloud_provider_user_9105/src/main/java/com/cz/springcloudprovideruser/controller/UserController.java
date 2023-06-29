@@ -3,6 +3,7 @@ package com.cz.springcloudprovideruser.controller;
 import com.cz.springcloud.api.UserApi;
 import com.cz.springcloud.entity.User;
 import com.cz.springcloudprovideruser.service.UserService;
+import com.cz.springcloudsdk.IgnoreCommonResponse;
 import com.cz.springcloudsdk.enums.ErrorCodeEnums;
 import com.cz.springcloudsdk.error.ServiceException;
 import io.swagger.annotations.ApiOperation;
@@ -29,6 +30,7 @@ public class UserController implements UserApi {
         return this.userService.findAll();
     }
 
+    @IgnoreCommonResponse
     @ApiOperation(value = "获取指定用户")
     @Override
     public User get(Long id) {

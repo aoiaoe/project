@@ -1,6 +1,7 @@
 package com.cz.springcloudconsumerfeign.feign;
 
 import com.cz.springcloud.entity.User;
+import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -13,6 +14,7 @@ import java.util.List;
  * @date 2020/11/12 下午 4:29
  * @since JDK8
  */
+@FeignClient(name = "user", fallback = UserFeignFallback.class)
 public interface UserClient {
 
 
