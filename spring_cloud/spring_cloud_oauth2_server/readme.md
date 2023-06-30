@@ -74,4 +74,12 @@
         OAuth2AuthenticationDetails details = (OAuth2AuthenticationDetails) SecurityContextHolder.getContext().getAuthentication().getDetails();
         Map decodedDetails = (Map) details.getDecodedDetails();
 
+# OAUTH2 接口
+    1、获取/刷新token接口: GET /oauth/token
+            所在类：org.springframework.security.oauth2.provider.endpoint.TokenEndpoint.java
+            获取token示例: localhost:12999/auth/oauth/token?client_secret=jzm12345&grant_type=password&username=jzm&password=jjjzzzmmm&client_id=jzm123
+            刷新token示例: localhost:11999/oauth/token?grant_type=refresh_token&client_id=client_jzm&client_secret=jzm&refresh_token=9e7babb7-2005-48b2-b1e9-6b1ec6a87531
+    2、检查token接口： /oauth/check_token
+            所在类: org.springframework.security.oauth2.provider.endpoint.CheckTokenEndpoint.java
+            示例: localhost:11999/oauth/check_token?token=xxxx
     
