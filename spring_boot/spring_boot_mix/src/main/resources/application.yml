@@ -20,3 +20,6 @@ my:
   ds:
     key1: v1
     key2: v22
+
+config:
+  msg: hello world!

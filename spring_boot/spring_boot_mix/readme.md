@@ -38,4 +38,8 @@
     
 ### SQL解析
     com.cz.spring_boot_mix.sqlparse
-    
+
+### Properties属性类注入
+    使用@EnableConfigurationProperties注解，可以将属性类注入到容器
+    参考: com.cz.spring_boot_mix.config.AnnoConfig.java
+         com.cz.spring_boot_mix.config.MyConfigProperties.java
