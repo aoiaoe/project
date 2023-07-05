@@ -5,32 +5,29 @@ spring:
     name: nacos-config-sentinel-order
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://tx-gd:4409/orders?useUnicode=true&acharaceterEncoding=utf-8&serverTimezone=UTC&useSSL=false
+    url: jdbc:mysql://106.53.96.154:4409/orders?useUnicode=true&acharaceterEncoding=utf-8&serverTimezone=UTC&useSSL=false
     username: nacos
     password: 123456
   cloud:
     sentinel:
-      enabled: true
+      enabled: false
       transport:
         # 暂时不能使用云上的sentinel, 因为云上的不能访问本地服务获取信息
         dashboard: http://localhost:9999 # sentinel看板的地址
       eager: true # 开启对sentinel看板的饥饿式加载。sentinel默认是懒加载机制，只有访问过一次的资源才会被监控，通过关闭懒加载，在项目启动时就连接sentinel控制台
       web-context-unify: false # 针对链路流控配置 如果为true会因为入口收敛，链路流控失效
     nacos:
+      server-addr: http://localhost:8848
+      username: nacos
+      password: nacos
       discovery:
         service: ${spring.application.name}
-        server-addr: http://tx-gd:8948
-        username: nacos
-        password: nacos
         register-enabled: true # 是否注册，消费者一般不需要注册
         namespace: dev # 命名空间
         metadata:
           name: cz
       config:
         enabled: true
-        server-addr: http://tx-gd:8948
-        username: nacos
-        password: nacos
         file-extension: yml
         group: DEFAULT_GROUP
         namespace: dev
@@ -47,6 +44,7 @@ spring:
     sampler:
       probability: 1
 seata:
+  enabled: false
   config:
     type: nacos
     nacos:

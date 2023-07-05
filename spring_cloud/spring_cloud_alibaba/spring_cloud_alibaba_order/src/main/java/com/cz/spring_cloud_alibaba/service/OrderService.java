@@ -3,8 +3,8 @@ package com.cz.spring_cloud_alibaba.service;
 import com.cz.spring_cloud_alibaba.config.OrderConfig;
 import com.cz.spring_cloud_alibaba.dao.OrderMapper;
 import com.cz.spring_cloud_alibaba.domain.order.OrderVo;
-import io.seata.core.context.RootContext;
-import io.seata.spring.annotation.GlobalTransactional;
+//import io.seata.core.context.RootContext;
+//import io.seata.spring.annotation.GlobalTransactional;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +50,7 @@ public class OrderService {
     }
 
     public boolean createOrder(Integer id, Integer fee, boolean timeOut) {
-        log.info("Seata全局事务id=================>{}", RootContext.getXID());
+//        log.info("Seata全局事务id=================>{}", RootContext.getXID());
         int res = this.orderMapper.createOrder(id, fee);
         if(timeOut){
             try {

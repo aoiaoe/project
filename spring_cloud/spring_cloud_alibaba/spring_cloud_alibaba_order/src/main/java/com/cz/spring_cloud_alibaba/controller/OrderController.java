@@ -6,6 +6,9 @@ import com.cz.spring_cloud_alibaba_api.facade.order.OrderFacade;
 import com.cz.spring_cloud_alibaba.service.OrderService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -14,6 +17,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
+@RefreshScope
 @Slf4j
 @RequestMapping(value = "/order")
 @RestController
@@ -35,5 +39,13 @@ public class OrderController implements OrderFacade {
     @Override
     public boolean createOrder(Integer id, Integer fee, Boolean timeOut) {
         return this.orderService.createOrder(id, fee, timeOut);
+    }
+
+    @Value("${configPriority:default value}")
+    private String configPriority;
+
+    @GetMapping(value = "/config")
+    public String config(){
+        return configPriority;
     }
 }
