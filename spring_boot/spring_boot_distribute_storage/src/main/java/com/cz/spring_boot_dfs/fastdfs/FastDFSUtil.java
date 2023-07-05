@@ -9,12 +9,11 @@ import org.springframework.stereotype.Service;
 
 import java.io.*;
 
-@Service
-public class FastDFSService {
+public class FastDFSUtil {
 
     private static final String PROP_FILE_NAME = "fast-client.properties";
 
-    FastDFSService() throws IOException, MyException {
+    public FastDFSUtil() throws IOException, MyException {
         ClientGlobal.initByProperties(PROP_FILE_NAME);
     }
 

@@ -1,9 +1,11 @@
-package com.cz.spring_boot_dfs.config;
+package com.cz.spring_boot_dfs.minio;
 
 import io.minio.*;
 import io.minio.errors.*;
 import io.minio.http.Method;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -17,7 +19,8 @@ import java.time.ZonedDateTime;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
-@Component
+@ConditionalOnProperty(name = "spring.minio.enabled", havingValue = "true", matchIfMissing = false)
+@Configuration
 public class MinioComp {
 
     @Autowired

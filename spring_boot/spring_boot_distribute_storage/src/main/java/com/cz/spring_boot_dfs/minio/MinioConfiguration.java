@@ -1,4 +1,4 @@
-package com.cz.spring_boot_dfs.config;
+package com.cz.spring_boot_dfs.minio;
 
 import io.minio.MinioClient;
 import lombok.Data;
@@ -11,7 +11,10 @@ import java.util.List;
 @Configuration
 @ConfigurationProperties(prefix = "spring.minio")
 @Data
-public class MinioConfiguration {  
+public class MinioConfiguration {
+
+    private boolean enabled = true;
+
     private String key;
   
     private String secret;
