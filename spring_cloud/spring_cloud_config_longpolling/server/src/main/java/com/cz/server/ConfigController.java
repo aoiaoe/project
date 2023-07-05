@@ -49,6 +49,7 @@ public class ConfigController {
                 response.setStatus(HttpServletResponse.SC_NOT_MODIFIED);
                 asyncContext.complete();
             }
+            // 客户端超时时间一定要大于当前配置的30秒，否则会超时
         }, 30000, TimeUnit.MILLISECONDS);
     }
 
