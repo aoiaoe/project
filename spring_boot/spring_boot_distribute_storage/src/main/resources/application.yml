@@ -1,0 +1,10 @@
+spring:
+    servlet:
+      multipart:
+          max-file-size: 10MB
+          max-request-size: 10MB
+    minio:
+        key: minio
+        secret: Alian123
+        url: http://tx-gd:19001 # 此处需要填写api端口
+        bucket: spring-boot-minio-bucket
