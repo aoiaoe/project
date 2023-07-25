@@ -9,3 +9,10 @@
         
 死信交换机实现延迟消息有bug
 [src/main/java/com/cz/spring_boot_rabbitmq/delayqueue/警告.md]
+
+
+# 使用Rabbit插件实现延迟消息
+    无死信交换机实现延迟消息的队头阻塞问题
+    
+    插件下载地址: https://github.com/rabbitmq/rabbitmq-delayed-message-exchange
+    插件安装教程参考: https://blog.csdn.net/m0_47214030/article/details/131325144

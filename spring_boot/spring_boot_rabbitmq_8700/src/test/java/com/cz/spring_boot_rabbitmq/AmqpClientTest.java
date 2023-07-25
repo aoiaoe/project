@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
@@ -44,6 +45,7 @@ public class AmqpClientTest {
             }
         };
         channel1.basicConsume(queueName, false, c1);
+        channel1.addConfirmListener((deliveryTag, multiple) -> {}, ((deliveryTag, multiple) -> {}));
         TimeUnit.SECONDS.sleep(5);
 
         channel2.basicPublish(exchangeName, bindingKey, new AMQP.BasicProperties(), "Hello AMQP client Channel2".getBytes(StandardCharsets.UTF_8));
@@ -55,10 +57,11 @@ public class AmqpClientTest {
             }
         };
         channel2.basicConsume(queueName, false, c2);
-        TimeUnit.SECONDS.sleep(1);
+        TimeUnit.SECONDS.sleep(10000);
         channel1.close();
         channel2.close();
         connection.close();
 
     }
+
 }
