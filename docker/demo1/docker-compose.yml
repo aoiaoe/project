@@ -1,0 +1,27 @@
+version: '3'
+services:
+  myNginx:
+    image: nginx11193
+    container_name: nginx
+    ports:
+    - 80:80
+    - 8888:8888
+    volumes:
+    - /alian/nginx:/etc/nginx
+    depends_on:
+      - mytomcat1
+      - mytomcat2
+  mytomcat1:
+    image: tomcat9
+    container_name: tomcat1
+#    ports:
+#      - 8080:8080
+    volumes:
+      - /alian/tomcat1:/usr/local/tomcat
+  mytomcat2:
+    image: tomcat9
+    container_name: tomcat2
+#    ports:
+#      - 8080:8080
+    volumes:
+      - /alian/tomcat2:/usr/local/tomcat
