@@ -7,7 +7,6 @@ import java.util.concurrent.TimeUnit;
 public class JvisualVmTest {
 
     public static void main(String[] args) throws Exception {
-        System.in.read();
         fillHeap();
     }
 
@@ -22,5 +21,5 @@ public class JvisualVmTest {
 }
 
 class Capacity{
-    private byte[] big = new byte[ 8 * 1024 * 1024];
+    private byte[] big = new byte[ 1 * 1024 * 1024];
 }
