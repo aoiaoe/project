@@ -21,6 +21,6 @@ public class MetaInfoVisitor implements Visitor {
 
     @Override
     public void visit(WordFile pdfFile) {
-        System.out.println("PDF元信息");
+        System.out.println("WORD元信息");
     }
 }

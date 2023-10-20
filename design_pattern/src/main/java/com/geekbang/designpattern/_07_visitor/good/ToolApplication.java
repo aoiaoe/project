@@ -7,6 +7,7 @@ import com.geekbang.designpattern._07_visitor.good.resource.WordFile;
 import com.geekbang.designpattern._07_visitor.good.visitor.Compressor;
 import com.geekbang.designpattern._07_visitor.good.visitor.ExtractVisitor;
 import com.geekbang.designpattern._07_visitor.good.visitor.MetaInfoVisitor;
+import com.geekbang.designpattern._07_visitor.good.visitor.Visitor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,9 +20,9 @@ public class ToolApplication {
 
     public static void main(String[] args) {
 
-        ExtractVisitor extractor = new ExtractVisitor();
-        Compressor compressor = new Compressor();
-        MetaInfoVisitor metaInfoVisitor = new MetaInfoVisitor();
+        Visitor extractor = new ExtractVisitor();
+        Visitor compressor = new Compressor();
+        Visitor metaInfoVisitor = new MetaInfoVisitor();
         List<ResourceFile> resourceFiles = listAllResourceFiles(null);
         for (ResourceFile resourceFile : resourceFiles) {
             resourceFile.accept(extractor);
