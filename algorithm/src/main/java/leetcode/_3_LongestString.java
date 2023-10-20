@@ -11,7 +11,7 @@ import java.util.Set;
 public class _3_LongestString {
 
     public static void main(String[] args) {
-        String s = "aacsfwasacav";
+        String s = "aacsfwas12345acav";
         System.out.println(lengthOfLongestSubstring(s));
     }
 
@@ -41,6 +41,8 @@ public class _3_LongestString {
             // end + 1 ： 因为是如果存在相同的字符，则从此字符的下一个字符开始才不重复
             // 例如： aabc, 第一次循环，map中存放 a -> 1,
             // 第二次循环，能在map中获取到a，则就将窗口左边界设置为1
+
+            // 上面解释还不如说是考虑边界情况： 比如说字符串只有一个字符
             map.put(c, end + 1);
 
         }

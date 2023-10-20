@@ -24,14 +24,33 @@ public class _4_Merge2SortedLists {
             }
             temp = temp.next;
         }
-        if(list1 != null){
-            temp.next = list1;
-        }
-        if(list2 != null){
-            temp.next = list2;
-        }
+        temp.next = list1 != null ? list1 : list2;
         return head.next;
     }
+
+    public ListNode mergeTwoLists(ListNode a, ListNode b) {
+        if (a == null || b == null) {
+            return a != null ? a : b;
+        }
+        ListNode head = new ListNode(0);
+        ListNode tail = head, aPtr = a, bPtr = b;
+        while (aPtr != null && bPtr != null) {
+            if (aPtr.val < bPtr.val) {
+                tail.next = aPtr;
+                aPtr = aPtr.next;
+            } else {
+                tail.next = bPtr;
+                bPtr = bPtr.next;
+            }
+            tail = tail.next;
+        }
+        tail.next = (aPtr != null ? aPtr : bPtr);
+        return head.next;
+    }
+//    作者：力扣官方题解
+//    链接：https://leetcode.cn/problems/merge-k-sorted-lists/solutions/219756/he-bing-kge-pai-xu-lian-biao-by-leetcode-solutio-2/
+//    来源：力扣（LeetCode）
+//    著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
 
     public static void main(String[] args) {
         ListNode head1 = new ListNode(0);
@@ -54,6 +73,6 @@ public class _4_Merge2SortedLists {
         System.out.println();
         ListNode.disp(head2);
         System.out.println();
-        ListNode.disp(Merge(head1, null));
+        ListNode.disp(Merge(head1, head2));
     }
 }

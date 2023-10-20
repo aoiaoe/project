@@ -16,7 +16,7 @@ public class _2_link_add {
     public static void main(String[] args) {
         ListNode head1 = ListNode.create(new int[]{2,4,3});
         ListNode head2 = ListNode.create(new int[]{5,6,4});
-        addTwoNumbers2(head1, head2).disp();
+        addTwoNumbers(head1, head2).disp();
     }
 
     public static ListNode addTwoNumbers2(ListNode l1, ListNode l2) {
