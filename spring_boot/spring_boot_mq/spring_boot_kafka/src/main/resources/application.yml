@@ -1,0 +1,15 @@
+server:
+  port: 8082
+spring:
+  kafka:
+    consumer:
+      enable-auto-commit: false
+      group-id: applog2
+      bootstrap-servers: 192.168.18.203:9092
+      auto-offset-reset: earliest
+      # 当Kafka中没有初始偏移量或当前偏移量在服务器中不存在(如，数据被删除了)，该如何处理?
+      # earliest:自动重置偏移量到最早的偏移量
+      # latest:自动重置偏移量为最新的偏移量
+      # none:如果消费组原来的 (previous)偏移量不存在，则向消费者抛异常
+      # anything:向消费者抛异常
+
