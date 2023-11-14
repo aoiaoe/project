@@ -22,11 +22,11 @@ spring:
     listener:
       simple:
         acknowledge-mode: manual
-#        default-requeue-rejected: true # 重试超过最大次数之后是否拒绝
-#        retry:
-#          enabled: true # 开启重试
-#          max-attempts: 5 # 发送失败最多重试5次
-#          initial-interval: 500ms # 重试间隔
+        default-requeue-rejected: true # 重试超过最大次数之后是否拒绝
+        retry:
+          enabled: true # 开启重试
+          max-attempts: 5 # 发送失败最多重试5次
+          initial-interval: 500ms # 重试间隔
 #        prefetch: 5
 
 
