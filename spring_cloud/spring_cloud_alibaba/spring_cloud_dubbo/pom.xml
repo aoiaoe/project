@@ -25,26 +25,36 @@
 			<artifactId>dubbo-spring-boot-starter</artifactId>
 			<version>2.7.6</version>
 		</dependency>
-		<dependency>
-			<groupId>org.apache.dubbo</groupId>
-			<artifactId>dubbo-registry-zookeeper</artifactId>
-			<version>2.7.4</version>
-			<exclusions>
-				<exclusion>
-					<groupId>org.apache.curator</groupId>
-					<artifactId>curator-recipes</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.curator</groupId>
-			<artifactId>curator-recipes</artifactId>
-			<version>4.2.0</version>
-		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>org.apache.dubbo</groupId>-->
+<!--			<artifactId>dubbo-registry-zookeeper</artifactId>-->
+<!--			<version>2.7.4</version>-->
+<!--			<exclusions>-->
+<!--				<exclusion>-->
+<!--					<groupId>org.apache.curator</groupId>-->
+<!--					<artifactId>curator-recipes</artifactId>-->
+<!--				</exclusion>-->
+<!--			</exclusions>-->
+<!--		</dependency>-->
+<!--		<dependency>-->
+<!--			<groupId>org.apache.curator</groupId>-->
+<!--			<artifactId>curator-recipes</artifactId>-->
+<!--			<version>4.2.0</version>-->
+<!--		</dependency>-->
 		<!--		————————————————-->
 		<!--		版权声明：本文为CSDN博主「zjun1001」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。-->
 		<!--		原文链接：https://blog.csdn.net/zjun1001/article/details/119040701-->
 
+		<!-- https://mvnrepository.com/artifact/com.alibaba.cloud/spring-cloud-starter-alibaba-nacos-discovery -->
+		<dependency>
+			<groupId>com.alibaba.cloud</groupId>
+			<artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+			<version>2021.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>com.cz</groupId>
 			<artifactId>spring_cloud_dubbo_intf</artifactId>

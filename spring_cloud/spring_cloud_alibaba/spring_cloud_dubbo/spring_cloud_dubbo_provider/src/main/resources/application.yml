@@ -1,12 +1,25 @@
 server:
     port: 17800
 
+spring:
+  application:
+    name: dubbo_provider
+  cloud:
+    nacos:
+      discovery:
+          namespace: dev
+          server-addr: 127.0.0.1:8848
+          username: nacos
+          password: nacos
+          register-enabled: false
+
 dubbo:
     application:
         name: my-dubbo-provider
     registry:
-        address: zookeeper://tx-sh:2181
+#        address: zookeeper://tx-sh:2181
         timeout: 15000
+        address: nacos://127.0.0.1:8848
     protocol:
         name: dubbo
         port: 20882
