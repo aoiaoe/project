@@ -12,7 +12,8 @@ public class MqController {
     @Autowired
     private RocketMQTemplate rocketMQTemplate;
 
-    public static final String TOPIC = "rk-test";
+//    public static final String TOPIC = "rk-test2";
+    public static final String TOPIC = "rk-test-5part";
 
     @GetMapping(value = "/send")
     public boolean sendMsg(String msg) throws Exception{
