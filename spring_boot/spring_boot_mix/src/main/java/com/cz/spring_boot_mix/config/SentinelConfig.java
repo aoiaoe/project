@@ -32,7 +32,7 @@ public class SentinelConfig {
         flowRule.setGrade(RuleConstant.FLOW_GRADE_QPS);
         flowRule.setControlBehavior(RuleConstant.CONTROL_BEHAVIOR_WARM_UP);
         flowRule.setWarmUpPeriodSec(10);
-        flowRule.setCount(10);
+        flowRule.setCount(100);
 
         FlowRule flowRule2 = new FlowRule();
         flowRule2.setResource("/interface2");
@@ -55,7 +55,20 @@ public class SentinelConfig {
         rule.setGrade(RuleConstant.DEGRADE_GRADE_EXCEPTION_COUNT);
         rule.setTimeWindow(4);
         rule.setStatIntervalMs(5000);
+
+        // 5秒内错误1个即熔断降级10秒
+        DegradeRule rule2 = new DegradeRule();
+        rule2.setResource("reqRemoteFallback");
+        rule2.setCount(1);
+        //熔断规则
+        rule2.setGrade(RuleConstant.DEGRADE_GRADE_EXCEPTION_COUNT);
+        // 统计时长
+        rule2.setStatIntervalMs(5000);
+        // 自愈时间窗，过了时间窗，开->半开，放过一个请求进行服务探测
+        rule2.setTimeWindow(10);
+
         degradeRules.add(rule);
+        degradeRules.add(rule2);
         DegradeRuleManager.loadRules(degradeRules);
 
         EventObserverRegistry.getInstance().addStateChangeObserver("stateChangeLogger",
