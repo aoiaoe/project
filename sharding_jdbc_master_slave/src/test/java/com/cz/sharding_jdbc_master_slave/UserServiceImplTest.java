@@ -1,19 +1,20 @@
 package com.cz.sharding_jdbc_master_slave;
 
+import com.cz.sharding_jdbc_master_slave.entity.Order;
 import com.cz.sharding_jdbc_master_slave.entity.Users;
+import com.cz.sharding_jdbc_master_slave.mapper.OrderMapper;
 import com.cz.sharding_jdbc_master_slave.service.IUserService;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
-@RunWith(SpringRunner.class)
 public class UserServiceImplTest {
 
     @Autowired
     private IUserService userService;
+    @Autowired
+    private OrderMapper orderMapper;
 
     /**
      * 读写分离
@@ -48,7 +49,22 @@ public class UserServiceImplTest {
 
     @Test
     public void testSelectById() {
-        Users users = this.userService.selectById(5);
-        System.out.println(users);
+
+        for (int i = 0; i < 10; i++) {
+            Order oneOrder = this.orderMapper.findOneOrder();
+            System.out.println(oneOrder);
+        }
+    }
+
+    @Test
+    public void insert(){
+        for (int i = 0; i < 3; i++) {
+            Order order = new Order();
+            order.setId(111111111L + i);
+            order.setCompanyId(22222L);
+
+            this.orderMapper.insert(order);
+        }
+
     }
 }

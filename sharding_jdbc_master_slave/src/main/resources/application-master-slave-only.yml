@@ -2,26 +2,52 @@
 spring:
   shardingsphere:
     datasource:
-      names: master,slave01
+      names: master,slave01,slave02
       master:
-        type: com.alibaba.druid.pool.DruidDataSource
+        # shardingsphere 5.x版本使用druid数据源会有兼容性问题
+#        type: com.alibaba.druid.pool.DruidDataSource
+        type: com.zaxxer.hikari.HikariDataSource
         driver-class-name: com.mysql.jdbc.Driver
-        url: jdbc:mysql://localhost:3309/sync1?useUnicode=true&characterEncoding=utf8&autoReconnect=true&rewriteBatchedStatements=TRUE
-        username: root
+        url: jdbc:mysql://106.53.96.154:4409/sharding0?useUnicode=true&characterEncoding=utf8&autoReconnect=true&rewriteBatchedStatements=TRUE
+        username: nacos
         password: 123456
       slave01:
-        type: com.alibaba.druid.pool.DruidDataSource
+        type: com.zaxxer.hikari.HikariDataSource
         driver-class-name: com.mysql.jdbc.Driver
-        url: jdbc:mysql://localhost:3310/sync1?useUnicode=true&characterEncoding=utf8&autoReconnect=true&rewriteBatchedStatements=TRUE
-        username: root
+        url: jdbc:mysql://106.53.96.154:4409/sharding1?useUnicode=true&characterEncoding=utf8&autoReconnect=true&rewriteBatchedStatements=TRUE
+        username: nacos
+        password: 123456
+      slave02:
+        type: com.zaxxer.hikari.HikariDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        url: jdbc:mysql://106.53.96.154:4409/sharding1_0?useUnicode=true&characterEncoding=utf8&autoReconnect=true&rewriteBatchedStatements=TRUE
+        username: nacos
         password: 123456
     props:
+      # 5版本
+      sql-show: true
+      # 4版本
       sql:
         show: true
-    masterslave:
-      load-balance-algorithm-type: round_robin
-      master-data-source-name: master
-      slave-data-source-names: slave01
+    rules:
+      readwrite-splitting:
+        data-sources:
+          read_write: # 自定义名称
+            type: Static
+            props:
+              write-data-source-name: master
+              read-data-source-names: slave01,slave02  # 注意names是复数
+            loadBalancerName: lbs # 自定义负载均衡器名称
+        load-balancers:
+          # 基于权重的从库读
+          # 自定义名称, 上面引用此名称
+          # 自定义名称不能使用下划线,否则props注入失败
+          lbs:
+            # type取值:  WEIGHT权重  ROUND_ROBIN轮训 RANDOM随机
+            type: WEIGHT
+            props:
+              slave01: 80
+              slave02: 20
 #    sharding:
 #      default-database-strategy:
 #        inline:
@@ -70,6 +96,6 @@ spring:
 #    type: com.alibaba.druid.pool.DruidDataSource
 
 mybatis-plus:
-  mapper-locations: classpath:com/cz/shardingjdbc/mapper/*.xml
+  mapper-locations: classpath:mapper/*.xml
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

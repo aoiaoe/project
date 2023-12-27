@@ -8,11 +8,13 @@ spring:
           max-file-size: 1000MB
           max-request-size: 1000MB
     minio:
+        enabled: true
+        key: aaaacccc
+        secret: aaaacccc
+        url: http://192.168.18.251:9000 # 此处需要填写api端口
+        bucket: test
+    aliyun:
         enabled: false
-        key: minio
-        secret: Alian123
-        url: http://tx-gd:19001 # 此处需要填写api端口
-        bucket: spring-boot-minio-bucket
 
 fdfs:
     connect-timeout: 500

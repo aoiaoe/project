@@ -16,9 +16,9 @@ import java.util.UUID;
 
 @Service
 public class OssService {
-    @Autowired
+    @Autowired(required = false)
     private AliyunConfig aliyunConfig;
-    @Autowired
+    @Autowired(required = false)
     private OSSClient ossClient;
 
     public void upload(MultipartFile file){
