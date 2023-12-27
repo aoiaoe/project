@@ -34,3 +34,6 @@ build/
 /spring_boot/spring_boot_seckill/remote_server/
 /remote/
 /spring_cloud/spring_cloud_alibaba/spring_cloud_dubbo/skywalking_agent/
+/*.hprof
+/venv/
+/*.hprof.*/

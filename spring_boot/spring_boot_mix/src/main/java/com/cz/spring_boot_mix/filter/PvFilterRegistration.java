@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
 public class PvFilterRegistration {
 
 
-    @Bean
+//    @Bean
     public FilterRegistrationBean<PageViewFilter> pvFilter(){
         FilterRegistrationBean<PageViewFilter> pvFilter = new FilterRegistrationBean<>();
         pvFilter.setOrder(-1);
