@@ -3,7 +3,7 @@ package leetcode;
 public class _8_MyA2i {
 
     public static void main(String[] args) {
-        System.out.println(myAtoi("-"));
+        System.out.println(myAtoi("-42"));
     }
     public static int myAtoi(String s) {
         s = s.trim();
