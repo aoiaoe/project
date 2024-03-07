@@ -1,6 +1,7 @@
 package com.cz.spring_boot_redisson;
 
 import com.cz.spring_boot_redisson.codec.FastjsonCodec;
+import com.cz.spring_boot_redisson.config.MyRedissonConfig;
 import com.cz.spring_boot_redisson.entity.UserDTO;
 import org.junit.jupiter.api.Test;
 import org.redisson.Redisson;
@@ -41,7 +42,7 @@ public class RedissonTest {
     }
 
     @Test
-    public void testLock(){
+    public void testTryLock(){
         RedissonClient client = getClient();
         RLock lock = client.getLock("myLock");
         try {
@@ -64,7 +65,7 @@ public class RedissonTest {
     public RedissonClient getClient(){
         Config config = new Config();
         config.useSingleServer()
-                .setAddress("redis://tx-gd:6479");
+                .setAddress(MyRedissonConfig.ADDR);
         // 设置序列化方式
 //        config.setCodec(new FastjsonCodec());
         // 默认连接上 127.0.0.1:6379
