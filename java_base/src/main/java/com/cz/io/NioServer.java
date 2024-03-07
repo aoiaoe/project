@@ -7,6 +7,7 @@ import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
+import java.nio.charset.StandardCharsets;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -39,16 +40,18 @@ public class NioServer {
                 if (key.isAcceptable()) {
                     System.out.println("有人连我了！");
                     // 三次握手建立tcp连接
-                    SocketChannel accept = sever.accept();
-                    accept.configureBlocking(false);
+                    SocketChannel channel = sever.accept();
+                    channel.configureBlocking(false);
                     // 建立好连接以后，注册到selector
-                    accept.register(selector, SelectionKey.OP_READ, ByteBuffer.allocate(1024));
-                }
-                if (key.isReadable()) {
+                    channel.register(selector, SelectionKey.OP_READ, ByteBuffer.allocate(1024));
+                } else if (key.isReadable()) {
+                    System.out.println("有人向我发送内容了！");
                     SocketChannel channel = (SocketChannel) key.channel();
                     ByteBuffer buffer = (ByteBuffer) key.attachment();
                     channel.read(buffer);
                     System.out.println(new String(buffer.array(), 0, buffer.position()));
+                    ByteBuffer dest = ByteBuffer.wrap("我收到了".getBytes());
+                    channel.write(dest);
                     buffer.clear();
                 }
                 iterator.remove();

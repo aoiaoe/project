@@ -17,6 +17,9 @@ public class NioClient {
                 String next = scanner.next();
                 ByteBuffer wrap = ByteBuffer.wrap(next.getBytes());
                 socketChannel.write(wrap);
+                ByteBuffer dest = ByteBuffer.allocate(100);
+                socketChannel.read(dest);
+                System.out.println("服务器说: " + new String(dest.array(), 0, dest.position()));
             }
         }
     }
