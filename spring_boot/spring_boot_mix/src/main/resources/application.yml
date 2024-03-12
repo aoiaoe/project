@@ -17,6 +17,19 @@ spring:
       filter:
         enabled: false
 
+management:
+  server:
+    port: 12345   # 单独指定actuator端口
+  endpoints:
+    web:
+      base-path: /admin  # actuator的根上下文路径
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always  # actuator始终展示各个组件的状态, 自定义外部组件的服务状态也可以暴露出去,OutServiceIndicator.java
+
+
 test:
   cron: 0/5 * * * * ?
 
@@ -30,3 +43,8 @@ my:
 
 config:
   msg: hello world!
+
+feign:
+  httpclient:
+    enabled: true
+
