@@ -10,6 +10,19 @@ import java.util.concurrent.TimeUnit;
 public class ThreadPoolTest {
 
     public static void main(String argr[]) throws Exception{
+//        test1();
+
+        test2();
+
+        TimeUnit.HOURS.sleep(1);
+    }
+
+    public static void test2(){
+        ThreadPoolExecutor executor = new ThreadPoolExecutor(1, 2, 5, TimeUnit.SECONDS, new ArrayBlockingQueue<>(2));
+        executor.execute(() -> System.out.println("thread pool task done"));
+    }
+
+    public static void test1() throws Exception {
         ThreadPoolExecutor executor = new ThreadPoolExecutor(1, 2, 5, TimeUnit.SECONDS, new ArrayBlockingQueue<>(2));
 
         executor.execute(() -> {

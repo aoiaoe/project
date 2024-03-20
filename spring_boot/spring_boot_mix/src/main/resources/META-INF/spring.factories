@@ -1,0 +1,2 @@
+org.springframework.boot.SpringApplicationRunListener=\
+com.cz.spring_boot_mix.config.springrunlistener.MySpringRunListener
