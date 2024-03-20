@@ -1,4 +1,4 @@
-package com.cz.spring_boot_mix.cache;
+package com.cz.spring_boot_mix.guava.cache;
 
 import lombok.extern.slf4j.Slf4j;
 
