@@ -16,7 +16,7 @@ import org.springframework.web.client.RestTemplate;
  * 如果此类检测结果为Down，则health的结果也会是Down
  */
 @Slf4j
-@Component
+//@Component
 public class OutServiceIndicator implements HealthIndicator {
 
     @Autowired
