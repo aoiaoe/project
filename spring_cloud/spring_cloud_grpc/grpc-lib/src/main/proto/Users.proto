@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+option java_package = "com.cz.grpc";
+
+service Users {
+
+    rpc GetUserInfo (GetUserInfoRequest) returns (GetUserInfoResponse) {}
+}
+
+message GetUserInfoRequest {
+    int64 id = 1;
+}
+
+message GetUserInfoResponse {
+    int64 id = 1;
+    string name = 2;
+    string sex = 3;
+    int32 age = 4;
+}
+

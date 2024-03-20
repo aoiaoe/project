@@ -78,6 +78,8 @@
         <module>spring_boot/spring_boot_xml</module>
         <module>spring_boot/spring_boot_zookeeper</module>
 
+
+
         <module>spring_cloud</module>
         <module>spring_cloud/spring_cloud_alibaba</module>
         <module>spring_cloud/spring_cloud_alibaba/spring_cloud_alibaba_api</module>
@@ -101,6 +103,11 @@
         <module>spring_cloud/spring_cloud_consumer/spring_cloud_consumer_feign_hystrix_9203</module>
         <module>spring_cloud/spring_cloud_consumer/spring_cloud_consumer_feign_9202</module>
         <module>spring_cloud/spring_cloud_gateway</module>
+
+        <module>spring_cloud/spring_cloud_grpc/grpc-client</module>
+        <module>spring_cloud/spring_cloud_grpc/grpc-lib</module>
+        <module>spring_cloud/spring_cloud_grpc/grpc-server</module>
+
         <module>spring_cloud/spring_cloud_hystrix_dashboard_9090</module>
         <module>spring_cloud/spring_cloud_provider_entity</module>
         <module>spring_cloud/spring_cloud_provider_entity/spring_cloud_provider_9100</module>
