@@ -146,6 +146,7 @@ public class NIOMain {
             serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
             while (true) {
                 selector.select();//阻塞
+                // 错误，应该使用迭代器，并在处理完key之后，使用迭代器remove掉，防止重复处理
                 for (SelectionKey key : selector.selectedKeys()) {
                     SocketChannel socketChannel = serverSocketChannel.accept();
                     ByteBuffer byteBuffer = ByteBuffer.allocate(1024);

@@ -1,5 +1,9 @@
 package com.cz.thread;
 
+import java.lang.management.ManagementFactory;
+import java.lang.management.ThreadInfo;
+import java.lang.management.ThreadMXBean;
+import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -14,7 +18,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class DeadLockDemo {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         String lockA = "lockA";
         String lockB = "lockB";
 
@@ -35,6 +39,16 @@ public class DeadLockDemo {
                 e.printStackTrace();
             }
         }, "B").start();
+        TimeUnit.SECONDS.sleep(1);
+        ThreadMXBean threadMXBean = ManagementFactory.getThreadMXBean();
+        long[] deadlockedThreads = threadMXBean.findDeadlockedThreads();
+        System.out.println(Arrays.toString(deadlockedThreads));
+        if(deadlockedThreads != null && deadlockedThreads.length > 0){
+            for (long deadlockedThread : deadlockedThreads) {
+                ThreadInfo threadInfo = threadMXBean.getThreadInfo(deadlockedThread, Integer.MAX_VALUE);
+                System.out.println(threadInfo);
+            }
+        }
     }
 
 }
