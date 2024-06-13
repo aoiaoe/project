@@ -9,13 +9,17 @@ import java.util.List;
 import static org.neo4j.driver.Values.parameters;
 
 public class Neo4jExample {
+    // Neo4j连接信息
+    private static final String uri = "bolt://192.168.18.203:27687";
+    private static final String user = "neo4j";
+    private static final String password = "123456";
 
     public static void main(String[] args) {
-        // Neo4j连接信息
-        String uri = "bolt://192.168.18.203:27687";
-        String user = "neo4j";
-        String password = "123456";
+        propertiesJust();
+//        nodesAndRels();
+    }
 
+    private static void nodesAndRels() {
         // 创建驱动程序
         try (Driver driver = GraphDatabase.driver(uri, AuthTokens.basic(user, password))) {
             // 创建会话
@@ -26,7 +30,7 @@ public class Neo4jExample {
                         "WHERE startNode.name=\"node1\"\n" +
                         "RETURN nodes(path), relationships(path);";
                 cypherQuery = "match path= (m:Movie)-[r:act]->(a:Actor) RETURN nodes(path), relationships(path);";
-                cypherQuery = "match path = (c)-[r:Manage] ->(l:Loan)-[rr:Have] ->(ee) where ee.rate is not null return  nodes(path), relationships(path);";
+                cypherQuery = "match path = (c)-[r:Manage] ->(l:Loan)-[rr] ->(ee) where ee.rate is not null return  nodes(path), relationships(path);";
                 long startNodeId = 1;  // 替换为实际的起始节点ID
 //                Result result = session.run(cypherQuery, parameters("startNodeId", startNodeId));
                 Result result = session.run(cypherQuery);
@@ -52,6 +56,28 @@ public class Neo4jExample {
                     }
                     System.out.println();
                     System.out.println();
+                    System.out.println("-----------------------------");
+                }
+            }
+        }
+    }
+
+    private static void propertiesJust() {
+        // 创建驱动程序
+        try (Driver driver = GraphDatabase.driver(uri, AuthTokens.basic(user, password))) {
+            // 创建会话
+            try (Session session = driver.session()) {
+                // 执行Cypher查询
+                String cypherQuery = "match (p:PersonLoan) return p.type limit 5;";
+                long startNodeId = 1;  // 替换为实际的起始节点ID
+                Result result = session.run(cypherQuery);
+
+                // 处理查询结果
+                while (result.hasNext()) {
+                    Record record = result.next();
+                    // toString()方法会带引号
+                    String string = record.get("p.type").asString();
+                    System.out.println(string);
                     System.out.println("-----------------------------");
                 }
             }
