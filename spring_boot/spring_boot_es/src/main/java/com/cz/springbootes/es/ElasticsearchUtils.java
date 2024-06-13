@@ -46,6 +46,7 @@ import org.elasticsearch.index.reindex.UpdateByQueryRequest;
 import org.elasticsearch.script.Script;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
+import org.elasticsearch.search.aggregations.AggregationBuilder;
 import org.elasticsearch.search.aggregations.Aggregations;
 import org.elasticsearch.search.aggregations.bucket.terms.Terms;
 import org.elasticsearch.search.aggregations.bucket.terms.TermsAggregationBuilder;
@@ -262,8 +263,7 @@ public class ElasticsearchUtils {
 		BulkRequest request = new BulkRequest();
 		Optional.ofNullable(documents).orElse(new ArrayList<>()).forEach(doc ->
 		{
-			IndexRequest source = new IndexRequest(index).id(String.valueOf(doc.getId())).source(JSONObject.toJSONString(doc, SerializerFeature.DisableCircularReferenceDetect), XContentType.JSON
-			);
+			request.add(new IndexRequest(index).id(String.valueOf(doc.getId())).source(JSONObject.toJSONString(doc, SerializerFeature.DisableCircularReferenceDetect), XContentType.JSON));
 
 		});
 
@@ -760,7 +760,7 @@ public class ElasticsearchUtils {
 	}
 
 	public static List<? extends Terms.Bucket> aggregationDocument(RestHighLevelClient client, String index,
-																   TermsAggregationBuilder termsAggregationBuilder, QueryBuilder queryBuilder) {
+																   AggregationBuilder aggregationBuilder, QueryBuilder queryBuilder) {
 
 		SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
 
@@ -768,7 +768,7 @@ public class ElasticsearchUtils {
 			searchSourceBuilder.query(queryBuilder);
 		}
 
-		searchSourceBuilder.aggregation(termsAggregationBuilder);
+		searchSourceBuilder.aggregation(aggregationBuilder);
 		// 设置超时时间为5s
 		searchSourceBuilder.timeout(new TimeValue(2000));
 
@@ -779,7 +779,7 @@ public class ElasticsearchUtils {
 		try {
 			SearchResponse search = client.search(searchRequest, RequestOptions.DEFAULT);
 			Aggregations aggregations = search.getAggregations();
-			Terms term = aggregations.get(termsAggregationBuilder.getName());
+			Terms term = aggregations.get(aggregationBuilder.getName());
 			return term.getBuckets();
 
 		} catch (IOException e) {
