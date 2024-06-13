@@ -1,0 +1,6 @@
+server:
+  port: 7800
+
+chat:
+  server:
+    port: 21000
