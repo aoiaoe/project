@@ -4,14 +4,14 @@ import org.ehcache.Cache;
 import org.ehcache.CacheManager;
 import org.ehcache.config.builders.CacheConfigurationBuilder;
 import org.ehcache.config.builders.CacheManagerBuilder;
+import org.ehcache.config.builders.ExpiryPolicyBuilder;
 import org.ehcache.config.builders.ResourcePoolsBuilder;
 import org.ehcache.config.units.EntryUnit;
 import org.ehcache.config.units.MemoryUnit;
 import org.junit.Test;
 
 import java.io.File;
-import java.text.Format;
-import java.util.Arrays;
+import java.time.Duration;
 import java.util.Iterator;
 import java.util.concurrent.TimeUnit;
 
@@ -26,7 +26,7 @@ public class CacheTest {
     String filePath = "d:\\cache.file";
 
     @Test
-    public void test() {
+    public void test() throws InterruptedException {
         CacheManager cacheManager = CacheManagerBuilder.newCacheManagerBuilder()
                 .with(CacheManagerBuilder.persistence(new File(filePath, "myData")))
                 .withCache(cacheName,
@@ -36,16 +36,17 @@ public class CacheTest {
                                         .offheap(1L, MemoryUnit.MB)
                                         // 第三个参数为true,代表会持久化到磁盘
                                         .disk(10L, MemoryUnit.MB, true)
-                        )
+                        ).withExpiry(ExpiryPolicyBuilder.timeToLiveExpiration(Duration.ofSeconds(5L)))
                 ).build(true);
         Cache<Long, String> threeTieredCache = cacheManager.getCache(cacheName, Long.class, String.class);
 
 //        for (long i = 0; i < 11L; i++) {
 //            threeTieredCache.put(i, "data put at 17:32 _ " + i);
 //        }
-        threeTieredCache.put(1L, "data put at 17:32 _ ");
-        System.out.println(threeTieredCache.get(1L));
-        threeTieredCache.put(1L, "data put at 12:16 _ ");
+        threeTieredCache.put(1L, "aaaa");
+        System.out.println( threeTieredCache.get(1L));
+        threeTieredCache.put(2L, "bbbb");
+        TimeUnit.SECONDS.sleep(10);
         System.out.println(threeTieredCache.get(1L));
         System.out.println(threeTieredCache.replace(2L, "1---2"));
         cacheManager.close();
@@ -55,7 +56,7 @@ public class CacheTest {
      * 因为会持久化到磁盘,所以上个单元测试put的值,这个此单元测试启动另一个jvm可以get到
      */
     @Test
-    public void test1() {
+    public void test1() throws InterruptedException {
         CacheManager cacheManager = CacheManagerBuilder.newCacheManagerBuilder()
                 .with(CacheManagerBuilder.persistence(new File(filePath, "myData")))
                 .withCache(cacheName,

@@ -31,6 +31,7 @@ public class MsgSendController {
         String now = msg + "---" + LocalDateTime.now().toString() + "---" + seconds;
         Message message = new Message(now.getBytes(), messageProperties);
         this.rabbitTemplate.convertAndSend(RabbitMqConfig.DELAY_TOPIC_EXCHANGE, RabbitMqConfig.KEY, message);
+
         log.info("发送消息:{}", now);
         return true;
     }

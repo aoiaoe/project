@@ -16,12 +16,14 @@ import java.io.IOException;
 @Configuration
 public class MyRedissonConfig {
 
+    public static final String ADDR = "redis://121.4.79.86:17777";
+
     @Bean(destroyMethod="shutdown")
     RedissonClient redisson() throws IOException {
         //1、创建配置
         Config config = new Config();
         config.useSingleServer()
-                .setAddress("redis://tx-gd:6479");
+                .setAddress(ADDR);
         return Redisson.create(config);
     }
     

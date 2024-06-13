@@ -10,7 +10,15 @@ spring:
     port: 5673
     username: admin
     password: admin
+    # 生产者确认
+    # 确认消息已发送到交换机（Exchange）
+    # 可选类型
+    #   correlated代表异步确认,
+    #   simple代表手动同步确认,配合rabbitTemplate.waitForConfirms(timeout)使用
+    #   none代表无需确认
     publisher-confirm-type: correlated
+    # 确认消息已发送到队列
+    publisher-returns: true
     listener:
       simple:
         acknowledge-mode: manual
@@ -19,7 +27,8 @@ spring:
           enabled: true # 开启重试
           max-attempts: 5 # 发送失败最多重试5次
           initial-interval: 500ms # 重试间隔
-        prefetch: 5
+#        prefetch: 5
+
 
 
   cloud:

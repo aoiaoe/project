@@ -1,6 +1,9 @@
 package com.cz.springbootmybatissourcecode;
 
 import com.cz.springbootmybatissourcecode.entity.Student;
+import com.cz.springbootmybatissourcecode.entity.TestDeadlock;
+import com.cz.springbootmybatissourcecode.mapper.TestDeadLock;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -10,7 +13,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.Reader;
+import java.util.concurrent.TimeUnit;
 
+@Slf4j
 public class OriginMybatisDemoTest {
 
     private SqlSessionFactory sessionFactory;
@@ -44,4 +49,39 @@ public class OriginMybatisDemoTest {
         session.commit();
     }
 
+    @Test
+    public void testDeadLock() throws InterruptedException {
+        TestDeadLock mapper1 = session.getMapper(TestDeadLock.class);
+        TestDeadLock mapper2 = session.getMapper(TestDeadLock.class);
+        new Thread(() -> {
+            TestDeadlock testDeadlock = mapper1.selectForUpdate(6);
+            try {
+                TimeUnit.SECONDS.sleep(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            TestDeadlock deadlock = new TestDeadlock();
+            deadlock.setId(7);
+            deadlock.setC(7);
+            deadlock.setD(7);
+            mapper1.insertTestDeadLock(deadlock);
+            log.info("完成插入7");
+        }, "A").start();
+        new Thread(() -> {
+            TestDeadlock testDeadlock = mapper2.selectForUpdate(6);
+            try {
+                TimeUnit.SECONDS.sleep(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            TestDeadlock deadlock = new TestDeadlock();
+            deadlock.setId(8);
+            deadlock.setC(8);
+            deadlock.setD(8);
+            mapper2.insertTestDeadLock(deadlock);
+            log.info("完成插入8");
+        }, "B").start();
+
+        TimeUnit.MILLISECONDS.sleep(5);
+    }
 }

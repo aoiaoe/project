@@ -14,7 +14,7 @@ public class MyDubboService implements DubboService {
 
     @Override
     public String sayHello(String msg) throws Exception {
-        TimeUnit.SECONDS.sleep(2);
+//        TimeUnit.SECONDS.sleep(2);
         return "Hello world from provider, msg from consumer:" + msg + " time: " +  System.currentTimeMillis();
     }
 

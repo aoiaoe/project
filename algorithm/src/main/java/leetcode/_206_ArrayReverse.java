@@ -1,6 +1,5 @@
 package leetcode;
 
-import java.util.Random;
 
 public class _206_ArrayReverse {
 
@@ -49,23 +48,25 @@ public class _206_ArrayReverse {
     }
 
     public static void main(String[] args) {
-        ListNode head = new ListNode(0);
-        ListNode tmp = head;
-        for (int i = 1; i < 5; i++) {
-            ListNode node = new ListNode(i);
-            tmp.next = node;
-            tmp = node;
-        }
-        tmp = head;
-        do {
-            System.out.print(tmp.val + " -> ");
-        }while ((tmp = tmp.next) != null);
+        ListNode head = ListNode.create(2);
+        ListNode.disp(head);
+        head = reverse(head);
+        ListNode.disp(head);
+    }
 
-        head = reverseList_v2(head);
-        System.out.println();
-        do {
-            System.out.print(head.val + " -> ");
-        }while ((head = head.next) != null);
+    public static ListNode reverse(ListNode head){
+        if(head == null || head.next == null){
+            return head;
+        }
+        ListNode newHead = null;
+        ListNode sentinel = null;
+        while (head != null){
+            sentinel = head;
+            head = head.next;
+            sentinel.next = newHead;
+            newHead = sentinel;
+        }
+        return newHead;
     }
 }
 

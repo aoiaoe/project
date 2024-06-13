@@ -5,6 +5,9 @@ import com.cz.spring_boot_test.service.MapService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RequestMapping(value = "/map")
 @RestController
 public class MapController {
@@ -12,7 +15,7 @@ public class MapController {
     @Autowired
     private MapService mapService;
 
-    @GetMapping(value = "/{key}")
+    @GetMapping(value = "/key/{key}")
     public String getValue(@PathVariable(value = "key") String key) {
         return this.mapService.getValue(key);
     }
@@ -21,5 +24,13 @@ public class MapController {
     public boolean receipt(@RequestBody String data) {
         System.out.println(data);
         return true;
+    }
+
+    @GetMapping(value = "/json")
+    public Map json(@RequestHeader("token")String token, String id){
+        Map<String, String> map = new HashMap<>();
+        map.put("token", token);
+        map.put("id", id);
+        return map;
     }
 }

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
  * @since JDK8
  */
 @Slf4j
-@Service
+@Service("aopServiceImpl")
 public class AopServiceImpl {
 
     /**

@@ -11,6 +11,7 @@ public class MyServlet extends HttpServlet{
 
     @Override
     public void doGet(Request request, Response response) throws Exception {
+        System.out.println("开始睡眠:" + Thread.currentThread().getName());
         TimeUnit.SECONDS.sleep(100);
         String content = "<h1>MyServlet doGet</h1>";
         response.output(HttpProtocolUtil.getHttpHeader200(content.getBytes(StandardCharsets.UTF_8).length) + content);

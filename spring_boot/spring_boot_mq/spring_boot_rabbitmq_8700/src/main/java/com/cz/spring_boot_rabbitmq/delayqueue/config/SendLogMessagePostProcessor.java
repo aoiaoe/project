@@ -18,6 +18,7 @@ public class SendLogMessagePostProcessor implements MessagePostProcessor {
         if (!StringUtils.isEmpty(TenantDataSourceNameHolder.get())) {
             message.getMessageProperties().getHeaders().put("poolName", TenantDataSourceNameHolder.get());
         }
+        message.getMessageProperties().getHeaders().put("haha", "hehe" + System.currentTimeMillis());
         return message;
     }
 

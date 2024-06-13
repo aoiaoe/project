@@ -1,11 +1,24 @@
 server:
     port: 17700
 
+spring:
+    application:
+        name: dubbo_consumer
+    cloud:
+        nacos:
+            discovery:
+                namespace: dev
+                server-addr: 127.0.0.1:8848
+                username: nacos
+                password: nacos
+                register-enabled: false
+
 dubbo:
     application:
         name: my-dubbo-comsumer
     registry:
-        address: zookeeper://tx-sh:2181
+        address: nacos://127.0.0.1:8848
+    #        address: zookeeper://tx-sh:2181
     protocol:
         name: dubbo
     scan:

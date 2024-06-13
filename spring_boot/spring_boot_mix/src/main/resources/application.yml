@@ -9,6 +9,35 @@ spring:
     host: tx-gd
     port: 6379
     connect-timeout: 1000
+  cloud:
+    sentinel:
+      transport:
+        dashboard: http://localhost:8080
+      eager: true
+      filter:
+        enabled: false
+  jmx:
+    enabled: true
+
+management:
+  server:
+    port: 12345   # 单独指定actuator端口
+  endpoints:
+    web:
+      base-path: /admin  # actuator的根上下文路径
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always  # actuator始终展示各个组件的状态, 自定义外部组件的服务状态也可以暴露出去,OutServiceIndicator.java
+  metrics:
+    export:
+      influx:
+        enabled: true
+        uri: http://192.168.18.203:8086
+        step: 1S # 指标发送间隔
+#        userName: root
+#        password: 11111111
 
 test:
   cron: 0/5 * * * * ?
@@ -23,3 +52,8 @@ my:
 
 config:
   msg: hello world!
+
+feign:
+  httpclient:
+    enabled: true
+

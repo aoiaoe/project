@@ -1,0 +1,91 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title>WS Test</title>
+</head>
+<body>
+<div>
+名称:<input id="user" type="text"/>
+<button onclick="connect()">连接</button>
+<br/>
+消息:<input id="to" type="text"/><input id="text" type="text"/><br/>
+<button onclick="send()">发送</button>
+<button onclick="closeWs()">关闭</button>
+<div id="msg"></div>
+</div>
+<br/>
+<div>
+    <button onclick="sendAjax()">测试ajax</button>
+</div>
+<script type="text/javascript">
+    var webscocket = null;
+
+    function connect() {
+        var user = document.getElementById("user").value;
+        if(user == ''){
+            alert("请先输入用户名");
+            return;
+        }
+        if ('WebSocket' in window) {
+            webscocket = new WebSocket("ws://localhost:18104/msg/"+ user);
+        } else {
+            alert("不支持WebSocket!!");
+            return;
+        }
+        webscocket.onerror = function (){
+            setHtml("服务器通信故障");
+        }
+        webscocket.onopen = function (){
+            setHtml("连接已建立");
+        }
+        webscocket.onclose = function (){
+            setHtml("连接已关闭");
+        }
+        webscocket.onmessage = function (event){
+            console.log(event);
+            setHtml(event.data);
+        }
+        window.onbeforeunload = function (){
+            webscocket.close();
+        }
+    }
+    function send(){
+        var to = document.getElementById("to").value;
+        var text = document.getElementById("text").value;
+        var msg = to + "#" + text;
+        webscocket.send(msg);
+    }
+
+    function setHtml(msg){
+        document.getElementById("msg").innerHTML += msg  + '<br/>';
+    }
+
+    function closeWs(){
+        webscocket.close();
+    }
+
+    function sendAjax(){
+        // 创建 XMLHttpRequest，相当于打开浏览器
+        const xhr = new XMLHttpRequest()
+
+        // 打开一个与网址之间的连接   相当于输入网址
+        // 利用open（）方法，第一个参数是对数据的操作，第二个是接口
+        xhr.open("GET", "http://localhost:18104/fallback")
+
+        // 通过连接发送请求  相当于点击回车或者链接
+        xhr.send(null)
+
+        // 指定 xhr 状态变化事件处理函数   相当于处理网页呈现后的操作
+        // 全小写
+        xhr.onreadystatechange = function () {
+            // 通过readyState的值来判断获取数据的情况
+            if (this.readyState === 4) {
+                // 响应体的文本 responseText
+                console.log(this.responseText);
+            }
+        }
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cz.springbootmybatissourcecode.mapper.TestDeadLock">
+
+    <select id="selectForUpdate" resultType="com.cz.springbootmybatissourcecode.entity.TestDeadlock" parameterType="int">
+        select
+            id, c, d
+        from t where c = #{c} for update
+    </select>
+
+    <insert id="insertTestDeadLock" parameterType="com.cz.springbootmybatissourcecode.entity.TestDeadlock">
+        insert into t(id, c, d)
+        values(#{id}, #{c}, #{d});
+    </insert>
+</mapper>

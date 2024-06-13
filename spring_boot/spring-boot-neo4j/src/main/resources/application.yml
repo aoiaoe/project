@@ -1,0 +1,10 @@
+# 应用服务 WEB 访问端口
+server:
+  port: 8080
+
+spring:
+  neo4j:
+    uri: bolt://192.168.18.203:27687
+    authentication:
+      username: neo4j
+      password: 123456

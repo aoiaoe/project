@@ -3,7 +3,7 @@ package leetcode;
 public class _24_SwapPairListNode {
 
     public static void main(String[] args) {
-        ListNode listNode = ListNode.create(2);
+        ListNode listNode = ListNode.create(3);
         listNode.disp();
         ListNode listNode1 = swapPairs(listNode);
         listNode1.disp();
@@ -14,7 +14,6 @@ public class _24_SwapPairListNode {
             return head;
         }
         ListNode dummy = new ListNode();
-        dummy.next = head;
         ListNode sentinel = head;
         ListNode tail = dummy;
         while (sentinel != null && sentinel.next != null){

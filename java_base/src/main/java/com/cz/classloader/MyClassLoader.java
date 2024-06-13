@@ -2,6 +2,7 @@ package com.cz.classloader;
 
 import java.io.*;
 import java.lang.reflect.Method;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 自定义类装载器,实现类覆盖
@@ -28,6 +29,7 @@ public class MyClassLoader extends ClassLoader {
         if (clazz != null)
             return clazz;
         clazz = findClass(name);
+        resolveClass(clazz);
         return clazz;
     }
 
@@ -38,7 +40,8 @@ public class MyClassLoader extends ClassLoader {
         byte[] data = null;
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         try {
-            is = new FileInputStream(new File("/Users/sephiroth/study/IdeaProjects/project/java_base/src/main/java/com/cz/classloader/Test.class"));
+//            is = new FileInputStream(new File("/Users/sephiroth/study/IdeaProjects/project/java_base/src/main/java/com/cz/classloader/Test.class"));
+            is = new FileInputStream(new File("G:\\workspace\\project\\java_base\\src\\main\\java\\com\\cz\\classloader\\Test1.class"));
             int c = 0;
             while (-1 != (c = is.read())) {
                 baos.write(c);
@@ -60,14 +63,31 @@ public class MyClassLoader extends ClassLoader {
     public static void main(String[] args) {
         MyClassLoader loader = new MyClassLoader(
                 MyClassLoader.class.getClassLoader());
-        Class clazz;
-        try {
-            clazz = loader.loadClass("com.cz.classloader.Test");
-            Object object = clazz.newInstance();
-            Method sayHi = clazz.getMethod("sayHi");
-            sayHi.invoke(object);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        new Thread(() -> {
+            try {
+                while (true) {
+                    TimeUnit.SECONDS.sleep(1);
+                    Class.forName("com.cz.classloader.Test1", true, loader);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }).start();
+
+        new Thread(() -> {
+            try {
+                while (true) {
+                    TimeUnit.SECONDS.sleep(1);
+                    Class<?> aClass = Class.forName("com.cz.classloader.Test1");
+                    Object o = aClass.newInstance();
+                    Method test = aClass.getMethod("test", new Class[]{String.class});
+                    System.out.println(test.invoke(o, "cz"));
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }).start();
+
+        Thread.yield();
     }
 }

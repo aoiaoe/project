@@ -1,0 +1,19 @@
+server:
+  port: 18002
+
+grpc:
+  server:
+    port: 10011
+
+spring:
+  application:
+    name: nacos-grpc-demo
+  cloud:
+    nacos:
+      discovery:
+        enabled: true
+        server-addr: localhost:8848
+        namespace: dev
+        metadata:
+          gRPC:
+            port: ${grpc.server.port}

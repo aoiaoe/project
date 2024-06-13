@@ -42,14 +42,14 @@ public class Request {
         byte[] bytes = new byte[in.available()];
         in.read(bytes);
         String inputStr = new String(bytes);
-        System.out.println("---请求信息--->" + inputStr);
+//        System.out.println("---请求信息--->" + inputStr);
 
         String firstLine = inputStr.split("\n")[0];
         String[] s = firstLine.split(" ");
         this.method = s[0];
         this.url = s[1];
 
-        System.out.println("---method--->" + method);
-        System.out.println("---url--->" + url);
+//        System.out.println("---method--->" + method);
+//        System.out.println("---url--->" + url);
     }
 }

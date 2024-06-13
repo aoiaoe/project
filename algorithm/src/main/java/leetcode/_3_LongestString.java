@@ -11,8 +11,10 @@ import java.util.Set;
 public class _3_LongestString {
 
     public static void main(String[] args) {
-        String s = "aacsfwas12345acav";
+//        String s = "aacsfwas120i345acavnry43rsacase1h5a12ahj68w4125gzxcvbnm,";
+        String s = "aab";
         System.out.println(lengthOfLongestSubstring(s));
+        System.out.println(lengthOfLongestSubstring2(s));
     }
 
 
@@ -37,30 +39,44 @@ public class _3_LongestString {
                 start = Math.max(start, temp);
             }
             // 计算最长的长度
+            // + 1是考虑边界情况，比如字符串中只有一个字符的时候, 不 +1 会导致长度错误计算为0
             length = Math.max(length, end - start + 1);
-            // end + 1 ： 因为是如果存在相同的字符，则从此字符的下一个字符开始才不重复
-            // 例如： aabc, 第一次循环，map中存放 a -> 1,
-            // 第二次循环，能在map中获取到a，则就将窗口左边界设置为1
-
-            // 上面解释还不如说是考虑边界情况： 比如说字符串只有一个字符
+            // 保存当前字符，并记录其下一个索引
             map.put(c, end + 1);
 
         }
         return length;
     }
 
-    public int lengthOfLongestSubstring2(String s) {
-        int n = s.length(), ans = 0;
+
+    /**
+     * 滑动窗口
+     * @param s
+     * @return
+     */
+    public static int lengthOfLongestSubstring2(String s) {
+        int n = s.length(), len = 0;
+        // char -> index
         Map<Character, Integer> map = new HashMap<>();
-        for (int end = 0, start = 0; end < n; end++) {
+        // 边界都初始化为0
+        int start = 0;
+        int end = 0;
+        for (; end < n; end++) {
+            // 依次获取字符串中每个字符
+            // 扩展右边界
             char alpha = s.charAt(end);
+            // 如果字符已经存在于map中
             if (map.containsKey(alpha)) {
+                // 重新计算起始位置
+                // 收缩左边界
                 start = Math.max(map.get(alpha), start);
             }
-            ans = Math.max(ans, end - start + 1);
+            // 计算最长长度
+            len = Math.max(len, end - start + 1);
+
             map.put(alpha, end + 1);
         }
-        return ans;
+        return len;
     }
 
 }

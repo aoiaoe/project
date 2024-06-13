@@ -22,11 +22,11 @@ public class HelloController {
 
     @GetMapping(value = "/hello/{words}")
     public String world(@PathVariable String words) throws Exception {
-        Thread.sleep(1000);
-        System.out.println("traceId" + TraceContext.traceId());
-        ActiveSpan.tag("hello-trace activation", words);
+//        Thread.sleep(1000);
+//        System.out.println("traceId" + TraceContext.traceId());
+//        ActiveSpan.tag("hello-trace activation", words);
         String result = this.dubboService.sayHello(words);
-        Thread.sleep(1000);
+//        Thread.sleep(1000);
         return result;
     }
 

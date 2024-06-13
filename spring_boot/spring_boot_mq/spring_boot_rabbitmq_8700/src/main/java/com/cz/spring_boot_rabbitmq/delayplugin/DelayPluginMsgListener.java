@@ -14,7 +14,7 @@ public class DelayPluginMsgListener {
 
     @RabbitListener(queues = "delayPluginQueue")
     public void onMessage(Message message, Channel channel) throws IOException {
-        log.info("收到消息:{}", new String(message.getBody()));
+        log.info("收到消息:{}, headers:{}", new String(message.getBody()), message.getMessageProperties().getHeaders());
         channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
     }
 }

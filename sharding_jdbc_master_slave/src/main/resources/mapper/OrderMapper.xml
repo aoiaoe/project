@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cz.sharding_jdbc_master_slave.mapper.OrderMapper">
+    <insert id="insert" parameterType="com.cz.sharding_jdbc_master_slave.entity.Order">
+        insert into b_order0(id, company_id) values(#{id}, #{companyId});
+    </insert>
+
+    <select id="findOneOrder" resultType="com.cz.sharding_jdbc_master_slave.entity.Order">
+        select id, company_id as companyId, `status` from b_order0 limit 1;
+    </select>
+</mapper>

@@ -3,6 +3,7 @@ package com.cz.sharding_jdbc_master_slave.service.impl;
 import com.cz.sharding_jdbc_master_slave.entity.Users;
 import com.cz.sharding_jdbc_master_slave.mapper.UsersMapper;
 import com.cz.sharding_jdbc_master_slave.service.IUserService;
+import org.apache.shardingsphere.infra.hint.HintManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
