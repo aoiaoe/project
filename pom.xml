@@ -50,6 +50,9 @@
         <module>spring_boot/spring_boot_netty/spring_boot_netty_demo</module>
         <module>spring_boot/spring_boot_netty/spring_boot_netty_rpc</module>
         <module>spring_boot/spring_boot_netty/spring_boot_netty_rpc/netty_rpc_api</module>
+        <module>spring_boot/spring_boot_netty/imcommon</module>
+        <module>spring_boot/spring_boot_netty/imclient</module>
+        <module>spring_boot/spring_boot_netty/imserver</module>
 
         <module>spring_boot/spring_boot_mq/spring_boot_rabbitmq_8700</module>
         <module>spring_boot/spring_boot_mq/spring_boot_rocketmq</module>
@@ -136,6 +139,8 @@
         <module>spring_cloud/spring_cloud_reactive/order-service</module>
         <module>spring_cloud/spring_cloud_reactive/customer-service</module>
         <module>customize_tomcat</module>
+        <module>spring_boot/spring_boot_netty/imclient</module>
+        <module>spring_boot/spring_boot_netty/imserver</module>
     </modules>
 
     <dependencies>

@@ -45,7 +45,7 @@
     
 
 ## 自定义数据源决策器
-    DynamicDataSourceAutoConfiguration中bean都是@ConditionalOnMissingBean
+    DynamicDataSourceAutoConfiguration 中bean都是@ConditionalOnMissingBean
     可以自行覆盖然后实例化到容器,实现自定义
     
 
