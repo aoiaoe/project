@@ -33,7 +33,7 @@ management:
   metrics:
     export:
       influx:
-        enabled: true
+        enabled: false
         uri: http://192.168.18.203:8086
         step: 1S # 指标发送间隔
 #        userName: root
