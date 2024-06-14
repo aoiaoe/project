@@ -2,6 +2,7 @@ package com.cz.springbootneo4j;
 
 import com.cz.springbootneo4j.dao.ActorRepo;
 import com.cz.springbootneo4j.dao.MovieRepo;
+import com.cz.springbootneo4j.dao.TestRepo;
 import com.cz.springbootneo4j.domain.Actor;
 import com.cz.springbootneo4j.domain.Movie;
 import org.junit.Test;
@@ -52,5 +53,12 @@ public class Neo4jTest {
     public void testFind(){
         Optional<Movie> byId = this.movieRepo.findById(1L);
         System.out.println(byId.get());
+    }
+
+    @Autowired
+    private TestRepo testRepo;
+    @Test
+    public void testFindStrings(){
+        testRepo.getLoanTypeName().ifPresent(e -> e.forEach(System.out::println));
     }
 }

@@ -6,6 +6,7 @@
         <module>netty_rpc_api</module>
         <module>netty_rpc_client</module>
         <module>netty_rpc_server</module>
+        <module>../imcommon</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

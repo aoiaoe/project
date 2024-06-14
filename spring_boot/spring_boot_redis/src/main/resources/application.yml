@@ -10,4 +10,8 @@ server:
 spring:
   redis:
     timeout: 10000ms
+    host: 121.4.79.86
+    port: 17777
+  cache:
+    type: REDIS
 

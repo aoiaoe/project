@@ -11,10 +11,15 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 public class ReentrantConditionDemo {
 
+    ReentrantLock lock = new ReentrantLock();
+    Condition condition = lock.newCondition();
+
     public static void main(String[] args) throws InterruptedException {
 
-        ReentrantLock lock = new ReentrantLock();
-        Condition condition = lock.newCondition();
+        new ReentrantConditionDemo().test();
+    }
+
+    public void test()  throws InterruptedException {
 
         new Thread(() -> {
             lock.lock();
@@ -27,11 +32,7 @@ public class ReentrantConditionDemo {
             System.out.println("A");
         }, "A").start();
 
-        try {
-            TimeUnit.SECONDS.sleep(1);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//        TimeUnit.SECONDS.sleep(1);
 
         Thread b = new Thread(() -> {
             lock.lock();
@@ -48,11 +49,8 @@ public class ReentrantConditionDemo {
         }, "B");
         b.start();
 
-        try {
-            TimeUnit.SECONDS.sleep(1);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        TimeUnit.SECONDS.sleep(1);
+//        TimeUnit.SECONDS.sleep(1000);
         lock.lock();
         try {
             condition.signalAll();
@@ -60,6 +58,6 @@ public class ReentrantConditionDemo {
             lock.unlock();
         }
 
-       Thread.currentThread().join();
+        Thread.currentThread().join();
     }
 }

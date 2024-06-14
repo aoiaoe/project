@@ -49,7 +49,6 @@ import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.aggregations.AggregationBuilder;
 import org.elasticsearch.search.aggregations.Aggregations;
 import org.elasticsearch.search.aggregations.bucket.terms.Terms;
-import org.elasticsearch.search.aggregations.bucket.terms.TermsAggregationBuilder;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
 import org.elasticsearch.search.fetch.subphase.highlight.HighlightField;
@@ -759,8 +758,47 @@ public class ElasticsearchUtils {
 		}
 	}
 
-	public static List<? extends Terms.Bucket> aggregationDocument(RestHighLevelClient client, String index,
-																   AggregationBuilder aggregationBuilder, QueryBuilder queryBuilder) {
+	/**
+	 * terms聚合会返回bucket
+	 * @param client
+	 * @param index
+	 * @param aggregationBuilder
+	 * @return
+	 */
+	public static List<? extends Terms.Bucket> aggTerms(RestHighLevelClient client, String index,
+																   AggregationBuilder aggregationBuilder) {
+		SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+
+		searchSourceBuilder.aggregation(aggregationBuilder);
+		// 设置超时时间为5s
+		searchSourceBuilder.timeout(new TimeValue(2000));
+
+		SearchRequest searchRequest = new SearchRequest();
+		searchRequest.indices(index);
+		searchRequest.source(searchSourceBuilder);
+
+		try {
+			SearchResponse search = client.search(searchRequest, RequestOptions.DEFAULT);
+			Aggregations aggregations = search.getAggregations();
+			Terms term = aggregations.get(aggregationBuilder.getName());
+			return term.getBuckets();
+
+		} catch (IOException e) {
+			log.error("构建查询失败", e);
+			throw new RuntimeException("search doc error");
+		}
+	}
+
+	/**
+	 * 普通聚合，返回Aggregations
+	 * @param client
+	 * @param index
+	 * @param aggregationBuilder
+	 * @param queryBuilder
+	 * @return
+	 */
+	public static Aggregations agg(RestHighLevelClient client, String index,
+											AggregationBuilder aggregationBuilder, QueryBuilder queryBuilder) {
 
 		SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
 
@@ -778,10 +816,7 @@ public class ElasticsearchUtils {
 
 		try {
 			SearchResponse search = client.search(searchRequest, RequestOptions.DEFAULT);
-			Aggregations aggregations = search.getAggregations();
-			Terms term = aggregations.get(aggregationBuilder.getName());
-			return term.getBuckets();
-
+			return search.getAggregations();
 		} catch (IOException e) {
 			log.error("构建查询失败", e);
 			throw new RuntimeException("search doc error");

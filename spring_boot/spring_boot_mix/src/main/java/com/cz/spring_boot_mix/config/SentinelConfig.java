@@ -30,9 +30,11 @@ public class SentinelConfig {
         FlowRule flowRule = new FlowRule();
         flowRule.setResource("/interface1");
         flowRule.setGrade(RuleConstant.FLOW_GRADE_QPS);
-        flowRule.setControlBehavior(RuleConstant.CONTROL_BEHAVIOR_WARM_UP);
-        flowRule.setWarmUpPeriodSec(10);
-        flowRule.setCount(100);
+        flowRule.setCount(2);
+//        flowRule.setGrade(RuleConstant.FLOW_GRADE_QPS);
+//        flowRule.setControlBehavior(RuleConstant.CONTROL_BEHAVIOR_WARM_UP);
+//        flowRule.setWarmUpPeriodSec(10);
+//        flowRule.setCount(100);
 
         FlowRule flowRule2 = new FlowRule();
         flowRule2.setResource("/interface2");

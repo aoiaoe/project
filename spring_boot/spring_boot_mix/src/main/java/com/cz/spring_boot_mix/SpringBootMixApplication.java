@@ -1,5 +1,6 @@
 package com.cz.spring_boot_mix;
 
+import com.alibaba.csp.sentinel.slots.block.flow.FlowRuleManager;
 import com.cz.spring_boot_mix.config.MyConfigProperties;
 import com.cz.spring_boot_mix.extention._1MyApplicationContextInitializer;
 import lombok.extern.slf4j.Slf4j;
@@ -13,6 +14,8 @@ import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 import javax.annotation.PostConstruct;
+import java.lang.reflect.Field;
+import java.util.concurrent.ScheduledExecutorService;
 
 @EnableFeignClients(basePackages = "com.cz.spring_boot_mix.contoller.feign")
 @Slf4j
@@ -30,6 +33,15 @@ public class SpringBootMixApplication {
                 .build();
         build.run(args);
         log.info("项目启动完成");
+        try {
+            Class<FlowRuleManager> aClass = FlowRuleManager.class;
+            Field scheduler = aClass.getDeclaredField("SCHEDULER");
+            scheduler.setAccessible(true);
+            ScheduledExecutorService o = (ScheduledExecutorService)scheduler.get(aClass.newInstance());
+            o.shutdown();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     @Autowired
