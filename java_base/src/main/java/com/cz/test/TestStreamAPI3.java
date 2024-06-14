@@ -1,5 +1,6 @@
 package com.cz.test;
 
+import com.baomidou.mybatisplus.extension.api.R;
 import org.junit.Test;
 
 import java.util.*;
@@ -11,9 +12,11 @@ public class TestStreamAPI3 {
             new Employee(102, "李四", 79, 6666.66, Employee.Status.BUSY),
             new Employee(101, "张三", 18, 9999.99, Employee.Status.FREE),
             new Employee(103, "王五", 28, 3333.33, Employee.Status.VOCATION),
-            new Employee(104, "赵六", 8, 7777.77, Employee.Status.BUSY),
-            new Employee(104, "赵六", 8, 7777.77, Employee.Status.FREE),
-            new Employee(104, "赵六", 8, 7777.77, Employee.Status.FREE),
+            new Employee(114, "赵六", 8, 7777.77, Employee.Status.BUSY),
+            new Employee(115, "赵六", 8, 7777.77, Employee.Status.FREE),
+            new Employee(116, "赵六", 8, 7777.77, Employee.Status.FREE),
+            new Employee(117, "赵六", 9, 7777.77, Employee.Status.FREE),
+            new Employee(105, "田七", 38, 5555.55, Employee.Status.BUSY),
             new Employee(105, "田七", 38, 5555.55, Employee.Status.BUSY)
     );
 
@@ -125,6 +128,16 @@ public class TestStreamAPI3 {
                 .collect(Collectors.groupingBy(Employee::getStatus));
 
         System.out.println(map);
+
+        System.out.println("-----");
+        // 分组统计
+        // 实体需重写hashCode和equals
+        Map<Employee, Long> collect = emps.stream()
+                .collect(Collectors.groupingBy(e -> e, Collectors.counting()));
+        collect.forEach((k, v) -> {
+            System.out.println(k);
+            System.out.println("count:" + v);
+        });
     }
 
     //多级分组
