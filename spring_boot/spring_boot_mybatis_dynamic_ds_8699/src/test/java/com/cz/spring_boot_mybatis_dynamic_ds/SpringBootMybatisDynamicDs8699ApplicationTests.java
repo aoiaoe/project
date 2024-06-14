@@ -31,7 +31,7 @@ class SpringBootMybatisDynamicDs8699ApplicationTests {
         b.setAuthor("东野圭吾");
         b.setDesc("东野圭吾的小说");
         b.setType("novel");
-        b.setPrice(33);
+        b.setPrice(331);
         testJson.setJsonString(b);
         this.testJsonMapper.insert(testJson);
 
