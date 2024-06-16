@@ -852,6 +852,9 @@ public class ElasticsearchUtils {
 
 	/**
 	 * 更新文档
+	 * ps: If both doc and script are specified, then doc is ignored. If you specify a scripted update,
+	 * 	include the fields you want to update in the script.
+	 * 	如果同时制定了文档内容和脚本，则会忽略文档内容
 	 *
 	 * @param client
 	 * @param index
@@ -864,6 +867,32 @@ public class ElasticsearchUtils {
 		UpdateRequest request = new UpdateRequest(index, String.valueOf(id)).setRefreshPolicy(
 				WriteRequest.RefreshPolicy.IMMEDIATE).doc(
 				JSONObject.toJSONString(document, SerializerFeature.DisableCircularReferenceDetect, SerializerFeature.WriteMapNullValue), XContentType.JSON);
+		try {
+			UpdateResponse updateResponse = client.update(request, RequestOptions.DEFAULT);
+			log.info("update document success, name:{}, id:{}, result:{}", updateResponse.getIndex(),
+					updateResponse.getId(), updateResponse.getResult());
+		} catch (Exception e) {
+			log.error("update document fall, index:{}", index, e);
+		}
+	}
+
+	/**
+	 * 使用脚本更新制定文档
+	 * @param client
+	 * @param index
+	 * @param id
+	 * @param script
+	 * @param <T>
+	 * @param <D>
+	 */
+	public static <T, D> void updatePartialDocumentByScript(RestHighLevelClient client, String index, T id,
+															Script script, Map<String, Object> upsert) {
+		UpdateRequest request = new UpdateRequest(index, String.valueOf(id)).setRefreshPolicy(
+				WriteRequest.RefreshPolicy.IMMEDIATE)
+				.script(script);
+		if(upsert != null) {
+			request.upsert(upsert);
+		}
 		try {
 			UpdateResponse updateResponse = client.update(request, RequestOptions.DEFAULT);
 			log.info("update document success, name:{}, id:{}, result:{}", updateResponse.getIndex(),
@@ -892,7 +921,7 @@ public class ElasticsearchUtils {
 		}
 	}
 
-	public static void confirmAll(RestHighLevelClient client, String index, AbstractQueryBuilder queryBuilder,
+	public static void updateByQuery(RestHighLevelClient client, String index, AbstractQueryBuilder queryBuilder,
 								  Script script, boolean proceed, boolean refresh) {
 		UpdateByQueryRequest updateByQuery = new UpdateByQueryRequest(index);
 		// 设置分片并行
