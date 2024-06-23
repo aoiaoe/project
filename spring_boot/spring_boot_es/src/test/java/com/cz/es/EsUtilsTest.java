@@ -1,5 +1,6 @@
 package com.cz.es;
 
+import com.alibaba.fastjson.JSONObject;
 import com.cz.springbootes.es.ElasticsearchUtils;
 import lombok.SneakyThrows;
 import org.apache.http.HttpHost;
@@ -20,10 +21,7 @@ import org.elasticsearch.search.aggregations.AggregationBuilders;
 import org.elasticsearch.search.aggregations.Aggregations;
 import org.elasticsearch.search.aggregations.bucket.terms.Terms;
 import org.elasticsearch.search.aggregations.bucket.terms.TermsAggregationBuilder;
-import org.elasticsearch.search.aggregations.metrics.Max;
-import org.elasticsearch.search.aggregations.metrics.MaxAggregationBuilder;
-import org.elasticsearch.search.aggregations.metrics.Stats;
-import org.elasticsearch.search.aggregations.metrics.Sum;
+import org.elasticsearch.search.aggregations.metrics.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -39,41 +37,104 @@ public class EsUtilsTest {
     private String INDEX = "agg_test";
 
     @Test
-    public void testUpdate(){
+    public void testUpdate() {
         Map map = new HashMap();
-        map.put("description", "ÎÒÊÇÒ»¸öÔÚ³É¶¼µÄ³ÌĞòÔ±!!");
+        map.put("description", "æˆ‘æ˜¯ä¸€ä¸ªåœ¨æˆéƒ½çš„ç¨‹åºå‘˜!!");
         ElasticsearchUtils.updatePartialDocument(client, "user", 999, map);
     }
 
     /**
-     * ½Å±¾¸üĞÂ,
+     * PUT dynamic_query_runtime_index_0001
+     * {
+     *   "mappings": {
+     *     "properties": {
+     *       "orderId":{
+     *         "type": "keyword"
+     *       },
+     *       "skuId":{
+     *         "type": "text"
+     *       },
+     *       "name": {
+     *         "type": "text"
+     *       },
+     *       "count": {
+     *         "type": "text"
+     *       }
+     *     }
+     *   }
+     * }
+     *
+     * POST dynamic_query_runtime_index_0001/_bulk
+     * { "index" : {  } }
+     * {"orderId":"123","skuId":"111","name":"å°ç±³æ‰‹æœº","count":"10"}
+     * { "index" : {  } }
+     * {"orderId":"123","skuId":"112","name":"åä¸ºæ‰‹æœº","count":"11"}
+     * { "index" : {  } }
+     * {"orderId":"123","skuId":"112","name":"åä¸ºæ‰‹æœº","count":"12"}
+     * { "index" : {  } }
+     * {"orderId":"123","skuId":"111","name":"å°ç±³æ‰‹æœº","count":"13"}
+     *
+     * å°†textç±»å‹å­—æ®µï¼Œå¢åŠ ä¸ºruntimeçš„å¯èšåˆæ•°æ®ç±»å‹ï¼Œè¿›è¡Œèšåˆ
+     * å°±å¯ä»¥ä¿®æ­£textç±»å‹å­—æ®µä¸å¯èšåˆçš„é—®é¢˜, è€Œä¸ç”¨é‡å»ºç´¢å¼•
+     *
+     * æŒ‰skuIdåˆ†ç»„ï¼Œåœ¨ç»Ÿè®¡æ¯ä¸ªç»„å†…çš„æ€»é”€é‡
+     * ç”±äºskuIdå’Œcountåˆ›å»ºç´¢å¼•æ—¶ï¼Œè¢«è®¾ç½®æˆtextç±»å‹ï¼Œä¸èƒ½è¿›è¡Œèšåˆ, æœ‰ä¸¤ç§æ–¹æ¡ˆè§£å†³ï¼š
+     * 1ã€é‡å»ºç´¢å¼•
+     * 2ã€ä½¿ç”¨å’Œç´¢å¼•å­—æ®µåŒåçš„è¿è¡Œæ—¶å­—æ®µ, å› ä¸ºESæŸ¥è¯¢æ—¶ï¼Œé»˜è®¤å…ˆè¯•ç”¨runtimeå­—æ®µ,  è€Œè¿™ç§æ–¹æ¡ˆåˆæœ‰ä¸¤ç§æ“ä½œæ–¹å¼
+     *      aã€ä½¿ç”¨PUT _mapping APIå°†runtimeå­—æ®µå†™å…¥åˆ°mappingä¸­ï¼Œè¿™ç§æ–¹å¼å¯¹æ‰€æœ‰çš„æŸ¥è¯¢ç”Ÿæ•ˆ
+     *      bã€åœ¨æŸ¥è¯¢æ—¶è®¾ç½®runtime mapping, è¿™ç§æ–¹å¼ï¼Œåªå¯¹å•è¯æŸ¥è¯¢ç”Ÿæ•ˆ
      */
     @Test
-    public void testUpdateWithScript(){
+    public void testRuntimeFiledAgg() {
+        String indexName = "dynamic_query_runtime_index_0001";
+        TermsAggregationBuilder agg = AggregationBuilders.terms("countPerSku").field("skuId");
+        SumAggregationBuilder sum = AggregationBuilders.sum("saleCount").field("count");
+        agg.subAggregation(sum);
+        // è®¾ç½®æœ¬æ¬¡æŸ¥è¯¢ä¸­ç”Ÿæ•ˆçš„è¿è¡Œæ—¶æ˜ å°„
+        Map<String, Object> runtimeMapping = new HashMap<>();
+        JSONObject skuId = new JSONObject();
+        skuId.put("type", "keyword");
+        JSONObject count = new JSONObject();
+        count.put("type", "long");
+        runtimeMapping.put("skuId", skuId);
+        runtimeMapping.put("count", count);
+        List<? extends Terms.Bucket> buckets = ElasticsearchUtils.aggTerms(client, indexName, agg, null, runtimeMapping);
+        for (Terms.Bucket bucket : buckets) {
+            Aggregations aggregations = bucket.getAggregations();
+            Sum sumRes = aggregations.get("saleCount");
+            System.out.println("skuId:" + bucket.getKey() + " æ€»é”€é‡:" + sumRes.getValue());
+        }
+    }
+
+    /**
+     * è„šæœ¬æ›´æ–°,
+     */
+    @Test
+    public void testUpdateWithScript() {
         Map parma = new HashMap();
         parma.put("age", 1000);
-        // Èç¹ûÄêÁä =1000£¬ ÔòÉ¾³ıÎÄµµ
+        // å¦‚æœå¹´é¾„ =1000ï¼Œ åˆ™åˆ é™¤æ–‡æ¡£
         // String code = "if(ctx._source.age == params.age) {ctx.op = 'delete'} else {ctx.op='none'}";
         //
         parma.put("age", 150);
-        String code = "if(ctx._source.age > params.age) {ctx._source.description = 'ÄêÁä´óÓÚ150£¬ÏÅÈË'} else {ctx._source.description = 'Õı³£ÄêÁä'}";
+        String code = "if(ctx._source.age > params.age) {ctx._source.description = 'å¹´é¾„å¤§äº150ï¼Œå“äºº'} else {ctx._source.description = 'æ­£å¸¸å¹´é¾„'}";
         Script script = new Script(ScriptType.INLINE, Script.DEFAULT_SCRIPT_LANG, code, parma);
         ElasticsearchUtils.updatePartialDocumentByScript(client, "user", 1000, script, null);
     }
 
     /**
-     * ½Å±¾¸üĞÂ,
-     * µ±ÎÄµµ²»´æÔÚ£¬ÔòÓÃupsertµÄÄÚÈİ¸üĞÂÖµ
-     * Èç¹ûÎÄµµ´æÔÚ£¬ÊÔÍ¼¼ÆËãÒ»¸ö²»´æÔÚµÄÊôĞÔ£¬»á³öÏÖ¿ÕÖ¸Õë£¬upsertÒ²Ã»ÓÃ
-     * ±ÈÈç id 1001, ÄÚÈİ { "name":"³õÊ¼»¯Ò»¸öÖ»ÓĞnameµÄdoc" }, µ«ÊÇÊÔÍ¼¶ÔÒ»¸ö²»´æÔÚµÄageÊôĞÔÔö¼Ó 20£¬ Ôò»á±¨¿ÕÖ¸Õë
-     * ËùÒÔ½Å±¾¸üĞÂ£¬ÒªÃ´ÊÇ¸üĞÂÒ»¸öÒÑ¾­´æÔÚµÄÎÄµµµÄ´æÔÚµÄÖµ
-     *  ÒªÃ´¾ÍÊÇ¼ÆËãÒ»¸ö²»´æÔÚµÄÎÄµµ + upsert
+     * è„šæœ¬æ›´æ–°,
+     * å½“æ–‡æ¡£ä¸å­˜åœ¨ï¼Œåˆ™ç”¨upsertçš„å†…å®¹æ›´æ–°å€¼
+     * å¦‚æœæ–‡æ¡£å­˜åœ¨ï¼Œè¯•å›¾è®¡ç®—ä¸€ä¸ªä¸å­˜åœ¨çš„å±æ€§ï¼Œä¼šå‡ºç°ç©ºæŒ‡é’ˆï¼Œupsertä¹Ÿæ²¡ç”¨
+     * æ¯”å¦‚ id 1001, å†…å®¹ { "name":"åˆå§‹åŒ–ä¸€ä¸ªåªæœ‰nameçš„doc" }, ä½†æ˜¯è¯•å›¾å¯¹ä¸€ä¸ªä¸å­˜åœ¨çš„ageå±æ€§å¢åŠ  20ï¼Œ åˆ™ä¼šæŠ¥ç©ºæŒ‡é’ˆ
+     * æ‰€ä»¥è„šæœ¬æ›´æ–°ï¼Œè¦ä¹ˆæ˜¯æ›´æ–°ä¸€ä¸ªå·²ç»å­˜åœ¨çš„æ–‡æ¡£çš„å­˜åœ¨çš„å€¼
+     * è¦ä¹ˆå°±æ˜¯è®¡ç®—ä¸€ä¸ªä¸å­˜åœ¨çš„æ–‡æ¡£ + upsert
      */
     @Test
-    public void testUpdateWithScript2(){
+    public void testUpdateWithScript2() {
         Map parma = new HashMap();
         parma.put("age", 20);
-        // ¸øÎÄµµµÄÄêÁä¼ÓÉÏ20Ëê
+        // ç»™æ–‡æ¡£çš„å¹´é¾„åŠ ä¸Š20å²
         String code = "ctx._source.age += params.age";
         Script script = new Script(ScriptType.INLINE, Script.DEFAULT_SCRIPT_LANG, code, parma);
         Map upsert = new HashMap();
@@ -82,40 +143,39 @@ public class EsUtilsTest {
     }
 
 
-
     @Test
-    public void testAggs1(){
+    public void testAggs1() {
         TermsAggregationBuilder termsAggregationBuilder = AggregationBuilders.terms("monthGroup").field("createMonth");
         termsAggregationBuilder.subAggregation(AggregationBuilders.max("MaxCount").field("buyCount"));
         termsAggregationBuilder.subAggregation(AggregationBuilders.sum("SumCount").field("buyCount"));
         termsAggregationBuilder.subAggregation(AggregationBuilders.stats("StatCount").field("buyCount"));
-        List<? extends Terms.Bucket> buckets = ElasticsearchUtils.aggTerms(client, INDEX, termsAggregationBuilder);
+        List<? extends Terms.Bucket> buckets = ElasticsearchUtils.aggTerms(client, INDEX, termsAggregationBuilder, null);
         for (Terms.Bucket bucket : buckets) {
             System.out.println(bucket.getKey() + "----" + bucket.getDocCount());
             Max max = bucket.getAggregations().get("MaxCount");
             Sum sum = bucket.getAggregations().get("SumCount");
             Stats stats = bucket.getAggregations().get("StatCount");
-            System.out.println("×î´ó:" + max.getValue());
-            System.out.println("×Ü¼Æ:" + sum.getValue());
-            System.out.println(String.format("¶àÎ¬¶È:×î´ó:%s, ×îĞ¡:%s, Æ½¾ù:%s, ×ÜºÍ:%s, ¼ÆÊı:%s", stats.getMax(),
+            System.out.println("æœ€å¤§:" + max.getValue());
+            System.out.println("æ€»è®¡:" + sum.getValue());
+            System.out.println(String.format("å¤šç»´åº¦:æœ€å¤§:%s, æœ€å°:%s, å¹³å‡:%s, æ€»å’Œ:%s, è®¡æ•°:%s", stats.getMax(),
                     stats.getMin(), stats.getAvg(), stats.getSum(), stats.getCount()));
         }
     }
 
     /**
-     * Í³¼Æ2021-03ÔÂ×î´ó¹ºÂòÊı
+     * ç»Ÿè®¡2021-03æœˆæœ€å¤§è´­ä¹°æ•°
      */
     @Test
-    public void testAggs(){
+    public void testAggs() {
         MaxAggregationBuilder maxAggregationBuilder = AggregationBuilders.max("maxBuyCount").field("buyCount");
         TermQueryBuilder termQueryBuilder = QueryBuilders.termQuery("createMonth", "2021-03");
         Aggregations aggregations = ElasticsearchUtils.agg(client, INDEX, maxAggregationBuilder, termQueryBuilder);
         Max max = aggregations.get("maxBuyCount");
-        System.out.println("2021-03ÔÂ×î´ó¹ºÂòÊı:" + max.getValue());
+        System.out.println("2021-03æœˆæœ€å¤§è´­ä¹°æ•°:" + max.getValue());
     }
 
     @BeforeEach
-    public void setUp(){
+    public void setUp() {
         CredentialsProvider provider = new BasicCredentialsProvider();
         UsernamePasswordCredentials credentials = new UsernamePasswordCredentials("elastic", "Sephiroth");
         provider.setCredentials(AuthScope.ANY, credentials);
@@ -129,8 +189,8 @@ public class EsUtilsTest {
             @Override
             public RequestConfig.Builder customizeRequestConfig(
                     RequestConfig.Builder requestConfigBuilder) {
-                return requestConfigBuilder.setConnectTimeout(5000 * 1000) // Á¬½Ó³¬Ê±£¨Ä¬ÈÏÎª1Ãë£©
-                        .setSocketTimeout(6000 * 1000);// Ì×½Ó×Ö³¬Ê±£¨Ä¬ÈÏÎª30Ãë£©
+                return requestConfigBuilder.setConnectTimeout(5000 * 1000) // è¿æ¥è¶…æ—¶ï¼ˆé»˜è®¤ä¸º1ç§’ï¼‰
+                        .setSocketTimeout(6000 * 1000);// å¥—æ¥å­—è¶…æ—¶ï¼ˆé»˜è®¤ä¸º30ç§’ï¼‰
             }
         });
         client =
@@ -139,7 +199,7 @@ public class EsUtilsTest {
 
     @SneakyThrows
     @AfterEach
-    public void close(){
+    public void close() {
         client.close();
     }
 }
