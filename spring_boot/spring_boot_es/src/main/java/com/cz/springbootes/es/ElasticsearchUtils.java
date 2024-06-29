@@ -55,6 +55,8 @@ import org.elasticsearch.search.fetch.subphase.highlight.HighlightField;
 import org.elasticsearch.search.sort.FieldSortBuilder;
 import org.elasticsearch.search.sort.SortBuilder;
 import org.elasticsearch.search.sort.SortOrder;
+import org.elasticsearch.search.suggest.Suggest;
+import org.elasticsearch.search.suggest.SuggestBuilder;
 import org.springframework.util.CollectionUtils;
 
 import java.io.IOException;
@@ -1083,4 +1085,22 @@ public class ElasticsearchUtils {
         }
     }
 
+    public static Suggest suggest(RestHighLevelClient client, String index, SuggestBuilder suggest) {
+        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+        searchSourceBuilder.suggest(suggest);
+        // 设置超时时间为5s
+        searchSourceBuilder.timeout(new TimeValue(2000));
+
+        SearchRequest searchRequest = new SearchRequest();
+        searchRequest.indices(index);
+        searchRequest.source(searchSourceBuilder);
+
+        try {
+            SearchResponse search = client.search(searchRequest, RequestOptions.DEFAULT);
+            return search.getSuggest();
+        } catch (IOException e) {
+            log.error("构建查询失败", e);
+            throw new RuntimeException("search doc error");
+        }
+    }
 }

@@ -22,6 +22,10 @@ import org.elasticsearch.search.aggregations.Aggregations;
 import org.elasticsearch.search.aggregations.bucket.terms.Terms;
 import org.elasticsearch.search.aggregations.bucket.terms.TermsAggregationBuilder;
 import org.elasticsearch.search.aggregations.metrics.*;
+import org.elasticsearch.search.suggest.Suggest;
+import org.elasticsearch.search.suggest.SuggestBuilder;
+import org.elasticsearch.search.suggest.SuggestBuilders;
+import org.elasticsearch.search.suggest.completion.CompletionSuggestionBuilder;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -41,6 +45,23 @@ public class EsUtilsTest {
         Map map = new HashMap();
         map.put("description", "我是一个在成都的程序员!!");
         ElasticsearchUtils.updatePartialDocument(client, "user", 999, map);
+    }
+
+    @Test
+    public  void testSuggest(){
+        INDEX = "datatype_completion_index_0001";
+        String filedName = "searchWords";
+        String sugName = "swSug";
+        CompletionSuggestionBuilder suggest = SuggestBuilders.completionSuggestion(filedName).prefix("显示");
+        SuggestBuilder sb = new SuggestBuilder().addSuggestion(sugName, suggest);
+        Suggest suggestResults = ElasticsearchUtils.suggest(client, INDEX, sb);
+        Suggest.Suggestion<? extends Suggest.Suggestion.Entry<? extends Suggest.Suggestion.Entry.Option>> suggestion = suggestResults.getSuggestion(sugName);
+        for (Suggest.Suggestion.Entry<? extends Suggest.Suggestion.Entry.Option> sug : suggestion) {
+            sug.getOptions().forEach(i -> {
+                System.out.println("suggestAPI返回结果:" + i.getText().string());
+            });
+
+        }
     }
 
     /**
