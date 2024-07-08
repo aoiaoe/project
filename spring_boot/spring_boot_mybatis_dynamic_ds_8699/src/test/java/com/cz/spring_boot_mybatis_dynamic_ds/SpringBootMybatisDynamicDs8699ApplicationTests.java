@@ -16,6 +16,7 @@ class SpringBootMybatisDynamicDs8699ApplicationTests {
 
     @Autowired
     private TestJsonMapper testJsonMapper;
+
     @Test
     public void testSelectJson(){
         TestJson testJson = this.testJsonMapper.selectById11(1);
@@ -34,6 +35,5 @@ class SpringBootMybatisDynamicDs8699ApplicationTests {
         b.setPrice(331);
         testJson.setJsonString(b);
         this.testJsonMapper.insert(testJson);
-
     }
 }

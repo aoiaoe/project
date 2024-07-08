@@ -13,10 +13,30 @@ spring:
           username: nacos
           password: 123456
         ds2:
-          url: jdbc:mysql://tx-gd:4409/t?useUnicode=true&characterEncoding=utf8&autoReconnect=true&failOverReadOnly=false&useSSL=false
+          url: jdbc:mysql://tx-gd:4409/test?useUnicode=true&characterEncoding=utf8&autoReconnect=true&failOverReadOnly=false&useSSL=false
           driver-class-name: com.mysql.cj.jdbc.Driver
           username: nacos
           password: 123456
+  shardingsphere:
+    datasource:
+      names: shardds0,shardds1
+      shardds0:
+        type: com.zaxxer.hikari.HikariDataSource
+        jdbc-url: jdbc:mysql://tx-gd:4409/t?useUnicode=true&characterEncoding=utf8&autoReconnect=true&failOverReadOnly=false&useSSL=false
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        username: nacos
+        password: 123456
+      shardds1:
+        type: com.zaxxer.hikari.HikariDataSource
+        jdbc-url: jdbc:mysql://tx-gd:4409/test?useUnicode=true&characterEncoding=utf8&autoReconnect=true&failOverReadOnly=false&useSSL=false
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        username: nacos
+        password: 123456
+    props:
+      sql:
+        show: true
+    sharding:
+      broadcast-tables: user_broadcast_table
 #logging:
 #  level:
 #    root: debug
