@@ -18,7 +18,7 @@ import static java.util.concurrent.TimeUnit.SECONDS;
 public class CompletableFutureDemo {
 
     @Test
-    public void testThenAccept(){
+    public void testThenAccept() {
         CompletableFuture<String> call = call();
         log.info("1秒钟后获取结果");
         call.thenAccept(res -> {
@@ -27,7 +27,7 @@ public class CompletableFutureDemo {
         call.join();
     }
 
-    public CompletableFuture<String> call(){
+    public CompletableFuture<String> call() {
         return CompletableFuture.supplyAsync(() -> {
             try {
                 SECONDS.sleep(1);
@@ -91,7 +91,7 @@ public class CompletableFutureDemo {
                 },
                 () -> {
 
-                    int x = 1/0;
+//                    int x = 1 / 0;
                     try {
                         SECONDS.sleep(4);
                     } catch (Exception e) {
@@ -111,22 +111,26 @@ public class CompletableFutureDemo {
 
 
     public static ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(
-            3,50,5, TimeUnit.SECONDS,
+            3, 50, 5, TimeUnit.SECONDS,
             new LinkedBlockingDeque<>(10),
             Executors.defaultThreadFactory(),
             new ThreadPoolExecutor.AbortPolicy()
-    ) ;
+    );
 
     /**
      * Completable 父子任务 + 使用同一个线程池， 可能导致死锁
+     * 其实不只是Completable的问题，
+     * 死锁条件：异步任务+子任务+等待子任务完成+相同线程池
+     *
      * @throws Exception
      */
     @Test
     public void testDeadLock() throws Exception {
 
-        List<CompletableFuture<Void>> list = new ArrayList<>(0) ;
-        for(int i = 0 ; i < 3 ; i++) {
+        List<CompletableFuture<Void>> list = new ArrayList<>(0);
+        for (int i = 0; i < 3; i++) {
             // 2、线程池中就3个空闲线程，因为做了 sleep，所以 3个资源都给了父任务
+            // 死锁条件1: 异步任务
             CompletableFuture<Void> parentTask = CompletableFuture.runAsync(() -> {
                 try {
                     System.out.println("父任务执行了：" + Thread.currentThread().getName());
@@ -135,13 +139,16 @@ public class CompletableFutureDemo {
                     e.printStackTrace();
                 }
                 // 3、子任务在等待父任务释放资源，父任务在等待子任务执行完，死锁
+                // 死锁条件2：子任务
                 CompletableFuture<Void> childTask = CompletableFuture.runAsync(() -> {
                     System.out.println("子任务执行了：" + Thread.currentThread().getName());
                 }, threadPoolExecutor);
-                childTask.join() ;
+                // 死锁条件3：父任务等待子任务执行完成
+                childTask.join();
 
+                // 死锁条件4：父子异步任务使用相同线程池
             }, threadPoolExecutor);
-            list.add(parentTask) ;
+            list.add(parentTask);
         }
         // 1、开始创建3个异步任务并执行
         CompletableFuture.allOf(list.toArray(new CompletableFuture[0])).get();
