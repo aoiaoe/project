@@ -14,6 +14,7 @@ import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
+import org.elasticsearch.search.aggregations.Aggregations;
 import org.elasticsearch.search.aggregations.bucket.terms.Terms;
 import org.elasticsearch.search.aggregations.bucket.terms.TermsAggregationBuilder;
 import org.elasticsearch.search.aggregations.metrics.*;
@@ -66,7 +67,7 @@ public class ElasticSearchUtilsTest {
         agg.subAggregation(sumAggregationBuilder);
         MaxAggregationBuilder maxAggregationBuilder = AggregationBuilders.max("maxByCount").field("buyCount");
         agg.subAggregation(maxAggregationBuilder);
-        List<? extends Terms.Bucket> buckets = ElasticsearchUtils.aggregationDocument(client, jh_test, agg, null);
+        List<? extends Terms.Bucket> buckets = ElasticsearchUtils.aggTerms(client, jh_test, agg);
         for (Terms.Bucket bucket : buckets) {
             System.out.println(bucket.getClass());
             System.out.println(bucket.getKey() + "_" + bucket.getDocCount());
@@ -86,15 +87,11 @@ public class ElasticSearchUtilsTest {
     public void testAgg2(){
         SumAggregationBuilder sumAggregationBuilder = AggregationBuilders.sum("buyCountSum").field("buyCount");
         QueryBuilder queryBuilder = QueryBuilders.termQuery("createMonth", "2021-02");
-        List<? extends Terms.Bucket> buckets = ElasticsearchUtils.aggregationDocument(client, jh_test, sumAggregationBuilder, queryBuilder);
-        for (Terms.Bucket bucket : buckets) {
-            System.out.println(bucket.getClass());
-            System.out.println(bucket.getKey() + "_" + bucket.getDocCount());
-            // 需要强转为指定类型
-//            Sum sum = bucket.getAggregations().get("buyCountSum");
-//            System.out.println("buyCountSum: " + sum.getValue());
-            System.out.println("============");
-        }
+        // 使用非term的聚合统计
+        Aggregations aggregations = ElasticsearchUtils.agg(client, jh_test, sumAggregationBuilder, queryBuilder);
+        // 将聚合指标转换为指定的类型
+        Sum sum =  aggregations.get("buyCountSum");
+        System.out.println("2021-02月最大销量：" + sum.getValue());
     }
 
     @BeforeEach
@@ -106,6 +103,9 @@ public class ElasticSearchUtilsTest {
             basicCredentialsProvider.setCredentials(AuthScope.ANY, credentials);
             httpClientBuilder.setDefaultCredentialsProvider(basicCredentialsProvider);
             return httpClientBuilder;
+        }).setRequestConfigCallback(requestConfigBuilder -> {
+            return requestConfigBuilder.setConnectTimeout(5000 * 1000) // 连接超时（默认为1秒）
+                    .setSocketTimeout(6000 * 1000);// 套接字超时（默认为30秒）
         });
         client = new RestHighLevelClient(
                 builder
