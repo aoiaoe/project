@@ -43,9 +43,9 @@ public class HashMapCglibProxy<T> implements InvocationHandler {
         if (method != null && "resize".equals(method.getName())) {
             System.out.println("called resize");
         }
-        System.out.println("before...");
+//        System.out.println("before...");
         final Object invoke = method.invoke(target, objects);
-        System.out.println("agter...");
+//        System.out.println("after...");
         return invoke;
     }
 }
