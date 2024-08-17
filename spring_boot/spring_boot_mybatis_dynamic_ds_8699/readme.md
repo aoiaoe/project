@@ -49,3 +49,17 @@
     可以自行覆盖然后实例化到容器,实现自定义
     
 
+
+
+## 类型处理器
+    1、将数据库中json类型字段，或者varchar字段(json内容)映射到一个实体
+        在实体上使用@TableField注解，设置 typeHandler = JacksonTypeHandler.class 属性
+            但是注意，某些情况下需要和@TableName( autoResultMap = true)注解的autoResultMap配合使用
+            参考：TestJson.java
+            
+      如果是手写sql，想映射，则需要自己生成resultMap，设置typeHandler属性才可以
+      <resultMap id="base" type="com.cz.spring_boot_mybatis_dynamic_ds.entity.TestJson">
+          <id column="id" property="id"/>
+          <result property="jsonString" column="json_string" typeHandler="com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler"/>
+          <result property="jsonObj" column="json_obj" typeHandler="com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler"/>
+      </resultMap>

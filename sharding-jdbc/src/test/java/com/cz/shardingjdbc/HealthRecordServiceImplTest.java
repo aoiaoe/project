@@ -1,6 +1,10 @@
 package com.cz.shardingjdbc;
 
+import com.cz.shardingjdbc.entity.BroadTable;
+import com.cz.shardingjdbc.entity.HealthLevel;
 import com.cz.shardingjdbc.entity.User;
+import com.cz.shardingjdbc.mapper.BroadTableMapper;
+import com.cz.shardingjdbc.service.IHealthLevelService;
 import com.cz.shardingjdbc.service.IHealthRecordService;
 import com.cz.shardingjdbc.service.IUsersService;
 import org.junit.Test;
@@ -19,6 +23,10 @@ public class HealthRecordServiceImplTest {
     private IUsersService usersService;
     @Autowired
     private IHealthRecordService healthRecordService;
+    @Autowired
+    private IHealthLevelService healthLevelService;
+    @Autowired
+    private BroadTableMapper broadTableMapper;
 
     @Test
     public void testSaveRecord() {
@@ -27,7 +35,15 @@ public class HealthRecordServiceImplTest {
 
     @Test
     public void testProcessUsers() throws Exception {
-        usersService.processUsers(18);
+        usersService.processUsers(1);
+    }
+
+    @Test
+    public void insertBroadTable(){
+        BroadTable broadTable = new BroadTable();
+        broadTable.setId(100L);
+        broadTable.setName("测试广播表插入20240708-16:40");
+        broadTableMapper.insert(broadTable);
     }
 
     @Test

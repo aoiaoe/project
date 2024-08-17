@@ -7,15 +7,15 @@ spring:
       names: ds0,ds1
       ds0:
         type: com.alibaba.druid.pool.DruidDataSource
+        url: jdbc:mysql://tx-gd:4409/t?useUnicode=true&characterEncoding=utf8&autoReconnect=true&failOverReadOnly=false&useSSL=false
         driver-class-name: com.mysql.jdbc.Driver
-        url: jdbc:mysql://localhost:3306/sharding_1?useUnicode=true&characterEncoding=utf8&autoReconnect=true&rewriteBatchedStatements=TRUE
-        username: root
+        username: nacos
         password: 123456
       ds1:
         type: com.alibaba.druid.pool.DruidDataSource
+        url: jdbc:mysql://tx-gd:4409/test?useUnicode=true&characterEncoding=utf8&autoReconnect=true&failOverReadOnly=false&useSSL=false
         driver-class-name: com.mysql.jdbc.Driver
-        url: jdbc:mysql://localhost:3306/sharding_2?useUnicode=true&characterEncoding=utf8&autoReconnect=true&rewriteBatchedStatements=TRUE
-        username: root
+        username: nacos
         password: 123456
     props:
       sql:
@@ -29,15 +29,15 @@ spring:
       broadcast-tables: health_level
       tables:
         user:
-          actual-data-nodes: ds$->{0..1}.user$->{0..2}
+          actual-data-nodes: ds$->{0..1}.user
           database-strategy:
             inline:
               sharding-column: user_id
               algorithm-expression: ds$->{user_id % 2}
-          table-strategy:
-            inline:
-              sharding-column: user_id
-              algorithm-expression: user$->{user_id % 3}
+#          table-strategy:
+#            inline:
+#              sharding-column: user_id
+#              algorithm-expression: user$->{user_id % 3}
         health_record:
           actual-data-nodes: ds$->{0..1}.health_record
           database-strategy:

@@ -14,7 +14,15 @@ import java.util.concurrent.ConcurrentHashMap;
 public class HashMapDemo {
 
     public static void main(String[] args) throws Exception {
-        testConcurrentHash();
+        int x = -1 << 29;
+        System.out.println(Integer.toBinaryString(-1));
+        System.out.println(Integer.toBinaryString(1));
+        System.out.println(Integer.toBinaryString(-5));
+        System.out.println(Integer.toBinaryString(5));
+        System.out.println(Integer.toBinaryString(x));
+        Map map = new HashMap(6);
+        map.put("1", "1");
+//        testHash();
     }
 
     /**
@@ -23,7 +31,7 @@ public class HashMapDemo {
      * 2、退树化,如果树上元素小于<=6,则会退树化为链表
      */
     public static void testHash() throws Exception {
-        HashMap<Integer, Integer> map = new HashMap<>(16, 0.5f);
+        HashMap<Integer, Integer> map = new HashMap<>(3);
         List<Integer> integers = new ArrayList<>();
         integers.add(1);
         integers.add(17);
@@ -39,7 +47,9 @@ public class HashMapDemo {
         final Class<? extends HashMap> aClass = map.getClass();
         Field f = aClass.getDeclaredField("table");
         f.setAccessible(true);
-        for (Integer integer : integers) {
+//        for (Integer integer : integers) {
+        for (int integer = 0; integer < 20; integer++) {
+
             map.put(integer, integer);
             Object[] o = (Object[]) f.get(map);
             System.out.println(integer + "\t" + o.length);
@@ -90,6 +100,12 @@ public class HashMapDemo {
         System.out.println(treeMap);
     }
 
+    /**
+     * 本意是代理hashmap方法，但无用，map内部方法不走代理
+     * 要想实现，需要使用agent或者静态代理从字节码方面去实现
+     * @throws NoSuchFieldException
+     * @throws IllegalAccessException
+     */
     public static void proxy() throws NoSuchFieldException, IllegalAccessException {
         HashMap<Integer, Integer> map = new HashMap<>(16, 0.5f);
         HashMapCglibProxy<HashMap<Integer, Integer>> proxy = new HashMapCglibProxy(map);
@@ -119,9 +135,9 @@ public class HashMapDemo {
 //            System.out.println((h = integer.hashCode()) ^ (h >>> 16));
         }
         System.out.println("==============");
-        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
-            System.out.println(entry.getKey() + "\t" + entry.getValue());
-        }
+//        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+//            System.out.println(entry.getKey() + "\t" + entry.getValue());
+//        }
 
     }
 

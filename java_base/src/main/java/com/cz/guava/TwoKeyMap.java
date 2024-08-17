@@ -12,6 +12,8 @@ public class TwoKeyMap {
         HashBasedTable<Object, Object, Object> testTable = HashBasedTable.create();
         testTable.put("cz", "jzm", 20);
         testTable.put("wxf", "fwe", 20);
+        testTable.put("cz", "cz", 22);
+        System.out.println(testTable.row("cz").keySet());
         System.out.println(testTable.row("cz").values());
     }
 }

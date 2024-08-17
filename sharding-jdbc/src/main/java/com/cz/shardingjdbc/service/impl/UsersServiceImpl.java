@@ -35,7 +35,7 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, User> implements 
 
     private List<Long> insertUsers(int num) {
         List<Long> result = new ArrayList<>(10);
-        for (Long i = 1L; i <= num; i++) {
+        for (Long i = Long.valueOf(num); i < num + 10; i++) {
             User user = new User();
             user.setUserId(i);
             user.setUserName("user_" + i);

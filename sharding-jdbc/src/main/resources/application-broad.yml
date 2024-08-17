@@ -1,0 +1,46 @@
+server:
+  port: 8888
+
+spring:
+  shardingsphere:
+    datasource:
+      names: ds0,ds1,ds2
+      ds0:
+        type: com.alibaba.druid.pool.DruidDataSource
+        url: jdbc:mysql://tx-gd:4409/t?useUnicode=true&characterEncoding=utf8&autoReconnect=true&failOverReadOnly=false&useSSL=false
+        driver-class-name: com.mysql.jdbc.Driver
+        username: nacos
+        password: 123456
+      ds1:
+        type: com.alibaba.druid.pool.DruidDataSource
+        url: jdbc:mysql://tx-gd:4409/test?useUnicode=true&characterEncoding=utf8&autoReconnect=true&failOverReadOnly=false&useSSL=false
+        driver-class-name: com.mysql.jdbc.Driver
+        username: nacos
+        password: 123456
+      ds2:
+        type: com.alibaba.druid.pool.DruidDataSource
+        url: jdbc:mysql://tx-gd:4409/ice?useUnicode=true&characterEncoding=utf8&autoReconnect=true&failOverReadOnly=false&useSSL=false
+        driver-class-name: com.mysql.jdbc.Driver
+        username: nacos
+        password: 123456
+    props:
+      sql:
+        show: true
+    # 想通过使用sharding jdbc的广播表功能实现多数据写入
+    # 但是可能还需要整合mysql多数据源
+    # 初步设想是，系统中存在数据源为 定义的N个数据源 + 1个sharding jdbc数据源 = N+1个数据源
+    # 在需要广播表的地方使用@DS切换为sharding jdbc数据源
+    # 其他地方则根据需求切换数据源
+    sharding:
+      default-database-strategy:
+        inline:
+          sharding-column: id
+          algorithm-expression: ds0
+      broadcast-tables:
+        - health_level
+        - broad_table_test
+
+mybatis-plus:
+  mapper-locations: classpath:com/cz/shardingjdbc/mapper/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

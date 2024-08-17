@@ -8,16 +8,41 @@ spring:
       strict: false
       datasource:
         ds1:
-          url: jdbc:mysql://localhost:3306/ds1
+          url: jdbc:mysql://tx-gd:4409/t?useUnicode=true&characterEncoding=utf8&autoReconnect=true&failOverReadOnly=false&useSSL=false
           driver-class-name: com.mysql.cj.jdbc.Driver
-          username: root
+          username: nacos
           password: 123456
         ds2:
-          url: jdbc:mysql://localhost:3306/ds2
+          url: jdbc:mysql://tx-gd:4409/test?useUnicode=true&characterEncoding=utf8&autoReconnect=true&failOverReadOnly=false&useSSL=false
           driver-class-name: com.mysql.cj.jdbc.Driver
-          username: root
+          username: nacos
           password: 123456
-logging:
-  level:
-    root: debug
+  shardingsphere:
+    datasource:
+      names: shardds0,shardds1
+      shardds0:
+        type: com.zaxxer.hikari.HikariDataSource
+        jdbc-url: jdbc:mysql://tx-gd:4409/t?useUnicode=true&characterEncoding=utf8&autoReconnect=true&failOverReadOnly=false&useSSL=false
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        username: nacos
+        password: 123456
+      shardds1:
+        type: com.zaxxer.hikari.HikariDataSource
+        jdbc-url: jdbc:mysql://tx-gd:4409/test?useUnicode=true&characterEncoding=utf8&autoReconnect=true&failOverReadOnly=false&useSSL=false
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        username: nacos
+        password: 123456
+    props:
+      sql:
+        show: true
+    sharding:
+      broadcast-tables: user_broadcast_table
+#logging:
+#  level:
+#    root: debug
 
+mybatis-plus:
+  type-handlers-package: com.cz.spring_boot_mybatis_dynamic_ds.typehandler
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
