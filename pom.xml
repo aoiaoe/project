@@ -136,9 +136,9 @@
 
 
 
-        <module>spring_cloud/spring_cloud_reactive</module>
-        <module>spring_cloud/spring_cloud_reactive/order-service</module>
-        <module>spring_cloud/spring_cloud_reactive/customer-service</module>
+        <module>spring_cloud/spring_cloud_webflux</module>
+        <module>spring_cloud/spring_cloud_webflux/order-service</module>
+        <module>spring_cloud/spring_cloud_webflux/customer-service</module>
         <module>customize_tomcat</module>
         <module>spring_boot/spring_boot_netty/imclient</module>
         <module>spring_boot/spring_boot_netty/imserver</module>
