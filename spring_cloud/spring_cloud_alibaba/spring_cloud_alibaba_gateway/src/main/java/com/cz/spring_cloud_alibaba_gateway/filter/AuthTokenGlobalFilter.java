@@ -1,6 +1,5 @@
 package com.cz.spring_cloud_alibaba_gateway.filter;
 
-import com.cz.spring_cloud_alibaba.constants.CommonConstants;
 import com.cz.spring_cloud_alibaba.utils.JwtUtils;
 import com.cz.spring_cloud_alibaba_gateway.config.AuthProperties;
 import com.google.common.collect.Lists;
@@ -8,7 +7,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.stereotype.Component;
@@ -55,7 +53,7 @@ public class AuthTokenGlobalFilter implements GlobalFilter, AbstractFilteredHand
             return chain.filter(exchange);
         }
         // 如果没有token则返回响应信息
-        // 两种方式: 1：直接用response写会
+        // 两种方式: 1：直接用response写回
 //        return filteredRequest(response, HttpStatus.UNAUTHORIZED, "TOKEN验证失败");
         // 2：抛出异常信息，然后由错误处理器进行错误信息写会
         throw new RuntimeException("TOKEN验证失败");
