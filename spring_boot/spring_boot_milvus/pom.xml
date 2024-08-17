@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.cz</groupId>
-    <artifactId>sping_boot_milvus</artifactId>
+    <artifactId>spring_boot_milvus</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
     <name>spring_boot_milvus</name>
