@@ -6,8 +6,8 @@ spring:
     name: sb_rabbitmq
   rabbitmq:
     virtual-host: /
-    host: 106.53.96.154
-    port: 5673
+    host: tx-gd
+    port: 5672
     username: admin
     password: admin
     # 生产者确认
@@ -24,10 +24,10 @@ spring:
         acknowledge-mode: manual
         default-requeue-rejected: true # 重试超过最大次数之后是否拒绝
         retry:
-          enabled: true # 开启重试
-          max-attempts: 5 # 发送失败最多重试5次
+          enabled: false # 开启重试
+          max-attempts: 3 # 发送失败最多重试5次
           initial-interval: 500ms # 重试间隔
-#        prefetch: 5
+        prefetch: 1
 
 
 
