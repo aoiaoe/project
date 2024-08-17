@@ -41,6 +41,7 @@
         <module>spring_boot/spring_boot_https_6900</module>
         <module>spring_boot/spring-boot-neo4j</module>
         <module>spring_boot/spring_boot_mq/spring_boot_kafka</module>
+        <module>spring_boot/spring_boot_milvus</module>
         <module>spring_boot/spring_boot_mix</module>
         <module>spring_boot/spring_boot_mybatis_dynamic_ds_8699</module>
         <module>spring_boot/spring_boot_mybatis_source_code_8600</module>

@@ -7,7 +7,6 @@
         <artifactId>spring_cloud</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <groupId>com.cz</groupId>
     <artifactId>spring_cloud_oauth2_server</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>spring_cloud_oauth2_server</name>
