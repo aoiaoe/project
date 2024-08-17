@@ -16,7 +16,7 @@ import java.io.IOException;
 @Configuration
 public class MyRedissonConfig {
 
-    public static final String ADDR = "redis://121.4.79.86:17777";
+    public static final String ADDR = "redis://tx-sh:17777";
 
     @Bean(destroyMethod="shutdown")
     RedissonClient redisson() throws IOException {

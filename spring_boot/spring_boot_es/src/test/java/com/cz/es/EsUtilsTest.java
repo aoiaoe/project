@@ -200,7 +200,7 @@ public class EsUtilsTest {
         CredentialsProvider provider = new BasicCredentialsProvider();
         UsernamePasswordCredentials credentials = new UsernamePasswordCredentials("elastic", "Sephiroth");
         provider.setCredentials(AuthScope.ANY, credentials);
-        RestClientBuilder builder = RestClient.builder(new HttpHost("121.4.79.86", 9200));
+        RestClientBuilder builder = RestClient.builder(new HttpHost("tx-sh", 9200));
         builder.setHttpClientConfigCallback(new RestClientBuilder.HttpClientConfigCallback() {
             public HttpAsyncClientBuilder customizeHttpClient(HttpAsyncClientBuilder httpClientBuilder) {
                 httpClientBuilder.disableAuthCaching();

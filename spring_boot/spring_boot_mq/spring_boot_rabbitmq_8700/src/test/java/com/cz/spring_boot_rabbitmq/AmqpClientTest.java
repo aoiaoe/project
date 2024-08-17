@@ -22,7 +22,7 @@ public class AmqpClientTest {
     public void testAmqpClient() throws Exception {
 
         ConnectionFactory factory = new ConnectionFactory();
-        factory.setHost("106.53.96.154");
+        factory.setHost("tx-gd");
         factory.setPort(5673);
         factory.setVirtualHost("/");
         factory.setUsername("admin");

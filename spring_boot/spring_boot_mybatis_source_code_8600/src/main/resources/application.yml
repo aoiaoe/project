@@ -5,7 +5,7 @@ spring:
   application:
     name: mybatis
   datasource:
-    url: jdbc:mysql://106.53.96.154:4409/test?useUnicode=true&amp;characeterEncoding=utf-8&amp;serverTimezone=UTC&amp;useSSL=false
+    url: jdbc:mysql://tx-gd:4409/test?useUnicode=true&amp;characeterEncoding=utf-8&amp;serverTimezone=UTC&amp;useSSL=false
     driver-class-name: com.mysql.jdbc.Driver
     username: nacos
     password: 123456

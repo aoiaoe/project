@@ -65,7 +65,7 @@ class LearnNettyApplicationTests {
                                         }
                                     });
                         }
-                    }).connect("106.53.96.154", 6479)
+                    }).connect("tx-gd", 6479)
                     .sync();
             ChannelFuture sync = channelFuture.channel().closeFuture().sync();
             sync.addListener(new GenericFutureListener<Future<? super Void>>() {
