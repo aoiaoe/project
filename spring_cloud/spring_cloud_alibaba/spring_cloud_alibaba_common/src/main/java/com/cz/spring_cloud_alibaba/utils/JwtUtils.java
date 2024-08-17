@@ -1,5 +1,6 @@
 package com.cz.spring_cloud_alibaba.utils;
 
+import cn.hutool.core.codec.Base64Decoder;
 import com.alibaba.fastjson.JSON;
 import com.cz.spring_cloud_alibaba.constants.CommonConstants;
 import com.cz.spring_cloud_alibaba.constants.JwtConstants;
@@ -9,17 +10,12 @@ import com.cz.spring_cloud_alibaba.exception.BizException;
 import io.jsonwebtoken.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.context.annotation.Bean;
-import sun.misc.BASE64Decoder;
 
-import java.io.IOException;
 import java.security.*;
-import java.security.spec.InvalidKeySpecException;
-import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
-import java.sql.Date;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.Date;
 
 /**
  * @author jzm
@@ -140,14 +136,14 @@ public class JwtUtils {
     }
 
     public static PublicKey publicKey(String key) throws Exception{
-        X509EncodedKeySpec pubSpec = new X509EncodedKeySpec(new BASE64Decoder().decodeBuffer(CommonConstants.PUB_KEY));
+        X509EncodedKeySpec pubSpec = new X509EncodedKeySpec(Base64Decoder.decode(CommonConstants.PUB_KEY));
         KeyFactory keyFactory = KeyFactory.getInstance("RSA");
         return keyFactory.generatePublic(pubSpec);
     }
 
     public static void main(String[] args) throws Exception {
         String token = "eyJhbGciOiJSUzI1NiJ9.eyJqd3RfdXNlciI6IntcImlkXCI6MSxcIm5hbWVcIjpcImp6bVwifSIsImV4cCI6MTY2NTMxNzkzMX0.HYVQDOD1TbXtcOdFXnbOScS8JUOVW-y4kQ18qqmzBlaG7mYt5p8ds0pvrfSM66iFegaj9ZsTXnIoaVOOKU9_rjHBcJqOIecCGMzRIoJS7Bqp_yWUCCXANrsF9_nlTeNaPYREMH0fXG3NoT-N1q-6wzjaFtgdpuxW563adGxKEwXTrt_21D4eH7UzLkKZBvBJiOoMz2hbgr9ZUqhaln7a7wVngP7YCIWyl2Fb0rD7wJ3ifQprJ-NcKNRdLTjQCaWb2fFngq5yRHYoSvbqZmvaTwFrUOrwadQhP1QhP5d3BqHtTGA92HQ4qOo0wwC3MfpmpW7h_an2VbW-KBpzAL4QSA";
-        X509EncodedKeySpec pubSpec = new X509EncodedKeySpec(new BASE64Decoder().decodeBuffer(CommonConstants.PUB_KEY));
+        X509EncodedKeySpec pubSpec = new X509EncodedKeySpec(Base64Decoder.decode(CommonConstants.PUB_KEY));
         KeyFactory keyFactory = KeyFactory.getInstance("RSA");
         PublicKey publicKey = keyFactory.generatePublic(pubSpec);
         System.out.println(verify(token, publicKey));
