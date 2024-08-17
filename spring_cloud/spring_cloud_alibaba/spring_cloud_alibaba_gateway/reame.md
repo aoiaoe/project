@@ -22,11 +22,43 @@
     使用场景: 将所有异常以json的方式对客户端友好提示
     参考: JsonCustomizeErrorHandler.java
 
-### 动态路由
+### 动态路由-- 自定义
     参考：DynamicRouteServiceByNacos.java
     整合nacos，使用nacos保存路由配置，项目启动后，启动一个NacosConfigServer去监听指定的配置
     当在nacos中修改配置之后，会通知到监听的服务，服务拿到修改后的新值之后，
-    通过routeDefinitionWriter就可以更新路由配置信息
+    通过 routeDefinitionWriter 就可以更新路由配置信息
+
+    // 以下是路由配置示例, 内容为 RouteDefinition 对象列表: 
+	[{
+		"id": "nacos-config-sentinel-order",
+		"predicates": [
+			{
+				"name": "Path",
+				"args": {
+					"pattern": "/gw/order/**"
+				}
+			}
+		],
+		"uri": "lb://nacos-config-sentinel-order",
+		"filters": [
+			{
+				"name": "StripPrefix",
+				"args": {
+					"parts": 2
+				}
+			},{
+				"name": "HeaderToken",
+				"args": {
+					"header": "gw"
+				}
+			}
+		],
+		"order": 1
+	}]
+
+    PS: 直接将路由配置在网关的配置文件中，在nacos中修改，也可以做到动态配置
+    这种方式适合，在大公司，基于nacos单独开发路由配置功能
+
     
 ### 集成sleuth实现日志链路追踪
     sleuth非倾入性，使用ThreadLocal保存上下文，而spring cloud gateway由于使用异步框架，
@@ -129,7 +161,7 @@
     小坑: 应用集成sentinel之后会通过类  SimpleHttpHeartbeatSender 定时向dashboard发送心跳，
          心跳包中会带着应用类型(csp.sentinel.app.type).  如果是网关类型，dashboard中会增加一个【API管理】菜单
          虽然在上面【 gateway整合sentinel依赖】的依赖包中，SentinelSCGAutoConfiguration 类中initAppType()方法会增加系统变量(csp.sentinel.app.type=11)
-         但是，此类自动注入的时机 后于 SimpleHttpHeartbeatSender类的初始化, 导致 SimpleHttpHeartbeatSender发送心跳包中应用类型(csp.sentinel.app.type=0)
+         但是，此类自动注入的时机 后于 SimpleHttpHeartbeatSender类的初始化, 导致 SimpleHttpHeartbeatSender 发送心跳包中应用类型(csp.sentinel.app.type=0)
          从而dashboard中的【API管理】菜单显示不出来
          解决方案:
             启动类中main方法第一行添加 System.setProperty(SentinelConfig.APP_TYPE_PROP_KEY, "1"); 将此值写入到系统变量， SimpleHttpHeartbeatSender初始化时就可以获取到应用类型
@@ -142,9 +174,9 @@
     
     如果在配置文件中，配置了spring.cloud.sentinel.eager=true, 则应用启动之后，
     自动装配类 SentinelAutoConfiguration 的init()方法最后会去用spi初始化 SimpleHttpHeartbeatSender 用于向dashboard发送心跳包
-    心跳包里面会带上一个spring.cloud.sentinel.transport.port(默认8719)指定的一个serverSocket的端口, 并启动一个serverSocket, 用于接收dashboard的请求
-    应用会定时向dashboard发送心跳，维持状态
-    然后dashboard就会向serverSocket发送一系列的请求， 
+    心跳包里面会带上一个spring.cloud.sentinel.transport.port(默认8719)指定的一个serverSocket的端口, 应用会定时向dashboard发送心跳，维持状态
+    并在 SimpleHttpCommandCenter 中启动一个serverSocket, 用于接收dashboard的请求
+    然后dashboard就可以向serverSocket发送一系列的请求， 
         比如/metrix                          (应用状态)
         /gateway/getApiDefinition           (获取api规则用于页面展示)
         /gateway/updateApiDefinition        (在dashboard修改限流规则之后，推送给应用)

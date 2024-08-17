@@ -16,6 +16,7 @@ import com.alibaba.csp.sentinel.slots.block.RuleConstant;
 import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.ObjectProvider;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -61,7 +62,7 @@ public class MySentinelGatewayConfiguration {
      */
     @Bean
     @Order(Ordered.HIGHEST_PRECEDENCE)
-    public SentinelGatewayBlockExceptionHandler sentinelGatewayBlockExceptionHandler(JsonCustomizeErrorHandler jsonCustomizeErrorHandler) {
+    public SentinelGatewayBlockExceptionHandler sentinelGatewayBlockExceptionHandler(@Autowired(required = false) JsonCustomizeErrorHandler jsonCustomizeErrorHandler) {
         // Register the block exception handler for Spring Cloud Gateway.
         return new SentinelGatewayBlockExceptionHandler(viewResolvers, serverCodecConfigurer){
             @Override
@@ -87,9 +88,9 @@ public class MySentinelGatewayConfiguration {
     public void init() {
         log.info("----------------------------------------------");
 //        this.initRouteIdFlowRUleHardCodeRules();
-        this.initApiGroupHardCodeRules();
+//        this.initApiGroupHardCodeRules();
 
-        this.customizeBlockHandler();
+//        this.customizeBlockHandler();
         log.info("----------------------------------------------");
     }
 
