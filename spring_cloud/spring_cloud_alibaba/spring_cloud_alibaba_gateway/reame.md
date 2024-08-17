@@ -164,7 +164,7 @@
          但是，此类自动注入的时机 后于 SimpleHttpHeartbeatSender类的初始化, 导致 SimpleHttpHeartbeatSender 发送心跳包中应用类型(csp.sentinel.app.type=0)
          从而dashboard中的【API管理】菜单显示不出来
          解决方案:
-            启动类中main方法第一行添加 System.setProperty(SentinelConfig.APP_TYPE_PROP_KEY, "1"); 将此值写入到系统变量， SimpleHttpHeartbeatSender初始化时就可以获取到应用类型
+            启动类中main方法第一行添加 System.setProperty(SentinelConfig.APP_TYPE_PROP_KEY, "11"); 将此值写入到系统变量， SimpleHttpHeartbeatSender初始化时就可以获取到应用类型
 
 
 
