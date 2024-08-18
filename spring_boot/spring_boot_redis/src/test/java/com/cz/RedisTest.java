@@ -47,17 +47,14 @@ public class RedisTest {
         StopWatch stopWatch = new StopWatch();
         List<Map> list = new ArrayList<>();
         stopWatch.start();
-        this.redisTemplate.executePipelined(new RedisCallback<Object>() {
-            @Override
-            public Object doInRedis(RedisConnection connection) throws DataAccessException {
-                for (int i = 0; i < 5; i++) {
-                    byte[] key = (COUPONS_PIPELINE + i).getBytes(StandardCharsets.UTF_8);
-                    Map<byte[], byte[]> map = connection.hGetAll(key);
-                    System.out.println(map);
-                    list.add(map);
-                }
-                return null;
+        this.redisTemplate.executePipelined((RedisCallback<Object>) connection -> {
+            for (int i = 0; i < 5; i++) {
+                byte[] key = (COUPONS_PIPELINE + i).getBytes(StandardCharsets.UTF_8);
+                Map<byte[], byte[]> map = connection.hGetAll(key);
+                System.out.println(map);
+                list.add(map);
             }
+            return null;
         });
         list.forEach(e -> System.out.println(e));
         stopWatch.stop();

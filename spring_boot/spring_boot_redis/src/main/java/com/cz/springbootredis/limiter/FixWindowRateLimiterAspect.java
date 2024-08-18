@@ -1,5 +1,6 @@
-package com.cz.springbootredis.config;
+package com.cz.springbootredis.limiter;
 
+import com.cz.springbootredis.limiter.FixWindowRateLimiter;
 import com.cz.springbootredis.enums.LimitType;
 import com.cz.springbootredis.exception.ServiceException;
 import com.cz.springbootredis.utils.IPUtils;
@@ -21,6 +22,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
+ * 固定窗口
  * 首先获取到注解中的 key、time 以及 count 三个参数。
  * 获取一个组合的 key，所谓的组合的 key，就是在注解的 key 属性基础上，再加上方法的完整路径，如果是 IP 模式的话，就再加上 IP 地址。以 IP 模式为例，最终生成的 key 类似这样：rate_limit:127.0.0.1-org.javaboy.ratelimiter.controller.HelloController-hello（如果不是 IP 模式，那么生成的 key 中就不包含 IP 地址）。
  * 将生成的 key 放到集合中。
@@ -29,38 +31,35 @@ import java.util.List;
  */
 @Aspect
 @Component
-public class RateLimiterAspect {
-    private static final Logger log = LoggerFactory.getLogger(RateLimiterAspect.class);
+public class FixWindowRateLimiterAspect {
+    private static final Logger log = LoggerFactory.getLogger(FixWindowRateLimiterAspect.class);
 
     @Autowired
     private RedisTemplate<Object, Object> redisTemplate;
 
     @Autowired
-    private RedisScript<Long> limitScript;
+    private RedisScript<Long> fixWindowLimitScript;
 
     @Before("@annotation(rateLimiter)")
-    public void doBefore(JoinPoint point, RateLimiter rateLimiter) throws Throwable {
-        String key = rateLimiter.key();
+    public void doBefore(JoinPoint point, FixWindowRateLimiter rateLimiter) throws Throwable {
         int time = rateLimiter.time();
         int count = rateLimiter.count();
 
         String combineKey = getCombineKey(rateLimiter, point);
         List<Object> keys = Collections.singletonList(combineKey);
         try {
-            Long number = redisTemplate.execute(limitScript, keys, count, time);
+            Long number = redisTemplate.execute(fixWindowLimitScript, keys, count, time);
             if (number==null || number.intValue() > count) {
                 throw new ServiceException("访问过于频繁，请稍候再试");
             }
             log.info("限制请求'{}',当前请求'{}',缓存key'{}'", count, number.intValue(), combineKey);
-        } catch (ServiceException e) {
-            throw e;
         } catch (Exception e) {
             throw new RuntimeException("服务器限流异常，请稍候再试");
         }
     }
 
-    public String getCombineKey(RateLimiter rateLimiter, JoinPoint point) {
-        StringBuffer stringBuffer = new StringBuffer(rateLimiter.key());
+    public String getCombineKey(FixWindowRateLimiter rateLimiter, JoinPoint point) {
+        StringBuilder stringBuffer = new StringBuilder(rateLimiter.key());
         if (rateLimiter.limitType() == LimitType.IP) {
             stringBuffer.append(IPUtils.getIpAddr(((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest())).append("-");
         }

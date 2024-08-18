@@ -1,8 +1,6 @@
-package com.cz.springbootredis.service.anno;
+package com.cz.springbootredis.limiter;
 
-import org.aopalliance.intercept.Joinpoint;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
@@ -14,11 +12,8 @@ import org.springframework.data.redis.core.script.RedisScript;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-import org.springframework.web.context.request.ServletWebRequest;
 
 import java.lang.reflect.Method;
-import java.net.Inet4Address;
-import java.net.InetAddress;
 import java.util.Arrays;
 import java.util.UUID;
 
@@ -47,7 +42,7 @@ public class SlideWindowRateLimitAspect {
     @Autowired
     private RedisTemplate<Object, Object> redisTemplate;
 
-    @Pointcut(value = "@annotation(com.cz.springbootredis.service.anno.SlideWindowRateLimit)")
+    @Pointcut(value = "@annotation(com.cz.springbootredis.limiter.SlideWindowRateLimit)")
     public void pointCut(){}
 
     @Around("pointCut()")

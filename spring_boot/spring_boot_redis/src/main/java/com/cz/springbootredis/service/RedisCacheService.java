@@ -1,4 +1,4 @@
-package com.cz.springbootredis;
+package com.cz.springbootredis.service;
 
 import com.cz.springbootredis.entity.CacheObj;
 import com.cz.springbootredis.entity.CacheObjHolder;
