@@ -1,0 +1,15 @@
+server:
+  port: 9281
+
+spring:
+  application:
+    name: spring-boot-job
+xxl:
+  admin-address: http://docker203:11787/xxl-job-admin
+  token: default_token
+  app-name: xxldemo
+  log-path: ./xxl_log1
+#  address: '' # 执行器的ip地址, xxl服务器需要通过这个address下发任务, 优先使用该配置作为注册地址，为
+    # 空时使用内嵌服务 ”IP:PORT“ 作为注册地址。从而更灵活的支持容器类型执行器动态IP和动态映射端口问题。
+  ip: 192.168.18.10 # 执行器的ip地址, xxl服务器需要通过这个socket下发任务
+  port: 18739 # 执行器的端口, 默认9999
