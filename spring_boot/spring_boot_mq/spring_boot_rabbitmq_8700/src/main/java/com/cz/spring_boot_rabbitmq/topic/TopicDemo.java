@@ -6,6 +6,7 @@ import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -13,6 +14,9 @@ import java.util.concurrent.TimeUnit;
 @Component
 public class TopicDemo {
 
+    // 下面这个策略不行
+    // 虽然requeue，但是只是给rabbitmq发送一个指令，rabbitmq内部将该消息重新入队，而不是将修改过属性的消息发送给rabbitmq
+    // 所以如果想实现，应该修改了消息属性，再发将消息送给rabbitmq
     @RabbitListener(queues = "topicQueue", concurrency = "2", containerFactory = "containerFactory")
     public void onMessage(Message message, Channel channel) throws Exception {
         TimeUnit.SECONDS.sleep(1);
@@ -26,7 +30,8 @@ public class TopicDemo {
                 channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
                 return;
             }
-            headers.put("retry", r);
+            message.getMessageProperties().setHeader("retry", r);
+//            headers.put("retry", r);
             log.info("回退,收到消息:{}, headers:{}", msg, headers);
             channel.basicNack(message.getMessageProperties().getDeliveryTag(), false, true);
             return;
