@@ -8,19 +8,19 @@ spring:
 #        type: com.alibaba.druid.pool.DruidDataSource
         type: com.zaxxer.hikari.HikariDataSource
         driver-class-name: com.mysql.jdbc.Driver
-        url: jdbc:mysql://106.53.96.154:4409/sharding0?useUnicode=true&characterEncoding=utf8&autoReconnect=true&rewriteBatchedStatements=TRUE
+        url: jdbc:mysql://tx-gd:4409/sharding0?useUnicode=true&characterEncoding=utf8&autoReconnect=true&rewriteBatchedStatements=TRUE
         username: nacos
         password: 123456
       slave01:
         type: com.zaxxer.hikari.HikariDataSource
         driver-class-name: com.mysql.jdbc.Driver
-        url: jdbc:mysql://106.53.96.154:4409/sharding1?useUnicode=true&characterEncoding=utf8&autoReconnect=true&rewriteBatchedStatements=TRUE
+        url: jdbc:mysql://tx-gd:4409/sharding1?useUnicode=true&characterEncoding=utf8&autoReconnect=true&rewriteBatchedStatements=TRUE
         username: nacos
         password: 123456
       slave02:
         type: com.zaxxer.hikari.HikariDataSource
         driver-class-name: com.mysql.jdbc.Driver
-        url: jdbc:mysql://106.53.96.154:4409/sharding1_0?useUnicode=true&characterEncoding=utf8&autoReconnect=true&rewriteBatchedStatements=TRUE
+        url: jdbc:mysql://tx-gd:4409/sharding1_0?useUnicode=true&characterEncoding=utf8&autoReconnect=true&rewriteBatchedStatements=TRUE
         username: nacos
         password: 123456
     props:

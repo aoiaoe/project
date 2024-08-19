@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>spring_boot-rpc</artifactId>
+    <artifactId>spring_boot_rpc</artifactId>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>

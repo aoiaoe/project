@@ -1,4 +1,4 @@
-package com.cz.springbootredis.config;
+package com.cz.springbootredis.limiter;
 
 import com.cz.springbootredis.enums.LimitType;
 
@@ -12,7 +12,7 @@ import java.lang.annotation.*;
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface RateLimiter {
+public @interface FixWindowRateLimiter {
     /**
      * 限流key
      */

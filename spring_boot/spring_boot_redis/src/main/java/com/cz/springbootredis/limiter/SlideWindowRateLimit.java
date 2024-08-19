@@ -1,4 +1,4 @@
-package com.cz.springbootredis.service.anno;
+package com.cz.springbootredis.limiter;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

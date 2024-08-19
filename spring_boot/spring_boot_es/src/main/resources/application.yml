@@ -4,7 +4,7 @@ server:
 spring:
   elasticsearch:
     rest:
-      uris: http://121.4.79.86:9200
+      uris: http://tx-sh:9200
       username: elastic
       password: Sephiroth
     

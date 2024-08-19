@@ -1,6 +1,6 @@
 package com.cz.springbootredis.controller;
 
-import com.cz.springbootredis.RedisCacheService;
+import com.cz.springbootredis.service.RedisCacheService;
 import com.cz.springbootredis.entity.CacheObj;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

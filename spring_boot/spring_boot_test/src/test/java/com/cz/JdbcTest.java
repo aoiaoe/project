@@ -17,7 +17,7 @@ public class JdbcTest {
     @Test
     public void test1(){
         String driverClassName = "com.mysql.cj.jdbc.Driver";
-        String url = "jdbc:mysql://106.53.96.154:3306/t?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&autoReconnect=true&failOverReadOnly=false&useSSL=false";
+        String url = "jdbc:mysql://tx-gd:3306/t?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&autoReconnect=true&failOverReadOnly=false&useSSL=false";
         String username = "nacos";
         String password = "123456";
         ResultSet rs = null;

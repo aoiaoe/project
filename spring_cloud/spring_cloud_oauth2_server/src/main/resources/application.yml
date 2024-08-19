@@ -19,7 +19,7 @@ spring:
           ttl-unit: s
         instance-id: ${spring.application.name}-${spring.cloud.client.ip-address}-${server.port}
   datasource:
-    url: jdbc:mysql://106.53.96.154:4409/oauth2
+    url: jdbc:mysql://tx-gd:4409/oauth2
     username: nacos
     password: 123456
     driver-class-name: com.mysql.cj.jdbc.Driver

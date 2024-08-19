@@ -22,7 +22,7 @@ public class SpringCloudAlibabaGatewayApplication {
 
 	public static void main(String[] args) {
 		// 将sentinel的应用类型设置为网关
-		System.setProperty(SentinelConfig.APP_TYPE_PROP_KEY, "1");
+		System.setProperty(SentinelConfig.APP_TYPE_PROP_KEY, "11");
 		SpringApplication.run(SpringCloudAlibabaGatewayApplication.class, args);
 	}
 

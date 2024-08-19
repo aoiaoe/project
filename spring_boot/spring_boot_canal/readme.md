@@ -1,4 +1,5 @@
 ## Springboot整合canal实现数据库数据同步
+    部署步骤: https://www.yuque.com/sephiroth-ezg6d/xongil/dmms9gg69wnh93e5
 
 ### 从github下载最新deploy发行版
     解压，进入conf目录，修改canal.properties和instance.properties
@@ -15,7 +16,7 @@
     
 ## 踩坑
     1、账号需要REPLICATION CLIENT权限，授权之后，需要flush privileges刷新权限
-    2、MYSQL必须开启BINGLOG才能进行同步，否则canal无法连接mysql
+    2、MYSQL必须开启BINGLOG才能进行同步，否则canal无法连接mysql, 且format要为ROW, 如果使用mix格式会有问题
     
 ## 参考
     1.开启binlog

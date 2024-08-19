@@ -1,6 +1,6 @@
 package com.cz.springbootredis.service;
 
-import com.cz.springbootredis.service.anno.SlideWindowRateLimit;
+import com.cz.springbootredis.limiter.SlideWindowRateLimit;
 import org.springframework.stereotype.Service;
 
 @Service
