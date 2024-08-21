@@ -8,6 +8,8 @@ server:
 
 
 spring:
+  application:
+    name: spring_redis_cache
   redis:
     timeout: 10000ms
     host: tx-sh
@@ -30,6 +32,7 @@ jetcache:
   remote:
     default:
       type: redis.lettuce  # redis: 是jedis客户端, redis.lettuce: lettuce客户端 redis.redisson: redisson客户端
+      keyPrefix: ${spring.application.name} # 使用系统名称当做前缀，分隔不同系统的key
       # lettuce 使用 Netty 建立并复用单个连接实现 redis 的通信，因此无须配置连接池。
       uri: redis://tx-sh:17777/
       keyConvertor: fastjson2 #other choose：fastjson/jackson
@@ -41,5 +44,5 @@ jetcache:
 #        minIdle: 5
 #        maxIdle: 20
 #        maxTotal: 50
-      host: tx-sh
-      port: 17777
+#      host: tx-sh
+#      port: 17777
