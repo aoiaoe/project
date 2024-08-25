@@ -35,4 +35,14 @@ public class RedisCacheController {
     public CacheObj update(Long id){
         return this.cacheService.updateObj(id);
     }
+
+    @GetMapping(value = "/updateNoCache")
+    public CacheObj updateNoCache(Long id){
+        return this.cacheService.updateNoCache(id);
+    }
+
+    @GetMapping(value = "/delete")
+    public boolean delete(Long id){
+        return this.cacheService.deleteObj(id);
+    }
 }

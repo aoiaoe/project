@@ -61,4 +61,11 @@ public class RedisCacheServiceImpl implements CacheService{
         CacheObjHolder.holders.put(id, obj);
         return obj;
     }
+
+    @CacheEvict(cacheNames = "sbrediscache", key = "#id")
+    @Override
+    public boolean deleteObj(Long id) {
+        CacheObjHolder.holders.remove(id);
+        return true;
+    }
 }

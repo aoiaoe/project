@@ -2,11 +2,11 @@ package com.cz.springbootredis.service;
 
 import com.alicp.jetcache.Cache;
 import com.alicp.jetcache.CacheManager;
+import com.alicp.jetcache.RefreshPolicy;
 import com.alicp.jetcache.anno.*;
 import com.alicp.jetcache.template.QuickConfig;
 import com.cz.springbootredis.entity.CacheObj;
 import com.cz.springbootredis.entity.CacheObjHolder;
-import com.github.benmanes.caffeine.cache.Caffeine;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -26,10 +26,12 @@ import java.util.concurrent.TimeUnit;
  */
 @Slf4j
 @Service
+@SuppressWarnings("all")
 @ConditionalOnProperty(value = "cache.type", havingValue = "jetcache")
 public class JetCacheServiceImpl implements CacheService {
 
     private static final String CACHE_PREFIX = ":cacheObj:";
+    private static final String CACHE_ALL = ":cacheObj:all";
     @Autowired
     private CacheManager cacheManager;
 
@@ -46,11 +48,14 @@ public class JetCacheServiceImpl implements CacheService {
                 .cacheNullValue(true)
                 .cacheType(CacheType.BOTH)
                 .syncLocal(true)
+                .refreshPolicy(RefreshPolicy.newPolicy(10, TimeUnit.SECONDS))
                 .build();
         // 如果只是简单使用缓存，可以直接使用注解声明式实现
         // 一些特殊的需求，比如说延迟双删，则需要编程式方式实现
         cache = cacheManager.getOrCreateCache(qc);
-        cache.put(1L, CacheObjHolder.holders.get(1L));
+        CacheObj obj = CacheObjHolder.holders.get(1L);
+        cache.put(1L, obj);
+        log.info("编程式二级缓存执行成功:{}", obj);
         scheduledExecutorService = new ScheduledThreadPoolExecutor(1);
     }
 
@@ -59,53 +64,67 @@ public class JetCacheServiceImpl implements CacheService {
      *      cacheType: 默认是REMOTE
      *      expire: 单位默认是秒, 可以用timeUnit设置单位
      *      keyConvertor = KeyConvertor.NONE: 生成出来的有点奇葩值
-     * @return
      */
-    @Cached(cacheType = CacheType.BOTH, name = "cacheObj:all", keyConvertor = KeyConvertor.NONE, expire = 20, localExpire = 20000)
+    @EnableCache
+    @Cached(cacheType = CacheType.BOTH, name = CACHE_ALL, key = "''", keyConvertor = KeyConvertor.NONE, expire = 20, localExpire = 20000)
     @Override
     public List<CacheObj> getList() {
-        System.out.println("getList 获取所有对象");
+        log.info("getList 获取所有对象");
         return new ArrayList<>(CacheObjHolder.holders.values());
     }
 
-    @Cached(area = "default", name = CACHE_PREFIX, key = "#id", expire = 40000, localExpire = 20000)
+    /**
+     * 注解@CacheRefresh 用于刷新缓存, 需要注意的是,如果开启了编程式注解，配置生成在此注解解析之前，那么此处的刷新注解不会生效
+     * 比如此处虽然配置了缓存刷新，但是在 init()方法中，已经通过注入的manager生成了同名的缓存，并且没有设置刷新，所以此方法
+     * 会使用init()方法中生成的cache配置，并不会刷新缓存
+     */
+    @Cached(cacheType = CacheType.BOTH, name = CACHE_PREFIX, key = "#id", expire = 40000, localExpire = 20000)
+    @CacheRefresh(refresh = 10, timeUnit = TimeUnit.SECONDS)
     @Override
     public CacheObj getCache(Long id) {
-        System.out.println("getCache 获取指定Id对象");
+        log.info("getCache 获取指定Id对象:{}", id);
         return CacheObjHolder.holders.get(id);
     }
 
-    @CacheInvalidate(name = "cacheObj:all", key = "")
+    @CacheInvalidate(name = "cacheObj:all", key = "''")
     @Override
     public boolean addObj(Long id) {
-        System.out.println("addObj 增加对象");
+        log.info("addObj 增加对象:{}", id);
         Random random = new Random();
         CacheObjHolder.holders.put(id, new CacheObj(id, "name" + id, random.nextInt(50) + 10));
         return true;
     }
 
-    // TODO 更新还有问题
-//    @CacheUpdate(name = "cacheObj:", key = "#id", value = "#obj")
-    @CacheInvalidate(name = CACHE_PREFIX, key = "#id")
+    /**
+     * 如果需要使用返回值更新缓存，则必须使用 #result表达式获取返回值
+     * multi代表是否key value是多个，比如说List，  不是指多级缓存
+     */
+    @CacheUpdate(name = CACHE_PREFIX, key = "#id", value = "#result", multi = false)
     @Override
     public CacheObj updateObj(Long id) {
-        System.out.println("addObj 修改对象");
+        log.info("updateObj 修改对象:{}", id);
         CacheObj obj = CacheObjHolder.holders.get(id);
         if (obj == null) {
             throw new RuntimeException("数据不存在");
         }
         Random random = new Random();
-        obj = new CacheObj(id, "name" + id, random.nextInt(50) + 10);
+        obj = new CacheObj(id, "Updated: name" + id, random.nextInt(50) + 10);
         CacheObjHolder.holders.put(id, obj);
 
         // 10秒后  延迟双删
-        log.info("触发延迟双删任务");
-        scheduledExecutorService.schedule(() -> {
-            cache.remove(id);
-            log.info("延迟双删成功!!!");
-        }, 10, TimeUnit.SECONDS);
+//        log.info("触发延迟双删任务");
+//        scheduledExecutorService.schedule(() -> {
+//            cache.remove(id);
+//            log.info("延迟双删成功!!!");
+//        }, 10, TimeUnit.SECONDS);
         return obj;
     }
 
-    // TODO 测试分布式系统过期本地缓存
+    @CacheInvalidate(name = CACHE_PREFIX, key = "#id")
+    @Override
+    public boolean deleteObj(Long id) {
+        log.info("deleteObj 删除缓存:{}", id);
+        CacheObjHolder.holders.remove(id);
+        return true;
+    }
 }
