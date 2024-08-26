@@ -8,6 +8,8 @@ server:
 
 
 spring:
+  application:
+    name: spring_redis_cache
   redis:
     timeout: 10000ms
     host: tx-sh
@@ -15,3 +17,32 @@ spring:
   cache:
     type: REDIS
 
+cache:
+  type: jetcache # 二选一: jetcache/springCache
+
+jetcache:
+  statIntervalMinutes: 1
+  areaInCacheName: false
+  local:
+    default:
+      type: caffeine #other choose：caffeine
+      keyConvertor: fastjson2 #other choose：fastjson/jackson
+      expireAfterAccessInMillis: 300000 # 多长时间没有访问，就让缓存失效，当前只有本地缓存支持。0表示不使用这个功能。
+      limit: 100
+  remote:
+    default:
+      type: redis.lettuce  # redis: 是jedis客户端, redis.lettuce: lettuce客户端 redis.redisson: redisson客户端
+      keyPrefix: ${spring.application.name} # 使用系统名称当做前缀，分隔不同系统的key
+      # lettuce 使用 Netty 建立并复用单个连接实现 redis 的通信，因此无须配置连接池。
+      uri: redis://tx-sh:17777/
+      keyConvertor: fastjson2 #other choose：fastjson/jackson
+      broadcastChannel: projectA # redis的广播channel，用于通知其他jvm失效其本地缓存
+      valueEncoder: java #other choose：kryo/kryo5
+      valueDecoder: java #other choose：kryo/kryo5
+      expireAfterWriteInMillis: 30000 # 以毫秒为单位指定超时时间的全局配置
+#      poolConfig:
+#        minIdle: 5
+#        maxIdle: 20
+#        maxTotal: 50
+#      host: tx-sh
+#      port: 17777
