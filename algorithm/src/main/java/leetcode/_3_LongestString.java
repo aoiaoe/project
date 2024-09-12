@@ -11,17 +11,18 @@ import java.util.Set;
 public class _3_LongestString {
 
     public static void main(String[] args) {
-//        String s = "aacsfwas120i345acavnry43rsacase1h5a12ahj68w4125gzxcvbnm,";
-        String s = "aab";
-        System.out.println(lengthOfLongestSubstring(s));
-        System.out.println(lengthOfLongestSubstring2(s));
+        String s = "aacsfwas120i345acavnry43rsacase1h5a12ahj68w4125gzxcvbnmaacsfwas120i345acavnry43rsacase1h5a12ahj68w4125gzxcvbnmaacsfwas120i345acavnry43rsacase1h5a12ahj68w4125gzxcvbnmaacsfwas120i345acavnry43rsacase1h5a12ahj68w4125gzxcvbnmaacsfwas120i345acavnry43rsacase1h5a12ahj68w4125gzxcvbnmaacsfwas120i345acavnry43rsacase1h5a12ahj68w4125gzxcvbnmaacsfwas120i345acavnry43rsacase1h5a12ahj68w4125gzxcvbnm,aacsfwas120i345acavnry43rsacase1h5a12ahj68w4125gzxcvbnmaacsfwas120i345acavnry43rsacase1h5a12ahj68w4125gzxcvbnm";
+//        s = "aab";
+//        System.out.println(lengthOfLongestSubstring(s));
+        System.out.println(lengthOfLongestSubstring3(s));
     }
 
 
     /**
      * 滑动窗口
-     *      ：右边界不断往右走，并记录每个字符串和它的下一个位置
-     *      如果右边界指向的字符出现在记录的字符中，则左边界需要收敛到该位置
+     * ：右边界不断往右走，并记录每个字符串和它的下一个位置
+     * 如果右边界指向的字符出现在记录的字符中，则左边界需要收敛到该位置
+     *
      * @param s
      * @return
      */
@@ -51,6 +52,7 @@ public class _3_LongestString {
 
     /**
      * 滑动窗口
+     *
      * @param s
      * @return
      */
@@ -78,5 +80,23 @@ public class _3_LongestString {
         }
         return len;
     }
+
+    public static int lengthOfLongestSubstring3(String s) {
+        //记录字符上一次出现的位置
+        int[] last = new int[128];
+        for (int i = 0; i < 128; i++) {
+            last[i] = -1;
+        }
+        int res = 0;
+        int start = 0;
+        for (int i = 0; i < s.length(); i++) {
+            int index = s.charAt(i);
+            start = Math.max(start, last[index] + 1);
+            res = Math.max(res, i - start + 1);
+            last[index] = i;
+        }
+        return res;
+    }
+
 
 }
