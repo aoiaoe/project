@@ -1,5 +1,6 @@
 package com.cz.job.spring_boot_job.executor;
 
+import com.xxl.job.core.anno.JobTrigger;
 import com.xxl.job.core.biz.model.ReturnT;
 import com.xxl.job.core.context.XxlJobHelper;
 import com.xxl.job.core.handler.annotation.XxlJob;
@@ -13,6 +14,13 @@ public class DemoExecutor {
     @XxlJob(value = "simpleDemo")
     private ReturnT<String> execute(String arg) {
         log.info("simpleDemo execute!!!!");
+        return new ReturnT<>("执行成功");
+    }
+
+    @JobTrigger(jobHandler = "executeByJobTrigger", jobDesc = "测试执行JobTrigger", author = "cz", scheduleConf = "0/10 * * * * ?")
+    @XxlJob(value = "executeByJobTrigger")
+    private ReturnT<String> executeByJobTrigger(String arg) {
+        log.info("使用@JobTrigger注册到admin的任务 execute!!!!");
         return new ReturnT<>("执行成功");
     }
 

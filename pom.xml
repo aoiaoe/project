@@ -40,6 +40,7 @@
         <module>spring_boot/spring_boot_es</module>
         <module>spring_boot/spring_boot_https_6900</module>
         <module>spring_boot/spring_boot_job</module>
+        <module>spring_boot/spring_boot_job_xxljob_starter</module>
         <module>spring_boot/spring_boot_neo4j</module>
         <module>spring_boot/spring_boot_mq/spring_boot_kafka</module>
         <module>spring_boot/spring_boot_milvus</module>
