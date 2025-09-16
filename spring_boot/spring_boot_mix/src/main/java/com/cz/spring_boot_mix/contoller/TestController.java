@@ -3,6 +3,7 @@ package com.cz.spring_boot_mix.contoller;
 import com.cz.spring_boot_mix.contoller.bean.DemoBean;
 import com.cz.spring_boot_mix.contoller.bean.MyBean;
 import com.cz.spring_boot_mix.contoller.service.TestService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+@Slf4j
 @RestController
 public class TestController {
 
@@ -25,8 +27,21 @@ public class TestController {
     @Value("${server.port:8888}")
     private String serverPort;
 
+    private static String value;
+
     @GetMapping(value = "/msg")
-    public String hello(String msg){
+    public String hello(String msg) throws InterruptedException {
+        log.info("value:{}", value);
+        log.info("msg:{}", msg);
+        if (value != null) {
+            boolean eq =  msg == value;
+            log.info("msg == value:{}", eq);
+        }
+        msg.intern();
+        value = msg;
+        boolean eq =  msg == value;
+        log.info("msg == value:{}", eq);
+        TimeUnit.SECONDS.sleep(10);
         return request.getParameter("msg") + " from port:" + serverPort;
     }
 

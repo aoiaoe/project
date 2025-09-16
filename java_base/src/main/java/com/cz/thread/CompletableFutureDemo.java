@@ -120,7 +120,8 @@ public class CompletableFutureDemo {
     /**
      * Completable 父子任务 + 使用同一个线程池， 可能导致死锁
      * 其实不只是Completable的问题，
-     * 死锁条件：异步任务+子任务+等待子任务完成+相同线程池
+     * 死锁条件：异步任务+父子任务+相同线程池
+     * 必要条件: 父子任务使用相同线程池，父任务占用了全部线程，又提交子任务到线程池，且阻塞等待子任务完成
      *
      * @throws Exception
      */
